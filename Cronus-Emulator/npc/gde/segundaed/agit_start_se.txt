@@ -1,0 +1,52 @@
+//====================================================================
+//          _________                                                  
+//          \_   ___ \_______  ____   ____  __ __  ______             
+//          /    \  \/\_  __ \/    \ /    \|  |  \/  ___/              
+//          \     \____|  | \(  ( ) )   |  \  |  /\___ \               
+//           \______  /|__|   \____/|___|  /____//____  >              
+//                  \/                   \/           \/               
+//                                                               
+//====================== Cronus Script ===============================
+//= Guerra do Emperium SE - Auto Controle
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= Cronus GIT
+//===== Descrição: ===================================================
+//= Auto controle da Guerra do Emperium
+//===== Comentários Adicionais: ======================================
+//= 1.0 Revisado [LyDe]
+//====================================================================
+
+-	script	Agit2_Event	-1,{
+end;
+
+OnClock1800: // tempo para começar a ter (2), quinta (4)
+OnClock2000:// fim do tempo para ter (2), quinta (4)
+OnClock2100: // hora de início para a sábado (6)
+OnClock2300: // fim do tempo para sábado (6)
+
+OnAgitInit2:
+// Controles de tempo
+if((gettime(4)==2) && (gettime(3)>=18 && gettime(3)<21) ||
+(gettime(4)==4) && (gettime(3)>=18 && gettime(3)<21) ||
+(gettime(4)==6) && (gettime(3)>=22 && gettime(3)<23)) {
+if (!agitcheck2()) {
+AgitStart2;
+}
+end;
+}
+
+// Fim de controles de horários
+if ((gettime(4)==2) && (gettime(3)==21) ||
+(gettime(4)==4) && (gettime(3)==21) ||
+(gettime(4)==6) && (gettime(3)==23)) {
+if (agitcheck2()) {
+AgitEnd2;
+}
+end;
+}
+end;
+}

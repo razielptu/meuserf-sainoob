@@ -1,0 +1,126 @@
+//====================================================================
+//          _________                                                  
+//          \_   ___ \_______  ____   ____  __ __  ______             
+//          /    \  \/\_  __ \/    \ /    \|  |  \/  ___/              
+//          \     \____|  | \(  ( ) )   |  \  |  /\___ \               
+//           \______  /|__|   \____/|___|  /____//____  >              
+//                  \/                   \/           \/               
+//                                                               
+//====================== Cronus Script ===============================
+//= Kafras de Calabouços
+//===== Por: =========================================================
+//= Schrwaizer
+//===== Versão Atual: ================================================
+//= 1.1
+//===== Compatível com: ==============================================
+//= Cronus GIT
+//===== Descrição: ===================================================
+//= Kafras de calabouços
+//===== Comentários Adicionais: ======================================
+//= 1.1 Traduzido do rAthena de acordo com os diálogos oficiais do bRO. [Schrwaizer]
+//====================================================================
+
+
+//<============================= Ilha Byalan ============================>\\
+izlu2dun,106,58,8	script	Funcionária Kafra::kaf_izlu2dun	115,{
+
+	cutin "kafra_03",2;
+	if(BaseJob==Job_Novice && job_merchant_q2>0) callfunc "F_MercKafra";  //F_MercKafra pode ser encontrado em merchant.txt
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo a ";
+	mes "Corporação Kafra.";
+	mes "Nós estamos sempre ao seu";
+	mes "lado. Como posso te";
+	mes "ajudar hoje?";
+	callfunc "F_Kafra",5,2,1,120,1200;
+
+	M_Save:
+		savepoint "izlu2dun",87,170;
+		callfunc "F_KafEnd",0,1,"na Ilha de Byalan";
+}
+
+
+//<============================ Esgotos de prontera ============================>\\
+prt_fild05,290,224,3	script	Funcionária Kafra::prt_fild05	114,{
+	cutin "kafra_04",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo!";
+	mes "A corporação kafra";
+	mes "sempre estará ajudando os";
+	mes "aventureiros de Rune Midgard";
+	mes "com nossos excelentes serviços.";
+	mes "Como posso te ajudar?";
+	callfunc "F_Kafra",5,1,1,40,0;
+
+	M_Save:
+		savepoint "prt_fild05",274,243;
+		callfunc "F_KafEnd",0,1, "nos Esgotos de Prontera";
+}
+
+
+//<=========================== Mina de Carvão =======================>\\
+mjolnir_02,83,362,4	script	Funcionária Kafra::kaf_mjolnir_02	116,{
+	cutin "kafra_02",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo a";
+	mes "Corporação Kafra.";
+	mes "As funcionárias Kafra";
+	mes "estão sempre prontas para te servir.";
+	mes "Como posso te ajudar?";
+	callfunc "F_Kafra",5,6,1,100,0;
+
+	M_Save:
+		savepoint "mjolnir_02",98,352;
+		callfunc "F_KafEnd",0,1,"nas Minas de Carvão";
+}
+
+
+//<=============================== Ruinas de Morroc ============================>\\
+moc_ruins,59,157,5	script	Funcionária Kafra::moc_ruins	114,{
+	cutin "kafra_04",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo!";
+	mes "A Corporação Kafra";
+	mes "sempre estará ajudando os";
+	mes "aventureiros de Rune Midgard";
+	mes "com nossos excelentes serviços.";
+	mes "Então, como posso te ajudar?";
+	callfunc "F_Kafra",5,2,1,90,1200;
+
+	M_Save:
+		savepoint "moc_ruins",41,141;
+		callfunc "F_KafEnd",0,1,"nas Pirâmides de Morroc";
+}
+
+
+//<================================ calabouço dos orcs ============================>\\
+gef_fild10,73,340,5	script	Funcionária Kafra::kaf_gef_fild10	116,{
+	cutin "kafra_02",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo a";
+	mes "Corporação Kafra.";
+	mes "As Funcionária Kafra";
+	mes "estarão sempre prontas para atendê-lo.";
+	mes "Como posso te ajudar?";
+	callfunc "F_Kafra",5,6,1,130,0;
+
+	M_Save:
+		savepoint "gef_fild10",54,326;
+		callfunc "F_KafEnd",0,1,"na Caverna dos Orcs";
+}
+
+//<============================== ilha de alberta ==========================>\\
+alb2trea,59,69,5	script	Funcionária Kafra::kaf_alb2trea	117,{
+	cutin "kafra_01",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo a";
+	mes "Corporação Kafra.";
+	mes "Nós estamos sempre";
+	mes "ao seu lado.";
+	mes "Como posso te ajudar?";
+	callfunc "F_Kafra",5,2,1,50,0;
+
+	M_Save:
+		savepoint "alb2trea",92,64;
+		callfunc "F_KafEnd",0,1,0,"na Ilha de Alberta";
+}

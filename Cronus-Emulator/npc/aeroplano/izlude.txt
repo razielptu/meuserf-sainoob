@@ -1,0 +1,64 @@
+//====================================================================
+//          _________                                                  
+//          \_   ___ \_______  ____   ____  __ __  ______             
+//          /    \  \/\_  __ \/    \ /    \|  |  \/  ___/              
+//          \     \____|  | \(  ( ) )   |  \  |  /\___ \               
+//           \______  /|__|   \____/|___|  /____//____  >              
+//                  \/                   \/           \/               
+//                                                               
+//====================== Cronus Script ===============================
+//= NPCs do Aeroporto de Izlude
+//===== Por: =========================================================
+//= rAthena Dev Team
+//===== Versão Atual: ================================================
+//= 1.1
+//===== Compatível com: ==============================================
+//= Cronus GIT
+//===== Descrição: ===================================================
+//= NPCs do Aeroporto de Izlude
+//===== Comentários Adicionais: ======================================
+//= 1.0 Primeira versão.
+//= 1.1 Tradução [J4ND3RS0N]
+//====================================================================
+
+izlude,206,55,3	script	Equipe do Aeroporto#izlude	90,{
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vindo! Deseja";
+	mes "ir a bordo do dirigível que";
+	mes "sai no vôo com paradas";
+	mes "em Juno e Rachel?";
+	next;
+	if (select("Conselho do dirigível para Juno / Rachel.:Cancela.") == 1)
+	{
+		mes "[Equipe do Aeroporto]";
+		mes "A taxa de embarque é";
+		mes "1.200 zeny é cobrado no entanto.";
+		mes "é dispensada se você usar";
+		mes "Ticket Grátis para Airship Agora,";
+		mes "você ainda gostaria de ir a bordo?";
+		next;
+		if (select("Sim:Não") == 1)
+		{
+			if (countitem(7311) > 0) {
+				delitem 7311,1; //Free_Flying_Ship_Ticket
+				warp "airplane_01",244,58;
+				end;
+			}
+			if (Zeny >= 1200) {
+				set Zeny, Zeny - 1200;
+				warp "airplane_01",244,58;
+				end;
+			}
+			mes "[Equipe do Aeroporto]";
+			mes "Me desculpe, mas você não";
+			mes "tem 1.200 zeny a pagar";
+			mes "para a taxa de embarque.";
+			close;
+		}
+	}
+	mes "[Equipe do Aeroporto]";
+	mes "Obrigado e";
+	mes "por favor, venha de novo.";
+	mes "Tenha um bom dia!";
+	close;
+}

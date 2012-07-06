@@ -1,0 +1,25 @@
+﻿  grammar.c
+  libconfig.c
+  scanctx.c
+  scanner.c
+  strbuf.c
+  account_sql.c
+  ipban_sql.c
+  login.c
+  loginlog_sql.c
+  core.c
+  db.c
+  ers.c
+  malloc.c
+  md5calc.c
+  nullpo.c
+  plugins.c
+  random.c
+  showmsg.c
+  socket.c
+  sql.c
+  strlib.c
+  timer.c
+  utils.c
+  mt19937ar.c
+  login-server_sql.vcxproj -> D:\Projetos\RagnaProject\Cronus Dev\Cronus Dev\Cronus-Emulator\vcproj-10\..\login-server_sql.exe
