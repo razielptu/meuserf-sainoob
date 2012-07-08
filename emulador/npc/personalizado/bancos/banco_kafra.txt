@@ -1,0 +1,105 @@
+//**************************************************************************//
+//*     Venus Emulator - Perfect-Team - Todos os Direitos Reservados ©     *//
+//**************************************************************************//
+//*                        www.venus-emulator.net                          *//
+//**************************************************************************//
+//†                                                                        †//
+//†                                                                        †//
+//†                                  \|||/                                 †//
+//†             .-.________          (o o)               ________.-.       †//
+//†        ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----  †//
+//†           (    ()___)    |                       |    (___()     )     †//
+//†                ()__)     |      • L Y K O •      |     (__()           †//
+//†        ----\___()_)      |                       |      (_()___/-----  †//
+//†                          +------------Ooo--------+                     †//
+//†                                                                        †//
+//†                                                                        †//
+//**************************************************************************//
+//*  Invejados por muitos, copiados por alguns, e admirados por todos!...  *//
+//**************************************************************************//
+prontera.gat,187,177,5	script	Banqueiro Antigo	109,{
+
+show "[^1E90FF Banqueiro ^000000]";
+show "Bem-vindo ao Banco de Prontera, como posso ajudá-lo?";
+next;
+menu "Gostaria de fazer um depósito.",L_Deposito,"Gotaria de fazer um saque.",L_Saque,"Gostaria de ver meu saldo.",L_Saldo,"Gostaria de fazer uma transferência.",L_Transferencia;
+
+L_Deposito:
+show "[^1E90FF Banqueiro ^000000]";
+show "Bem... Quanto você gostaria de depositar? O valor máximo que você poderá depositar é de 1.000.000.000 Zenys.";
+next;
+digit @zeny;
+if(@zeny < 1 || @zeny > 1000000000) goto L_NaoReal;
+if(@zeny > Zeny) goto L_Zeny;
+set Zeny, Zeny - @zeny;
+setd "$banco_"+getcharid(3), getd("$banco_"+getcharid(3)) + @zeny;
+show "[^1E90FF Banqueiro ^000000]";
+show "Muito obrigado! Seus Zenys estão em boas mãos.";
+close;
+
+L_Saque:
+show "[^1E90FF Banqueiro ^000000]";
+show "Bem... Quanto você gostaria de sacar? O valor máximo que você poderá sacar neste momento é de 1.000.000.000 Zenys.";
+next;
+digit @zeny;
+if(@zeny < 1 || @zeny > 1000000000) goto L_NaoReal;
+if(@zeny > getd("$banco_"+getcharid(3))) goto L_Zeny;
+setd "$banco_"+getcharid(3), getd("$banco_"+getcharid(3)) - @zeny;
+set Zeny, Zeny + @zeny;	
+show "[^1E90FF Banqueiro ^000000]";
+show "Muito obrigado! Continue usando nossos serviços.";
+close;
+	
+L_Saldo:
+show "[^1E90FF Banqueiro ^000000]";
+show "Bem... Um momento, deixe-me checar as papeladas.";
+next;
+show "[^1E90FF Banqueiro ^000000]";
+show "Você possui atualmente em nossos serviços "+getd("$banco_"+getcharid(3))+" Zenys.";
+show "O número de sua conta é "+getcharid(3)+".";
+close;
+
+L_Transferencia:
+show "[^1E90FF Banqueiro ^000000]";
+show "Bem... Para que conta deseja fazer a transferencia? Lembrando que será descontado "+BC_preco+" Zenys como taxa.";
+L_Init:
+next;
+digit @account;
+show "[^1E90FF Banqueiro ^000000]";
+show "Para a conta "+@account+", está certo disso?";
+next;
+menu "Não, eu me enganei.",L_Errou,"Sim.",-,"Cancelar.",L_Cancelar;
+show "[^1E90FF Banqueiro ^000000]";
+show "Tudo certo... Quanto gostaria de transferir? O valor máximo que você poderá transferir neste momento é de 1.000.000.000 Zenys.";
+next;
+digit @zeny;
+if(@zeny < 1 || @zeny > 1000000000) goto L_NaoReal;
+if(@zeny > getd("$banco_"+getcharid(3))) goto L_Zeny;
+setd "$banco_"+getcharid(3), getd("$banco_"+getcharid(3)) - (@zeny + BC_preco);
+setd "$banco_"+@account, getd("$banco_"+@account) + @zeny;
+show "[^1E90FF Banqueiro ^000000]";
+show "Obrigado... Você transferiu "+@zeny+" Zenys para a conta "+@account+".";
+show "Continue utilizando nossos serviços.";
+close;
+
+L_NaoReal:
+show "[^1E90FF Banqueiro ^000000]";
+show "Desculpe, mas você precisa digitar um valo aceito.";
+close;
+
+L_Zeny:
+show "[^1E90FF Banqueiro ^000000]";
+show "Desculpe, mas você não possui essa quantidade de Zenys.";
+close;
+
+L_Errou:
+show "[^1E90FF Banqueiro ^000000]";
+show "Ok, tente mais uma vez.";
+goto L_Init;
+
+L_Cancelar:
+show "[^1E90FF Banqueiro ^000000]";
+show "Tudo bem, obrigado por utilizar nossos serviços.";
+close;
+
+}

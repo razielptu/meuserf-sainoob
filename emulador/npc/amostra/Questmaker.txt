@@ -1,0 +1,88 @@
+//===== Por: =================================================
+//= Keoy
+//===== Versão Atual: ======================================== 
+//= 1.0
+//===== Changelog: ===========================================
+//= 1.0 Iniciada explicação [Keoy]
+//= 1.1 Merge na sample_quest function para o arquivo e otmizado. [SoulBlaker]
+//============================================================
+
+prontera,150,150,5	script	Quest function	807,{
+	show "[Quest Function]";
+	callfunc "sample_quest",501,100,1,001,502,3; //Executa a função
+	end;
+}
+
+
+// Estrutura da Função
+function	script	sample_quest	{
+
+if(getarg(2) <= 1) set .@requery[0],getarg(4);
+if(getarg(2) <= 2) set .@requery[1],getarg(6);
+if(getarg(2) <= 3) set .@requery[2],getarg(8);
+if(getarg(2) <= 1) set .@requery[3],getarg(10);
+if(getarg(2) <= 2) set .@requery[4],getarg(12);
+if(getarg(2) <= 3) set .@requery[5],getarg(14);
+if(getarg(2) <= 1) set .@requery[6],getarg(16);
+if(getarg(2) <= 2) set .@requery[7],getarg(18);
+if(getarg(2) <= 3) set .@requery[8],getarg(20);
+
+if(getarg(2) <= 1) set .@reqamount[0],getarg(5);
+if(getarg(2) <= 2) set .@reqamount[1],getarg(7);
+if(getarg(2) <= 3) set .@reqamount[2],getarg(9);
+if(getarg(2) <= 1) set .@reqamount[3],getarg(11);
+if(getarg(2) <= 2) set .@reqamount[4],getarg(13);
+if(getarg(2) <= 3) set .@reqamount[5],getarg(15);
+if(getarg(2) <= 1) set .@reqamount[6],getarg(17);
+if(getarg(2) <= 2) set .@reqamount[7],getarg(19);
+if(getarg(2) <= 3) set .@reqamount[8],getarg(21);
+
+if(getd("sample_quest_"+getarg(2)) == 1)
+{
+	if(getarg(2) <= 1 && countitem(.@requery[0]) >= .@reqamount[0]) set .@h,1;
+	if(getarg(2) <= 2 && countitem(.@requery[1]) >= .@reqamount[1]) set .@h,1;
+	if(getarg(2) <= 3 && countitem(.@requery[2]) >= .@reqamount[2]) set .@h,1;
+	if(getarg(2) <= 1 && countitem(.@requery[3]) >= .@reqamount[3]) set .@h,1;
+	if(getarg(2) <= 2 && countitem(.@requery[4]) >= .@reqamount[4]) set .@h,1;
+	if(getarg(2) <= 3 && countitem(.@requery[5]) >= .@reqamount[5]) set .@h,1;
+	if(getarg(2) <= 1 && countitem(.@requery[6]) >= .@reqamount[6]) set .@h,1;
+	if(getarg(2) <= 2 && countitem(.@requery[7]) >= .@reqamount[7]) set .@h,1;
+	if(getarg(2) <= 3 && countitem(.@requery[8]) >= .@reqamount[8]) set .@h,1;
+	if(.@h == 1)
+	{
+		show "Vejo que trouxe todos os itens...";
+		if(getarg(2) <= 1) delitem .@requery[0],.@reqamount[0];
+		if(getarg(2) <= 2) delitem .@requery[1],.@reqamount[1];
+		if(getarg(2) <= 3) delitem .@requery[2],.@reqamount[2];
+		if(getarg(2) <= 1) delitem .@requery[3],.@reqamount[3];
+		if(getarg(2) <= 2) delitem .@requery[4],.@reqamount[4];
+		if(getarg(2) <= 3) delitem .@requery[5],.@reqamount[5];
+		if(getarg(2) <= 1) delitem .@requery[6],.@reqamount[6];
+		if(getarg(2) <= 2) delitem .@requery[7],.@reqamount[7];
+		if(getarg(2) <= 3) delitem .@requery[8],.@reqamount[8];
+		additem getarg(0),getarg(1);
+		setd "sample_quest_"+getarg(3),0;
+		close;
+	}
+show "Volte quando tiver todos os itens!";
+next;
+}
+show "Para fazer a quest do item "+GetItemName(getarg(0))+", você precisa me trazer:";
+for( set .@i,0; .@i < GetArraySize(.@requery); set .@i, .@i + 1 )
+{
+	if( .@requery[.@i] != 0 )
+		show .@reqamount[.@i]+"x "+GetItemName(.@requery[.@i]);
+}
+show "Quando trouxer todos os itens nescessários volte aqui!";
+setd "sample_quest_"+getarg(2),1;
+close;
+
+}
+
+//===== Estrutura: ===========================================
+//= callfunc "sample_quest",id do prêmio,Quantidade do prêmio,quantos itens terá a quest,número da quest*,id1,qtde1{,id2,qtde2,id3,qtde3...};
+//= * Este número não pode ser repetido entre quests!
+//====== Aviso: ==============================================
+//= Esta função suporta até 9 (nove) itens requeridos
+//= Função sujeita a optimização!
+//============================================================

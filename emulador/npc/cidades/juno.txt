@@ -1,0 +1,301 @@
+//===== Cronus Script ====================================
+//= Cidade de Juno
+//===== Por: =============================================
+//= Dynasty
+//===== Versão Atual: ====================================
+//= 1.0
+//===== Compatível Com: ==================================
+//= Cronus
+//===== Descrição: =======================================
+//= Npcs da Cidade de Juno
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==========================
+//= 1.0 Iniciado o NPC. [Dynasty]
+//========================================================
+
+yuno,337,227,4	script	Vovó de Juno#yun01	103,{
+	show "[Oráculo 04]";
+	show "Bem vindo...";
+	show "Eu sou uma velha que pode prever qualquer coisa.";
+	show "Você sabe qual é o nome do grande monstro das trevas";
+	next;
+	show "[Oráculo 04]";
+	show "que tem causado tumulto nas proximidades de Juno por um longo, longo tempo?";
+	show "^FF3355'o Mestre dos Mortos'^000000.";
+	show "que foi até o mundo dos mortos e retornou com um número considerável";
+	next;
+	show "[Oráculo 04]";
+	show "de súditos... todos malditos.";
+	show "Ele aparece, ataca, e guia todas as criaturas vivas para o outro mundo...";
+	show "O mundo além da vida...";
+	show "Se irá lutar contra o";
+	next;
+	show "[Oráculo 04]";
+	show "Mestre dos Mortos ou não, não importa.";
+	show "Você já fez a sua escolha.";
+	show "Agora só lhe resta compreender porque você decidiu isso.";
+	close;
+
+}
+
+yuno,328,239,4	script	Lutador Marcial#yun01	732,{
+	show "[Serafim]";
+	show "Eu sou um artista marcial de Juno. Permita que eu me apresente.";
+	show "Meu nome é Serafim.";
+	show "Sirvo a Sra. Oráculo 04.";
+	show "Vou lhe ensinar coisas sobre o Grand Peco, um raro e especial tipo de Peco,";
+	next;
+	show "[Serafim]";
+	show "dentre o grupo dos Pecopecos.";
+	show "Ok, você está pronto? Então vou começar.";
+	show "O Grand Peco é muito mais rápido e mais agressivo que o pecopeco normal.";
+	show "É capaz de dar investidas";
+	next;
+	show "[Serafim]";
+	show "com seu bico forte em grande velocidade. Às vezes se encontra acompanhado de alguns Pecopecos.";
+	next;
+	show "[Serafim]";
+	show "Oh. Veja a hora. Preciso ir.";
+	show "Adeus...";
+	show "Eu desejo que você viva para realizar seus sonhos.";
+	close;
+}
+
+yuno,343,68,4	script	Poder supremo de Juno#02	730,{
+	show "[Ninoh]";
+	show "Falando francamente, ele era descendente dos egípcios e controlava uma dinastia, sendo chamado de o filho do Deus Sol.";
+	show "Sabe como ele era chamado?";
+	show "^3355FF'Faraó'^000000";
+	next;
+	show "[Ninoh]";
+	show "Eu ouvi dizer que ele possía grandes habilidades de encantamento e alguns grandes poderes como por exemplo ordenar outros seres humanos a concluir tarefas para seu próprio benefício...";
+	next;
+	show "[Ninoh]";
+	show "Eu ouvi falar que o Faraó possui habilidades malignas...";
+	show "A propósito, você alguma vez já viu o Faraó?";
+	close;
+}
+
+yuno,165,111,4	script	Sábia de Juno#yun01	123,{
+	show "[Rimorpios]";
+	show "^3355FF'Apocalipse'^000000";
+	show "Naquele tempo existia um ciborgue a cargo de manter a paz pública da extinta super civilização...";
+	show "JUNO...";
+	next;
+	show "[Rimorpios]";
+	show "Ele era bastante similar a um robô, mas...";
+	show "Sua inteligência artificial possuía falhas que criaram sucessivos problemas em suas rotinas, até que ele não distinguia mais aliados de inimigos...";
+	show "Então o ciborgue se tornou um monstro...";
+	next;
+	show "[Rimorpios]";
+	show "Que ataca qualquer coisa e qualquer um indiscriminadamente...";
+	show ". . . . .";
+	close;
+}
+yuno,184,173,4	script	Cidadã de Juno#yun01	729,{
+	show "[Imprezza]";
+	show "A cidade da sabedoria";
+	show "^3355FF'Juno'^000000 é";
+	show "composta de três grandes ilhas.";
+	next;
+	show "[Imprezza]";
+	show "^4D52A3'Salomão, a ilha da glória'^000000";
+	show "^AB455D'Minneta, a ilha da prosperidade'^000000";
+	show "^8DCB82'Snotora, a ilha do conhecimento'^000000";
+	next;
+	show "[Imprezza]";
+	show "As ilhas estão localizadas em:";
+	show "Salomão: Noroeste";
+	show "Snotora: Nordeste";
+	show "Minneta: Sul";
+	show "É impossível não reconhecê-las.";
+	close;
+}
+
+yuno,157,205,4	script	Artesão de Juno#yun01	54,{
+	show "[Chaveiro]";
+	show "HMPF GRUMPF UMPF";
+	show "Olá, como você vai?";
+	show "Eu sou um artesão tentando fazer sucesso na criação de itens dos mais variados tipos disponíveis em Juno.";
+	next;
+	switch(select("Conversar sobre bons equipamentos.:Conversar sobre raridades.:Conversar sobre comida.:Interromper a conversa.")) {
+	case 1:
+		show "[Chaveiro]";
+		show "^5533FF'Arauto Divino'^000000 e ^5533FF'Vingadora Divina'^000000";
+		show "são equipamentos sagrados apenas para o Templário.";
+		show "cada equipamento é bastante leve e suas habilidades defensivas";
+		next;
+		show "[Chaveiro]";
+		show "são excelentes.";
+		show "Uma coisa notável neles é que estão imbuídos com um poder sagrado que se mostra útil sempre que estiverem enfrentando inimigos como fantasmas.";
+		next;
+		show "[Chaveiro]";
+		show "Eles serão de grande ajuda para espantar especialmente este tipo de monstro.";
+		show "Eu ouvi falar que apenas uns poucos Templários privilegiados poderiam obter um escudo desses, devido à sua raridade.";
+		close;
+	case 2:
+		show "[Chaveiro]";
+		show "Outro círculo dentro de um círculo e assim concluo a fórmula mágica de uma estrela.";
+		show "^5533FF'Velho Círculo Mágico'^000000";
+		show "ele parece ser muito antigo.";
+		show "Esta peça foi delicadamente construída";
+		next;
+		show "[Chaveiro]";
+		show "usando uma fórmula mágica estudada por vários Sábios ao longo dos anos...";
+		next;
+		show "[Chaveiro]";
+		show "Nós precisamos dela quando tentamos memorizar fórmulas mágicas difíceis...";
+		show "...";
+		close;
+	case 3:
+		show "[Chaveiro]";
+		show "^3355FFArroz papado^000000 !!";
+		show "Heh, isso me trás boas lembranças de velhas coisas para se comer em antigos continentes.";
+		show "Nosso gosto tradicional, que sempre amamos, também sucedeu a tradição!";
+		next;
+		show "[Chaveiro]";
+		show "Ahn, arroz papado...";
+		show "Eu quero dar uma mordida nele agora...";
+		show ". . . . .";
+		close;
+	case 4:
+		show "[Chaveiro]";
+		show "'Juno' é uma cidade para as pessoas comuns, ao invés de ser a cidade dos Sábios... Eu penso assim ao menos...";
+		show "Apenas entregue-se às atrações típicas de Juno.";
+		close;
+	}
+
+}
+
+yuno,150,283,4	script	Soldado de Juno#yun01	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "O Golem de Lava é feito do poder mágico amplificado pelo coração de pedra do boneco de pedra fundido pela lava...";
+	show "A Lava ardente fluie de";
+	next;
+	show "[Soldado de Juno]";
+	show "seu corpo. É tão forte que pode causar o derretimento de armamentos de ferro com seu calor absurdo.";
+	show "Muito cuidado ao enfretá-lo, pois você não conseguirá evitar danos massivos";
+	next;
+	show "[Soldado de Juno]";
+	show "às suas armas e armaduras, então pense duas vezes antes de lutar contra um desses, se encontrá-lo...";
+	close;
+}
+
+yuno,165,283,4	script	Soldado de Juno#yun02	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "'Planta carnívora'";
+	show "uma sliência rígida se forma ao redor da flor causando seu crescimento avantajado então, mesmo que pareça estar longe dela, não abaixe sua guarda.";
+	next;
+	show "[Soldado de Juno]";
+	show "O nome foi derivado de um acidente envolvendo uma planta carnívora que devorou um monstro durante uma pesquisa...";
+	close;
+}
+
+yuno,227,292,4	script	Soldado de Juno#yun03	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "Perto de Juno, você encontra 'Anjo Fajuto', que se disfarça de anjo, fingindo ser verdadeiro.";
+	show "Você sabe como é, se disfarçando de anjo, com asas falsas, fingindo benzer as pessoas...";
+	next;
+	show "[Soldado de Juno]";
+	show "O monstro ataca pelas costas de viajantes incautos.";
+	show "Ele é realmente agressivo, não se deixe enganar pela sua aparência inofensiva, caso contrário, você pode ser devorado.";
+	close;
+}
+	
+yuno,165,228,4	script	Soldado de Juno#yun04	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "Próximo ao topo das montanhas mais altas, um bode montanhoso ali reside, monstruosamente transformado...";
+	show "As pessoas que são atingidas pelos seus chifres sofrem de um terrível mal..";
+	next;
+	show "[Soldado de Juno]";
+	show "Todas as vítimas chegam a ter insuportáveis dores de cabeça cada vez maiores, devido à grande variação de altitude das montanhas.";
+	show "Estes animais possuem pernas fortes e treinadas,";
+	next;
+	show "[Soldado de Juno]";
+	show "capazes de atacar seus inimigos com uma velocidade formidável...";
+	close;
+}
+
+yuno,150,228,4	script	Soldado de Juno#yun05	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "Talvez... você tenha visto um Jellopy gigante?";
+	show "Ele é realmente grande e brilhante e mais transparente que o normal!";
+	close;
+}
+	
+yuno,334,182,4	script	Soldado de Juno#yun06	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "Você conhece a 'Adaga Certeira', uma das armas mais importantes dos Sábios?";
+	show "Pois então fique sabendo, que apenas os Sábios podem equipá-la.";
+	show "E ela gera o dano máximo";
+	next;
+	show "[Soldado de Juno]";
+	show "com extrema precisão.";
+	show "É uma adaga muito útil e atraente.";
+	close;
+}
+
+yuno,263,320,4	script	Soldado de Juno#yun07	105,{
+	show "[Soldado de Juno]";
+	show "Bem vindo à Juno, a cidade dos Sábios e do conhecimento.";
+	next;
+	show "[Soldado de Juno]";
+	show "Nós temos o sagrado 'Spiritus Sancti', um escudo que apenas Templários podem usar, denominado 'o mensageiro de Deus'.";
+	show "Você pode ver uma imagem que parece simbolizar as asas de um anjo,";
+	next;
+	show "[Soldado de Juno]";
+	show "no centro daquele longo escudo.";
+	show "Ele é excepcionalmente útil para combater os malditos ou monstros sombrios...";
+	close;
+}
+
+//yuno,141,175,5	script	Assistente do Aeroplano::1_yuno	67,{
+	show "[Assistente do Aeroplano]";
+	show "Bem vindo ao Aeroplano.";
+	show "Em que posso ajudar?";
+	next;
+	switch(select("Embarcar no Aeroplano.:Cancelar.")){
+		case 1:
+			show "[Assistente do Aeroplano]";
+			show "O bilhete para o Aeroplano custa 1.200 zenys. Se tiver um bilhete para o Aeroplano, pode usar este serviço de graça. Este vôo vai até ^9D283BHugel^000000. Quer embarcar?";
+			next;
+			if(select("Sim.:Não")==1)
+				callsub S_WARP,"airplane",224,64;
+			else
+				break;
+		case 2:
+			break;
+	}
+	show "[Assistente do Aeroplano]";
+	show "Volte sempre. Obrigado.";
+	close;
+S_WARP:
+	if (Zeny >= 1200) {
+		set zeny,zeny-1200;
+		warp getarg(0),getarg(1),getarg(2);
+		end;
+	}
+	else {
+		show "[Assistente do Aeroplano]";
+		show "Você não tem zeny suficiente para o serviço.";
+		close;
+	}
+}

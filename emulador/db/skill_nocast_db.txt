@@ -1,0 +1,122 @@
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/  _ \ /    \|  |  \/  ___/
+// \     \____|  | \(  <_> )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//-----------------------------------------------
+// Proibido a distribuição e sem remover as autorias.
+//---------------------------------------------------
+// * Traduzido por Cronus Devel Team
+// Banco de dados de Habilidades Proibidas
+//
+// Estrutura do Banco de dados:
+// SkillID,Flag
+//
+// Legendas para 'Flag':
+//  1 = Não pode ser usado em mapas normais 
+//  2 = Não pode ser usado em mapas de PvP (use isto em vez de 1 para servidores de Modo-PK)
+//  4 = Não pode ser usado em mapas de GvG 
+//  8 = não pode ser usado em mapas de Battleground
+//  16 = não pode ser clonadas (clones não copiarão esta habilidade)
+//  Zonas Restringidas - Elas são configuradas por 'restricted <número>' mapflag 
+//  32 = Não pode ser usado em mapas de zona 1
+//  64 = Não pode ser usado em mapas de zona 2
+//  128 = Não pode ser usado em mapas de zona 3
+//  256 = Não pode ser usado em mapas de zona 4
+//  512 = Não pode ser usado em mapas de zona 5
+//  1024 = Não pode ser usado em mapas de zona 6
+//  2048 = Não pode ser usado em mapas de zona 7
+//
+// Exemplo:
+// 8,6 = Vigor não pode ser usado em Mapas PvP e GvG (2 +4)
+
+//GVG
+26,4	//Teleporte
+27,4	//Portal
+87,4	//Barreira de Gelo
+150,4	//Recuar
+361,4	//Assumptio
+362,4	//Basílica
+395,4	//Benção Protetora
+491,4	//Cultivar Planta
+
+//GVG & PVP
+488,3	//Bastão de Hermod
+
+//BATTLEGROUND
+26,8	//AL_TELEPORT
+27,8	//AL_WARP
+87,8	//WZ_ICEWALL
+150,8	//TF_BACKSLIDING
+361,8	//HP_ASSUMPTIO
+362,8	//HP_BASILICA
+395,8	//CG_MOONLIT
+491,8	//CR_CULTIVATION
+411,8	//TK_RUN
+426,8	//High Jump
+427,8	//SG_FEEL
+428,8	//SG_SUN_WARM
+429,8	//SG_MOON_WARM
+430,8	//SG_STAR_WARM
+431,8	//SG_SUN_COMFORT
+432,8	//SG_MOON_COMFORT
+433,8	//SG_STAR_COMFORT
+434,8	//SG_HATE
+435,8	//SG_SUN_ANGER
+436,8	//SG_MOON_ANGER
+437,8	//SG_STAR_ANGER
+438,8	//SG_SUN_BLESS
+439,8	//SG_MOON_BLESS
+440,8	//SG_STAR_BLESS
+
+//Não pode ser clonadas (clones não copiarão esta habilidade)
+77,16	//Esconjurar
+79,16	//Magnus Exorcismus
+
+//Zone 1 - Aldebaran Turbo Track
+219,32	//Rapto
+26,32	//Teleporte
+27,32	//Portal
+51,32	//Esconderijo
+135,32	//Cloaking
+389,32	//Espreitar
+35,32	//Medicar
+87,32	//Barreira de Gelo
+359,32	//Frenesi
+362,32	//Basílica
+395,32	//Bênção Protetora
+357,32	//Dedicação
+264,32	//Passo Etéreo
+
+//Zone 2 - Jail
+421,64	//Chute Aéreo
+426,64	//Salto
+
+//Zone 3 - Izlude Battle Arena
+219,128 //Rapto
+26,128	//Teleporte
+
+//Zone 4 - WoE:SE
+264,256	//Passo Etéreo
+426,256	//Salto
+
+//Templo do Selo
+12,1024 //Escudo Mágico
+87,1024 //Barreira de Gelo
+85,1024 //Ira de Thor
+89,1024 //Nevasca
+83,1024 //Chuva de Meteoros]
+92,1024 //Quagmarine
+
+//Torre sem Fim
+26,2048 //Teleporte
+87,2048 //Barreira de Gelo
+219,2048 //Rapto
+405,2048 //Prisão da Teia
+27,2048	//Portal
+150,2048	//Recuar
+361,2048	//Assumptio
+362,2048	//Basílica
+395,2048	//Benção Protetora
+491,2048	//Cultivar Planta

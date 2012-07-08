@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/cronusemulator/!svn/ver/3138/Server/trunk/conf/import-tmpl
+END
+char_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/char_conf.txt
+END
+map_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/map_conf.txt
+END
+inter_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/inter_conf.txt
+END
+log_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/log_conf.txt
+END
+atcommand_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/atcommand_conf.txt
+END
+script_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/script_conf.txt
+END
+msg_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/msg_conf.txt
+END
+packet_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/packet_conf.txt
+END
+login_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/login_conf.txt
+END
+battle_conf.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/conf/import-tmpl/battle_conf.txt
+END

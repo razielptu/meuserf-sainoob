@@ -1,0 +1,142 @@
+//===== Cronus Script ================================================= 
+//= Cidade de Moscóvia
+//===== Por: ==========================================================
+//= Blaze
+//===== Versão Atual: ================================================= 
+//= 1.1
+//===== Descrição: ==================================================== 
+//= NPC's da Cidade de Moscóvia
+//===== Changelog: ==================================================== 
+//= 1.0 Script original do jA. [Blaze]
+//= 1.0a Traduzido de Japonês para Português. [RoM]
+//= 1.0b Algumas correções nas coordenadas e adicionado NPC's faltantes. [RoM]
+//= 1.1 Removido NPC's que fazem parte das quest's. [RoM]
+//=====================================================================
+
+//====================================================
+//= NPC's de Acesso e Saída de Moscóvia
+//====================================================
+
+alberta,245,66,3	script	R. Públicas de Moscóvia	960,{
+	show "[Relações Públicas]";
+	show "Moscóvia! Você conhece Moscóvia?";
+	show "O paraíso em meio ao mar sem fim!";
+	show "Moscóvia é um lugar místico e de aventuras.";
+	next;
+	switch (select("Sobre Moscóvia...","Ir para Moscóvia.","Cancelar")){
+	Case 1:
+		show "[Relações Públicas]";
+		show "Moscóvia é um lindo reino";
+		show "que fica em uma ilha";
+		show "localizada ao norte de";
+		show "Rune-Midgard.";
+		next;
+		show "[Relações Públicas]";
+		show "Estou certa de que você vai se";
+		show "encantar com as";
+		show "maravilhosas paisagens de";
+		show "Moscóvia,";
+		show "a esplêndida capela";
+		show "e o palácio.";
+		next;
+		show "[Relações Públicas]";
+		show "Estou feliz que posso mostrar a";
+		show "você a nossa linda terra-natal";
+		show "depois que o longo inverno de";
+		show "Moscóvia passou.";
+		show "Nosso inverno é muito frio!";
+		next;
+		show "[Relações Públicas]";
+		show "Se estiver com vontade de visitar";
+		show "Moscóvia, aproveite esta chance!";
+		show "Eu garanto que vai ter uma ótima";
+		show "viagem para Moscóvia!";
+		close;
+	Case 2:
+		show "[Relações Públicas]";
+		show "Certo então, vamos começar.";
+		show "O preço total é de 10.000 zenys";
+		show "para ir até Moscóvia.";
+		show "Mas quando quiser voltar,";
+		show "você não vai precisar pagar...";
+		next;
+		show "[Relações Públicas]";
+		show "Podemos ir agora?";
+		next;
+		if (select("Vamos!","Cancelar") == 2){
+			show "[Relações Públicas]";
+			show "Se você estiver ocupado agora,";
+			show "por favor, fale comigo de novo";
+			show "quando quiser.";
+			show "estou sempre pronta para ser sua";
+			show "guia pela Moscóvia.";
+			close;
+		}
+		if (Zeny < 10000){
+			show "[Relações Públicas]";
+			show "Me desculpe,";
+			show "A taxa para embarcar é de 10.000 zenys.";
+			show "Confira seu dinheiro novamente.";
+			close;
+		}
+		show "[Relações Públicas]";
+		show "Certo, então, estamos partindo.";
+		close2;
+		set Zeny,Zeny-10000;
+		warp "moscovia",163,55;
+		end;
+	Case 3:
+		show "[Relações Públicas]";
+		show "Estarei aqui se mudar de idéia.";
+		show "Fale comigo a qualquer momento!";
+		close;
+	}
+}
+
+moscovia,166,53,3	script	Relações Públicas#mk	960,{
+	show "[Relações Públicas]";
+	show "E então, como foi a sua viagem?";
+	show "Leva boas lembranças de Moscóvia?";
+	show "Um navio está saindo agora";
+	show "para Rune-Midgard.";
+	next;
+	if (select("Retornar para Alberta","Cancelar") == 2){
+		show "[Relações Públicas]";
+		show "Se você quiser ver mais,";
+		show "leve o tempo que quiser.";
+		close;
+	}
+	show "[Relações Públicas]";
+	show "O navio está esperando por você!";
+	close2;
+	warp "alberta",243,67;
+	end;
+}
+
+//====================================================
+//= NPC's da Cidade de Moscóvia
+//====================================================
+
+moscovia,253,166,4	script	Soldado#mosk1	966,{
+	show "[Soldado]";
+	show "Lá está nosso Czar no palácio. Ele";
+	show "governa a nossa Moscóvia.";
+	show "Por favor, tome cuidado para não";
+	show "irritá-lo.";
+	close;
+}
+
+//====================================================
+//= Palácio de Moscóvia
+//====================================================
+
+-	script	Soldado#mosk::MoscSoldier	966,{
+	show "[Soldado]";
+	show "Por favor, fique quieto ou o Czar vai se irritar.";
+	close;
+}
+
+mosk_in,118,66,5	duplicate(MoscSoldier)	Soldado#mosk02	966
+mosk_in,133,110,3	duplicate(MoscSoldier)	Soldado#mosk03	966
+mosk_in,133,73,3	duplicate(MoscSoldier)	Soldado#mosk04	966
+mosk_in,113,124,5	duplicate(MoscSoldier)	Soldado#mosk05	966

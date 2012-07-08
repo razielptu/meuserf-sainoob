@@ -1,0 +1,846 @@
+//===== Cronus Script ========================================
+//= Repeatable EXP Quests
+//===== Por: ================================================= 
+//= Kisuka
+//===== Versão Atual: ======================================== 
+//= 1.2
+//===== Compatibilidade: ===================================== 
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Cada uma destas quests são repetíveis 
+//= Conseqüentemente, você pode evoluir seu personagem do 
+//= level 2 - 85 usando somente esta quest ao em vez de 
+//= matar monstros. 
+//= Atenção: Antes de presseguir remova 
+//= 1) 925,Bico de Ave; 2) 7106,Chifre de Bode 
+//= Dentro do NPC de lojas em npc/comerciantes/loja.txt
+//===== Comentários Adicional: ===============================
+//= 1.0 Primeira versão [Kisuka]
+//= 1.1 Script traduzido com base do eAthena. [LimitLine]
+//= 1.2 Movido NPC's devido ao epsódio. [RoM]
+//============================================================
+
+// Yullo - 25 Espinho de Porco-Espinho
+//============================================================
+mjolnir_01,296,29,5	script	Yullo#iROExp	95,{
+	if((BaseLevel < 24)) {
+		show "[Yullo]";
+		show "Hmm, talvez o que eu ia";
+		show "pedir para você seja um pouco demais.";
+		show "Volte quando você estiver mais forte.";
+		close;
+	}
+	else if((BaseLevel > 60)) {
+		show "[Yullo]";
+		show "Olá, meu nome é Yullo.";
+		show "Agora, espere um pouco. Você não";
+		show "acha que já está muito forte para isso?";
+		close;
+	}
+	show "[Yullo]";
+	show "Eu não posso mais, pronto.";
+	show "Olhe para mim, eu não posso";
+	show "continuar procurando esses tipos de itens.";
+	next;
+	show "[Yullo]";
+	show "Quer saber, eu tive uma idéia.";
+	show "Você pode pegar o que eu preciso";
+	show "e eu irei lhe recompensar!";
+	next;
+	show "[Yullo]";
+	show "Ok, eu irei precisar de 25 espinhos de Porco-Espinho.";
+	show "Por favor me diga";
+	show "que você irá me ajudar."; 
+	next;
+	if (select("Já tenho os Espinhos:Acho que posso lhe ajudar.") == 2) {
+		show "[Yullo]";
+		show "Eu preciso de ^00CE0025 Espinhos de Porco-Espinho^000000.";
+		close;
+	}
+	if (countitem(1027) < 25) {
+		show "[Yullo]";
+		show "Onde estão os Espinhos de Porco-Espinhos?";
+		show "Você acha que eu não iria me tocar?";
+		close;
+	}else{
+		delitem 1027,25;
+		additem 501,10;
+		getexp 10425,6272;
+		show "[Yullo]";
+		show "Ótimo, você tem todos!";
+		show "Como eu prometi,";
+		show "aqui está uma pequena recompensa.";
+		close;
+	}
+}
+
+// Shone - 25 Peles de Minhoca
+//============================================================
+moc_fild17,208,346,5	script	Shone#iROExp	707,{
+	if((BaseLevel < 25)) {
+		show "[Shone]";
+		show "Você precisa de ajuda,";
+		show "Mas não posso lhe ajudar ainda.";
+		show "Volte quando estiver";
+		show "mais forte.";
+		close;
+	}
+	else if((BaseLevel > 60)) {
+		show "[Shone]";
+		show "Você já está forte demais";
+		show "para essas coisas!";
+		close;
+	}
+	show "[Shone]";
+	show "Espera! Você consegue me ver?";
+	show "Bem, pelo visto ainda não consegui";
+	show "dominar todas as minhas habilidades.";
+	next;
+	show "[Shone]";
+	show "Ei, o que acha de me ajudar? Eu";
+	show "estou tentando coletar ^00CE0025 Peles de Minhoca^000000.";
+	show "Se você puder me ajudar";
+	show "eu ficaria muito agradecido.";
+	next;
+	if (select("Eu tenho as 25 Peles de Minhoca:O que você precisa mesmo?") == 2) {
+		show "[Shone]";
+		show "Eu preciso de ^00CE0025 Peles de Minhoca^000000.";
+		close;
+	}
+	if (countitem(1055) < 25) {
+		show "[Shone]";
+		show "Eu não vejo nenhuma ^00CE00Pele de Minhoca^000000.";
+		show "Você está tentando me enganar?";
+		close;
+	}else{
+		delitem 1055,25;
+		additem 502,10;
+		getexp 15775,1125;
+		show "[Shone]";
+		show "Obrigado pelas Peles de";
+		show "Minhoca!";
+		show "Aqui está a recompensa que eu lhe prometi,";
+		show "espero que essa expêriencia que lhe passei";
+		show "seja útil e que você a";
+		show "compartilhe com os outros.";
+		close;
+	}
+}
+
+// Langry - 25 Felpas
+//============================================================
+gef_fild07,321,193,3	script	Langry#iROExp	754,{
+	if((BaseLevel < 2)) {
+		show "[Langry]";
+		show "Você é uma das pessoas mais";
+		show "curiosas que já conheci,";
+		show "vá matar umas Fabres";
+		show "por aí.";
+		close;
+	}
+	if((BaseLevel > 20)) { show "[Langry]"; }
+	show "Olá, meu nome é Langry.";
+	show "Eu vim aqui ajudar em um Serviço";
+	show "Comunitário, mas estou com muita preguiça.";
+	next;
+	if((BaseLevel > 20)) { close; }
+	show "[Langry]";
+	show "Você acha que pode me ajudar?";
+	show "Por favor?";
+	next;
+	show "[Langry]";
+	show "Eu preciso que você pegue ^0000CE25 Felpas^000000 para";
+	show "que eu possa terminar esse serviço";
+	show "comunitário.";
+	show "E se você puder me ajudar";
+	show "eu lhe darei uma pequena recompensa.";
+	next;
+	if (select("Eu já tenho as Felpas:Do que você precisa?") == 2) {	
+		show "[Langry]";
+		show "Eu preciso de ^00CE0025 Felpas^000000.";
+		close;
+	}
+	if (countitem(914) < 25) {
+		show "[Langry]";
+		show "Eu não estou vendo nenhuma felpa,";
+		show "apenas mentiras vindo de você.";
+		close;
+	}else{
+		delitem 914,25;
+		getexp 385,30;
+		show "[Langry]";
+		show "Muito obrigado. Isso vai me ajudar";
+		show "muito.";
+		show "Ah, e aqui está sua recompensa,";
+		show "espero que te ajude a ficar mais forte e rápido!";
+		close;
+	}
+}
+
+// Halgus - 25 Chrysalis
+//============================================================
+gef_fild04,191,54,4	script	Halgus#iROExp	123,{
+	if((BaseLevel < 2)) {
+		show "[Halgus]";
+		show "Volte novamente quando";
+		show "você estiver mais forte.";
+		close;
+	}
+	else if((BaseLevel > 20)) {
+		show "[Halgus]";
+		show "Você já anda bem forte";
+		show "para caçar itens pequenos como os que eu preciso.";
+		next;
+		close;
+	}
+	show "[Halgus]";
+	show "Novo por aqui? Bem, eu adoro";
+	show "ajudar pessoas novas.";
+	show "Mas eu serei honesto,";
+	show "você não é possue a cara mais bonita que já vi por aqui.";
+	next;
+	show "[Halgus]";
+	show "De qualquer forma a minha filha";
+	show "adoraria um novo colar.";
+	show "Eu como estou longe de ser rico";
+	show "gostaria que você pegasse algumas Crisálidas";
+	show "das Pupas nessa área.";
+	next;
+	show "[Halgus]";
+	show "Você poderia pegar ^00CE0025 Crisálidas^000000 e";
+	show "trazer-las para mim, eu prometo";
+	show "que irei lhe recompensar devidamente.";
+	next;
+	if (select("Já possuo as Crisálidas:Do que você precisava mesmo?") == 2) {
+		show "[Halgus]";
+		show "Eu preciso de ^00CE0025 Crisálidas^000000.";
+		close;
+	}
+	if (countitem(915) < 25) {
+		show "[Halgus]";
+		show "Eu preciso de ^00CE0025 Crisálidas^000000 e não";
+		show "menos que isso por favor.";
+		close;
+	}else{
+		delitem 915,25;
+		getexp 385,30;
+		show "[Halgus]";
+		show "Impressionante como você";
+		show "conseguiu tantas tão rápido.";
+		show "Como eu prometi, aqui está a minha";
+		show "pequena recompensa,";
+		show "use-a com sabedoria.";
+		close;
+		
+	}
+}
+
+// Laertes - 25 Powder of Butterfly
+//============================================================
+prt_fild04,356,148,3	script	Laertes#iROExp	798,{
+	if((BaseLevel < 15 )) {
+		show "Seu nível está muito baixo!";
+		next;
+		show "Vai matar uns porings!";
+		close;
+	}
+	show "[Laertes]";
+	show "Bom dia!";
+	next;
+	if((BaseLevel < 45)) { show "[Laertes]"; }
+	show "Eu trabalho para um boticário em";
+	show "Prontera";
+	if((BaseLevel > 45)) {
+		show "Eu vim aqui pegar materiais";
+		show "para um remédio.";
+		close;
+	}
+	show "Eu preciso dum bocado";
+	show "de ^FF0000Pó de Borboleta^000000";
+	next;
+	if (select("Tenho um pouco de Pó de Borboleta:Do que você precisa?") == 2) {
+		show "[Laertes]";
+		show "Se você me trouxer";
+		show "^FF000025 Pó de Borboleta^000000,";
+		show "eu irei lhe dar uns suplimentos";
+		show "médicos.";
+		close;
+	}
+	if (countitem(924) < 25) {
+		show "[Laertes]";
+		show "Não parece que";
+		show "você possue tudo.";
+		next;
+		show "[Laertes]";
+		show "Se você me trouxer";
+		show "^FF000025 Pó de Borboleta^000000,";
+		show "eu irei lhe dar uns suplimentos";
+		show "médicos.";
+		close;
+	}else{
+		delitem 924,25;
+		additem 502,5;
+		getexp 2950,1125;
+		show "[Laertes]";
+		show "Hey, obrigado.";
+		show "Aqui está, como prometido.";
+		close;
+	}
+}
+
+// Nutters - 25 Avelã
+//===========================================================
+mjolnir_01,293,20,3	script	Nutters#iROExp	779,{
+	if((BaseLevel < 18)) {
+		show "[Nutters]";
+		show "Você é muito fraco";
+		show "para matar os monstros que eu preciso.";
+		show "Por que não volta mais tarde quando você estiver mais forte?";
+		close;
+	}
+	else if((BaseLevel > 60)) {
+		show "[Nutters]";
+		show "Você já está muito forte";
+		show "para ir caçar o que eu preciso!";
+		close;
+	}
+	show "[Nutters]";
+	show "Eu...eu não consigo achar nenhum.";
+	show "Os Cocos esconderam todos";
+	show "os Avelãs.";
+	next;
+	show "[Nutters]";
+	show "Pode me ajudar a achar ^00CE0025 Avelãs^000000?";
+	show "Eu lhe darei uma pequena recompensa";
+	show "se você puder me ajudar.";
+	next;
+	if (select("Eu tenho 25 Avelãs:Sinto muito, agora não...") == 2) {
+		show "[Nutters]";
+		show "Eu preciso ^00CE0025 Avelãs^000000.";
+		close;
+	}
+	if (countitem(1026) < 25) {
+		show "[Nutters]";
+		show "Onde estão meus ^00CE00Avelãs^000000? Olha,";
+		show "eu não estou brincando, nem pense";
+		show "em passar a perna em mim.";
+		close;
+	}else{
+		show "[Nutters]";
+		show "Ah ótimo, você encontrou elas.";
+		show "Finalmente!!!";
+		next;
+		delitem 1026,25;
+		additem 502,5;
+		getexp 3600,3905;
+		show "[Nutters]";
+		show "Heh, sinto muito, eu";
+		show "simplesmente adoro Avelãs.";
+		show "Aqui está o que eu tinha lhe prometido.";
+		close;
+	}
+}
+
+// Cuir - 25 Pele de Anolian
+//===========================================================
+cmd_fild01,362,256,3	script	Cuir#iROExp	106,{
+	if((BaseLevel < 45)) {
+		show "[Cuir]";
+		show "Você com certeza é corajoso,";
+		show "mas coragem pode se transformar em tolisse";
+		show "quando não se tomam decisões certas."; // Acho que era algum tipo de expressão popular o comentário desse aqui [LimitLine]
+		show "Talvez quando você estiver mais forte";
+		show "nós possamos negociar.";
+		close;
+	}
+	else if((BaseLevel > 80)) {
+		show "[Cuir]";
+		show "Você já é forte o bastante para isso,";
+		show "eu preciso dos couros inteiros,";
+		show "e não que você os exploda-os!";
+		close;
+	}
+	show "[Cuir]";
+	show "Você parece ser um corajoso aventureiro!";
+	show "Gostaria de ganhar uma recompensa";
+	show "me ajudando?";
+	next;
+	show "[Cuir]";
+	show "Se você puder trazer ^00CE0020 Peles^000000";
+	show "^00CE00de Anolian^000000, eu poderei lhe dar uma recompensa que o tornará mais forte.";
+	next;
+	if (select("Eu possuo as peles:Anolians mordem!") == 2) {
+		show "[Cuir]";
+		show "Eu preciso de ^00CE0020 Couro de Anolian^000000 caso você mude de idéia.";
+		close;
+	}
+	if (countitem(7003) < 20) {
+		show "[Cuir]";
+		show "Eu posso reconhecer um couro de réptil quando eu vejo um,";
+		show "e eu não estou vendo nenhuma ^00CE0020 Peles de Anolian^000000.";
+		close;
+	}else{
+		delitem 7003,20;
+		additem 503,10;
+		getexp 68950,43300;
+		show "[Cuir]";
+		show "Obrigado pelas ^00CE0020 Peles^000000";
+		show "^00CE00de Anolian^000000!";
+		show "Eu adoraria se você pudesse conseguir";
+		show "mais dessas no futuro.";
+		show "Os ferreiros de todo mundo";
+		show "andam desesperados por elas.";
+		close;
+	}
+}
+
+// Li - 50 Chifre de Dokebi
+//===========================================================
+pay_fild10,108,357,5	script	Li#iROExp	90,{
+	if((BaseLevel < 35)) {
+		show "Esse lugar é perigoso!";
+		next;
+		show "Saia daqui rápido!";
+		close;
+	}
+	else if((BaseLevel > 70)) {
+		show "[Li]";
+		show "Olá,";
+		show "eu sou um cartomante";
+		show "de Payon.";
+		close;
+	}
+	show "[Li]";
+	show "Olá.";
+	next;
+	show "[Li]";
+	show "Como um cartomante, eu preciso";
+	show "de vários materiais em estoque.";
+	show "^FF0000Chifre de Dokebi^000000";
+	show "em particular da uma grande sorte a todos os meus clientes.";
+	next;
+	if(select("Eu possuo alguns chifres:Do que você precisa?") == 2) {
+		show "[Li]";
+		show "Se você me trouxer";
+		show "^FF000050 Chifre de Dokebi^000000,";
+		show "eu poderei lhe dar uma grande recompensa.";
+		close;
+	}
+	if (countitem(1021) < 50) {
+		show "[Li]";
+		show "Você não possue";
+		show "chifres o suficiente.";
+		next;
+		show "[Li]";
+		show "Eu preciso de ^FF000050 Chifre de Dokebi^000000";
+		show "para o meu estoque.";
+		close;
+	}else{
+		delitem 1021,50;
+		getexp 42000,36000;
+		show "[Li]";
+		show "Oh, ótimo!";
+		show "Muito obrigado.";
+		close;
+	}
+}
+
+// Lemly - 25 Brasões
+//===========================================================
+moc_fild17,66,273,5	script	Lemly#iROExp	725,{
+	if((BaseLevel < 30)) {
+		show "O que está fazendo aqui!?";
+		next;
+		show "O deserto é um lugar muito perigoso!";
+		close;
+	}
+	else if((BaseLevel > 65)) {
+		show "[Lemly]";
+		show "Olá.";
+		next;
+		show "[Lemly]";
+		show "Esses lagartos são nojentos.";
+		next;
+		show "[Lemly]";
+		show "Não acredito";
+		show "que eu tenha que fazer isso.";
+		close;
+	}
+	show "[Lemly]";
+	show "Ei fofinho!";
+	next;
+	show "[Lemly]";
+	show "Eu estou procurando por";
+	show "^FF0000Brasões^000000.";
+	next;
+	show "Os lagartos daqui possuem";
+	show "uma habilidade de roubo natural";
+	show "que a guilda dos assassinos";
+	show "está querendo estudar.";
+	next;
+	if(select("Eu possuo Brasões:Do que você precisa?") == 2) {
+		show "[Lemly]";
+		show "Eu preciso de";
+		show "^FF000025 Brasões^000000";
+		show "para a guilda dos assassinos.";
+		close;
+	}
+	if (countitem(1012) < 25) {
+		show "[Lemly]";
+		show "Ah,";
+		show "por favor, não me faça perder meu tempo.";
+		next;
+		show "[Lemly]";
+		show "Eu preciso de";
+		show "^FF000025 Brasões^000000";
+		show "para a guilda dos assassinos.";
+		close;
+	}else{
+		delitem 1012,25;
+		getexp 30000,23000;
+		show "[Lemly]";
+		show "Obrigado.";
+		show "Esses serão de grande uso.";
+		close;
+	}
+}
+
+// Private Jeremy - 25 Corações de Pedra
+//===========================================================
+moc_fild11,57,138,7	script	Private Jeremy#iROExp	707,{
+	if((BaseLevel < 25)) {
+		show "[Private Jeremy]";
+		show "Cuidado, este lugar";
+		show "é perigoso.";
+		close;
+	}	
+	show "[Private Jeremy]";
+	show "Saudações morador!";
+	next;
+	if((BaseLevel > 60)) {
+		show "[Private Jeremy]";
+		show "Por favor não interrompa";
+		show "minha missão";
+		show "para a Guarda de Morroc.";
+		close;
+	}
+	show "[Private Jeremy]";
+	show "Nós estamos precisando";
+	show "de ^FF0000Corações de Pedra^000000";
+	show "para os nossos testes.";
+	next;
+	if(select("Eu possuo alguns aqui:Do que você precisa mesmo?") == 2) {
+		show "[Private Jeremy]";
+		show "Nós precisamos de";
+		show "^FF000025 Corações de Pedra^000000,";
+		show "para os nossos testes.";
+		close;
+	}
+	if (countitem(953) < 25) {
+		show "[Private Jeremy]";
+		show "Não parece";
+		show "que você possua todos.";
+		next;
+		show "[Private Jeremy]";
+		show "Nós precisamos de";
+		show "^FF000025 Corações de Pedra^000000,";
+		show "para os nossos testes.";
+		close;
+	}else{
+		delitem 953,25;
+		getexp 14000,9000;
+		show "[Private Jeremy]";
+		show "Muito obrigado,";
+		show "morador.";
+		close;
+	}
+}
+
+// Gregor - 25 Bicos de Aves
+//===========================================================
+moc_fild02,74,329,3	script	Gregor#iROExp	97,{
+	if((BaseLevel < 10)) {
+		show "[Gregor]";
+		show "Olá!";
+		next;
+		show "[Gregor]";
+		show "Aqueles pickies";
+		show "rondando por aí";
+		show "são bem rápidos.";
+		close;
+	}
+	else if((BaseLevel > 30)) {
+		show "[Gregor]";
+		show "Aqui peco peco peco.";
+		next;
+		show "[Gregor]";
+		show "Vem aqui peco peco peco.";
+		close;
+	}
+	show "[Gregor]";
+	show "Peco Pecos são fascinantes.";
+	show "Eu estou precisando de";
+	show "^FF0000Bicos de Aves^000000";
+	show "para a minha, uh, investigação...";
+	next;
+	if(select("Aqui está:Do que você precisa?") == 2) {
+		show "[Gregor]";
+		show "Eu preciso";
+		show "que você me traga";
+		show "^FF000025 Bicos de Aves^000000.";
+		close;
+	}
+	if (countitem(925) < 25) {
+		show "[Gregor]";
+		show "Tem certeza";
+		show "de que você tem tudo?";
+		next;
+		show "[Gregor]";
+		show "Eu preciso";
+		show "que você me traga";
+		show "^FF000025 Bicos de Aves^000000.";
+		close;
+	}else{
+		delitem 925,25;
+		getexp 4000,2000;
+		show "[Gregor]";
+		show "Muito obrigado.";
+		next;
+		show "[Gregor]";
+		show "Isos vai me ajudar";
+		show "muito!";
+		close;
+	}
+}
+
+// Lilla - 50 Folha Afiada
+//===========================================================
+um_fild01,35,281,5	script	Lilla#iROExp	724,{
+	if((BaseLevel < 60)) {
+		show "[Lilla]";
+		show "Você é muito jovem";
+		show "para me ajudar. Obrigado";
+		show "por tentar de qualquer forma.";
+		close;
+	}
+	else if((BaseLevel > 85)) {
+		show "[Lilla]";
+		show "Desculpe mas você já está";
+		show "velho demais para isso!";
+		close;
+	}
+	show "[Lilla]";
+	show "Olá!";
+	show "Você parece ser um aventureiro";
+	show "que não se importa de ajudar pessoas,";
+	show "como eu, com algumas pequenas coisas.";
+	next;
+	show "[Lilla]";
+	show "Eu realmente preciso obter ^00CE0050 Folhas^000000";
+	show "^00CE00Afiadas^000000 para fazer meu super chá.";
+	show "Você possue algumas?";
+	next;
+	if(select("Sim:Oh, o que você disse? Não estava ouvidno") == 2) {
+		show "[Lilla]";
+		show "Eu preciso de ^00CC0050 Folhas Afiadas^000000.";
+		close;
+	}
+	if (countitem(7100) < 50) {
+		show "[Lilla]";
+		show "Você pode parecer brincalhão";
+		show "mas por favor, eu realmente preciso dessas folhas.";
+		close;
+	}else{
+		show "[Lilla]";
+		show "Oh, obrigado querido.";
+		show "Isso vai me ajudar e muito!";
+		next;
+		delitem 7100,50;
+		additem 504,10;
+		getexp 262485,141835;
+		show "[Lilla]";
+		show "Ah, quase que eu esqueço,";
+		show "aqui está um presente para você ^_^";
+		show "Obrigado pela sua ajuda,";
+		show "e cuide-se!";
+		close;
+	}
+}
+
+// Lella - 50 Folhas Gigantes
+//============================================================
+ayo_fild01,44,241,5	script	Lella#iROExp	877,{
+	if((BaseLevel < 36)) {
+		show "[Lella]";
+		show "Rápido, escape antes que";
+		show "você perca a sua sanidade!";
+		close;
+	}
+	else if((BaseLevel > 65)) {
+		show "[Lella]";
+		show "Não sei bem ao certo por que você está aqui,";
+		show "mas você já está";
+		show "muito crescido para";
+		show "o que eu preciso!";
+		close;
+	}
+	show "[Lella]";
+	show "Olá!";
+	show "Você parece com um aventureiro";
+	show "disposto a ajudar alguem que está";
+	show "lentamente perdendo o senso.";
+	next;
+	show "[Lella]";
+	show "Eu realmente preciso pegar ^00CE0050 Folhas^000000";
+	show "^00CE00Gigantes^000000.";
+	show "Por acaso você teria algumas?";
+	next;
+	if(select("Sim:Do que você precisa?") == 2) {
+		show "[Lella]";
+		show "Eu preciso de ^00CE0050 Folhas Gigantess^000000.";
+		close;
+	}
+	if (countitem(7198) < 50) {
+		show "[Lella]";
+		show "Meow meow meow meow meow...";
+		show "NÃOOOOOOOOOOOO!!!";
+		close;
+	}else{
+		show "[Lella]";
+		show "Maravilha, já estou até me";
+		show "sentindo mais calma!";
+		next;
+		delitem 7198,50;
+		additem 503,10;
+		getexp 25740,31512;
+		show "[Lella]";
+		show "Quanto mais folhas eu consigo";
+		show "mais quieto fica o ambiente. Ótimo.";
+		close;
+	}
+}
+
+// Vegetable Farmer - 50 Antelope Horn
+//============================================================
+ein_fild06,82,171,7	script	Fazendeiro#iROExp	919,{
+	if((BaseLevel < 70)) {
+		show "[Fazendeiro]";
+		show "Onde foram parar meus legumes?";
+		show "Oh, não..não!!!";
+		close;
+	}
+	else if((BaseLevel > 84)) {
+		show "[Fazendeiro]";
+		show "E agora, e agora!";
+		next;
+		show "[Fazendeiro]";
+		show "Desculpe, não posso conversar agora.";
+		show "Eu já estou sofrendo o bastante,";
+		show "esses malditos bodes vão me";
+		show "matar.";
+		close;
+	}
+	show "[Fazendeiro]";
+	show "Ótimo!";
+	show "Você veio me ajudar, não?";
+	show "Se não tiver vindo para nada, pode ir embora.";
+	next;
+	show "[Fazendeiro]";
+	show "Esses Bodes vivem comendo";
+	show "meus vegetais.";
+	show "Poderia me";
+	show "ajudar?";
+	show "Eu preciso de ^FF0000Chifres de Bode^000000";
+	show "e se você puder trazer-los";
+	show "eu te darei uma grande recompensa.";
+	next;
+	if(select("Eu possuo alguns aqui:Do que você precisa?") == 2) {
+		show "[Fazendeiro]";
+		show "Eu preciso que você";
+		show "pegue";
+		show "^FF000050 Chifres de Bode^000000,";
+		show "para que eu te de uma recompensa.";
+		close;
+	}
+	if (countitem(7106) < 50) {
+		show "[Fazendeiro]";
+		show "Você não";
+		show "possue o bastante.";
+		next;
+		show "[Fazendeiro]";
+		show "Eu preciso que você";
+		show "pegue";
+		show "^FF000050 Chifres de Bode^000000,";
+		show "para que eu te de uma recompensa.";
+		close;
+	}else{
+		delitem 7106,50;
+		additem 504,10;
+		getexp 258490,155155;
+		show "[Fazendeiro]";
+		show "Impressionante, você";
+		show "foi mais rápido do que eu pensei que fosse. Muito obrigado.";
+		close;
+	}
+}
+
+// Morador - 50 Bactérias
+//============================================================
+ein_fild01,43,249,7	script	Morador#iROExp	898,{
+	if((BaseLevel < 60)) {
+		show "[Morador]";
+		show "É impressionante, sinceramente,";
+		show "como eu queria me livrar disso.";
+		close;
+	}
+	else if((BaseLevel > 75)) {
+		show "[Morador]";
+		show "Hm, hm. Eu não acho que..";
+		next;
+		show "[Morador]";
+		show "É, bem, essa não é a melhor hora";
+		show "para conversar.";
+		close;
+	}
+	show "[Morador]";
+	show "Ei, você aí! Sim, você!";
+	show "Pode me ajudar";
+	show "por favor?";
+	next;
+	show "[Morador]";
+	show "Eu to tentando passar por esses";
+	show "Pungus, mas não estou conseguindo.";
+	show "Poderia conseguir algumas";
+	show "^FF0000Bactérias^000000 para mim?";
+	show "Eu lhe darei uma boa recompensa";
+	show "se você puder me ajudar.";
+	next;
+	if(select("Aqui está:Do que você precisa?") == 2) {
+		show "[Morador]";
+		show "Eu preciso que você";
+		show "consida";
+		show "^FF000050 Bactérias^000000,";
+		show "e eu lhe darei uma recompensa.";
+		close;
+	}
+	if (countitem(7119) < 50) {
+		show "[Morador]";
+		show "Você não";
+		show "possue o bastante.";
+		next;
+		show "[Morador]";
+		show "Eu preciso que você";
+		show "consiga";
+		show "^FF000050 Bactérias^000000,";
+		show "e eu lhe darei uma recompensa.";
+		close;
+	}else{
+		delitem 7119,50;
+		getitem 504,10;
+		getexp 250266,144452;
+		show "[Morador]";
+		show "Eu já estava duvidando,";
+		show "mas você demonstrou que merece essa recompensa.";
+		close;
+	}
+}

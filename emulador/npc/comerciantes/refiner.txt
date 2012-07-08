@@ -1,0 +1,654 @@
+//===== Cronus Script ========================================
+//= Refinadores
+//===== Por: =================================================
+//= SoulBlaker
+//===== Versão Atual: ========================================
+//= 1.1
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= NPCs Refinadores e Vendedores de Oridecon e Metal.
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==============================
+//= 1.0 Enviado ao projeto Cronus. [SoulBlaker]
+//= 1.1 Movido NPC de Morroc. [RoM]
+//============================================================
+
+geffen_in,110,172,2	script	Christopher#01::Chris01	63,{
+
+	show "[Cristopher Gilenlow]";
+	show "Bem-vindo à forja do Cristopher!";
+	show "Eu tenho tudo relativo a refinaria...";
+	show "Então... O que deseja?";
+	next;
+	switch(select("Comprar bigornas.:Comprar materiais de refinaria.:Comprar metais.:Refinar pedras brutas.:Cancelar.")){
+		case 1:
+			show "[Cristopher Gilenlow]";
+			show "Bigornas mais duras fazem armas melhores.";
+			show "Mas, como já deve saber, metais";
+			show "mais duros são também mais caros!";
+			show "Fique a vontade, e procure por uma";
+			show "que possa comprar!";
+			next;
+			switch(select("Bigorna - 300000z.:Bigorna de Oridecon - 120000z.:Bigorna de Ouro - 300000z.:Bigorna mais Dura.:Cancelar.")){
+				case 1:
+					callsub S_Refiner,30000,986,1,0;
+					show "Esta é mais barata porem mais eficiente.";
+					next;
+					break;
+				case 2:
+					callsub S_Refiner,120000,987,1,0;
+					show "Oh! Você tem um bom gosto para bigornas. Esta é uma bigorna apropriada para um Ferreiro.";
+					next;
+					break;
+				case 3:
+					callsub S_Refiner,300000,988,1,0;
+					show "Esta é a melhor bigorna que temos aqui! Com isto você poderá ser o melhor Ferreiro à qualquer hora.";
+					next;
+					break;
+				case 4:
+					show "[Cristopher Gilenlow]";
+					show "Não temos bigornas mais fortes que a de ouro.";
+					show "'Linggel', o lendário fabricante de";
+					show "bigornas, pode ter feito melhores.";
+					show "Do contrário, não há bigornas mais";
+					show "fortes que essa no mundo.";
+					close;
+				default:
+					show "[Cristopher Gilenlow]";
+					show "Apenas me diga o que quiser! Até logo!";
+					close;
+			}
+			show "[Cristopher Gilenlow]";
+			break;
+		case 2:
+			show "[Cristopher Gilenlow]";
+			show "Um bom ferreiro sempre usa boas ferramentas!";
+			show "Se você comprar ferramentas do Cristopher, você será um grande ferreiro.";
+			show "Escolha aquela que gostar!";
+			next;
+			switch(select("Fornalha portável - 150z.:Martelo de Ferro - 1000z.:Martelo de Ouro - 3000z.:Martelo de Oridecon - 5000z.:Cancelar.")){
+				case 1:
+					show "[Cristopher Gilenlow]";
+					show "Isto é essencial para a refinaria!!";
+					next;
+					setarray @refiner[0],150,612;
+					break;
+				case 2: setarray @refiner[0],1000,613;	break;
+				case 3: setarray @refiner[0],3000,614;	break;
+				case 4: setarray @refiner[0],5000,615;	break;
+				default:
+					show "[Cristopher Gilenlow]";
+					show "Apenas me diga o que quiser! Até logo!";
+					close;
+			}
+			show "[Cristopher Gilenlow]";
+			show "Certo! Quantas vai querer? Se não quiser nenhuma escolha '0'!";
+			next;
+			set .@loop,1;
+			while(.@loop) {
+				digit .@input;
+				if(.@input == 0){
+					show "[Cristopher Gilenlow]";
+					show "Tudo bem! Nada então! Até logo!";
+					close;
+				}
+				if(.@input > 500){
+					show "[Cristopher Gilenlow]";
+					show "Por favor, reduza a sua quantidade para 500 ou menos.";
+					next;
+				}else{
+					set .@loop,0;
+				}
+			}
+			set .@zeny,.@input * @refiner[0];
+			callsub S_Refiner,.@zeny,@refiner[1],.@input,0;
+			break;
+		case 3:
+			show "[Cristopher Gilenlow]";
+			show "Eu trouxe itens de alto grau de pureza!";
+			show "Bem... O que vai querer?";
+			next;
+			switch(select("Fracon - 200z.:Emveretarcon - 1000z.:Cancelar.")){
+				case 1: setarray @refiner[0],200,1010; break;
+				case 2: setarray @refiner[0],1000,1011; break;
+				default:
+					show "[Cristopher Gilenlow]";
+					show "Apenas diga-me o que quiser! Até logo!";
+					close;
+			}
+			set .@loop,1;
+			while(.@loop) {
+				digit .@input;
+				if(.@input == 0){
+					show "[Cristopher Gilenlow]";
+					show "Tudo bem! Nada então! Até logo!";
+					close;
+				}
+				if(.@input > 500){
+					show "[Cristopher Gilenlow]";
+					show "Por favor, reduza a sua quantidade para 500 ou menos.";
+					next;
+				}else{
+					set .@loop,0;
+				}
+			}
+			set .@zeny,.@input * @refiner[0];
+			callsub S_Refiner,.@zeny,@refiner[1],.@input,1;
+			break;
+		case 4:
+			show "[Cristopher Gilenlow]";
+			show "Você pode fazer Oridecon e Elunium aqui.";
+			show "5 pedras brutas podem ser refinadas";
+			show "em um metal de alta pureza!";
+			show "Então... Qual vai querer?";
+			next;
+			switch(select("Fazer Oridecon:Fazer Elunium:Cancelar.")){
+				case 1: setarray @refiner[0],756,5,984,1; break;
+				case 2: setarray @refiner[0],757,5,985,1; break;
+				case 3:
+					show "[Cristopher Gilenlow]";
+					show "Apenas me diga o que quiser! Até logo!";
+					close;
+			}
+			show "[Cristopher Gilenlow]";
+			if(countitem(@refiner[0]) < @refiner[1]){
+				show "Eu disse que não posso fazer " + getitemname(@refiner[2]) + " sem " + @refiner[1] +" pedras de " + getitemname(@refiner[0]) + "!";
+				close;
+			}
+			delitem @refiner[0],@refiner[1];
+			additem @refiner[2],@refiner[3];
+			show "Como prometido, aqui está seu " + getitemname(@refiner[2]) + ".";
+			show "Sinta-se avontade para voltar quando quiser.";
+			break;
+	}
+	show "Obrigado por comprar na minha ferramentaria.";
+	show "Fique a vontande para voltar quando precisar.";
+	close;
+
+
+S_Refiner:
+	show "[Cristopher Gilenlow]";
+
+	if(Zeny < getarg(0) && 1 == getarg(3))
+		show "Sinto muito! Você não tem dinheiro o suficiente! Não quero ficar no prejuízo!... Eu tenho família prá sustentar....";
+	else if(Zeny < getarg(0))
+		show "Sinto muito! Você não tem dinheiro o suficiente! Não quero ficar no prejuízo!";
+	else if(checkweight(getarg(1),getarg(2)) == 0)
+		show "Sinto muito! Você deve deixar alguns dos seus itens no Armazém da Kafra, você está muito pesado!";
+	else {
+		set Zeny, Zeny - getarg(0);
+		additem getarg(1),getarg(2);
+		return 1;
+	}
+	close;
+
+}
+
+//  ----------------------------------------------------
+// |- Funções de Negociadores de Fracon e Emverearcon - |
+//  ----------------------------------------------------
+
+function	script	F_VendingRefiner	{
+	show "["+getarg(0)+"]";
+	show "Aqui nós vendemos metais para";
+	show "refinar armas de ferro e aço!";
+	show "Nós temos ^00CED1Fracons^000000 para armas de";
+	show "nível 1 e ^00CED1Emveretarcons^000000 para armas de nível 2.";
+	next;
+	switch(select("Fracon - 200 zenys:Emveretarcon - 1.000 zenys:Perguntar sobre outros metais")){
+		case 1: setarray @refiner[0],1010,200; break;
+		case 2: setarray @refiner[0],1011,1000; break;
+		default:
+			show "["+getarg(0)+"]";
+			show "Você deve estar perguntando sobre";
+			show "metais para armas de nível 3 e";
+			show "acima disso, certo?";
+			show "Ah... sabe como é, Oridecon e";
+			show "Elunium... são difíceis de aparecer...";
+			close;
+	}
+	show "["+getarg(0)+"]";
+	show "Quantos você quer? Coloque '0' se deseja terminar.";
+	next;
+	set .@loop,1;
+	while(.@loop) {
+		digit .@input;
+		set .@zeny, .@input*@refiner[1];
+		show "["+getarg(0)+"]";
+		if(.@input == 0){
+			show "Compra terminada.";
+			close;
+		}
+		if(.@input > 500){
+			show "Por favor, reduza a sua quantidade para 500 ou menos.";
+			next;
+		}else{
+			set .@loop,0;
+		}
+	}
+	if(Zeny < .@zeny){
+		show "....Você não tem dinheiro suficiente, tem?";
+		show "Me desculpe, mas não podemos vender mais barato... nós somos um comércio pequeno.";
+		close;
+	}
+	if(checkweight(@refiner[0],.@input) == 0){
+		show "Desculpe, mas você anda com muito peso, deixe alguns itens no Armazém da Kafra e fale comigo novamente.";
+		close;
+	}
+	set Zeny,Zeny - .@zeny;
+	additem @refiner[0],.@input;
+	show "Aqui está.";
+	close;
+}
+
+//  ---------------
+// |- Vendedores - |
+//  ---------------
+
+// Prontera
+prt_in,56,69,4	script	Vurewell#prt_in	86,{
+	callfunc("F_VendingRefiner","Vurewell");
+	end;
+}
+
+// Payon
+payon,145,178,4	script	Begnahd#pay_in	88,{
+	callfunc("F_VendingRefiner","Begnahd");
+	end;
+}
+
+// Morroc
+morocc_in,65,37,4	script	Sade#moc_in	99,{
+	callfunc("F_VendingRefiner","Sade");
+	end;
+}
+
+// Alberta
+alberta_in,18,59,5	script	Kahlamanlith#albe_in	86,{
+	callfunc("F_VendingRefiner","Kahlamanlith");
+	end;
+}
+
+// Juno
+yuno_in01,171,26,6	script	Dillemat#juno_in	88,{
+	callfunc("F_VendingRefiner","Dillemat");
+	end;
+}
+
+// Einbroch
+ein_in01,15,87,7	script	Tirehaus#einb_in	86,{
+	callfunc("F_VendingRefiner","Tirehaus");
+	end;
+}
+
+// Lighthalzen
+lhz_in02,278,24,3	script	Krugg#lhz_in	86,{
+	callfunc("F_VendingRefiner","Krugg");
+	end;
+}
+
+//  --------------------------------------------------
+// |- Funções de Negociadores de Oridecon e Elunium - |
+//  --------------------------------------------------
+
+function	script	F_VendingOridecon	{
+
+	show "["+getarg(0)+"]";
+	show "Me traga Minério de Oridecon ou";
+	show "Elunium e eu refinarei Oridecon ou";
+	show "Elunium para você.";
+	show "E eu preciso de cinco minérios por vez!";
+	next;
+	switch(select("Refinar Oridecon:Refinar Elunium:Perguntar sobre Pedras Encantadas")){
+		case 1: setarray @refiner[0],756,5,984,1; break;
+		case 2: setarray @refiner[0],757,5,985,1; break;
+		default:
+			show "["+getarg(0)+"]";
+			show "As supostas Pedras Encantadas...";
+			show "Eu estou no negócio de refinação de";
+			show "metais há vinte anos. Eu ouvi";
+			show "muitas dessas histórias... mas";
+			show "ainda estou para ver uma com meus próprios olhos.";
+			show "Eu ouvi que cada metal tem sua";
+			show "propriedade, como Água, Terra, Fogo, Ventos etc.";
+			next;
+			show "["+getarg(0)+"]";
+			show "Dizem que, se você usar uma Pedra";
+			show "Encantada ao forjar armas, a arma";
+			show "vai possuir os poderes da Pedra.";
+			show "Haha... por outro lado, alguém";
+			show "capaz de forjar tais armas";
+			show "certamente dominou a arte da forja.";
+			close;
+	}
+	show "["+getarg(0)+"]";
+	if(countitem(@refiner[0]) < @refiner[1]){
+		show "Hahahaha... não brinque comigo!";
+		show "Eu não te disse que preciso de pelo";
+		show "menos cinco " + getitemname(@refiner[0]) + " para refinar um " + getitemname(@refiner[0]) + "?";
+		close;
+	}
+	delitem @refiner[0],@refiner[1];
+	additem @refiner[2],@refiner[3];
+	show "Como te prometi, aqui está seu " + getitemname(@refiner[2]) + ".";
+	show "Volte quando quiser.";
+	close;
+}
+
+//  ---------------
+// |- Vendedores - |
+//  ---------------
+
+// Prontera
+prt_in,63,69,3	script	Dietrich#prt_in	84,{
+	callfunc("F_VendingOridecon","Diertich");
+	end;
+}
+
+// Payon
+payon,137,178,4	script	Hakhim#payon_in	88,{
+	callfunc("F_VendingOridecon","Hakhim");
+	end;
+}
+
+// Morroc
+morocc_in,72,32,4	script	Abdul#mocc_in	99,{
+	callfunc("F_VendingOridecon","Abdul");
+	end;
+}
+
+// Alberta
+alberta_in,21,63,5	script	Xenophon#albe_in	84,{
+	callfunc("F_VendingOridecon","Xenophon");
+	end;
+}
+
+// Juno
+yuno_in01,171,22,6	script	Delayt#juno_in	88,{
+	callfunc("F_VendingOridecon","Delayt");
+	end;
+}
+
+// Eibroch
+ein_in01,18,82,6	script	Matestein#eib_in	84,{
+	callfunc("F_VendingOridecon","Matestein");
+	end;
+}
+
+// Lighthalzen
+lhz_in02,281,24,5	script	Fruel#lhz_in	84,{
+	callfunc("F_VendingOridecon","Fruel");
+	end;
+}
+
+function	script	F_RefinerRestorage	{
+	set @repairprice,5000;
+	show "["+getarg(0)+"]";
+	show "Ei! Você!";
+	show "Você tem algo que queira consertar?";
+	show "Se você tiver, eu sou quem você procura! Deixa comigo!";
+	next;
+	if(select("Hmm, eu tenho algumas coisas aqui...:Não tenho...")==2){
+		show "["+getarg(0)+"]";
+		show "Hã?";
+		show "Se você não tem nada que precise de conserto, eu não tenho assunto com você... Passe bem!";
+		close;
+	}
+	show "["+getarg(0)+"]";
+	if(getbrokenid(1)==NULL) {
+		show "Muito bom...";
+		show "Você parece ser bastante cuidadoso.";
+		show "Todo seu equipamento está em perfeito estado...";
+		show "Se houverem muitos outros como";
+		show "você, eu acabo perdendo meu emprego!";
+		close;
+	}
+	setarray .@tempmes$[1],"Cabeça","Corpo","Mão direita","Mão esquerda","Manto","Pés","Acessório 1","Acessório 2","Cabeça 2","Cabeça 3";
+	for(set .@num,1; .@num <= 10; set .@num, .@num + 1){
+		if(getbrokenid(.@num)==NULL)
+			setarray .@menurepair$[.@num],.@tempmes$[.@num]+" - [não equipado]";
+		else
+			setarray .@menurepair$[.@num],getitemname(getbrokenid(.@num));
+	}
+	show "Você vai querer reparar qual item?";
+	next;
+	select(.@menurepair$[1],.@menurepair$[2],.@menurepair$[3],.@menurepair$[4],.@menurepair$[5],.@menurepair$[6],.@menurepair$[7],.@menurepair$[8],.@menurepair$[9],.@menurepair$[10]);
+	set .@id,@menu;
+	show "["+getarg(0)+"]";
+	if(getbrokenid(.@id)==NULL){
+		switch(.@id){
+			case 1: show "Quer que eu conserte essa sua cabeça oca?"; break;
+			case 2: show "Venha! Vou conserte seu coração com o meu amor!"; break;
+			case 3: show "Desculpe, não há tecnologia ainda para instalar foguetes na sua mão esquerda..."; break;
+			case 4: show "Desculpe, não há tecnologia ainda para instalar foguetes na sua mão direita..."; break;
+			case 5: show "Você não está usando nenhum robe né?"; break;
+			case 6: show "Nossa! Que chulé!"; break;
+			case 7: case 8: show "Sobre qual acessório você está falando?"; break;
+			case 9: case 10: show "Sobre qual acessório você está falando das outras partes da sua cabeça, né?"; break;
+		}
+		close;
+	}
+	show "Para você reparar o " + getitemname(getbrokenid(.@id)) +",";
+	show "você precisa me trazer "+getarg(1)+" Zenys.";
+	show "Vai querer reparar?";
+	next;
+	if(select("Sim:Não") == 1) {
+		show "["+getarg(0)+"]";
+		if(Zeny < getarg(1)){
+			show "Você não tem zeny em? Infelizmente eu tenho família e filhos para alimentar...";
+		} else {
+			show "Muito bem, consertado, acho que fico bom...";
+			repair(.@id);
+			set Zeny,Zeny-getarg(1);
+		}
+		close;
+	}
+	show "["+getarg(0)+"]";
+	show "Hã?";
+	show "Se você não tem nada que precise de conserto, eu não tenho assunto com você... Passe bem!";
+	close;
+}
+
+//  ------------------
+// |- Restauradores - |
+//  ------------------
+
+// Prontera
+prt_in,63,54,2	script	Restaurador#prt_in::repairman	86,{
+	callfunc("F_RefinerRestorage","Restaurador",5000);
+	end;
+}
+
+// Payon
+payon,149,182,2	duplicate(repairman)	Restaurador#pay_in	88
+
+// Morroc
+moc_ruins,107,94,5	duplicate(repairman)	Restaurador#mocc_in	99
+
+// Lighthalzen
+lhz_in02,284,14,3	duplicate(repairman)	Restaurador#lhz_in	86
+
+
+//  --------------------------------------------------
+// |- Funções dos Refinadores (Ainda sem safe mode) - |
+//  --------------------------------------------------
+
+function	script	F_Refiners	{
+	show "["+getarg(0)+"]";
+	show "Eu sou um ferreiro especializado em refinar armas.";
+	show "Eu posso refinar os equipamentos que você está usando.";
+	show "O que você gostaria que eu refinasse?";
+	next;
+	select(getequipname(1,"Cabeça - [não equipado]"),getequipname(2,"Corpo - [não equipado]"),getequipname(3,"Mão direita - [não equipado]"),getequipname(4,"Mão esquerda - [não equipado]"),getequipname(5,"Manto - [não equipado]"),getequipname(6,"Pés - [não equipado]"),getequipname(7,"Acessório 1 - [não equipado]"),getequipname(8,"Acessório 2 - [não equipado]"),getequipname(9,"Cabeça 2 - [não equipado]"),getequipname(10,"Cabeça 3 - [não equipado]"));
+	set .@id,@menu;
+	set .@refineid, getequipid(.@id); // Salvando o id do item
+	set .@refinecont, getequiprefinerycnt(.@id); // Salvando quantidade de refinamento
+	show "["+getarg(0)+"]";
+	if (!getequipisequiped(.@id)){
+		if (!getequipisenableref(.@id)){
+			switch(.@id){
+				case 1: show "Quer que eu refine essa sua cabeça oca?"; break;
+				case 2: show "Venha! Vou refinar seu coração com o meu amor!"; break;
+				case 3: show "Desculpe, não há tecnologia ainda para instalar foguetes na sua mão esquerda..."; break;
+				case 4: show "Desculpe, não há tecnologia ainda para instalar foguetes na sua mão direita..."; break;
+				case 5: show "Você não está usando nenhum robe né?"; break;
+				case 6: show "Nossa! Que chulé!"; break;
+				case 7: case 8: show "Sobre qual acessório você está falando?"; break;
+				case 9: case 10: show "Sobre qual acessório você está falando das outras partes da sua cabeça, né?"; break;
+			}
+			close;
+		}
+	} else {
+		if (!getequipisidentify(.@id)){
+			show "Você precisa identificar este item.";
+			close;
+		}
+		if (getequipisenableref(.@id) == 0) {
+		show "Este item não pode ser refinado.";
+		close;
+		}
+		if (.@refinecont == 10){
+		show "Você não pode mais refinar isto!";
+		close;
+		}
+		if (getequiprefinerycnt(.@id) == .@refinecont){
+			switch(getequipweaponlv(.@id)){
+				// Config array[0]-,itemid,preço,safe;
+				case 0: setarray @refine[0],985,2000,4,0; break;
+				case 1: setarray @refine[0],1010,50,7,1; break;
+				case 2: setarray @refine[0],1011,200,6,2; break;
+				case 3: setarray @refine[0],984,5000,5,3; break;
+				default: setarray @refine[0],984,20000,4,4; break;
+			}
+			// Checando Modo Fatura
+			if(getarg(1) == 1) callsub S_FatureMode; // Fatura [1= Para fatura/Não confirmado como oficial]
+			// Refiner Normal
+			show "Você quer refinar equipamentos de nível " + @refine[3] + "?";
+			show "Para refinar uma dessas, você precisa de um ^ff9999 " + getitemname(@refine[0]) + "^000000 e " + @refine[1] + " zenys.";
+			show "Você deseja continuar?";
+			next;
+			if(select("Sim:Não")==2){
+				show "["+getarg(0)+"]";
+				show "Não posso fazer nada a respeito, mesmo que você não goste...";
+				close;
+			}
+			if(getequippercentrefinery(.@id) < 100) {
+				show "["+getarg(0)+"]";
+				show "Uau!!";
+				show "Esse equipamento provavelmente,";
+				show "parece que foi refinada...";
+				show "muitas vezes...";
+				show "Ela pode quebrar se for refinada de novo.";
+				next;
+				show "E, se quebrar,";
+				show "você não poderá mais usá-lo!";
+				show "Todas as cartas do equipamento e suas propriedades ^ff0000serão perdidas^000000!";
+				show " ^ff0000além disso, o equipamento vai se quebar!^000000";
+				show "Você em certeza de que quer continuar?";
+				next;
+				if(select("Sim:Não")==2){
+					show "["+getarg(0)+"]";
+					show "Muito bem.";
+					show "Porque, se o equipamento se quebrar por";
+					show "refinação excessiva, eu fico de mau humor!";
+					close;
+				}
+			}
+			show "["+getarg(0)+"]";
+			if ((countitem(@refine[0]) < 1) || (Zeny < @refine[1])){
+				show "Isso é tudo que você tem?";
+				show "Sinto muito, mas não posso fazer";
+				show "nada sem todos os materiais. Além";
+				show "disso, eu mereço um pagamento pelo meu trabalho, né?";
+				close;
+			}
+			set .@rand,rand(100);
+			set Zeny, Zeny - @refine[1];
+			delitem @refine[0],1;
+			if (getequipisequiped(.@id) == 0)
+				show "Olha só... você não tem item equipado...";
+			else if ((getequipid(.@id) != .@refineid) || (getequiprefinerycnt(.@id) != .@refinecont))
+				show "Clan... Não, você está achando que eu sou idiota, né?!? Você trocou... Vá embora antes que eu te acerte com este Martelo!!";
+			else if (getequippercentrefinery(.@id) <= .@rand) {
+					show "Clang! Clang! Clang!";
+					failedrefitem .@id;
+					next;
+					show "["+getarg(0)+"]";
+					show "Aaahhh!! Oh não...!!";
+					emotion 16;
+					next;
+					show "["+getarg(0)+"]";
+					show "Eh..Ehem... Me desculpe mais o processo de refinamento ^ff0000falhou^000000.";
+					next;
+					show "["+getarg(0)+"]";
+					show "Realmente estou profundamente decepicionado com o que houve... mas eu te AVISEI sobre os riscos.";
+			} else {
+				show "Clang! Clang! Clang!";
+				successrefitem .@id;
+				next;
+				show "["+getarg(0)+"]";
+				show "Haha! Você que minhas habilidades não estão enferrujadas ainda! Perfeito!...";
+				emotion 21;
+			}
+			close;
+		}
+		end;
+	}
+
+	//debugmes "Função de Depuração: Houve um Hacker tentando trocar a posição do item no script de refiner, o sistema de segurança congelo o jogador.";
+	//debugmes "Caso seja um erro desconcidere esta mensagem e entre em contato com a Equipe [Venus] em http://www.venus-emulator.net.";
+	end;
+
+S_FatureMode:
+
+	// Não implementado ainda!
+	show "Desculpe, mais este serviço está em fatal!";
+	close;
+}
+
+//  ----------------
+// |- Refinadores - |
+//  ----------------
+
+// Prontera
+prt_in,63,60,0	script	Hugo#prt_in	85,{
+	callfunc("F_Refiners","Hugo",0);
+	end;
+}
+
+// Morroc
+morocc_in,73,38,4	script	Aragham#moc_in	99,{
+	callfunc("F_Refiners","Aragham",0);
+	end;
+}
+
+// Payon
+payon,144,173,4	script	Antonio#pay_in	88,{
+	callfunc("F_Refiners","Antonio",0);
+	end;
+}
+
+// Alberta
+alberta_in,28,58,4	script	Fredrik#albe_in	85,{
+	callfunc("F_Refiners","Fredrik",0);
+	end;
+}
+
+// Juno
+yuno_in01,164,26,6	script	Disturb#juno_in	88,{
+	callfunc("F_Refiners","Disturb",0);
+	end;
+}
+
+// Einbroch
+ein_in01,24,87,6	script	Manthasman#ein_in	826,{
+	callfunc("F_Refiners","Manthasman",0);
+	end;
+}
+
+// Lighthalzen
+lhz_in02,282,20,7	script	Fulerr#lhz_in	869,{
+	callfunc("F_Refiners","Fulerr",0);
+	end;
+}

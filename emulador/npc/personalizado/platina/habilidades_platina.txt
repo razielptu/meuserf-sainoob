@@ -1,0 +1,65 @@
+prontera,127,199,5	script	Habilidades de Platina	94,{
+
+	set @Nome$, "^1E90FF[ Habilidades de Platina ]^000000";
+	if(Class == Job_Novice) goto L_skillnovice;
+	if(Class == Job_Swordman) goto L_skillsword;
+	if(Class == Job_Mage) goto L_skillmage;
+	if(Class == Job_Archer) goto L_skillarch;
+	if(Class == Job_Acolyte) goto L_skillacoly;
+	if(Class == Job_Merchant) goto L_skillmerc;
+	if(Class == Job_Thief) goto L_skillthief;
+	if(Class == Job_Knight) goto L_skillsword;
+	if(Class == Job_Priest) goto L_skillacoly;
+	if(Class == Job_Wizard) goto L_skillmage;
+	if(Class == Job_Blacksmith) goto L_skillmerc;
+	if(Class == Job_Hunter) goto L_skillarch;
+	if(Class == Job_Assassin) goto L_skillthief;
+	if(Class == Job_Crusader) goto L_skillsword;
+	if(Class == Job_Monk) goto L_skillacoly;
+	if(Class == Job_Sage) goto L_skillmage;
+	if(Class == Job_Rogue) goto L_skillthief;
+	if(Class == Job_Alchem) goto L_skillmerc;
+	if(Class == Job_Bard) goto L_skillarch;
+	if(Class == Job_Dancer) goto L_skillarch;
+	mes @Nome$;
+	mes "Você não tem habilidades para receber.";
+	close;
+L_skillnovice:
+	skill 142,1,0;
+	skill 143,1,0;
+	goto L_ganhaskill;
+L_skillsword:
+	skill 144,1,0;	// recuperar hp em movimento
+	skill 145,1,0;	// ataque fatal
+	skill 146,1,0;	// instinto de sobrevivencia
+	goto L_ganhaskill;
+L_skillmage:
+	skill 157,1,0;	// proteção arcana
+	goto L_ganhaskill;
+L_skillarch:
+	skill 147,1,0;	// fabricar flechas
+	skill 148,1,0;	// disparo violento
+	goto L_ganhaskill;
+L_skillacoly:
+	skill 156,1,0;	// luz divina
+	goto L_ganhaskill;
+L_skillmerc:
+	skill 153,1,0;	// cavalo de pau
+	skill 154,1,0;	// personalizar carrinho
+	skill 155,1,0;	// grito de guerra
+	goto L_ganhaskill;
+L_skillthief:
+	skill 149,1,0;	// chutar areia
+	skill 150,1,0;	// recuar
+	skill 151,1,0;	// procurar pedras
+	skill 152,1,0;	// arremessar pedras
+	goto L_ganhaskill;
+L_ganhaskill:
+	mes @Nome$;
+	mes "Você recebeu suas habilidades!";
+	close;
+L_jatemskill:
+	mes @Nome$;
+	mes "Você já recebeu suas habilidades!";
+	close;
+}

@@ -1,0 +1,189 @@
+//===== Cronus Script ========================================
+//= Quests de Geffen
+//===== Por: =================================================
+//= kobra_k88 & Samuray22
+//===== Versão Atual: ========================================
+//= 1.0a/1.4
+//===== Compatibilidade: =====================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Quest da Máscara de Solda e Fone de Ouvido.
+//===== Comentários Adicional: ===============================
+//= 1.0 Traduzido o NPC. [SoulBlaker]
+//= 1.0a Script revisado. [Minos]
+//============================================================
+
+//==============================================================================================//
+// 					Ferreiro: Quest 'Máscara de Solda'
+//==============================================================================================//
+geffen_in,144,166,4	script	Ferreiro	63,{
+	show "[Ferreiro]";
+	show "Você nunca ouviu falar de mim?";
+	show "Eu sou o ferreiro veterano desta terra." ;
+	show "Já se passaram 30 anos que eu trabalho neste calor, neste calor Infernal!";
+	next;
+	show "[Ferreiro]";
+	show "Mas...";
+	show "Estou ficando velho"; 
+	show "E minhas especialidades começam a desaparecer com a idade."; 
+	show "Então eu inventei algo para os jovens"; 
+	show "Próximos Ferreiros, na esperança de que eles também vão dominar o meu artesanato...";
+	next;
+	switch(select("O que é isso?:...")) {
+	case 1:
+		show "[Ferreiro]";
+		show "Nós Ferreiros, sempre devemos manipular o aço sob o extremo calor"; 
+		show "O ar quente derretendo os metais, é mais do que a maioria das pessoas pode aguentar.";
+		next;
+		show "[Ferreiro]";
+		show "Para o bem do nosso artesanato, a nossa linda face são colocadas em risco...";
+		next;
+		show "[Ferreiro]";
+		show "Mas com esta tecnologia maravilhosa, não há por que se preocupar!";
+		show "Eis então, a ^3355FFMascara de Solda^000000 !!";
+		next;
+		show "[Ferreiro]";
+		show "Ela Funciona atráves do cobrimento do seu rosto com uma face metálica.";
+		show "Na verdade, é um item que todos devem querer!";
+		show "Se não for para você mesmo, ia ser uma boa idéia dar-la de presente para um amigo que está estudando forja!.";
+		next;
+		show "[Ferreiro]";
+		show "Então o que dizer sobre isto? Se me der ^2244FF50 Aços^000000 e ^4422FFsomente 2000 Zenys^000000, irei fazer-la agora mesmo para você~!!";
+		next;
+		switch(select("Hm... Nada mau. Certo.:Como é que funciona mesmo?")) {
+		case 1:
+			if ((countitem(999) > 49) && (Zeny > 1999)){
+				show "[Ferreiro]";
+				show "Ah, vejo que você aprecia o trabalho de um ferreiro! Certo, farei isso imediatamente!!";
+				next;
+				delitem 999,50; //Aço
+				set Zeny,Zeny-2000;
+				additem 2292,1; // Máscara_de_Solda
+				show "[Ferreiro]";
+				show "Hahaha~! Faça um bom uso dela!";
+				close;
+			}
+			else {
+				show "[Ferreiro]";
+				show "Hmmm...";
+				show "Você não tem todos os itens que eu necessito.";
+				next;
+				show "[Ferreiro]";
+				show "Um Ferreiro comum, iria interpretar isto como um sinal de desrespeito mas vou te perdoar";
+				show "Só não se esqueça do que preciso se você quer que eu faça esta máscara.";
+				close;
+			}
+		case 2:
+			show "[Ferreiro]";
+			show "A ^3355FFMascara de Solda^000000 protege o seu rosto crobrindo com uma face metálica.";
+			show "Esta invenção é o resultado de 30 anos de um trabalho interminável no martelo e bigorna.";
+			close;
+		}
+	case 2:
+		show "[Ferreiro]";
+		show "Ah...!";
+		show "Acho que esta é a primeira vez que você conheceu um ferreiro tão grande como eu";
+		show "e você só fala com reverência.";
+		show "Por favor, não perca seu tempo falando comigo, e volte quando estiver pronto.";
+		next;
+		show "^3355FFEste cara parece";
+		show "um pouco cheio";
+		show "de si mesmo.^000000";
+		close;
+	}
+}
+
+//=============================================================================================//
+//					Eric: Quest Fone de Ouvido
+//=============================================================================================//
+geffen_in,30,71,4	script	Eric	83,{
+	show "[Eric]";
+	show "Por favor, ouça";
+	show "a minha história";
+	show "do meu abençoado";
+	show "avô.";
+	next;
+	switch(select("Conversar:Perguntar sobre os itens necessários:Fabricar:Saír")) {
+	case 1:
+		show "[Eric]";
+		show "Meu avô, que faleceu há poucos anos atrás, foi especial para mim.";
+		show "Ele sempre ficava comigo, e tomou conta de mim.";
+		show "Ele era muito melhor que o meu velho, que estava ocupado sempre trabalhando.";
+		next;
+		show "[Eric]";
+		show "Para mim, a biblioteca do meu avô é como uma terra da fantasia para aonde eu pudesse escapar.";
+		show "Passo a maior parte do meu tempo lá.";
+		next;
+		show "[Eric]";
+		show "Aprendi um monte de coisa com seus livros na Biblioteca.";
+		show "Vovô era interessado em Alquimia e Música, e sua biblioteca está cheia com muitos livros antigos e misteriosos.";
+		next;
+		show "[Eric]";
+		show "Um dia...";
+		show "Como de costume, fui para a Biblioteca e descobri um esquema interessante.";
+		next;
+		show "[Eric]";
+		show "Ele mostrou alguns instrumentos que pareciam com um Fone de Ouvido";
+		show "Quando usado sobre sua cabeça, podia transmitir música para os ouvidos ou sussurros através de um fio fino.";
+		next;
+		show "[Eric]";
+		show "Eu acho...";
+		show "É a obra inacabada do meu avô.";
+		show "Conheci alguns alquimistas, que pedi para eles produzirem , mas eles rejeitam a minha oferta...";
+		next;
+		show "[Eric]";
+		show "No final, eu pensei 'eu tenho que fazer isto sozinho'.";
+		show "Então eu pesquisei durante alguns anos, e agora compreendo perfeitamente como fazer isto.";
+		show "Mas, eu nunca poderia reunir os materiais para fazê-lo!";
+		next;
+		show "[Eric]";
+		show "Se eu puder obter esses artigos, eu construia imediatamente.";
+		show "Se você está interessado na minha idéia, poderia trazê-los para mim?";
+		next;
+		show "[Eric]";
+		show "Tudo que eu quero fazer é construir essa coisa em homenagem ao meu avô, e terminar o trabalho que ele começou.";
+		show "Se você pedir-me para fazê-lo, não me importo.";
+		close;
+	case 2:
+		show "[Eric]";
+		show "40 ^3355FFAços^000000";
+		show "1 ^3355FFOridecon^000000";
+		show "1 ^3355FFÁlcool^000000";
+		show "1 ^3355FFCarvão^000000";
+		show "Estas são as coisas que preciso para terminar a obra-prima do meu Avô.";
+		close;
+	case 3:
+		if ((countitem(999) > 39) && (countitem(984) > 0) && (countitem(970) > 0) && (countitem(1003) > 0)) {
+			delitem 999,40; //Aço
+			delitem 984,1; //Oridecon
+			delitem 970,1; //Álcool
+			delitem 1003,1; //Carvão
+			additem 5001,1; //Fone_de_Ouvido
+			show "*Tap! Tap! Tap!*";
+			next;
+			show "[Eric]";
+			show "Obrigado.";
+			show "Por causa de você, eu pude realizar o desejo do meu avô.";
+			show "Ele deve estar feliz se olhou para mim lá do céu.";
+			next;
+			show "[Eric]";
+			show "Como eu já disse, por favor, tome isto.";
+			show "Estou orgulhoso de que só eu posso fazer isto sozinho.";
+			close;
+		}
+		else {
+			show "[Eric]";
+			show "Obrigado por tentar me ajudar, mas você não trouxe todos os itens que eu preciso.";
+			show "Eu acho que você vai encontrá-los em breve.";
+			close;
+		}
+	case 4:
+		show "[Eric]";
+		show "N-não?";
+		show "Bem...";
+		show "Você tem suas próprias";
+		show "inquietações, suponho .";
+		show "Até mais.";
+		close;
+	}
+}

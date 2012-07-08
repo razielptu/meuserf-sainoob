@@ -1,0 +1,1764 @@
+//=====================================================================================================
+//= A Torre sem Fim
+//==== Créditos =======================================================================================
+//= LimitLine
+//= Orcao   (Instancing Source Mod)
+//= Saithis (Memorial Dungeon Window, General Coordinates)
+//= Cephiyo (Ferreiro Ancião, e Mob Spawns)
+//= Jobbie  (Capitão Janssen)
+//==== Versão ========================================================================================
+//= 1.8c
+//==== Compatível com ================================================================================
+//= Cronus SVN
+//==== Descrição =====================================================================================
+//= Instanced Endless Tower Script supporting up to 127 instances and with Memorial Dungeon Window
+//= 127 instances because progress data is stored in a single array, which supports up to 127 indexes.
+//= Used Vars:
+//= $ET_Cooldown                    --> Cooldown Time after registering to participate again.
+//= $ET_Minlevel                    --> Minimum Level to participate.
+//= $ET_Minparty                    --> Minimum party members to participate.
+//= $ET_AshID                       --> ID of the Dark Ash item in your server. Default = 6000
+//= $ET_Cooldown_Msg$               --> Text to be displayed if a party member's cooldown isn't over.
+//= $ET_Warp_X_#                    --> Arrays with coordinates for many things. DO NOT CHANGE!
+//= $ET_Instances[1-X]              --> Array with participating parties ID.
+//= $ET_Instances[0]                --> Amount of instances in progress.
+//= $ET_Mobs[1-X]                   --> Remaining mobs on each floor.
+//= $ET_Floor[1-X]                  --> Current Floor the party is in.
+//= $ET_GM			    --> Minimum GM Level -> Set this to the minimum GM level of your server
+//==== TODO ==========================================================================================
+//= Add quest log entries for it.
+//==== Changelog =====================================================================================
+//= 1.0  First version. [LimitLine]
+//= 1.1  Bug fixes, official dialogues to a few NPCs, etc [LimitLine]
+//= 1.2  More bug fixes, and addition of GMCP [LimitLine]
+//= 1.3  Fixed small typo, added Official Capitão Janssen [LimitLine] (Script by Saithis)
+//= 1.4  Fixed a bug on the last floor and fixed the deleteinstance bug (I hope) [LimitLine]
+//= 1.5  Fixed many, many things. This version should be bugfree, and a few little features here and there have been added too :) [LimitLine]
+//= 1.6  Removed portuguese version leftovers :) (Thanks to Saithis for pointing them out) [LimitLine]
+//= 1.7	 Fix typo portuguese dialogue and changed to official menu dialogue in line 1478. [Jobbie]
+//=	 Corrected and Implemented all officially dialogues of Capitão Janssen. [Jobbie]
+//= 1.7b Fix typo on line 1384 [Jobbie]
+//= 1.8  Fixed bugs [LimitLine]
+//= 1.8a Traduzido [RoM]
+//= 1.8b Revisado [Asus]
+//= 1.8c Corrigido erros com os ID's dos monstros e mudada a configuração de acordo com o bRO. [RoM]
+//=====================================================================================================
+
+// = Settings - Modify them as you feel you should =
+// ====================================================================================================
+-	script	ET_Settings	-1,{
+OnInit:
+	set $ET_Cooldown,7*24*60*60;
+	set $ET_Minlevel,50;
+	set $ET_Minparty,2;
+	set $ET_AshID,6000;
+	set $ET_GM,60;
+	set $ET_Cooldown_Msg$,"na última semana.";
+	setarray $ET_Warp_X[0],50,134,222,308,392,100,31;
+	setarray $ET_Warp_Y[0],355,271,183,99,13,73,12;
+	//setarray $ET_Mobs_X_1[0],8,92,180,266,350;
+	//setarray $ET_Mobs_Y_1[0],350,266,178, 94,8;
+	//setarray $ET_Mobs_X_2[0],19,103,191,277,361;
+	//setarray $ET_Mobs_Y_2[0],390,306,218,134,48;
+	set .@i,0;
+	while(.@i <= 127){
+		set $ET_Instances[.@i],0;
+		set .@i,.@i+1;
+	}
+	while(.@i <= 127){
+		set $ET_Mobs[.@i],0;
+		set .@i,.@i+1;
+	}
+	while(.@i <= 127){
+		set $ET_Floor[.@i],0;
+		set .@i,.@i+1;
+	}
+	set .@i,1;
+	end;
+}
+
+// = ET_Clean - Do not modify this, or you might get unwanted results =
+// ====================================================================================================
+function	script	ET_Clean	{
+	getpartymember($ET_Instances[getarg(0)]);
+	for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+		if (isloggedin(getcharid(3,$@partymembername$[$@k]))){
+			attachrid(getcharid(3,$@partymembername$[$@k]));
+			setinstance (4,3);
+			getquest 12002,0,0;
+			if(hasquest(12000)) deletequest 12000;
+			if(hasquest(12001)) deletequest 12001;
+		}
+	}
+	set $ET_Mobs[getarg(0)],0;
+	set $ET_Floor[getarg(0)],0;
+	set $ET_Instances[getarg(0)],0;
+	set $ET_Instances[0],$ET_Instances[0]-1;
+	mapwarp getarg(0)+"#1@tower","alberta",241,67;
+	mapwarp getarg(0)+"#2@tower","alberta",241,67;
+	mapwarp getarg(0)+"#3@tower","alberta",241,67;
+	mapwarp getarg(0)+"#4@tower","alberta",241,67;
+	mapwarp getarg(0)+"#5@tower","alberta",241,67;
+	mapwarp getarg(0)+"#6@tower","alberta",241,67;
+	killmonsterall getarg(0)+"#1@tower";
+	removenpcsfrommap getarg(0)+"#1@tower";
+	deleteinstance getarg(0)+"#1@tower";
+	killmonsterall getarg(0)+"#2@tower";
+	removenpcsfrommap getarg(0)+"#2@tower";
+	deleteinstance getarg(0)+"#2@tower";
+	killmonsterall getarg(0)+"#3@tower";
+	removenpcsfrommap getarg(0)+"#3@tower";
+	deleteinstance getarg(0)+"#3@tower";
+	killmonsterall getarg(0)+"#4@tower";
+	removenpcsfrommap getarg(0)+"#4@tower";
+	deleteinstance getarg(0)+"#4@tower";
+	killmonsterall getarg(0)+"#5@tower";
+	removenpcsfrommap getarg(0)+"#5@tower";
+	deleteinstance getarg(0)+"#5@tower";
+	killmonsterall getarg(0)+"#6@tower";
+	removenpcsfrommap getarg(0)+"#6@tower";
+	deleteinstance getarg(0)+"#6@tower";
+	end;
+}
+
+// = ET_Manager - Many general functions regarding the Endless Tower - Controls the instance =
+// ====================================================================================================
+1@tower,1,1,1	script	ET_Manager	-1,{
+
+OnWhisperGlobal:
+	if(getgmlevel() < $ET_GM) end;
+	set @i,atoi(strnpcinfo(2));
+	mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+	mes "Olá "+strcharinfo(0)+",";
+	mes "Como posso ajudá-lo?";
+	next;
+	switch(select("Setar o andar atual:Deletar/Resetar a Instância:Informações:Cancelar")){
+		case 1:
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Digite o andar para ser setado.";
+		input @j;
+		if(@j == 0 || @j > 101) close; // 101 - Last Floor aka Naght Sieger. No floor 102...
+		next;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Setar o andar para ^FFAA00"+@j+"^000000.";
+		next;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Está certo disso?";
+		next;
+		if(select("Sim:Cancelar") == 2) close;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Quando fechar esta janela o andar será setado para ^FFAA00"+@j+"^000000.";
+		close2;
+		set @k,1;
+		while(@k <= @j){ enablenpc "ETwarp_"+@k+"#"+@i; set @k,@k+1; }
+		set @l,1;
+		while(@l <= 6){ killmonsterall @i+"#"+@l+"@tower"; set @l,@l+1; }
+		donpcevent "ET_Mobs#"+@i+"::OnRoom"+@j;
+		set $ET_Floor[@i],@j;
+		end;
+
+		case 2:
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Está ^0000FFCERTO^000000 disso?";
+		next;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Se continuar, você irá ^FFAA00deletar a instância, teletransportar todo mundo, como se o tempo chegasse a 0^000000";
+		next;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Continuar?";
+		next;
+		if(select("Sim:Cancelar") == 2) close;
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Quando fechar esta janela a instância será deletada.";
+		close2;
+		set .@i,atoi(strnpcinfo(2));
+		donpcevent "ET_Manager#"+.@i+"::OnReset";
+		end;
+
+		case 3:
+		mes "[Gerente - Instância ^FF0000"+@i+"^000000";
+		mes "Número da Instância: ^FFAA00"+@i+"^000000";
+		mes "Nome do Grupo:       ^FFAA00"+getpartyname($ET_Instances[@i])+"^000000";
+		mes "Líder do Grupo:      ^FFAA00"+getpartyleader($ET_Instances[@i])+"^000000";
+		mes "Andar Atual:         ^FFAA00"+$ET_Floor[@i]+"^000000";
+		mes "Monstros Restantes:  ^FFAA00"+$ET_Mobs[@i]+"^000000";
+		close;
+
+		case 4:
+		close;
+	}
+	end;
+
+OnStart:
+	set .@i,atoi(strnpcinfo(2));
+	donpcevent "ET_Manager#"+.@i+"::OnSpawn1";
+	end;
+
+OnNaghtDead:
+	set .@i,atoi(strnpcinfo(2));
+	enablenpc "Ferreiro Ancião#"+.@i;
+	mapannounce .@i+"#6@tower","Naght Sieger: Não..... Como isto é possível......",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#6@tower","Naght Sieger: Seus humanos imprudentes, olhem para o que vocês fizeram......",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#6@tower","Naght Sieger: Eu sou Naght Sieger, rei dos demônios, imperador da destruição......",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#6@tower","Naght Sieger: Nãooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!",bc_map,0xFF0000;
+	sleep 9999;
+	mapannounce .@i+"#6@tower","O Calabouço Memorial será deletado em 30 segundos!",bc_blue | bc_map;
+	sleep 29999;
+	donpcevent "ET_Manager#"+.@i+"::OnReset";
+	end;
+
+OnMobDead:
+	set .@i,atoi(strnpcinfo(2));
+	set $ET_Mobs[.@i],$ET_Mobs[.@i]-1;
+	for(set .@k,1; .@k <= 6; set .@k,.@k+1) mapannounce .@i+"#"+.@k+"@tower","Monstros restantes no "+$ET_Floor[.@i]+"º Andar: "+$ET_Mobs[.@i],bc_map,0x00FF00;
+	if($ET_Mobs[.@i] == 0){
+		if($ET_Floor[.@i] == 25 || $ET_Floor[.@i] == 50 || $ET_Floor[.@i] == 75){
+			getpartymember($ET_Instances[.@i]);
+			for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+				if (isloggedin(getcharid(3,$@partymembername$[$@k]))){
+					attachrid(getcharid(3,$@partymembername$[$@k]));
+					getitem 6000,1;
+				}
+			}
+		}
+		enablenpc "ETwarp_"+$ET_Floor[.@i]+"#"+.@i;
+		set $ET_Floor[.@i],$ET_Floor[.@i]+1;
+		donpcevent "ET_Mobs#"+.@i+"::OnRoom"+$ET_Floor[.@i];
+		for(set .@k,1; .@k <= 6; set .@k,.@k+1) mapannounce .@i+"#"+.@k+"@tower","Andar limpo. Próximo Andar: "+$ET_Floor[.@i],bc_map;
+	}
+	end;
+
+OnReset:
+	set .@i,atoi(strnpcinfo(2));
+	callfunc "ET_Clean",.@i;
+	end;
+}
+
+// = ET_Check - Checks every 5 minutes if the map is empty; if it is, it resets the instance =
+// ====================================================================================================
+1@tower,1,1,1	script	ET_Check	-1,{
+	end;
+
+OnTimer300000:
+	set .@i,atoi(strnpcinfo(2));
+	if(getmapusers(.@i+"#1@tower") == 0 && getmapusers (.@i+"#2@tower") == 0 && getmapusers (.@i+"#3@tower") == 0 && getmapusers (.@i+"#4@tower") == 0 && getmapusers (.@i+"#5@tower") == 0 && getmapusers (.@i+"#6@tower") == 0){
+		stopnpctimer;
+		getpartymember($ET_Instances[.@i]);
+		for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+			if (isloggedin(getcharid(3,$@partymembername$[$@k]))){
+				attachrid(getcharid(3,$@partymembername$[$@k]));
+				setinstance (4,2);
+			}
+		}
+		donpcevent "ET_Manager#"+.@i+"::OnReset";
+	}
+	startnpctimer;
+	end;
+}
+
+// = ET_Timer - Has all the timers functions. Reminder: You have 4 hours to finish the Endless Tower =
+// ====================================================================================================
+1@tower,1,1,1	script	ET_Timer	-1,{
+	end;
+
+OnTimer13800000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@tower","10 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#2@tower","10 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#3@tower","10 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#4@tower","10 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#5@tower","10 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#6@tower","10 Minutos Restantes",bc_map | bc_blue;
+	end;
+
+OnTimer14100000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@tower","5 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#2@tower","5 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#3@tower","5 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#4@tower","5 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#5@tower","5 Minutos Restantes",bc_map | bc_blue;
+	mapannounce .@i+"#6@tower","5 Minutos Restantes",bc_map | bc_blue;
+	end;
+
+OnTimer14400000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@tower","O Tempo Acabou",bc_map | bc_blue;
+	mapannounce .@i+"#2@tower","O Tempo Acabou",bc_map | bc_blue;
+	mapannounce .@i+"#3@tower","O Tempo Acabou",bc_map | bc_blue;
+	mapannounce .@i+"#4@tower","O Tempo Acabou",bc_map | bc_blue;
+	mapannounce .@i+"#5@tower","O Tempo Acabou",bc_map | bc_blue;
+	mapannounce .@i+"#6@tower","O Tempo Acabou",bc_map | bc_blue;
+	sleep2 5000;
+	donpcevent "ET_Manager#"+.@i+"::OnReset";
+	end;
+}
+
+// = ET_Mobs - Spawns the given mobs for the corresponding floor - By Cephiyo =
+// ====================================================================================================
+1@tower,1,1,1	script	ET_Mobs	-1,{
+OnRoom1:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],36;
+	areamonster .@i+"#1@tower",7,349,37,393,"Poring",1002,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,349,37,393,"Mastering",1090,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,349,37,393,"Drops",1113,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,349,37,393,"Poporing",1031,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,349,37,393,"Marin",1242,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,349,37,393,"Metaling",1613,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom2:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],31;
+	areamonster .@i+"#1@tower",91,349,121,393,"Filhote de Lobo do Deserto",1107,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,349,121,393,"Lobo do Deserto",1106,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,349,121,393,"Lobo Errante",1092,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom3:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],30;
+	areamonster .@i+"#1@tower",179,349,209,393,"Esqueleto",1076,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,349,209,393,"Esqueleto Pirata",1071,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,349,209,393,"Esqueleto Soldado",1028,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,349,209,393,"Esqueleto Operário",1169,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,349,209,393,"Archer Esqueleto",1016,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,349,209,393,"Orc Esqueleto",1152,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom4:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],36;
+	areamonster .@i+"#1@tower",265,349,295,393,"Zangão",1004,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,349,295,393,"Rocker",1052,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,349,295,393,"Vocal",1088,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,349,295,393,"Argos",1100,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,349,295,393,"Argiope",1099,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,349,295,393,"Louva-a-Deus",1139,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom5:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],51;
+	areamonster .@i+"#1@tower",349,349,379,393,"Ovo de Besouro Ladrão",1048,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,349,379,393,"Besouro Ladrão",1051,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,349,379,393,"Besouro Ladrão Fêmea",1053,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,349,379,393,"Besouro Ladrão Macho",1054,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,349,379,393,"Besouro Ladrão Dourado",1086,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom6:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],20;
+	areamonster .@i+"#1@tower",7,265,37,309,"Pupa",1008,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,265,37,309,"Ovo de PecoPeco",1047,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,265,37,309,"Ovo de Besouro Ladrão",1048,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,265,37,309,"Ovo de Dragão",1721,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom7:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#1@tower",91,265,121,309,"Familiar",1005,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,265,121,309,"Drainliar",1111,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,265,121,309,"Estrondo",1383,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,265,121,309,"Anopheles",1627,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom8:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],30;
+	areamonster .@i+"#1@tower",179,265,209,309,"Soldadinho de Chumbo",1248,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,265,209,309,"Soldado Atirador",1403,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom9:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",265,265,295,309,"Stapo",1784,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,265,295,309,"Golem",1040,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,265,295,309,"Obsidiana",1615,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom10:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],46;
+	areamonster .@i+"#1@tower",349,265,379,309,"Zangão",1004,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,265,379,309,"Zangão Gigante",1303,25,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,265,379,309,"Abelha-Rainha",1059,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom11:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#1@tower",7,177,37,221,"Rafflesia",1162,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,177,37,221,"Hermitão Maligno",1413,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,177,37,221,"Parasita",1500,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,177,37,221,"Dríade",1493,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom12:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#1@tower",91,177,121,221,"Punk",1199,25,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,177,121,221,"Pungus",1378,25,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom13:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",179,177,209,221,"Munak",1026,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,177,209,221,"Bongun",1188,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,177,209,221,"Hyegun",1512,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom14:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#1@tower",265,177,295,221,"Orc Guerreiro",1023,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,177,295,221,"Orc Arqueiro",1189,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,177,295,221,"Grand Orc",1213,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,177,295,221,"Senhora Orc",1273,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,177,295,221,"Orc Bebê",1686,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom15:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],52;
+	areamonster .@i+"#1@tower",349,177,379,221,"Ovo de Andre",1097,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,177,379,221,"Andre",1095,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,177,379,221,"Piere",1160,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,177,379,221,"Deniro",1105,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,177,379,221,"Freoni",1159,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,177,379,221,"Maya",1147,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom16:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",7,94,37,137,"Orc Arqueiro",1189,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,94,37,137,"Raydric Arqueiro",1453,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,94,37,137,"Gárgola",1253,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,94,37,137,"Esqueleto Arqueiro",1016,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom17:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",91,94,121,137,"Vento da Colina",1629,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,94,121,137,"Strouf",1065,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,94,121,137,"Tritão",1264,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,94,121,137,"Bafomé Jr.",1101,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom18:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",179,94,209,137,"Tarou",1175,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,94,209,137,"Cãibra",1209,25,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom19:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#1@tower",265,94,295,137,"Deviace",1108,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,94,295,137,"Megalodon",1064,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,94,295,137,"Fen",1158,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,94,295,137,"Peixe-Espada",1069,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom20:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],51;
+	areamonster .@i+"#1@tower",349,94,379,137,"Esqueleto Pirata",1071,50,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,94,379,137,"Drake",1112,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom21:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],35;
+	areamonster .@i+"#1@tower",7,7,37,51,"Plasma",1693,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,7,37,51,"Plasma",1694,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,7,37,51,"Plasma",1695,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,7,37,51,"Plasma",1696,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",7,7,37,51,"Plasma",1697,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom22:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],90;
+	areamonster .@i+"#1@tower",91,7,121,51,"Mandragora",1020,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,7,121,51,"Hidra",1068,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,7,121,51,"Flora",1118,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,7,121,51,"Muscipular",1780,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,7,121,51,"Drosera",1781,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",91,7,121,51,"Rafflesia",1162,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom23:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#1@tower",179,7,209,51,"Peixe-Espada",1069,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,7,209,51,"Obeaune",1044,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,7,209,51,"Penomena",1216,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,7,209,51,"Marte",1144,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",179,7,209,51,"Hidra ",1068,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom24:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#1@tower",265,7,295,51,"Jakk",1130,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,7,295,51,"Carat",1267,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",265,7,295,51,"Coringa",1131,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom25:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],31;
+	areamonster .@i+"#1@tower",349,7,379,51,"Nove Caudas",1180,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,7,379,51,"Gato de Nove Caudas",1307,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#1@tower",349,7,379,51,"Flor do Luar",1150,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom26:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#2@tower",7,349,37,393,"Salgueiro Ancião",1033,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,349,37,393,"Atirador de Pedras",1495,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,349,37,393,"Golem de Madeira",1497,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,349,37,393,"Pessegueira Encantada",1550,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,349,37,393,"Árvore Maldita",1503,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom27:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin Arqueiro",1258,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin",1122,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin",1124,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin",1123,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin",1125,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,349,121,393,"Goblin",1126,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom28:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],70;
+	areamonster .@i+"#2@tower",179,349,209,393,"Kukre",1070,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,349,209,393,"Peste",1256,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,349,209,393,"Arclouse",1194,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,349,209,393,"Nereida",1255,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom29:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",265,349,295,393,"Hylozoist",1510,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,349,295,393,"Papel",1375,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,349,295,393,"Moldura Maldita",1260,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,349,295,393,"Sussurro",1179,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,349,295,393,"Lude",1509,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,349,295,393,"Quve",1508,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom30:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],31;
+	areamonster .@i+"#2@tower",349,349,379,393,"Ninfa Perversa",1416,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,349,379,393,"Dama de Branco",1630,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom31:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",7,265,37,309,"Escorpião",1001,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,265,37,309,"Mão de Ferro",1212,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,265,37,309,"Ferrão",1387,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,265,37,309,"Argiope",1099,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom32:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],41;
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin Arqueiro",1258,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin",1122,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin",1124,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin",1123,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin",1125,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Goblin",1126,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,265,121,309,"Líder Goblin",1299,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom33:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],46;
+	areamonster .@i+"#2@tower",179,265,209,309,"Kobold Arqueiro",1282,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,265,209,309,"Kobold",1133,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,265,209,309,"Kobold",1134,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,265,209,309,"Kobold",1135,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,265,209,309,"Líder Kobold",1296,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom34:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#2@tower",265,265,295,309,"Sussurro",1179,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,265,295,309,"Cochicho",1186,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,265,295,309,"Crânio Flamejante",1869,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom35:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],51;
+	areamonster .@i+"#2@tower",349,265,379,309,"Batedor",1314,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,265,379,309,"Congelador",1319,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,265,379,309,"Aquecedor",1318,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,265,379,309,"Soldado",1316,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,265,379,309,"Batedor",1314,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,265,379,309,"General Tartaruga",1312,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom36:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",7,177,37,221,"Alligator",1271,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,177,37,221,"Grove",1687,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,177,37,221,"Anolian",1206,30,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom37:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",91,177,121,221,"Alarme",1193,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,177,121,221,"Relógio",1269,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,177,121,221,"Gerente",1270,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom38:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",179,177,209,221,"Rideword",1195,25,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,177,209,221,"Deathword",1698,25,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom39:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#2@tower",265,177,295,221,"Zhu Po Long",1514,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,177,295,221,"Mao Guai",1513,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,177,295,221,"Ninfa Perversa",1416,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,177,295,221,"Jing Guai",1517,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,177,295,221,"Ermitão Maligno",1412,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom40:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],41;
+	areamonster .@i+"#2@tower",349,177,379,221,"Samurai Encantado",1492,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,177,379,221,"Boneco de Miyabi",1404,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,177,379,221,"Shinobi",1401,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,177,379,221,"Tengu",1405,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,177,379,221,"Karakasa",1400,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,177,379,221,"Soldado Atirador",1403,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom41:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",7,94,37,137,"Kraben",1587,50,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom42:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",91,94,121,137,"Hode",1127,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,94,121,137,"Arenoso",1165,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,94,121,137,"Sting",1207,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,94,121,137,"Rochoso",1386,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,94,121,137,"Mi Gao",1516,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom43:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#2@tower",179,94,209,137,"Jibóia",1025,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,94,209,137,"Anaconda",1030,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,94,209,137,"Sorrateiro",1037,40,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,94,209,137,"Medusa",1148,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom44:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],61;
+	areamonster .@i+"#2@tower",265,94,295,137,"Bebê selvagem",1167,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,94,295,137,"Filhote de Lobo do Deserto",1107,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,94,295,137,"Filhote de Hatii",1515,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,94,295,137,"Bafomé Jr.",1101,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,94,295,137,"Bebê Orc",1686,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom45:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],46;
+	areamonster .@i+"#2@tower",349,94,379,137,"Verit",1032,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,94,379,137,"Isis",1029,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,94,379,137,"Múmia Anciã",1297,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,94,379,137,"Osiris",1038,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom46:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#2@tower",7,7,37,51,"Beholder",1633,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",7,7,37,51,"Rastreador",1774,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom47:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#2@tower",91,7,121,51,"Petite Terrestre",1155,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,7,121,51,"Petite Voador",1156,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,7,121,51,"Exterminador Terrestre",1384,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",91,7,121,51,"Exterminador Voador",1385,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom48:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],30;
+	areamonster .@i+"#2@tower",179,7,209,51,"Múmia Anciã",1297,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,7,209,51,"Mímico Ancião",1699,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",179,7,209,51,"Verme Ancião",1305,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom49:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],42;
+	areamonster .@i+"#2@tower",265,7,295,51,"Grizzly",1381,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,7,295,51,"Leib Olmai",1306,7,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,7,295,51,"Pé Grande",1060,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,7,295,51,"Sasquatch",1243,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",265,7,295,51,"Zipper",1417,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom50:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],32;
+	areamonster .@i+"#2@tower",349,7,379,51,"Matyr",1146,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,7,379,51,"Anubis",1098,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,7,379,51,"Marduk",1140,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,7,379,51,"Amon Ra",1511,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#2@tower",349,7,379,51,"Faraó",1157,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom51:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#3@tower",7,349,37,393,"Deviruchi",1109,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,349,37,393,"Diabolik",1382,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,349,37,393,"Diabinho",1292,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom52:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#3@tower",91,349,121,393,"Vento da Colina",1680,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,349,121,393,"Gárgula",1253,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,349,121,393,"Harpia",1376,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,349,121,393,"Grand Peco",1369,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,349,121,393,"Borboleta Sanguinária",1408,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,349,121,393,"Vento da Colina",1629,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom53:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],55;
+	areamonster .@i+"#3@tower",179,349,209,393,"Shinobi",1401,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,349,209,393,"Agressor",1315,25,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom54:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],30;
+	areamonster .@i+"#3@tower",265,349,295,393,"Marionete",1143,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,349,295,393,"Chepet",1250,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,349,295,393,"Boneco de Miyabi",1404,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom55:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],56;
+	areamonster .@i+"#3@tower",349,349,379,393,"Serpente Suprema",1418,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,349,379,393,"Medusa",1148,25,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,349,379,393,"Ísis",1029,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,349,379,393,"Sorrateiro",1037,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom56:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],55;
+	areamonster .@i+"#3@tower",7,265,37,309,"Gazeti",1778,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,265,37,309,"Titã de Gelo",1777,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,265,37,309,"Congelador",1319,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,265,37,309,"Filhote de Hatii",1515,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,265,37,309,"Yeti",1775,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom57:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#3@tower",91,265,121,309,"Marin",1242,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Mastering",1090,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Drops",1113,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Poporing",1031,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Ghostring",1120,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Angeling",1096,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Metaling",1613,25,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"Deviling",1582,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,265,121,309,"ArchAngeling",1388,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom58:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#3@tower",179,265,209,309,"Esqueleto Prisioneiro",1196,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,265,209,309,"Rybio",1201,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,265,209,309,"Fendark",1202,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,265,209,309,"Injustiçado",1257,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,265,209,309,"Zumbi Prisioneiro",1197,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom59:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#3@tower",265,265,295,309,"Presente",1249,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,265,295,309,"Mímico",1191,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,265,295,309,"Mímico Antigo",1699,30,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom60:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],62;
+	areamonster .@i+"#3@tower",349,265,379,309,"Egnigem Cenia",1652,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Errende Ebecee",1655,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Kavach Icarus",1656,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Laurell Weinder",1657,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Wickebine Tres",1653,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Armeyer Dinze",1654,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Doppelganger",1046,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,265,379,309,"Egnigem Cenia",1658,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom61:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#3@tower",7,177,37,221,"Vanberk",1771,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,177,37,221,"Yakuza",1313,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,177,37,221,"Isilla",1772,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,177,37,221,"Echio",1770,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,177,37,221,"Agav",1769,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,177,37,221,"Pasana",1154,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom62:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],35;
+	areamonster .@i+"#3@tower",91,177,121,221,"Andarilho",1208,35,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom63:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#3@tower",179,177,209,221,"Zumbi",1015,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,177,209,221,"Orc Zumbi",1153,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,177,209,221,"Zumbie Prisioneiro",1197,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,177,209,221,"Zumbi Dilacerado",1865,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,177,209,221,"Zumbie Mestre",1298,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom64:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#3@tower",265,177,295,221,"Zangão Gigante",1303,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,177,295,221,"Ungoliant",1618,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,177,295,221,"Verme Ancião",1305,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,177,295,221,"Lagarta",1300,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,177,295,221,"Creamy Ameaçador",1293,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,177,295,221,"Mantis Assassino",1294,2,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom65:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],21;
+	areamonster .@i+"#3@tower",349,177,379,221,"Galion",1783,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,177,379,221,"Atroce",1785,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom66:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#3@tower",7,94,37,137,"Injustiçado",1257,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,94,37,137,"Incubus",1374,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,94,37,137,"Aliot",1736,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom67:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#3@tower",91,94,121,137,"Exterminador Terrestre",1385,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,94,121,137,"Exterminador Voador",1384,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,94,121,137,"Acidus",1716,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,94,121,137,"Acidus",1713,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,94,121,137,"Dragão Mutante",1262,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom68:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],48;
+	areamonster .@i+"#3@tower",179,94,209,137,"Golem Estalactítico",1278,18,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,94,209,137,"Golem de Lava",1366,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,94,209,137,"Titã de Gelo",1777,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,94,209,137,"Golem",1040,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,94,209,137,"Golem de Madeira",1497,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom69:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#3@tower",265,94,295,137,"Anjo Fajuto",1371,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,94,295,137,"Lady Solace",1703,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,94,295,137,"Baroness of Retribution",1702,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,94,295,137,"Mistress of Shelter",1701,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,94,295,137,"Dama de Guarda",1700,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom70:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],22;
+	areamonster .@i+"#3@tower",349,94,379,137,"Orc Herói",1087,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,94,379,137,"Senhor dos Orcs",1190,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,94,379,137,"Bebê Orc",1686,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom71:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],65;
+	areamonster .@i+"#3@tower",7,7,37,51,"Incubus",1374,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,7,37,51,"Pesadelo Noturno",1379,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,7,37,51,"Succubus",1370,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",7,7,37,51,"Pesadelo",1061,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom72:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#3@tower",91,7,121,51,"Pessegueira Encantada",1410,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,7,121,51,"Errende Ebecee",1655,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,7,121,51,"Batedor",1314,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",91,7,121,51,"Margaretha Sorin",1637,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom73:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#3@tower",179,7,209,51,"Alice",1275,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,7,209,51,"Loli Ruri",1505,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,7,209,51,"Jirtas",1200,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,7,209,51,"Succubus",1370,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,7,209,51,"Aliza",1737,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",179,7,209,51,"Chung E",1631,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom74:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],54;
+	areamonster .@i+"#3@tower",265,7,295,51,"Venatu",1676,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Venatu",1677,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Venatu",1678,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Venatu",1679,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Dimik",1670,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Dimik",1671,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Dimik",1672,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Dimik",1673,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",265,7,295,51,"Archdam",1668,6,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom75:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],32;
+	areamonster .@i+"#3@tower",349,7,379,51,"Bafomé Jr",1101,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,7,379,51,"Ilusão das Trevas",1302,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,7,379,51,"Senhor das Trevas",1272,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#3@tower",349,7,379,51,"Bafomé",1039,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom76:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#4@tower",7,349,37,393,"Pesadelo Noturno",1379,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,349,37,393,"Pesadelo",1061,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,349,37,393,"Cavaleiro do Abismo",1219,30,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom77:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],70;
+	areamonster .@i+"#4@tower",91,349,121,393,"Druida Maligno",1117,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,349,121,393,"Aparição",1291,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,349,121,393,"Banshee",1867,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,349,121,393,"Alma Penada",1192,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,349,121,393,"Xamã do Vento",1263,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom78:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#4@tower",179,349,209,393,"Raydric",1163,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,349,209,393,"Cavaleiro do Abismo",1219,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,349,209,393,"Cavaleiro Sanguinário",1268,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,349,209,393,"Duhallan",1504,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,349,209,393,"Espadachim Guardião",1829,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom79:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#4@tower",265,349,295,393,"Hydro",1720,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,349,295,393,"Ferus",1714,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,349,295,393,"Ferus",1717,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,349,295,393,"Exterminador Voador",1385,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,349,295,393,"Petite Voador",1155,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom80:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],16;
+	areamonster .@i+"#4@tower",349,349,379,393,"Necromancer",1870,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,349,379,393,"Bispo Decadente",1871,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+
+OnRoom81:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#4@tower",7,265,37,309,"Mysteltainn",1203,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,265,37,309,"Tirfing",1204,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,265,37,309,"Executor",1205,20,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom82:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#4@tower",91,265,121,309,"Cavaleiro Sanguinário",1268,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,265,121,309,"Agav",1769,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,265,121,309,"Serial Killer",1507,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,265,121,309,"Skogul",1752,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,265,121,309,"Injustiçado",1257,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom83:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#4@tower",179,265,209,309,"Grifo",1259,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,265,209,309,"Quimera",1283,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,265,209,309,"Skeggiold",1754,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,265,209,309,"Skeggiold",1755,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,265,209,309,"Ilusão das Trevas",1302,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom84:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],70;
+	areamonster .@i+"#4@tower",265,265,295,309,"Ilusão das Trevas",1302,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,265,295,309,"Duque Coruja",1320,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,265,295,309,"Barão Coruja",1295,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,265,295,309,"Succubus",1370,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,265,295,309,"Incubus",1374,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,265,295,309,"Incubus",1374,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom85:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],1;
+	areamonster .@i+"#4@tower",349,265,379,309,"Ifrit",1832,1,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom86:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],40;
+	areamonster .@i+"#4@tower",7,177,37,221,"Hydro",1720,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,177,37,221,"Grifo",1259,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,177,37,221,"Quimera",1283,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,177,37,221,"Majorous",1310,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom87:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#4@tower",91,177,121,221,"Salamandra",1831,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,177,121,221,"Kasa",1833,20,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,177,121,221,"Golem de Lava",1366,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,177,121,221,"Gajomart",1309,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom88:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],60;
+	areamonster .@i+"#4@tower",179,177,209,221,"Necromancer",1870,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,177,209,221,"Anubis",1098,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,177,209,221,"Aparição",1291,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,177,209,221,"Múmia Anciã",1297,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,177,209,221,"Khalitzburg",1132,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom89:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],24;
+	areamonster .@i+"#4@tower",265,177,295,221,"Odium",1704,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,177,295,221,"Despero",1705,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,177,295,221,"Maero",1706,6,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,177,295,221,"Dolor",1707,6,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom90:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],31;
+	areamonster .@i+"#4@tower",349,177,379,221,"Valquíria Randgris",1751,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,177,379,221,"Baroness of Retribution",1702,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,177,379,221,"Lady Solace",1703,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,177,379,221,"Anjo Fajuto",1371,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom91:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],50;
+	areamonster .@i+"#4@tower",7,94,37,137,"Kavach Icarus",1656,30,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,94,37,137,"Cecil Damon",1638,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,94,37,137,"Arqueiro Guardião",1830,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom92:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],55;
+	areamonster .@i+"#4@tower",91,94,121,137,"Ancião",1377,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,94,121,137,"Xamã do Vento",1263,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,94,121,137,"Kathryne Keyron",1639,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,94,121,137,"Laurell Weinder",1657,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,94,121,137,"Marduk",1140,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom93:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],45;
+	areamonster .@i+"#4@tower",179,94,209,137,"Seyren Windsor",1634,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,94,209,137,"Cavaleiro Sanguinário",1268,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,94,209,137,"Cavaleiro do Abismo",1219,10,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,94,209,137,"Andarilho",1208,10,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom94:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],30;
+	areamonster .@i+"#4@tower",265,94,295,137,"Espadachim Guardião",1829,15,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,94,295,137,"Arqueiro Guardião",1830,15,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom95:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],46;
+	areamonster .@i+"#4@tower",349,94,379,137,"Belzebu",1873,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,94,379,137,"Libélula",1091,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,94,379,137,"ChonChon de Aço",1042,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,94,379,137,"ChonChon",1011,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",349,94,379,137,"Mosca Caçadora",1035,30,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom96:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],15;
+	areamonster .@i+"#4@tower",7,7,37,51,"Valquíria",1765,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,7,37,51,"Skeggiold",1754,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",7,7,37,51,"Skeggiold",1755,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom97:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],20;
+	areamonster .@i+"#4@tower",91,7,121,51,"Sombra da Vaidade",1920,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,7,121,51,"Sombra da Gula",1919,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,7,121,51,"Sombra da Inveja",1918,5,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",91,7,121,51,"Sombra da Ira",1921,5,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom98:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],12;
+	areamonster .@i+"#4@tower",179,7,209,51,"Seyren Windsor",1634,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,7,209,51,"Eremes Guile",1635,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,7,209,51,"Howard Alt-Eisen",1636,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,7,209,51,"Margaretha Sorin",1637,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,7,209,51,"Cecil Damon",1638,2,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",179,7,209,51,"Kathryne Keyron",1639,2,"ET_Manager#"+.@i+"::OnMobDead";
+	end;
+
+OnRoom99:
+	setarray $@mobs99[1],1639,1634,1637,1635,1636,1638,1918,1920,1919,1921,1765,1754,1755,1634,1268,1219,1208,1829,1830,1639,1377,1657,1263,1638,1830,1656,1702,1703,1371;
+	setarray $@numb99[1],2,2,2,2,2,2,5,5,5,5,5,10,10,15,10,10,10,15,10,15,10,10,10,10,10,30,10,10,10;
+	set .@i,atoi(strnpcinfo(2));
+	set .mob1,rand(1,29);
+	set .mob2,rand(1,29);
+	set .mob3,rand(1,29);
+	set .mob4,rand(1,29);
+	set .mob5,rand(1,29);
+	set .mob6,rand(1,29);
+	set .mob7,rand(1,29);
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob1],0)+"",$@mobs99[.mob1],$@numb99[.mob1],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob2],0)+"",$@mobs99[.mob2],$@numb99[.mob2],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob3],0)+"",$@mobs99[.mob3],$@numb99[.mob3],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob4],0)+"",$@mobs99[.mob4],$@numb99[.mob4],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob5],0)+"",$@mobs99[.mob5],$@numb99[.mob5],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob6],0)+"",$@mobs99[.mob6],$@numb99[.mob6],"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#4@tower",265,7,295,51,""+getmonsterinfo($@mobs99[.mob7],0)+"",$@mobs99[.mob7],$@numb99[.mob7],"ET_Manager#"+.@i+"::OnMobDead";
+	set $ET_Mobs[.@i],$@numb99[.mob1]+$@numb99[.mob2]+$@numb99[.mob3]+$@numb99[.mob4]+$@numb99[.mob5]+$@numb99[.mob6]+$@numb99[.mob7];
+	end;
+
+OnRoom100:
+	set .@i,atoi(strnpcinfo(2)); set $ET_Mobs[.@i],1;
+	monster .@i+"#5@tower",81,84,"Entweihen Knothen",1957,1,"ET_Manager#"+.@i+"::OnMobDead";
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",1959,9;
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",1958,5;
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",1960,7;
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",1961,4;
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",rand(1958,1961),1;
+	areamonster .@i+"#5@tower",74,77,88,91,"Esqueleto Espinhoso",rand(1958,1961),1;
+	end;
+
+OnRoom101:
+	set .@i,atoi(strnpcinfo(2));
+	monster	.@i+"#6@tower",155,147,"Naght Sieger",1956,1,"ET_Manager#"+.@i+"::OnNaghtDead";
+	areamonster .@i+"#6@tower",126,64,181,129,"Orc Esqueleto",1152,75;
+	areamonster .@i+"#6@tower",4,82,59,100,"Orc Esqueleto",1152,25;
+	areamonster .@i+"#6@tower",126,64,181,129,"Xamã do Vento",1263,45;
+	areamonster .@i+"#6@tower",4,82,59,100,"Xamã do Vento",1263,15;
+	areamonster .@i+"#6@tower",126,64,181,129,"Khalitzburg",1132,30;
+	areamonster .@i+"#6@tower",4,82,59,100,"Khalitzburg",1132,10;
+	areamonster .@i+"#6@tower",126,64,181,129,"Anopheles",1627,8;
+	areamonster .@i+"#6@tower",4,82,59,100,"Anopheles",1627,2;
+	end;
+}
+
+// = Pedra de Proteção (aka Monemus) - Register for the memorial dungeon =
+// ====================================================================================================
+e_tower,82,105,3	script	Pedra de Proteção	406,{
+	if($@ET_Waiting == 1){ npctalk "Já tem um grupo se registrando para A Torre sem Fim. Para evitar conflito, espere alguns instantes até que a Instância do Calabouço Memorial esteja pronto."; end; }
+	mes "[Pedra de Proteção]";
+	mes "Eu sou a pedra de proteção da";
+	mes "^0000FFTorre sem Fim^000000.";
+	mes "O que você deseja?";
+	next;
+	switch(select("Criar uma ^0000FFInstância do Calabouço Memorial^000000:Entrar na ^0000FFInstância do Calabouço Memorial^000000:Retornar para Alberta:Cancelar")){
+		case 1:
+		mes "[Pedra de Proteção]";
+		if(getcharid(1) == 0){ mes "Você precisa estar em um grupo."; close; }
+		if(getpartyleader(getcharid(1),2) != getcharid(0)){ mes "Somente o líder do grupo pode registrar."; close; }
+		if($ET_Minparty > 1){ getpartymember(getcharid(1)); if($@partymembercount < $ET_Minparty){ mes "Você deve ter ao menos ^0000FF"+$ET_Minparty+"^000000 jogadores em seu grupo."; close; }}
+		set .@i,1;
+		while(.@i<=126){
+			if($ET_Instances[.@i] == getcharid(1)){ mes "Seu grupo já foi registrado."; next; mes "[Pedra de Proteção]"; mes "Selecione ^0000FFEntrar na Instância do Calabouço Memorial^000000 no menu principal para entrar."; close; }
+			set .@i,.@i+1;
+		}
+		getpartymember(getcharid(1));
+		set $@ET_Save,getcharid(3);
+		set $@ET_POnline,0;
+		for (set $@k,0; $@k < $@partymembercount; set $@k,$@k+1) {
+			if (isloggedin(getcharid(3,$@partymembername$[$@k]))) {
+				attachrid(getcharid(3,$@partymembername$[$@k]));
+				if (BaseLevel < $ET_Minlevel) {
+					set $@ET_Save2$,strcharinfo(0);
+					attachrid($@ET_Save);
+					mes "[Pedra de Proteção]";
+					mes "^0000FF"+$@ET_Save2$+"^000000, seu nível é menor do que ^0000FF"+$ET_Minlevel+"^000000.";
+					close;
+				}
+				if (ET_Lasttime + $ET_Cooldown > gettimetick(2) && getgmlevel() < $ET_GM) {
+					set $@ET_Save2$,strcharinfo(0);
+					attachrid($@ET_Save);
+					mes "[Pedra de Proteção]";
+					mes "^0000FF"+$@ET_Save2$+"^000000 já participou da Torre sem Fim "+$ET_Cooldown_Msg$;
+					close;
+				}
+				set $@ET_POnline,$@ET_POnline+1;
+			}
+		}
+		attachrid($@ET_Save);
+		if ($@ET_POnline < $ET_Minparty){
+			mes "Você deve ter ao menos ^0000FF"+$ET_Minparty+"^000000 jogadores online no seu grupo.";
+			close;
+		}
+		mes "Aguarde alguns instantes para que a Instância do Calabouço Memorial seja criada...";
+		mapannounce "e_tower","Pedra de Proteção: O grupo "+getpartyname(getcharid(1))+" está se registrando para a Torre sem Fim.",bc_map,0xFFFFFF;
+		close2;
+		set $@ET_Waiting,1;
+		mapannounce "e_tower","Pedra de Proteção: Aguardem alguns instantes para que a Instância do Calabouço Memorial seja criada...",bc_map,0xFFFFFF;
+		setinstance (1,"Torre sem Fim",$ET_Instances+1);
+		if($ET_Instances[0] >= 126){ mes "[Pedra de Proteção]"; mes "Falha ao criar a Instância do Calabouço Memorial."; next; mes "[Pedra de Proteção]"; mes "^FF0000A Instância do Calabouço Memorial alcançou seu limite.^000000"; next; mes "[Pedra de Proteção]"; mes "Por favor reporte esse erro a um Administrador ou GameMaster."; setinstance (4,2); setinstance (4,3); close; }
+		sleep2 $ET_Instances[0]+1*8000; // Disable it if you don't want that fake waiting time thingy xD
+		set $ET_Instances[0],$ET_Instances[0]+1; // This is the number of your instance
+		set $ET_Instances[$ET_Instances[0]],getcharid(1); // This is your party ID in your instance number (above) index
+		createinstance $ET_Instances[0],"1@tower";
+		createinstance $ET_Instances[0],"2@tower";
+		createinstance $ET_Instances[0],"3@tower";
+		createinstance $ET_Instances[0],"4@tower";
+		createinstance $ET_Instances[0],"5@tower";
+		createinstance $ET_Instances[0],"6@tower";
+		initnpctimer "ET_Timer#"+$ET_Instances[0];
+		initnpctimer "ET_Check#"+$ET_Instances[0];
+		set $ET_Floor[$ET_Instances[0]],1;
+		donpcevent "ET_Mobs#"+$ET_Instances[0]+"::OnRoom1";
+		set .@i,1;
+		while(.@i <= 102){
+			disablenpc "ETwarp_"+.@i+"#"+$ET_Instances[0];
+			set .@i,.@i+1;
+		}
+		disablenpc "Ferreiro Ancião#"+$ET_Instances[0];
+		set $@ET_Waiting,0;
+		mes "[Pedra de Proteção]";
+		mes "A Instância do Calabouço Memorial foi criada com sucesso.";
+		set $@ET_Save,getcharid(3);
+		for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+			if (isloggedin(getcharid(3,$@partymembername$[$@k]))) {
+				attachrid(getcharid(3,$@partymembername$[$@k]));
+				set ET_Lasttime,gettimetick(2);
+				setinstance (3,"Torre sem Fim",gettimetick(2)+5*60,1);
+			}
+		}
+		attachrid($@ET_Save);
+		next;
+		mes "[Pedra de Proteção]";
+		mes "Se você não entrar dentro de 5 minutos ^FF0000a Instância do Calabouço Memorial será deletada^000000.";
+		close;
+
+		case 2:
+		mes "[Pedra de Proteção]";
+		if(getcharid(1) == 0){ mes "Você deve estar em um grupo."; close; }
+		set @i,1;
+		while(@i<=126){
+			if($ET_Instances[@i] == getcharid(1)){ setinstance (3,"Torre sem Fim",ET_Lasttime+4*60*60,0); warp @i+"#1@tower",53,355; end; }
+			set @i,@i+1;
+		}
+		mes "Seu grupo deve se registrar primeiro.";
+		close;
+
+		case 3:
+		warp "alberta",241,67;
+		end;
+
+		case 4:
+		close;
+	}
+}
+
+// = Old Sailor - Takes you to the Misty Island =
+// ====================================================================================================
+alberta,214,77,5	script	Capitão Janssen::ET_init_npc	709,{
+	
+	if(BaseLevel < $ET_Minlevel){
+		mes "[Capitão Janssen]";
+		mes "Eu não sei se poderei voltar a velejar no mar...";
+		close;
+	}if(et_talk == 0){
+		mes "[Capitão Janssen]";
+		mes "Me desculpe, você é um"+strsex(" aventureiro","a aventureira")+"?";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Me desculpe perguntá-lo isto, especialmente por ser a primeira vez que nos encontramos, mas você pode me fazer um favor? Irei ser curto.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Você pode me doar ^0000FF10,000 Zeny^000000?";
+		mes "É para uma causa muito importante para mim...";
+		next;
+		switch(select("Não!","Claro.")){
+		case 2:
+			mes "[Capitão Janssen]";
+			mes "Han? Você tem certeza que não se importa de me dar todo esse dinheiro?";
+			mes "Wow, muito obrigado!";
+			next;
+			if(Zeny<10000){
+				mes "[Capitão Janssen]";
+				mes "...Desculpe, mas eu acho que você não tem 10,000 Zeny. Obrigado por sua generosidade, mas eu preciso mais do que isso.";
+				close;
+			}
+			mes "[" +strcharinfo(0)+ "]";
+			mes "Eu não sei pra que você precisa de tanto dinheiro, mas aqui está. Você pode pegar.";
+			next;
+			mes "^0000FFVocê doa 10,000 Zeny para o Capitão Janssen.^000000";
+			set Zeny,zeny-10000;
+			next;
+			mes "[Capitão Janssen]";
+			mes "Muito obrigado! Agora eu posso estocar comida e materiais para a minha viagem.";
+			mes "Você é generoso!";
+			set et_talk,1;
+			close;
+		case 1:
+			mes "[Capitão Janssen]";
+			mes "Me desculpe, mas peguei a pessoa errada para perguntar isto.";
+			next;
+			mes "[Capitão Janssen]";
+			mes "Eu vejo... Desculpe por atormentá-lo. Eu entendo que fui muito rude pedir algo assim para você.";
+			close;
+		}
+	}
+	if(et_talk == 1){
+		mes "^0000FFParecendo incrívelmente excitado, o velho homem corre para a loja da Marina. Você não tem nada melhor para fazer, então decide perguntá-lo porque ele está com tanta pressa.^000000";
+		next;
+		mes "^0000FFO velho homem, depois de terminar seu pedido, anda em sua direção.^000000";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Eu fiquei tocado quando você aceitou um pedido de mim, um estranho, tão facilmente. Você certamente deve ser um desses aventureiros heróicos. Você está interessado em uma viajem no oceano?";
+		next;
+		mes "[" +strcharinfo(0)+ "]";
+		mes "Eu veleijei algumas vezes... Mas agora que eu penso sobre isso, eu nunca atravessei o continente.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Não, isto é o bastante. Eu só tenho um pequeno barco de pesca, mas eu já fui um capitão que comandou uma frota.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Como você deve saber, depois de algumas viagens no oceano, muitas pessoas não atravessaram o continente. Eu também falhei em conquistar o oceano.";
+		next;
+		mes "^0000FFSr. Janssen falou sobre suas perigosas viajens no oceano por alguns instantes. Você tinha bastante tempo livre, então se sentou, e ouviu atentamente a história.^000000";
+		next;
+		mes "^0000FFAo menos a metade da história contada pareceu bastante exagerada, mas algo chamou sua atenção: ele insiste que há uma torre gigante no oceano, e é tão alta, que atravessa o céu.^000000";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Então tudo que eu pude fazer foi ancorar na torre depois de minha frota ser destruída. Primeiramente, nós iríamos ficar lá apenas até a tempestade acabarr, mas não terminou tão cedo quanto esperávamos.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "A minha tripulação estava faminta, e alguns deles entraram na torre em busca de comida...";
+		mes "Eles nunca voltaram.";
+		next;
+		mes "[" +strcharinfo(0)+ "]";
+		mes "Por que você não foi lá com eles?";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Meus instintos me disseram que aquela torre era perigosa. Eu estava curioso, mas não iria arriscar minha vida. Nós os esperamos por 7 dias até a tempestade finalmente acabar, mas ninguém retornou.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Em nosso desespero para sobreviver, nós abandonamos todos nossos bens, e saímos da torre com apenas um pouco de água e algumas plantas comestíveis que achamos ao redor da torre. Quando finalmente avistamos terra, eu era o único vivo...";
+		next;
+		mes "^0000FFVocê pode imaginar a cena da frota morrendo em sua última viagem, mesmo ele não explicando muito. Um olhar sombrio varre seu rosto enquanto ele permanece em silêncio, então ele diz:^000000";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Eu tenho algo que devo fazer antes de morrer. Eu devo recuperar os restos de minha tripulação que morreu na torre, e dá-los um enterro apropriado.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Eu tenho tanta sorte de ter encontrado um aventureiro como você.";
+		mes "Com o dinheiro que você me deu, eu posso finalmente voltar a torre.";
+		next;
+		mes "[" +strcharinfo(0)+ "]";
+		mes "O que acha de me contratar como primeiro marinheiro?";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Obrigado, mas é um lugar muito perigoso. Eu tenho meu dever de cumprir, mas você não tem nenhuma obrigação para mim ou à eles. Eu não desejo sacrificar alguém novo como você em um lugar tão perigoso.";
+		next;
+		mes "[" +strcharinfo(0)+ "]";
+		mes "Não...";
+		mes ".";
+		mes ".";
+		mes "Como um aventureiro, é minha obrigação ajudar a quem precisa. Eu também estou muito curioso sobre este lugar...";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Eu estaria saindo agora mesmo, mas já que você se juntou a mim, vou te dá algum tempo para se preparar.";
+		mes "Eu estarei esperando aqui até você estar pronto para ir.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "...Tudo bem...";
+		mes "Bem-vind"+strsex("o","a")+" a bordo.";
+		set et_talk,2;
+		close;
+	}
+	if(et_talk == 2){
+		mes "[Capitão Janssen]";
+		mes "Devemos partir agora?";
+		next;
+		switch(select("Claro.","Agora não")){
+		case 1:
+			mes "[Capitão Janssen]";
+			mes "Então suba a âncora!";
+			set et_talk,3;
+			close2;
+			warp "e_tower",74,110;
+			end;
+		case 2:
+			mes "[Capitão Janssen]";
+			mes "Claro, sem problemas. Estarei esperando seu retorno.";
+			close;
+		}
+	}
+	if(et_talk == 3){
+		mes "Bem, para viajar para o oceano novamente, vamos precisar de reforçar nossas reservas. Se você me der 10,000 Zeny, eu tomarei conta do resto.";
+		next;
+		if(select("Eu voltarei depois.","Vamos, agora!")==1){
+			mes "[" +strcharinfo(0)+ "]";
+			mes "Desculpe, mas eu não tenho este dinheiro todo. Eu voltarei quando eu tiver o necessário.";
+			close;
+		}
+		if(Zeny<10000){
+			mes "[Capitão Janssen]";
+			mes "...Desculpe, mas eu acho que você não tem 10,000 Zeny.";
+			close;
+		}
+		mes "Claro, sem problemas. Estarei esperando seu retorno.";
+		close2;
+		set Zeny,zeny-10000;
+		warp "e_tower",74,110;
+		end;
+	}
+}
+
+// = Ferreiro Ancião - Blacksmiths on the last floor that makes the Violet Fear Sword =
+// ====================================================================================================
+6@tower,149,140,5	script	Ferreiro Ancião	813,{
+	mes "[Ferreiro Ancião]";
+	mes "Nossa, não posso acreditar nisto!";
+	mes "Você mandou o Naght Sieger de volta para o inferno!";
+	mes "Eu realmente lhe devo um grande favor, por favor, deixe-me ajudá-lo!";
+	next;
+	mes "[Ferreiro Ancião]";
+	mes "Eu sou a única pessoa que sabe realmente trabalhar com armas místicas como a Lâmina Gêmea de Naght Sieger, porque sou a pessoa que as criou.";
+	mes "Você as tem?";
+	next;
+	switch( select( "Sim!","Desculpe-me, eu não tenho." ) )
+	{
+		case 1:
+		mes "[Ferreiro Ancião]";
+		if(!countitem(13412) && !countitem(13413)){
+			mes "Eu tentei lhe ajudar, e você simplesmente mente para mim.";
+			mes "Eu não preciso disto. Estou saindo agora mesmo!";
+			close;
+		}
+		mes "Ótimo! Mas deixe-me alertá-lo que esta espada só pode ser usada por Paladinos e Lordes, porque ela é uma Espada de Duas Mãos.";
+		mes "Você tem certeza que quer continuar?";
+		next;
+		switch(select( "Sim!","Hum... não." )){
+			case 1:
+			mes "[Ferreiro Ancião]";
+			mes "Ok, aqui vamos nós!";
+			next;
+			delitem 13412,1;
+			delitem 13413,1;
+			mes "[Ferreiro Ancião]";
+			mes "Ótimo! Aqui está.";
+			sleep2 1000;
+			getitem 1185,1;
+			mes "Bem, já que estou livre, estou saindo deste lugar horroroso. Mais um vez, obrigado.";
+			close;
+
+			case 2:
+			mes "[Ferreiro Ancião]";
+			mes "Se é isto que você quer, tudo bem. Espero que nós encontremos em breve.";
+			close;
+		}
+		case 2:
+		mes "[Ferreiro Ancião]";
+		mes "Que vergonha. De qualquer jeito, estou saindo agora, eu já fiquei muito tempo neste lugar. Mais uma vez, obrigado.";
+		close;
+	}
+
+OnEnable:
+	npctalk "Você conseguiu!";
+	sleep 2000;
+	npctalk "Finalmente estou livre!";
+	end;
+}
+
+// = Eternal Brazier - Allows you to skip 3 floors at the max for the price of X Dark Ashes =
+// ====================================================================================================
+1@tower,50,360,5	script	Braseiro Imortal	111,{
+	set .@i,atoi(strnpcinfo(2));
+	mes "- Mensagem Entalhada no Braseiro -";
+	mes "Quem aqui espalhar as Cinzas da Escuridão ficará um passo mais perto de Naught Sieger, rei Hemogênico da Escuridão...";
+	next;
+	set .@selection,select("26º Nível:51º Nível:76º Nível:Cancelar");
+	if(.@selection == 4) close;
+	if($ET_Instances[.@i] == getcharid(1)) {
+		if($ET_Floor[.@i] > .@selection * 25 + 1) {
+			mes "Você não pode voltar ao "+(.@selection * 25 + 1)+"º andar!";
+			close;
+		}
+		if(countitem($ET_AshID) < .@selection){
+			mes "Você não tem Cinzas da Escuridão suficientes.";
+			close;
+		}
+		mes "O portal ao fim desta sala te levará ao "+(.@selection * 25 + 1)+"º andar.";
+		set $ET_Floor[.@i],.@selection * 25 + 1;
+		set .@warp,$ET_Floor[.@i];
+		killmonster .@i+"#1@tower","ET_Manager#"+.@i+"::OnMobDead";
+		killmonster .@i+"#2@tower","ET_Manager#"+.@i+"::OnMobDead";
+		killmonster .@i+"#3@tower","ET_Manager#"+.@i+"::OnMobDead";
+		donpcevent "ET_Mobs#"+.@i+"::OnRoom"+$ET_Floor[.@i];
+		for (set .@k,1; .@k < .@warp; set .@k,.@k + 1) enablenpc "ETwarp_"+.@k+"#"+.@i;
+		delitem $ET_AshID,.@selection;
+		close;
+	}
+	mes "Erro durante a execução do script, por favor contate um GM.";
+	close;
+}
+
+// = Mystic Fountain - Heals you =
+// ====================================================================================================
+6@tower,45,90,0	script	Fonte Mística	111,{
+	percentheal 100,100;
+	end;
+}
+
+// = Warp =
+// ====================================================================================================
+1@tower,1,1,1	script	ET_warp	-1,{
+OnTouch:
+	set .@i,1;
+	while(.@i <= 127){
+		if($ET_Instances[.@i] == getcharid(1)){
+		if($ET_Floor[.@i] == 100) {
+			set .@x,$ET_Warp_X[5];
+			set .@y,$ET_Warp_Y[5];
+		}
+		if($ET_Floor[.@i] == 101 || $ET_Floor[.@i] == 102) {
+			set .@x,$ET_Warp_X[6];
+			set .@y,$ET_Warp_Y[6];
+		}
+		if($ET_Floor[.@i] == 103) {
+			set .@x,241;
+			set .@y,67;
+		}
+		if(!.@x || !.@y){
+			set .@x,$ET_Warp_X[(($ET_Floor[.@i]-1) % 25) % 5];
+			set .@y,$ET_Warp_Y[(($ET_Floor[.@i]-1) % 25) / 5];
+		}
+		if($ET_Floor[.@i] >= 100) set .@map,6;
+		if($ET_Floor[.@i] == 100) set .@map,5;
+		if($ET_Floor[.@i] <= 99) set .@map,4;
+		if($ET_Floor[.@i] <= 75) set .@map,3;
+		if($ET_Floor[.@i] <= 50) set .@map,2;
+		if($ET_Floor[.@i] <= 25) set .@map,1;
+		warp .@i+"#"+.@map+"@tower",.@x,.@y;
+		end;
+		}
+	set .@i,.@i+1;
+	}
+	end;
+
+OnUnhide:
+	misceffect 215;
+	end;
+}
+
+// = Warps =
+// ====================================================================================================
+// 1@tower
+1@tower,12,393,0	duplicate(ET_warp)	ETwarp_1	45,1,1
+1@tower,96,393,0	duplicate(ET_warp)	ETwarp_2	45,1,1
+1@tower,184,393,0	duplicate(ET_warp)	ETwarp_3	45,1,1
+1@tower,270,393,0	duplicate(ET_warp)	ETwarp_4	45,1,1
+1@tower,354,393,0	duplicate(ET_warp)	ETwarp_5	45,1,1
+
+1@tower,12,309,0	duplicate(ET_warp)	ETwarp_6	45,1,1
+1@tower,96,309,0	duplicate(ET_warp)	ETwarp_7	45,1,1
+1@tower,184,309,0	duplicate(ET_warp)	ETwarp_8	45,1,1
+1@tower,270,309,0	duplicate(ET_warp)	ETwarp_9	45,1,1
+1@tower,354,309,0	duplicate(ET_warp)	ETwarp_10	45,1,1
+
+1@tower,12,221,0	duplicate(ET_warp)	ETwarp_11	45,1,1
+1@tower,96,221,0	duplicate(ET_warp)	ETwarp_12	45,1,1
+1@tower,184,221,0	duplicate(ET_warp)	ETwarp_13	45,1,1
+1@tower,270,221,0	duplicate(ET_warp)	ETwarp_14	45,1,1
+1@tower,354,221,0	duplicate(ET_warp)	ETwarp_15	45,1,1
+
+1@tower,12,137,0	duplicate(ET_warp)	ETwarp_16	45,1,1
+1@tower,96,137,0	duplicate(ET_warp)	ETwarp_17	45,1,1
+1@tower,184,137,0	duplicate(ET_warp)	ETwarp_18	45,1,1
+1@tower,270,137,0	duplicate(ET_warp)	ETwarp_19	45,1,1
+1@tower,354,137,0	duplicate(ET_warp)	ETwarp_20	45,1,1
+
+1@tower,12,51,0 	duplicate(ET_warp)	ETwarp_21	45,1,1
+1@tower,96,51,0	duplicate(ET_warp)	ETwarp_22	45,1,1
+1@tower,184,51,0	duplicate(ET_warp)	ETwarp_23	45,1,1
+1@tower,270,51,0	duplicate(ET_warp)	ETwarp_24	45,1,1
+1@tower,354,51,0	duplicate(ET_warp)	ETwarp_25	45,1,1
+
+// 2@tower
+2@tower,12,393,0	duplicate(ET_warp)	ETwarp_26	45,1,1
+2@tower,96,393,0	duplicate(ET_warp)	ETwarp_27	45,1,1
+2@tower,184,393,0	duplicate(ET_warp)	ETwarp_28	45,1,1
+2@tower,270,393,0	duplicate(ET_warp)	ETwarp_29	45,1,1
+2@tower,354,393,0	duplicate(ET_warp)	ETwarp_30	45,1,1
+
+2@tower,12,309,0	duplicate(ET_warp)	ETwarp_31	45,1,1
+2@tower,96,309,0	duplicate(ET_warp)	ETwarp_32	45,1,1
+2@tower,184,309,0	duplicate(ET_warp)	ETwarp_33	45,1,1
+2@tower,270,309,0	duplicate(ET_warp)	ETwarp_34	45,1,1
+2@tower,354,309,0	duplicate(ET_warp)	ETwarp_35	45,1,1
+
+2@tower,12,221,0	duplicate(ET_warp)	ETwarp_36	45,1,1
+2@tower,96,221,0	duplicate(ET_warp)	ETwarp_37	45,1,1
+2@tower,184,221,0	duplicate(ET_warp)	ETwarp_38	45,1,1
+2@tower,270,221,0	duplicate(ET_warp)	ETwarp_39	45,1,1
+2@tower,354,221,0	duplicate(ET_warp)	ETwarp_40	45,1,1
+
+2@tower,12,137,0	duplicate(ET_warp)	ETwarp_41	45,1,1
+2@tower,96,137,0	duplicate(ET_warp)	ETwarp_42	45,1,1
+2@tower,184,137,0	duplicate(ET_warp)	ETwarp_43	45,1,1
+2@tower,270,137,0	duplicate(ET_warp)	ETwarp_44	45,1,1
+2@tower,354,137,0	duplicate(ET_warp)	ETwarp_45	45,1,1
+
+2@tower,12,51,0 	duplicate(ET_warp)	ETwarp_46	45,1,1
+2@tower,96,51,0	duplicate(ET_warp)	ETwarp_47	45,1,1
+2@tower,184,51,0	duplicate(ET_warp)	ETwarp_48	45,1,1
+2@tower,270,51,0	duplicate(ET_warp)	ETwarp_49	45,1,1
+2@tower,354,51,0	duplicate(ET_warp)	ETwarp_50	45,1,1
+
+// 3@tower
+3@tower,12,393,0	duplicate(ET_warp)	ETwarp_51	45,1,1
+3@tower,96,393,0	duplicate(ET_warp)	ETwarp_52	45,1,1
+3@tower,184,393,0	duplicate(ET_warp)	ETwarp_53	45,1,1
+3@tower,270,393,0	duplicate(ET_warp)	ETwarp_54	45,1,1
+3@tower,354,393,0	duplicate(ET_warp)	ETwarp_55	45,1,1
+
+3@tower,12,309,0	duplicate(ET_warp)	ETwarp_56	45,1,1
+3@tower,96,309,0	duplicate(ET_warp)	ETwarp_57	45,1,1
+3@tower,184,309,0	duplicate(ET_warp)	ETwarp_58	45,1,1
+3@tower,270,309,0	duplicate(ET_warp)	ETwarp_59	45,1,1
+3@tower,354,309,0	duplicate(ET_warp)	ETwarp_60	45,1,1
+
+3@tower,12,221,0	duplicate(ET_warp)	ETwarp_61	45,1,1
+3@tower,96,221,0	duplicate(ET_warp)	ETwarp_62	45,1,1
+3@tower,184,221,0	duplicate(ET_warp)	ETwarp_63	45,1,1
+3@tower,270,221,0	duplicate(ET_warp)	ETwarp_64	45,1,1
+3@tower,354,221,0	duplicate(ET_warp)	ETwarp_65	45,1,1
+
+3@tower,12,137,0	duplicate(ET_warp)	ETwarp_66	45,1,1
+3@tower,96,137,0	duplicate(ET_warp)	ETwarp_67	45,1,1
+3@tower,184,137,0	duplicate(ET_warp)	ETwarp_68	45,1,1
+3@tower,270,137,0	duplicate(ET_warp)	ETwarp_69	45,1,1
+3@tower,354,137,0	duplicate(ET_warp)	ETwarp_70	45,1,1
+
+3@tower,12,51,0 	duplicate(ET_warp)	ETwarp_71	45,1,1
+3@tower,96,51,0	duplicate(ET_warp)	ETwarp_72	45,1,1
+3@tower,184,51,0	duplicate(ET_warp)	ETwarp_73	45,1,1
+3@tower,270,51,0	duplicate(ET_warp)	ETwarp_74	45,1,1
+3@tower,354,51,0	duplicate(ET_warp)	ETwarp_75	45,1,1
+
+// 4@tower
+4@tower,12,393,0	duplicate(ET_warp)	ETwarp_76	45,1,1
+4@tower,96,393,0	duplicate(ET_warp)	ETwarp_77	45,1,1
+4@tower,184,393,0	duplicate(ET_warp)	ETwarp_78	45,1,1
+4@tower,270,393,0	duplicate(ET_warp)	ETwarp_79	45,1,1
+4@tower,354,393,0	duplicate(ET_warp)	ETwarp_80	45,1,1
+
+4@tower,12,309,0	duplicate(ET_warp)	ETwarp_81	45,1,1
+4@tower,96,309,0	duplicate(ET_warp)	ETwarp_82	45,1,1
+4@tower,184,309,0	duplicate(ET_warp)	ETwarp_83	45,1,1
+4@tower,270,309,0	duplicate(ET_warp)	ETwarp_84	45,1,1
+4@tower,354,309,0	duplicate(ET_warp)	ETwarp_85	45,1,1
+
+4@tower,12,221,0	duplicate(ET_warp)	ETwarp_86	45,1,1
+4@tower,96,221,0	duplicate(ET_warp)	ETwarp_87	45,1,1
+4@tower,184,221,0	duplicate(ET_warp)	ETwarp_88	45,1,1
+4@tower,270,221,0	duplicate(ET_warp)	ETwarp_89	45,1,1
+4@tower,354,221,0	duplicate(ET_warp)	ETwarp_90	45,1,1
+
+4@tower,12,137,0	duplicate(ET_warp)	ETwarp_91	45,1,1
+4@tower,96,137,0	duplicate(ET_warp)	ETwarp_92	45,1,1
+4@tower,184,137,0	duplicate(ET_warp)	ETwarp_93	45,1,1
+4@tower,270,137,0	duplicate(ET_warp)	ETwarp_94	45,1,1
+4@tower,354,137,0	duplicate(ET_warp)	ETwarp_95	45,1,1
+
+4@tower,12,51,0 	duplicate(ET_warp)	ETwarp_96	45,1,1
+4@tower,96,51,0	duplicate(ET_warp)	ETwarp_97	45,1,1
+4@tower,184,51,0	duplicate(ET_warp)	ETwarp_98	45,1,1
+4@tower,270,51,0	duplicate(ET_warp)	ETwarp_99	45,1,1
+
+// 5@tower
+5@tower,104,108,0	duplicate(ET_warp)	ETwarp_100	45,1,1
+
+// 6@tower
+6@tower,156,148,0	duplicate(ET_warp)	ETwarp_102	45,1,1
+6@tower,32,100,0	script	ETwarp_x	45,1,1,{ set .@i,atoi(strnpcinfo(2)); warp .@i+"#6@tower",156,66; end; }
+6@tower,156,64,0	script	ETwarp_y	45,1,1,{ set .@i,atoi(strnpcinfo(2)); warp .@i+"#6@tower",32,98; end; }
+
+// = Mapflags =
+// ====================================================================================================
+e_tower	mapflag	nowarp
+e_tower	mapflag	nowarpto
+e_tower	mapflag	noteleport
+e_tower	mapflag	nosave	SavePoint
+e_tower	mapflag	nomemo
+e_tower	mapflag	nobranch
+e_tower	mapflag	noicewall
+e_tower	mapflag	restricted	7
+e_tower	mapflag	monster_noteleport
+
+1@tower	mapflag	nowarp
+1@tower	mapflag	nowarpto
+1@tower	mapflag	noteleport
+1@tower	mapflag	nosave	SavePoint
+1@tower	mapflag	nomemo
+1@tower	mapflag	nobranch
+1@tower	mapflag	noicewall
+1@tower	mapflag	restricted	7
+1@tower	mapflag	monster_noteleport
+
+2@tower	mapflag	nowarp
+2@tower	mapflag	nowarpto
+2@tower	mapflag	noteleport
+2@tower	mapflag	nosave	SavePoint
+2@tower	mapflag	nomemo
+2@tower	mapflag	nobranch
+2@tower	mapflag	noicewall
+2@tower	mapflag	restricted	7
+2@tower	mapflag	monster_noteleport
+
+3@tower	mapflag	nowarp
+3@tower	mapflag	nowarpto
+3@tower	mapflag	noteleport
+3@tower	mapflag	nosave	SavePoint
+3@tower	mapflag	nomemo
+3@tower	mapflag	nobranch
+3@tower	mapflag	noicewall
+3@tower	mapflag	restricted	7
+3@tower	mapflag	monster_noteleport
+
+4@tower	mapflag	nowarp
+4@tower	mapflag	nowarpto
+4@tower	mapflag	noteleport
+4@tower	mapflag	nosave	SavePoint
+4@tower	mapflag	nomemo
+4@tower	mapflag	nobranch
+4@tower	mapflag	noicewall
+4@tower	mapflag	restricted	7
+4@tower	mapflag	monster_noteleport
+
+5@tower	mapflag	nowarp
+5@tower	mapflag	nowarpto
+5@tower	mapflag	noteleport
+5@tower	mapflag	nosave	SavePoint
+5@tower	mapflag	nomemo
+5@tower	mapflag	nobranch
+5@tower	mapflag	noicewall
+5@tower	mapflag	restricted	7
+5@tower	mapflag	monster_noteleport
+
+6@tower	mapflag	nowarp
+6@tower	mapflag	nowarpto
+6@tower	mapflag	noteleport
+6@tower	mapflag	nosave	SavePoint
+6@tower	mapflag	nomemo
+6@tower	mapflag	nobranch
+6@tower	mapflag	noicewall
+6@tower	mapflag	restricted	7
+6@tower	mapflag	monster_noteleport

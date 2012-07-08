@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/cronusemulator/!svn/ver/3123/Server/trunk/src/plugins
+END
+console.def
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/console.def
+END
+dbghelpplug.rc
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/dbghelpplug.rc
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/src/plugins/Makefile.in
+END
+gui.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/gui.txt
+END
+sample.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/sample.c
+END
+console.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/src/plugins/console.c
+END
+sig.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/src/plugins/sig.c
+END
+gui.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/gui.c
+END
+pid.def
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/cronusemulator/!svn/ver/3123/Server/trunk/src/plugins/pid.def
+END
+plugin.def
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/plugin.def
+END
+pid.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/src/plugins/pid.c
+END
+dbghelpplug.c
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/src/plugins/dbghelpplug.c
+END
+sample.def
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/3123/Server/trunk/src/plugins/sample.def
+END

@@ -1,0 +1,750 @@
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+
+//sec_in02.gat,138,52,5,5 monster Golden Dokebi 2001,5,0,0,0
+//sec_in02.gat,172,68,5,5 monster Golden Dokebi 2001,5,0,0,0
+

@@ -1,0 +1,187 @@
+//**************************************************************************//
+//*               Um Nome... Um Reinado... Uma Reputação...                *//
+//**************************************************************************//
+//*                                                                        *//
+//*                                                                        *//
+//*                                 \|||/                                  *//
+//*            .-.________          (o o)               ________.-.        *//
+//*       ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----   *//
+//*          (    ()___)    |                       |    (___()     )      *//
+//*               ()__)     |      * L Y K O *      |     (__()            *//
+//*       ----\___()_)      |                       |      (_()___/-----   *//
+//*                         +------------Ooo--------+                      *//
+//*                                |__|__|                                 *//
+//*                                 || ||                                  *//
+//*                        ________ooO Ooo________                         *//
+//*                                                                        *//
+//**************************************************************************//
+//* Invejados Por Muitos, Copiados Por Alguns, e Admirados Por Todos!!!... *//
+//**************************************************************************//
+prontera,138,223,5	script	Funcionário da GdE	806,{
+
+show "[^1E90FF Funcionário da GdE ^000000]";
+if(getgmlevel()<99) goto L_NotGM;
+show "Bem Vindo, eu posso configurar os horários da GdE para você.";
+show "Simplesmente siga as instruções apresentadas, e vai ser fácil preparar tudo";
+next;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Agora que a diversão começa";
+show "Por favor, selecione o que você deseja fazer";
+next;
+menu "Adicionar um horário para GdE",L_Add,"Apagar todos os horários da GdE",L_Reset,"Mostrar os horários atuais da GdE",-;
+next;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Ok, atualmente você tem os horários da GdE configurados para:";
+set @num,0;
+L_LoopList:
+if($sday[@num] == 0 && $eday[@num] == 0 && $woetime[@num] == 0 && $woetime2[@num] == 0) goto L_LoopListEnd;
+if($sday[@num]==0) set $@tempday$,"Domingo";
+if($sday[@num]==1) set $@tempday$,"Segunda-Feira";
+if($sday[@num]==2) set $@tempday$,"Terça-Feira";
+if($sday[@num]==3) set $@tempday$,"Quarta-Feira";
+if($sday[@num]==4) set $@tempday$,"Quinta-Feira";
+if($sday[@num]==5) set $@tempday$,"Sexta-Feira";
+if($sday[@num]==6) set $@tempday$,"Sábado";
+if($eday[@num]==0) set $@tempday2$,"Domingo";
+if($eday[@num]==1) set $@tempday2$,"Segunda-Feira";
+if($eday[@num]==2) set $@tempday2$,"Terça-Feira";
+if($eday[@num]==3) set $@tempday2$,"Quarta-Feira";
+if($eday[@num]==4) set $@tempday2$,"Quinta-Feira";
+if($eday[@num]==5) set $@tempday2$,"Sexta-Feira";
+if($eday[@num]==6) set $@tempday2$,"Sábado";
+if($eday[@num]==$sday[@num]) show $@tempday$+" Das "+$woetime[@num]+":00 até "+$woetime2[@num]+":00";
+if($eday[@num]!=$sday[@num]) show "Das "+$@tempday$+" "+$woetime[@num]+":00 até "+$@tempday2$+" "+$woetime2[@num]+":00";
+set @num,@num+1;
+goto L_LoopList;
+L_LoopListEnd:
+close;
+L_Add:
+set @num,0;
+L_AddLoop:
+if($sday[@num] == 0 && $eday[@num] == 0 && $woetime[@num] == 0 && $woetime2[@num] == 0) goto L_AddLoopEnd;
+set @num,@num+1;
+goto L_AddLoop;
+L_AddLoopEnd: 
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Qual o dia que você deseja que a GdE ^FF0000começe^000000?";
+next;
+menu "Domingo",-,"Segunda-Feira",-,"Terça-Feira",-,"Quarta-Feira",-,"Quinta-Feira",-,"Sexta-Feira",-,"Sábado",-;
+if(@menu==1) set $sday[@num],0;
+if(@menu==2) set $sday[@num],1;
+if(@menu==3) set $sday[@num],2;
+if(@menu==4) set $sday[@num],3;
+if(@menu==5) set $sday[@num],4;
+if(@menu==6) set $sday[@num],5;
+if(@menu==7) set $sday[@num],6;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Ok, agora por favor digite o horário que você quer que a GdE ^FF0000começe^000000";
+show "O sistema usa um relógio baseado em 24 Horas";
+show "00 = Meia-noite";
+show "12 = Meio-dia";
+show "23 = 11 da Noite";
+next;
+digit @digit;
+if (@digit < 0 || @digit > 24) goto L_BadNumber;
+set $woetime[@num],@digit;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Qual o dia que você deseja que a GdE ^FF0000termine^000000?";
+next;
+menu "No mesmo dia que começou",-,"Domingo",-,"Seguna-Feira",-,"Terça-Feira",-,"Quarta-Feira",-,"Quinta-Feira",-,"Sexta-Feira",-,"Sábado",-;
+if(@menu==1) set $eday[@num],$sday[@num];
+if(@menu==2) set $eday[@num],0;
+if(@menu==3) set $eday[@num],1;
+if(@menu==4) set $eday[@num],2;
+if(@menu==5) set $eday[@num],3;
+if(@menu==6) set $eday[@num],4;
+if(@menu==7) set $eday[@num],5;
+if(@menu==8) set $eday[@num],6;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Ok, agora por favor digite o horário que você quer que a GdE ^FF0000termine^000000";
+show "Ele também usa o sistema de relógio baseado em 24 Horas";
+show "00 = Meia-noite";
+show "12 = Meio-dia";
+show "23 = 11 da Noite";
+next;
+digit @digit;
+if (@digit < 0 || @digit > 24) goto L_BadNumber;
+set $woetime2[@num],@digit;
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "O horário da GdE foi configurado";
+show "Para confirmar isto, mande-me ^FF0000'Mostrar os horários atuais da GdE'^000000";
+close;
+L_Reset:
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Você está prestes a apagar todos os horários da GdE que você criou";
+show "Você tem certeza que quer fazer isto?";
+next;
+menu "Não, o que eu estava pensando?...",L_No,"Sim, eu realmente quero fazer isso",-;
+if(agitcheck()) goto L_WoEOn;
+deletearray $sday[0],200;
+deletearray $eday[0],200;
+deletearray $woetime[0],200;
+deletearray $woetime2[0],200;	
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Os horários foram todos excluídos, por favor lembre-se de configurar novos horários";
+close;
+L_WoEOn:
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Desculpe, já que há uma GdE em andamento você não pode apagar os horários dela!";
+close;
+L_No:
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Ah, ótimo, volte sempre!";
+close;
+L_NotGM:
+show "Os horários atuais da GdE são:";
+set @num,0;
+goto L_LoopList;
+end;
+L_BadNumber:
+show "[^1E90FF Funcionário da GdE ^000000]";
+show "Desculpe, o número que você digitou era inválido, por favor tente denovo";
+close;
+
+
+}
+-	script	Agit_Event2	-1,{
+end;
+OnInit:
+disablenpc "Agit_Event";
+OnMinute00:
+OnAgitInit:
+
+// starting time check
+set $@num,0;
+L_StartLoop:
+if($sday[$@num] == 0 && $eday[$@num] == 0 && $woetime[$@num] == 0 && $woetime2[$@num] == 0) goto L_StartLoopEnd;
+if(gettime(4)==$sday[$@num] && gettime(3)>=$woetime[$@num] && (gettime(3)<$woetime2[$@num] || $sday[$@num]!=$eday[$@num])) goto L_Start;
+set $@num,$@num+1;
+goto L_StartLoop;
+
+// end time checks
+L_StartLoopEnd:
+set $@num,0;
+L_EndLoop:
+if($eday[$@num] == 0 && $woetime[$@num] == 0 && $woetime2[$@num] == 0) end;
+if((gettime(4)==$eday[$@num]) && (gettime(3)==$woetime2[$@num])) goto L_End;
+set $@num,$@num+1;
+goto L_EndLoop;
+end;
+
+// Stop WoE
+L_End:
+if(!agitcheck()) end;
+Announce "A Guerra do Emperium Terminou!",8;
+AgitEnd;
+AgitEnd2;
+end;
+
+// Start WoE
+L_Start:
+if(agitcheck()) end;
+Announce "A Guerra do Emperium Começou!",8;
+AgitStart;
+AgitStart2;
+end;
+}
+

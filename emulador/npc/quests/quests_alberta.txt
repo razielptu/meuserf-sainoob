@@ -1,0 +1,1178 @@
+//===== Cronus Script ========================================
+//= Quests de Alberta
+//===== Por: =================================================
+//= kobra_k88
+//===== Versão Atual: ========================================
+//= 1.3/1.7
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Quest Bonecos
+//= Quest Quepe
+//= Quest Chifre de Alce
+//= BaoBao, Fivela de Lua, Óculos Fashon, Fivela de Coração
+//= Coroa do Deus-Sol, Chapéu de Verão, Chapéu do Mestre Arcano, Cartola
+//= Quest Ilha da Tartaruga
+//===== Comentários Adicionais: ==============================
+//= 1.0 Traduzido o NPC. [ [NITRO]FOX ]
+//= 1.1 Traduzido Bonecos. [Dynasty]
+//= 1.2 Traduzido Itens de Quests. [Dynasty]
+//============================================================
+
+//=======================================================================================================//
+//						Doll Quest
+//=======================================================================================================//
+alberta,117,134,8	script	Elin	96,{
+	show "[Elin]";
+	show "Olá, senhor.","Olá, senhorita";
+	show "Hmm, como você é um garoto,","Como você é uma garota,";
+	show "você não gosta de bonecas certo?","você deve gostar de bonecos, certo?";
+	next;
+	show "[Elin]";
+	show "Eu AMO bonecas!!";
+	emotion e_lv2;
+	next;
+	show "[Elin]";
+	show "Você sabe..... Eu REALMENTE,";
+	show "REALMENTE, quero uma boneca";
+	show "nova. Espero que papai vá me";
+	show "comprar uma para o meu aniversário.....";
+	next;
+	if(select("Ahnn, você deve ser feliz...:E que tal eu te dar uma agora?")==1){
+		show "[Elin]";
+		show "É, essa vez eu estou";
+		show "torcendo por um Boneco de Yoyo.";
+		show "Hehe, eles são tão fofos! E são meus FAVORITOS!";
+		emotion e_ok;
+		close;
+	}
+	show "[Elin]";
+	show "Oh meu Deus! Sério??";
+	show "Você é um amor….me dá, me dá!!";
+	show "Que tipo de boneca você vai me dar?";
+	show "Você realmente vai me dar uma?";
+	emotion e_gasp;
+	next;
+	switch(select("Bengala Doce:Boneco de Poring:Boneco de Chonchon:Boneco de Rocker:Boneco de Esporo:Boneco de Osiris:Boneco de Bafomé:Boneco de Fumacento:Boneco de Yoyo:Eu sou tão adorável quanto uma boneca!")){
+		case 1:
+			if(countitem(740) > 0){
+				delitem 740,1;
+				show "[Elin]";
+				show "Nossa! É um coelho!";
+				show "É TÃOOO fofo!! MUITO obrigada a você!";
+				emotion e_lv2;
+				next;
+				show "[Elin]";
+				show "É TÃOO fofinho... Ah sim!";
+				show "Deixe-me dar um presente para você também!";
+				next;
+				show "(Procura nos bolsos dela)";
+				next;
+				show "[Elin]";
+				show "Hummm ... achei! Aqui, aceite isso!";
+				next;
+				additem 530,1;
+				show "[Elin]";
+				show "Eu ganhei isso do papai noel.";
+				show "É uma bengala doce~";
+				next;
+				show "[Elin]";
+				show "Obrigada novamente pela boneca coelho!";
+				show "Eu vou ABRAÇAR isso para dormir TODA noite~";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 2:
+			if(countitem(741) > 0){
+				delitem 741,1;
+				show "[Elin]";
+				show "Nossa! É uma boneca poring!";
+				show "É TÃOOO fofa! Já que você me deu uma boneca,";
+				show "eu vou lhe dar isso....";
+				emotion e_lv2;
+				next;
+				additem 529,1;
+				show "[Elin]";
+				show "Obrigada pela boneca!";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 3:
+			if(countitem(742) > 0){
+				delitem 742,1;
+				show "[Elin]";
+				show "Hã o que é isso?.... uma boneca ... chonchon? ...";
+				emotion e_wah;
+				next;
+				show "[Elin]";
+				show "Ah bem, já que você está";
+				show "dando ela para mim, eu acho que esta ok ....";
+				next;
+				show "[Elin]";
+				show "Bem aqui há alguma coisinha";
+				show "por me dar a boneca.  Não coma muito";
+				show "ou você vai ganhar buracos.";
+				additem 530,1;
+				next;
+				show "[Elin]";
+				show ".... chonchon.... (~resmungando, resmungando~)";
+				emotion e_ag;
+				close;
+			}
+			break;
+		case 4:
+			if(countitem(752) > 0){
+				delitem 752,1;
+				show "[Elin]";
+				show "Oh! uma boneca Rocker.";
+				show "Eu odeio coisas pulantes";
+				show "mas essa boneca é até fofa.";
+				next;
+				show "[Elin]";
+				show "Obrigada. Deixe-me lhe dar algo tambem.";
+				next;
+				show "[Elin]";
+				show "Hmm, eu não peguei nada do meu tio...";
+				next;
+				show "[Elin]";
+				show "Aqui está. Eu peguei toneladas";
+				show "disso em casa então vou repartirum pouco com você~";
+				additem 532,7;
+				next;
+				show "[Elin]";
+				show "Obrigada novamente pela boneca!";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 5:
+			if(countitem(743) > 0){
+				delitem 743,1;
+				show "[Elin]";
+				show "Bleargh .... É um cogumelo... Mamãe sempre me repreede para que eu não coma cogumelos....";
+				emotion e_swt;
+				next;
+				show "[Elin]";
+				show "Eu vou aceitar de qualquer maneira,";
+				show "desde que a boneca parece fofa.";
+				show "Mas eu ainda não vou comer cogumelos no entanto...";
+				next;
+				show "[Elin]";
+				show "Hmm, eu vou precisar te dar um presente tambem.";
+				next;
+				show "[Elin]";
+				show "Minha mãe fez isso, por favor aceite-o.";
+				additem 538,5;
+				next;
+				show "[Elin";
+				show "Obrigada pela boneca~";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 6:
+			if(countitem(751) > 0){
+				delitem 751,1;
+				show "[Elin]";
+				show "Nossa! É uma boneca Osiris!";
+				next;
+				show "[Elin]";
+				show "Aqui está algo para você tambem.";
+				additem 522,2;
+				show "[Elin]";
+				show "Obrigada pela boneca!";
+				close;
+			}
+			break;
+		case 7:
+			if(countitem(750) > 0){
+				delitem 750,1;
+				show "[Elin]";
+				show "Nossa! É uma boneca baphomet!";
+				next;
+				show "[Elin]";
+				show "Aqui tem algo para você tambem.";
+				additem 525,5;
+				show "[Elin]";
+				show "Obrigada pela boneca!";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 8:
+			if(countitem(754) > 0){
+				delitem 754,1;
+				show "[Elin]";
+				show "Ah, é uma boneca de fumacento.";
+				show "Eu odeio Fumacentos, mas a boneca é muito fofa! Obrigada!";
+				emotion e_ok;
+				next;
+				show "[Elin]";
+				show "Deixa eu te dar um pouco";
+				show "da torta feita em casa pela vovó!";
+				additem 539,3;
+				next;
+				show "[Elin]";
+				show "Ela é muito boa então não deixe de come-la ok.";
+				next;
+				show "[Elin]";
+				show "Obrigada novamente por essa boneca fofa!";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 9:
+			if(countitem(753) > 0){
+				delitem 753,1;
+				show "[Elin]";
+				show "NOSSAA!!! Oh meu Deus!";
+				show "É uma boneca Yoyo!";
+				show "Isto é o que eu REALMENTE queria!!";
+				show "É tãoooo fofa......";
+				emotion e_lv2;
+				next;
+				show "[Elin]";
+				show "Como agradecimento, eu vou te dar isso.";
+				additem 608,1;
+				next;
+				show "[Elin]";
+				show "Papai pegou elas";
+				show "durante as suas viagens.";
+				show "É uma semente de algum tipo.";
+				show "Nós tentamos planta-las em casa,";
+				show "mas elas não parecem crescer.";
+				next;
+				show "[Elin]";
+				show "De qualquer modo, MUITOO obrigada";
+				show "pela boneca de yoyo!!!!";
+				emotion e_thx;
+				close;
+			}
+			break;
+		case 10:
+			show "[Elin]";
+			show "BLAAAAAAAAHHH!!";
+			show "Não ria da minha cara só porque sou criança!";
+			emotion e_pif;
+			next;
+			show "[Elin]";
+			show "(murmura) .....'idiota'.....";
+			close;
+	}
+	show "[Elin]";
+	show "EI!! Você não tem";
+	show "nenhuma boneca...";
+	show "Eu não consigo acreditar";
+	show "que você mentiria para uma criancinha!!!";
+	emotion e_gasp;
+	next;
+	show "[Elin]";
+	show "Você é MALVADO!!";
+	show "EU TE ODEIO!!.....";
+	show "sniff... sniff.... Buuuuuuuuuuuuuuuaaaaaaaaaaa!!";
+	emotion e_sob;
+	close;
+}
+
+
+//=======================================================================================================//
+//						Quest Quepe
+//=======================================================================================================//
+alberta_in,28,145,4	script	Grampa	120,{
+	show "[Grampa]";
+	show "Coff ..Coff";
+	next;
+	show "[Grampa]";
+	show "Quando eu me lembro da minha juventude... Me arrependo de não ter feito uso melhor do meu tempo...";
+	next;
+	show "[Grampa]";
+	show "Mesmo que eu AINDA me sinta jovem de alma..... infelizmente meu corpo é muito velho e está em más condições...... Coff !! Coff .. !!";
+	next;
+	if(countitem(1030) >= 10) // ,M_Show,  tigre depois cancelar
+		set .@menu$,select("Conversar.","Mostrar a ele a pele do pé de tigre.","Cancelar.");
+	else
+		set .@menu$,select("Conversar.","","Cancelar.");
+
+	switch(.@menu$){
+		case 1:
+			show "[Grampa]";
+			show "Me escute..... Você deve cuidar do seu corpo o melhor que puder....";
+			show "Se você não leva a sério manter-se saudavel agora..... você certamente vai se arrepender quando ficar mais velho.";
+			next;
+			show "[Grampa]";
+			show "Eu tenho tentado rejuvenecer o meu corpo, ao estado saúdavel com o que há de melhor de ervas e remédios que o dinheiro pode pagar....";
+			next;
+			show "[Grampa]";
+			show "Mas isso tudo custa muito caro, você deve saber como é difícil achar ervas raras por aí, ainda mais para uma pessoa cançada como eu!";
+			next;
+			show "[Grampa]";
+			show "Eu tenho tentado de tudo para ter devolta minha juventude, mas apenas uma coisa que eu ainda não tentei.....";
+			next;
+			show "[Grampa]";
+			show "São as  ^3355FFPata de Tigre^000000, as lendárias reis da juventude!!"; 
+			emotion e_gasp;
+			next;
+			show "[Grampa]";
+			show "Já ouviu falar nessas patas de Tigre???.....";
+			emotion e_what;
+			next;
+			show "[Grampa]";
+			show "Apenas um olhar nelas pode fazer uma pessoa de 80 anos passar a ter 18 anos de novo!!!!";
+			next;
+			show "[Grampa]";
+			show "É imprecionante não??? Se eu pudesse conceguir achar umas patas de tigre.....";
+			next;
+			show "[Grampa]";
+			show "traga-me ^5555FF10 Patas de Tigres^000000, E eu irei te dar um ^3355FFQuepe^000000.";
+			close;
+		case 2:
+			show "[Grampa]";
+			show "Ohhhh...Essas...São...as lendárias patas de tigre!!";
+			next;
+			show "[Grampa]";
+			show "Só de olhar para elas seus cabelos grisálhos se tornam negros de novo e seus reflexos 10 veses mais rápidos!";
+			show "Apenas um pequeno toque nelas pode fazer uma pessoa de 80 anos passar a ter 18 anos de novo!!!!";
+			next;
+			show "[Grampa]";
+			show "Por favor? Dê elas para min???? É o meu maior sonho.....";
+			next;
+			if(select("- Dar as patas de Tigre.:Que velho doido!")==1){
+				if(countitem(1030) < 10){
+					show "[Grampa]";
+					show "Vá embora, você não tem o que eu quero...minhas patas de tigre....!!!";
+					emotion e_bzz;
+					close;
+				}
+				delitem 1030,10;
+				additem 5016,1;
+				show "[Grampa]";
+				show "Muito Obrigado!!";
+				emotion e_thx;
+				next;
+				show "[Grampa]";
+				show "Agora eu irei comê-las para voltar a ser joven de novo!";
+				close;
+			}
+			show "[Grampa]";
+			show "Volte sempre que puder....";
+			close;
+		case 3:
+			show "[Grampa]";
+			show "Cough Cough !! .. pata de tigre...pata de tigre...pata de tigre !!";
+			close;
+	}
+}
+
+//=======================================================================================================//
+//						Quest Chifre de Alce
+//=======================================================================================================//
+alberta_in,122,53,4	script	Cherokee	47,{
+	show "[Cherokee]";
+	show "OI,eu sou um colecionador de chifres...parece engraçado não?";
+	next;
+	show "[Cherokee]";
+	show "Chifres de animais são muito valiosos e caros.";
+	show "Você pode vestil-os na cabeça ou coloca-los na parede em sua casa.";
+	next;
+	show "[Cherokee]";
+	show "Tem um tipo de chifre que eu estive procurando a muito tempo,  É o ^5555FF'Chifre de Alce '^000000..";
+	next;
+	show "[Cherokee]";
+	show "Alguns dizem que esse chifre é de um Demônio!";
+	show "Por isso que quero um desses.";
+	next;
+	show "[Cherokee]";
+	show "diga, você tem alguns ^5555FF'Chifre Diabólico'^000000?";
+	show "se você me conceguir ^5533FF20 Chifres Diabólicos^000000, eu vou te dar minha preciosa ^FF3355'Chifre de Alce'^000000.  estamos de acordo?";
+	next;
+	if(select("Claro!:Eu heim. Chifres?.")==1){
+		if(countitem(923) < 20){
+			show "[Cherokee]";
+			show "Hmm.... Eu disse que preciso de ^FF5533'20 Chifres Diabólicos'^000000.";
+			close;
+		}
+		delitem 923,20;
+		show "Whoah~! é a primeira vez que eu vejo um ^3355FF'Chifres Diabólicos'^000000!!";
+		emotion e_ic;
+		next;
+		show "[Cherokee]";
+		show "Aqui está o Chifre de Alce!";
+		emotion e_thx;
+		additem 2284,1;
+		next;
+		show "[Cherokee]";
+		show "Muito obrigado por completar minha coleção!!!";
+		close;
+	}
+	show "[Cherokee]";
+	show "Nossa, espero que o Demônio crave os chifres dele bem no seu peito para você aprender a ser mais gentil....";
+	close;
+}
+
+
+//=======================================================================================================//
+//			Bao Bao, Cresent Hairpin, Fashionbale Glasses, Heart Hairpin
+//=======================================================================================================//
+alberta,120,53,3	script	Zic	51,{
+	show "[Zic]";
+	show "Yay! que ótimo vento!!";
+	emotion e_ho;
+	next;
+	show "[Zic]";
+	show "Huh?... você quer algo?";
+	emotion e_hmm;
+	next;
+	show "[Zic]";
+	show "~olhando~ minha reputação não está muito boa por isso venho aqui.....";
+	next;
+	show "[Zic]";
+	show "Fale o que você quizer, talvez eu possa te ajudar.....";
+	next;
+	switch(select("- Bao-bao:- Fivela de Lua:- Óculos Fashion:Fivela de Coração")){
+		case 1:
+			show "[Zic]";
+			show "Para fazer um Bao-Bao eu vou precisar dê:";	//5042
+			show "- ^5555FF1 Laço de Seda^000000,";	//10007
+			show "- ^5555FF50 Insígnias do Herói^000000.";	//968
+			next;
+			show "[Zic]";
+			show "Quer que eu faça um?";
+			next;
+			if(select("Claro.:Não.")==1){
+				if (countitem(10007)<1 || countitem(968)<50){
+					show "[Zic]";
+					show "Ei! Está faltando alguns itens, volte quando tiver tudo.";
+					close;
+				}
+				delitem 10007, 1;
+				delitem 968, 50;
+				show "[Zic]";
+				show "Espere, eu irei fazer o Bao-Bao......";
+				next;
+				show "[Zic]";
+				show "Aqui está o Bao-Bao. Divirta-se.";
+				additem 5042, 1;
+				close;
+			}
+			break;
+		case 2:
+			show "[Zic]";
+			show "Para fazer uma Fivela de Lua vou precisar dê:";	//5048
+			show "- ^5555FF1 Fivela de Coração^000000,";	//5041
+			show "- ^5555FF10 Aços^000000.";	//999
+			next;
+			show "[Zic]";
+			show "Quer fazer uma?";
+			next;
+			if(select("Claro.:Não.")==1){
+				if (countitem(5041)<1 || countitem(999)<10){
+					show "[Zic]";
+					show "Ei! Está faltando alguns itens, volte quando tiver tudo.";
+					close;
+				}
+				delitem 5041, 1;
+				delitem 999, 10;
+				show "[Zic]";
+				show "Estou fazendo sua Fivela de Lua......";
+				next;
+				show "[Zic]";
+				show "Aqui está!";
+				additem 5048, 1;
+				close;
+			}
+			break;
+		case 3:
+			show "[Zic]";
+			show "Para fazer um Óculos Fashion eu vou precisar dê:";	//5047
+			show "- ^5555FF1 Óculos Charmoso^000000,";	//2271
+			show "- ^5555FF1 Tintura Vermelha^000000.";	//975
+			next;
+			show "[Zic]";
+			show "Quer um?";
+			next;
+			if(select("Claro.:Não.")==1){
+				if (countitem(2271)<1 || countitem(975)<1){
+					show "[Zic]";
+					show "Ei! Está faltando alguns itens, volte quando tiver tudo.";
+					close;
+				}
+				delitem 2271, 1;
+				delitem 975, 1;
+				show "[Zic]";
+				show "Estou preparando ele......";
+				next;
+				show "[Zic]";
+				show "Aqui está.";
+				additem 5047, 1;
+				close;
+			}
+			break;
+		case 4:
+			show "[Zic]";
+			show "Para fazer uma Fivela de Coração eu vou precisar dê:";	//5041
+			show "- ^5555FF1200 Corais^000000.";	//7013
+			emotion e_hmm;
+			next;
+			show "[Zic]";
+			show "Quer fazer um?";
+			next;
+			if(select("Claro.:Não.")==1){
+				if (countitem(7013)<1200){
+					show "[Zic]";
+					show "Ei! Está faltando alguns itens, volte quando tiver tudo.";
+					close;
+				}
+				delitem 7013, 1200;
+				show "[Zic]";
+				show "Espere um minuto......";
+				next;
+				show "[Zic]";
+				show "Aqui está.";
+				additem 5041, 1;
+				close;
+			}
+			break;
+	}
+	show "[Zic]";
+	show "Até mais.";
+	close;
+}
+
+//=======================================================================================================//
+//						Quest Ilha da Tartaruga
+//=======================================================================================================//
+// Gotanblue --------------------------------------------------------------------------
+alberta,247,123,5	script	Gotanblue	709,{
+	if(TURTLE){
+		show "[Gotanblue]";
+		show "Oh! Seus olhos.... Eles me contam que você veio por que o homem bêbado te falou!";
+		set .@loop,1;
+		while(.@loop) {
+			switch(select("-Me fale sobre a Ilha da Tartaruga.:-Como posso chegar lá?:-Tchau")){
+				case 1:
+					show "[Gotanblue]";
+					show "Quer saber sobre a ilha...";
+					next;
+					show "[Gotanblue]";
+					show "deixe eu te falar....";
+					next;
+					show "[Gotanblue]";
+					show "Lá que ficam meus melhores amigos!!";
+					emotion e_gasp;
+					next;
+					show "[Gotanblue]";
+					show "você entendeu??.........";
+					next;
+					show "[Gotanblue]";
+					show "Aconteceu a decadas atrás....";
+					next;
+					show "[Gotanblue]";
+					show "^5555FFJornadan Niliria^000000 e muitas outras pessoas sairam numa jornada para saber se a ilha era mito ou não.";
+					next;
+					show "[Gotanblue]";
+					show "Eu tinha epenas 20 anos na época e estava naquela expedição.";
+					next;
+					show "[Gotanblue]";
+					show "Jornadan Niliria era o melhor caçador de tesouros e tinhamos muito orgulho dele.";
+					next;
+					show "[Gotanblue]";
+					show "Saimo de Alberta mesmo e fomos atrás da Ilha.";
+					next;
+					show "[Gotanblue]";
+					show "Ficamos muitos dias no mar a procura da ilha.....";
+					next;
+					show "[Gotanblue]";
+					show "Até que um dia fomos envolvidos por uma densa camada de neblima escura e assustadora!";
+					next;
+					show "[Gotanblue]";
+					show "não sabiamos onde era o leste ou onde era o norte, mas estávamos cançados de mais para nos preocupar com isso";
+					next;
+					show "[Gotanblue]";
+					show "Então o pior aconteceu, uma enorme rocha bateu no nosso navio!!";
+					emotion e_gasp;
+					next;
+					show "[Gotanblue]";
+					show "Danificando muito o navio, nos impossibilitando de continuar nossa busca.";
+					next;
+					show "[Gotanblue]";
+					show "mas como um raio de energia os primeiros raios de sol rasgaram a neblina escura e nos deixou ver o que estava em volta.";
+					next;
+					show "[Gotanblue]";
+					show "E em poucos minutos que o sol ia nos iluminando a ilha ia aparencendo, era ela , a lendário ILHA TARTARUGA!!!!";
+					next;
+					show "[Gotanblue]";
+					show "Nos acambamos e descançamos, e depois descobrimos que não eramos os primeiros a estar alí, achamos um jornal contendo infomações de outras embarcações";
+					next;
+					show "[Gotanblue]";
+					show "De acordo com o jornal o homem que o escreveu ficou perdido na ilha, mas não conceguimos achar ele";
+					next;
+					show "[Gotanblue]";
+					show "E mesmo assim sentindo o perigo ainda começamos a explorar a ilha.";
+					next;
+					show "[Gotanblue]";
+					show "O jornal nos chamou muita atenção....";
+					show "Seu escritor tinha o nome de ... ^5555FF'Won'^000000... Aparentemente um grande espadachim....";
+					next;
+					show "[Gotanblue]";
+					show "Ele também escreveu algo sobre um '^FF5555Jewel Fragment'^000000 algo assim.  Ele diz que é a jóia mais bonita do mundo'.";
+					next;
+					show "[Gotanblue]";
+					show "Ficamos obsecados pela jóia e decidimos procura-la";
+					next;
+					show "[Gotanblue]";
+					show "Mas não tivemos sucesso.";
+					show "Meses depois decidimos voltar.";
+					next;
+					show "[Gotanblue]";
+					show "...";
+					next;
+					show "[Gotanblue]";
+					show "Mas não havia como, a densa neblina sempre aparecia quando tentáva-mos voltar";
+					emotion e_gasp;
+					next;
+					show "[Gotanblue]";
+					show "Era uma maldição.";
+					show "TEntamos anos e anos sair da ilha mas não conceguia-mos, era uma armadilha";
+					next;
+					show "[Gotanblue]";
+					show "Não havia outra saia, estávamos sem esperança....";
+					show "E todos da expedição foram perdendo suas forças de voltar e reencontrar sua família....";
+					next;
+					show "[Gotanblue]";
+					show "Ilha Amaldiçoada!!!!!";
+					emotion e_omg;
+					next;
+					show "[Gotanblue]";
+					show "Então apenas eu e Jornadan conceguimos voltar vivos para Alberta....";
+					next;
+					show "[Gotanblue]";
+					show "(~choro~)...eu ainda me sinto emocionado em contar essa história me desculpe.";
+					emotion e_sob;
+					break;
+				case 2:
+					show "[Gotanblue]";
+					show "Você ainda quer ir??";
+					emotion e_what;
+					next;
+					show "[Gotanblue]";
+					show "Bom, pelo serviço de guia ira custar apenas 10,000 zeny!";
+					next;
+					if(select("Ilha da Tartaruga -> 10000 zeny.:Não viajar.")==1){
+						if(Zeny < 10000){
+							show "[Gotanblue]";
+							show "O que? São 10,000 zeny. Não posso fazer por mais barato!";
+							emotion e_what;
+							close;
+						}
+						set Zeny, Zeny - 10000;
+						warp "tur_dun01",154,39;
+						end;
+					}
+					set .@loop,0;
+					break;
+				case 3:
+					show "[Gotanblue]";
+					show "Se você não quizer sofrer profundamente deixe essa ilha pra lá...";
+					close;
+			}
+		}
+		show "[Gotanblue]";
+		show "Isso mesmo não vá!";
+		show "É muito perigoso mesmo!";
+		close;
+	}
+	show "[Gotanblue]";
+	show "Ha ha! O mar é interminável....";
+	next;
+	show "[Gotanblue]";
+	show "Sabe o que eu quero dizer?.....";
+	close;
+}
+
+//Go back to Alberta
+tur_dun01,166,29,1	script	Gotanblue#2	709,{
+	show "[Gotanblue]";
+	show "De volta a Alberta?";
+	next;
+	if(select("Sim.:Ainda não.")==1){
+		show "^5555FF(Você e Gotanblue Subiram no barco)^000000";
+		next;
+		warp "alberta",244,123;
+		close;
+	}
+	show "[Gotanblue]";
+	show "Muito bem!!";
+	close;
+}
+
+// Turtle Grandpa -------------------------------------------------------------------
+alberta_in,23,104,2	script	Grandpa da tartaruga	120,{
+	show "[Grandpa da tartaruga]";
+	show "~Buuurrrpp!!!~ Oops...";
+	emotion e_swt;
+	next;
+	show "[Grandpa da tartaruga]";
+	show "Alberta, dizem, é a capital da venda e compra!!";
+	emotion e_an;
+	next;
+	show "[Grandpa da tartaruga]";
+	show "Por que eu vim beber justo aqui??";
+	emotion e_what;
+	next;
+	menu "-FAle me sobre a Ilha Tartaruga.",-, "-Como chego lá?",M_1, "-Até mais.",M_End;
+	switch(select("-Me fale sobre a Ilha da Tartaruga.:-Como chego lá?:-Até mais.")){
+		case 1:
+			show "[Grandpa da tartaruga]";
+			show "Tem um enorme tesouro guardado na ilha tartaruga.";
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Uma poção que pode prolongar a vida de quem a bebe";
+			next;
+			show "[Grandpa da tartaruga]";
+			show "......";
+			emotion e_gasp;
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Tenho um irformação a te dar...";
+			next;
+			if(select("-(~piscar os olhos~)","-ME de a informação.")==1){
+				show "[Grandpa da tartaruga]";
+				show "Vá nas docas e procura por ^FF3333Jornadan^000000... ^FF3333Niliria^000000...";
+				show "Fale com ele...ele irá te ajudar... ";
+				next;
+				show "[Grandpa da tartaruga]";
+				show "Oh! Olhe esse '^5555FFjornal^000000', seria interessante lê-lo.";
+				if(TURTLE==0)
+					set TURTLE, 1;
+				close;
+			}
+			show "[Grandpa da tartaruga]";
+			show "De geito nenhum!";
+			emotion e_gasp;
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Saia da minha vista, vá para casa!";
+			emotion e_an;
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Vá Emboraaaaaa...";
+			emotion e_go;
+			close;
+		case 2:
+			show "[Grandpa da tartaruga]";
+			show "É muito dificil de acha-la....";
+			next;
+			show "[Grandpa da tartaruga]";
+			show "É impossivel  aliás!!!!";
+			emotion e_gasp;
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Você quer mesmo ir lá??";
+			emotion e_what;
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Cuidado com os coelhos...será que tem coelhos lá mesmo...acho que é a cachaça....";
+			next;
+			show "[Grandpa da tartaruga]";
+			show "Nas docas tem uma pessoa gorda e velha, chama-se ^5555FFGotanblue^000000.";
+			show "Fale com ele...talvez possa te levar na ilha...Ick.";
+			close;
+		case 3:
+			show "[Grandpa da tartaruga]";
+			show "Whooops......";
+			next;
+			show "!!KA-PLOP!!(Barulho)";
+			next;
+			show "[Grandpa da tartaruga]";
+			show "He he he.... Eu bebo como um peixe!! Olhe isso!!..... ~ZZZZZzzzz~";
+			close;
+	}
+}
+
+// Letter of an explorer (on Turtle Grandpa's desk)------------------------------------------------------------------
+alberta_in,17,101,1	script	Letra de um explorador	111,{
+	show "~ Está escrito na carta... ~";
+	show "- O/X/XOVX -";
+	show "Se você achou essa carta foi porque a expedição deu errado...";
+	next;
+	show "~ continuando...~";
+	show "temos apenas a metade da frota.  estamos numa grave cituação....";
+	next;
+	show "~ continuando...~";
+	show "- V/O/XOVX -";
+	show "Essa ilha é amaudiçoada.....";
+	next;
+	show "~ continuando...~";
+	show "Não tem nada pra comer, estamos com frio, com sede!!";
+	next;
+	show "~ continuando...~";
+	show "- V/X/XOVX -";
+	show "^5555FF- .... -^000000";
+	show "^5555FF- Você não consegue ler o resto. -^000000";
+	close;
+}
+
+// Jornadan Niliria ------------------------------------------------------------------------
+alberta,248,90,1	script	Jornadan Niliria	121,{
+	show "[Jornadan Niliria]";
+	show "Eu acho que o mundo está em constante mudança....";
+	next;
+	show "[Jornadan Niliria]";
+	show "Principalmente o caminho de Al De Baran para a Ilha.  Hah hah hah....";
+	next;
+	switch(select("-Ilha???:-Você não está se confundindo, Al De Baran?:-Até mais.")){
+		case 1:
+			show "[Jornadan Niliria]";
+			show "Ah a ilha da tartaruga, quer saber mais sobre ela???......";
+			next;
+			show "[Jornadan Niliria]";
+			show "O nome da olha é uma coisa bem óbvia sabia.";
+			next;
+			show "[Jornadan Niliria]";
+			show "É chamada de ilha tartaruga porque seu formato é de uma tartaruga, com casco, cabeça e suas nadadeiras";
+			next;
+			show "[Jornadan Niliria]";
+			show "Existem uma neblima em volta dessa ilha, que sempre surpreende os novos navegadores desprevenidos.";
+			next;
+			show "[Jornadan Niliria]";
+			show "Nós achamos uma caverna ao norte da ilha que fica atras de uma cachoeira, então a agua da cachoeira que produz tanta neblina.";
+			next;
+			show "[Jornadan Niliria]";
+			show "....";
+			next;
+			show "[Jornadan Niliria]";
+			show "Os marinheiros vão a ilha para provar sua força, confiança e coragem, e não para achar tesouros, essas coisa que acabam....";
+			next;
+			show "[Jornadan Niliria]";
+			show "só uma coisa me entriga agora, a existencia de uma ^FF5555'Jewel Fragment'^000000.";
+			next;
+			show "[Jornadan Niliria]";
+			show "Um dia eu ainda acho essa jóia";
+			close;
+		case 2:
+			show "[Jornadan Niliria]";
+			show "Whoops ! É mesmo, estou confuso !!!";		//Não tenho ideia do que estou falando.....
+			close;
+		case 3:
+			show "[Jornadan Niliria]";
+			show "procure uma resposta para sua pergunta...";
+			next;
+			show "[Jornadan Niliria]";
+			show "Hmmm.... preciso ir comer algo, estou com muita fome, alberta não tem pratos muito gostosos...";
+			close;
+	}
+}
+
+// Jornadan's Voyage Log -------------------------------------------------
+alberta,247,93,1	script	Um registro da viagem	111,{
+	if(TURTLE == 1){
+		show "^5555FF- O papel está amaçado -";
+		show "- Está em péssimas";
+		show "condições. -^000000";
+		next;
+		show "^5555FF- Entre algumas páginas -";
+		show "- é uma folha de banana -";
+		show "- está escrito. -^000000";
+		next;
+		show "[Um registro da viagem]";
+		show "= data O/X  =";
+		show "Chegamos na ilha e não encontramos nenhuma coisa para alimentar a todos...";
+		next;
+		show "[Um registro da viagem]";
+		show "quando eu olhei no espelho, me assustei com o que vi...";
+		next;
+		show "[Um registro da viagem]";
+		show "= data X/X  =";
+		show "Achamos um espécie de banana!";
+		next;
+		show "[Um registro da viagem]";
+		show "= data XO/X  =";
+		show "Não era uma banana, mas parecia muito com a fruta.";
+		show "o gosto e o cheiro eram identicos.";
+		next;
+		show "[Um registro da viagem]";
+		show "conceguimos pegar umas bananas e estocamos.";
+		next;
+		show "[Um registro da viagem]";
+		show "E algo aconteceu.";
+		show "~ Começamos a gostar de banana!! ~";
+		next;
+		show "[Um registro da viagem]";
+		show "= data O/O  =";
+		show "Na noite um dos companheiros passou com alguma coisa que ele comeu.";
+		next;
+		show "[Um registro da viagem]";
+		show "= data OO/O =";
+		show "e mais um passou mau mais tarde, 'Berot Berot', que vomitou tudo mais tarde.";
+		next;
+		show "[Um registro da viagem]";
+		show "O fato de que ele ficou doente por causa de algo que ele comeu, deixou muito claro que havia algo nos envenenando.";
+		next;
+		show "[Um registro da viagem]";
+		show "= data XO/O =";
+		show "Uma terceira pessoa ficou doente hoje enquanto estavamos for a explorando. A primeira pessoa a ficar doente morreu.... Todos nós estamos muito preocupados.";
+		next;
+		show "[Um registro da viagem]";
+		show "Nós nos esforçamos muito para encontrar a causa da doença. Então observando os animais um dia, nós a descobrimos.";
+		show "Era uma coisa muito estranha que nós pensamos que era nossa salvação apesar de nenhum animal na ilha sequer tocar nela -It was the very thing we thought to be our salvation and yet not one animal on the island would even touch it.....";
+		next;
+		show "[Um registro da viagem]";
+		show "O que estava nos matando era..... nossa amada BANANA!!";
+		next;
+		show "[Um registro da viagem]";
+		show "Nós decidimos que nos livrariamos de todas as bananas. Mas por alguma razão elas não pareciam estar se decompondo.";
+		show "Mesmo quando a pele foi descascada, as frutas permaneciam as mesmas.";
+		next;
+		show "[Um registro da viagem]";
+		show "Eu penso que o veneno ou algum outro agente dentro da fruta que está permitindo que ela sobreviva.";
+		show "Talvez a gente possa usá-la para algum propósito medicinal mais tarde, mas agora ela não é de nenhuma utilidade para nós.";
+		show "Até que a gente retorne a Alberta, nós decidimos enterrar o que sobrou da fruta.";
+		next;
+		show "[Um registro da viagem]";
+		show "Essa é a localização aonde está enterrado caso a gente esqueça:";
+		show "^FF8888- tur_dun01 -";
+		show "- X: 160, Y: 81 -^000000";
+		next;
+		show "^5555FF- Há uma chave fina -";
+		show "- com uma marca de caveira nela -";
+		show "- Você ganhou-";
+		show "- a 'Chave da Caveira' -^000000";
+		set TURTLE, 2;
+		close;
+	}
+	show "[Um registro da viagem]";
+	show "= 03:20 am =";
+	show "A lua estava escura, e eu não podia ver nem um palmo a minha frente...";
+	next;
+	show "[Um registro da viagem]";
+	show "Eu podia ver no olho de meus companheiros que estavam com medo, não conceguiam dormir....";
+	next;
+	show "[Um registro da viagem]";
+	show "= 04:10 =";
+	show "A cinco minutos antes um dos nossos companheitos morreu....";
+	next;
+	show "[Um registro da viagem]";
+	show "ele se foi às 04:07.";
+	show "O navio foi danificado várias veses na chegada da ilha.";
+	next;
+	show "[Um registro da viagem]";
+	show "= 04:45 =";
+	show "Quanto tentávamos concertá-lo, sempre havia monstros atacando.";
+	next;
+	show "[Um registro da viagem]";
+	show "Dois tripulantes se perderam";
+	next;
+	show "[Um registro da viagem]";
+	show "DUrante a colisão com a ilha, perdemos 30% dos suprimentos e quase toda comida";
+	next;
+	show "[Um registro da viagem]";
+	show "= 05:23 =";
+	show "Os corais atrapalhavam ainda mais nossa navegação....";
+	next;
+	show "[Um registro da viagem]";
+	show "- escrito por -";
+	show "- capitão Jornadan Niliria -";
+	next;
+	show "^5555FF- Fechado o registro da viagem -^000000";
+	close;
+}
+
+// Burried treasure --------------------------------------------------------------------
+tur_dun01,160,80,1	script	Pedra do Skull	111,{
+	if(TURTLE == 2){
+		show "^5555FF(Em baixo da pedra tem um buraco de fechadura muito pequeno com uma caveira marcada. Você usou a 'Chave da Caveira'  para abrir a caixa.)^000000";
+		next;
+		show "^5555FF(~click!~click!~)^000000";
+		next;
+		show "^5555FF(De repente o topo da pedra se abre com varias coisas vindo para fora!)^000000";
+		set TURTLE, 3;
+		next;
+		show "^5555FF(Você ganhou 5 bananas tropicais e 5 sucos de banana.)^000000";
+		additem 634, 5;
+		additem 532, 5;
+		close;
+	}
+	show "^5555FF(É um assustador tumulo de pedra com uma caveira horrível sobre ele.)^000000";
+	close;
+}
+
+//=======================================================================================================//
+//	Hat of Sun God, Sunday Hat, Mage Hat, Magician Hat::Não foi reestruturado
+//=======================================================================================================//
+alberta,135,79,3	script	Tempestra	71,{
+	show "[Tempestra]";
+	show "Adoro o mar, que brisa suave.";
+	emotion e_ho;
+	if(MISC_QUEST & 2) goto sM_Menu;
+	next;
+	show "[Tempestra]";
+	show "Pena que não tenho um chapéu, o sol está muitom quente para ficar exposto, cuidado com as insolações viu.";
+	next;
+	show "[Tempestra]";
+	show "Não estou me sentindo muito bem, pode me dar uma poção amarela????";
+	next;
+	menu "Aqui está.",-, "Vá comprar ora!!!",M_1;
+
+		if(countitem(503) < 1) goto L_NoPot;
+		delitem 503, 1;
+		set MISC_QUEST,MISC_QUEST | 2;
+		show "[Tempestra]";
+		show "Oooh! Muito obrigado....";
+		emotion e_thx;
+		next;
+		show "[Tempestra]";
+		show "(~gulp~gulp~)";
+		next;
+		show "[Tempestra]";
+		show "Hyaaaaaaa!! Está tão geladinha!!";
+	sM_Menu:
+		next;
+		menu "Está muito quente mesmo...",-, "Você deveria vestir um chapeu.",sM_1;
+
+			show "[Tempestra]";
+			show "SIm está mesmo.....";
+			next;
+			show "[Tempestra]";
+			show "Eu comprei um monte de chapéus...eu tenho";
+			show "um ^5555FF'Chapéu de Verão'^000000,";
+			show "um ^5555FF'Chapéu de Mestre Arcano'^000000,";
+			show "um ^5555FF'Cartola'^000000, e ainda mais na minha sala...";
+			next;
+			show "[Tempestra]";
+			show "Estou vendendo esses chapéus sabia, para minhas férias....";
+			show "Mas parece que tenho que vestir um né.....";
+		ssM_Menu:
+			next;
+			menu "Sunday Hat?",-, "Mage Hat?",ssM_0b, "Magician Hat?",ssM_0c, "Até mais, cuide-se.",ssM_End;
+
+				show "[Tempestra]";
+				show "O Chapéu de Verão é feito de:";
+				show "- ^5555FF250 Tecidos^000000,";
+				show "- ^5555FF1 Chapéu[1]^000000,";
+				show "- ^5555FF1 Barrete[1]^000000,";
+				show "- ^5555FF600 Penas Macias^000000.";
+				show "Se quiser eu posso fazer um pra você.";
+				next;
+				menu "Fazer um.",-, "Deixa pra lá",ssM_End;
+
+					if (countitem(1059)<250 || countitem(2221)<1 || countitem(2227)<1 || countitem(7063)<600) goto ssM_Menu;
+					delitem 1059, 250;
+					delitem 2221, 1;
+					delitem 2227, 1;
+					delitem 7063, 600;
+					show "[Tempestra]";
+					show "Estou preparando........";
+					next;
+					additem 5032, 1;
+					show "[Tempestra]";
+					show "Tudo certo, aqui está.";
+					emotion e_thx;
+					close;
+			ssM_0b:
+				show "[Tempestra]";
+				show "O Chapéu de Mestre Arcano é feito de:";
+				show "- ^5555FF1 Chapéu de Bathory^000000,";
+				show "- ^5555FF400 Escamas de Dragões^000000,";
+				show "- ^5555FF50 Pós de Bolor^000000,";
+				show "- ^5555FF1 Carta Salgueiro Ancião^000000.";
+				show "Posso fazer se você quizer.";
+				next;
+				menu "Fazer um.",-, "Deixa pra lá",ssM_End;
+
+					if (countitem(2252)<1 || countitem(1036)<400 || countitem(7001)<50 || countitem(4052)<1) goto ssM_Menu;
+					delitem 2252, 1;
+					delitem 1036, 400;
+					delitem 7001, 50;
+					delitem 4052, 1;
+					show "[Tempestra]";
+					show "Só um segundo........";
+					next;
+					additem 5027, 1;
+					show "[Tempestra]";
+					show "Tudo pronto.";
+					emotion e_thx;
+					close;
+			ssM_0c:
+				show "[Tempestra]";
+				show "Uma Cartola é feito de:";
+				show "- ^5555FF1 Chapéu de Bathory^000000,";
+				show "- ^5555FF450 Lábios Fossilizados^000000,";
+				show "- ^5555FF1200 Cascas Rijas^000000,";
+				show "Se quiser posso fazer um pra Você.";
+				next;
+				menu "Fazer um.",-, "Deixa pra lá",ssM_End;
+
+					if (countitem(2252)<1 || countitem(1054)<450 || countitem(943)<1200) goto ssM_Menu;
+					delitem 2252, 1;
+					delitem 1054, 450;
+					delitem 943, 1200;
+					show "[Tempestra]";
+					show "CLack Clak........";
+					next;
+					additem 5045, 1;
+					show "[Tempestra]";
+					show "Tudo pronto!!";
+					emotion e_thx;
+					close;
+			ssM_End:
+				close;
+
+		sM_1:
+			show "[Tempestra]";
+			show "É que os chapéus são para venda, se eu usa-los não servirão mais para vender.";
+			next;
+			show "[Tempestra]";
+			show "Eu queria fazer um chapeu pra você porque você me ajudou, mas estou sem materiais.";
+			next;
+			show "[Tempestra]";
+			show "Hmm... Se você tiver:";
+			show "^5555FF1 Símbolo do Deus-Sol";
+			show "10 Ouros";
+			show "40 Aços";
+			show "50 Carvões";
+			show "e 2 Odericons^000000..........";
+			next;
+			show "[Tempestra]";
+			show "Eu posso fazer um ^5555FF'Coroa do Deus-Sol'^000000!!";
+			next;
+			menu "Oba! Eu quero!!.",-, "Estou sem os Itens!!!.",ssM_1b;
+
+				if(countitem(7086)<1 || countitem(969)<10 || countitem(999)<40 || countitem(1003)<50 || countitem(984)<2) goto ssL_NotEnuf;
+				delitem 7086, 1;
+				delitem 969, 10;
+				delitem 999, 40;
+				delitem 1003, 50;
+				delitem 984, 2;
+				show "[Tempestra]";
+				show "Espere um segundo........";
+				next;
+				additem 5022, 1;
+				show "[Tempestra]";
+				show "Aqui está.";
+				emotion e_thx;
+				close;
+
+				ssL_NotEnuf:
+					show "[Tempestra]";
+					show "Um.... onde estão esses itens???";
+					emotion e_hmm;
+					close;
+			ssM_1b:
+				show "[Tempestra]";
+				show "Volte quando quizer.";
+				close;
+
+		L_NoPot:
+			show "[Tempestra]";
+			show "Umm... onde está a poção??";
+			emotion e_hmm;
+			close;
+
+	M_1:
+		show "[Tempestra]";
+		show "..... Que RUde!!!!";
+		emotion e_gasp;
+		close;
+}

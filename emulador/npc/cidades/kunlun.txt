@@ -1,0 +1,232 @@
+//===== Cronus Script ====================================
+//= Cidade de Kunlun
+//===== Por: =============================================
+//= Dynasty
+//===== Versão Atual: ====================================
+//= 1.0
+//===== Compatível Com: ==================================
+//= Cronus
+//===== Descrição: =======================================
+//= Npcs da Cidade de Kunlun
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==========================
+//= 1.0 Iniciado o NPC. [Dynasty]
+//========================================================
+gonryun,118,111,5	script	WonSuk Chen#gon	89,{
+	show "[WonSuk Chen]";
+	show "O governador dessa cidade é um homem de grande coração. Mas já ouvi falar de alguns que não confiam em seu caráter. Estranho...";
+	next;
+	show "[WonSuk Chen]";
+	show "Bom, eu gosto de nossa cidade. Os esforços de nosso governador fazem daqui um bom lugar. Eu realmente espero que alguns ingratos não atrapalhem seu bom trabalho.";
+	close;
+}
+
+gonryun,181,161,3	script	MoonJin Chungn#gon	773,{
+	show "[MoonJin Chung]";
+	show "Os homens daqui são chamados de Kunluns, e são homens bravos e enérgicos. Mas há uma dificuldade muito grande para se casarem atualmente...";
+	next;
+	show "[MoonJin Chung]";
+	show "Isso porque existem hoje muito mais homens que mulheres. Nem certeza se meu filho conseguirá se casar eu tenho. Hmmm...";
+	close;
+}
+
+gonryun,113,135,6	script	Guardião#gon	780,{
+	show "[Guardião]";
+	show "Bem vindo! Sou um humilde servidor de SaYumMoon, o governador dessa cidade.";
+	next;
+	show "[Guardião]";
+	show "Acredito que não vá acontecer, mas se você agir de maneira suspeita, serei obrigado a te prender.";
+	next;
+	show "[Guardião]";
+	show "Mas não se preocupe. Não acredito que isso vá acontecer. Aproveite sua estadia!";
+	close;
+}
+alberta,245,69,3	script	Barqueiro de Kunlun#01	776,{
+	show "[Wabakho]";
+	show "Saudações. Eu gostaria de convidar todos vocês a Kunlun. Eu tenho a honra de ser o encarregado de transportar os cidadãos de Rune Midgard a um país completamente novo, Kunlun!";
+	next;
+	switch(select("Saber mais sobre Kunlun...:Ir para Kunlun.:Cancelar.")) {
+	case 1:
+		show "[Wabakho]";
+		show "Kunlun é o melhor lugar para realizar as fantasias de pessoas de toda Midgard. Você irá passar pela casa em miniatura na Vila dos Pigmeus e entrar em Kunlun através de um pilar feito de uma luz encantadora.";
+		next;
+		show "[Wabakho]";
+		show "Eu ouvi dizer que os sábios daqui construíram uma cidade voadora... É um feito impressionante, porém Kunlun sempre flutuou no céu naturalmente! Kunlun possui a mais bela vista do mundo!";
+		next;
+		show "[Wabakho]";
+		show "Nossas especialidades locais são pão doce de passas e pêssego, são suculentos e deliciosos. Como era de se esperar, um novo calabouço repleto de novos perigos o espera em Kunlun, então esteja bem preparado quando resolver ir lá!";
+		next;
+		show "[Wabakho]";
+		show "Quando você desejar partir, por favor me informe. É um grande prazer servir pessoas, como você, do continente de Midgard.";
+		close;
+	case 2:
+		show "[Wabakho]";
+		show "Bem, tudo pronto para a viagem? Nós cobramos 10,000z por uma passagem para Kunlun. A passagem é apenas válida para uma ida, mas você pode voltar quando desejar sem custo algum.";
+		next;
+		show "[Wabakho]";
+		show "Você quer embarcar agora?";
+		next;
+		if (select("Só se for agora!:Hmm, talvez outra hora.") == 1) {
+			if (Zeny > 9999) {
+				show "[Wabakho]";
+				show "Tripulação, preparem-se para a partida.";
+				close2;
+				set zeny,zeny-10000;
+				warp "gon_fild01",258,82;
+				end;
+			}
+			show "[Wabakho]";
+			show "Desculpe, mas precisa de";
+			show "10,000z para viajar a Kunlun.";
+			show "Obrigado, por favor, volte mais tarde.";
+			close;
+		}
+		show "[Wabakho]";
+		show "Por favor, me avise se desejar visitar Kunlun. É um grande prazer servir pessoas, como você, do continente de Midgard.";
+		close;
+	case 3:
+		show "[Wabakho]";
+		show "Por favor, me avise se desejar visitar Kunlun. É um grande prazer servir pessoas, como você, do continente de Midgard.";
+		close;
+	}
+}
+
+gon_fild01,255,79,7	script	Anunciante de Kunlun#02	776,{
+	show "[Wabakho]";
+	show "E então ilustre visitante, o que achou de Kunlun? Podemos partir para o continente quando quiser, basta dar as ordens.";
+	next;
+	if (select("Quero voltar para Alberta.:Cancelar.") == 1) {
+		show "[Wabakho]";
+		show "Espero que tenha gostado de Kunlun e que volte a nos visitar no futuro.";
+		show "Tripulação, prepare-se para a partida!";
+		close2;
+		warp "alberta",243,67;
+		end;
+	}
+	show "[Wabakho]";
+	show "Demore o tempo que quiser aqui, amigo. Existem muitos lugares misteriosos em Kunlun para você visitar.";
+	close;
+}
+
+gon_fild01,187,239,7	script	Anunciante de Kunlun#03	776,{
+	show "[Jangchungryong]";
+	show "Por favor, vá para o andar de cima. Eu espero que você tenha várias memórias boas de Kunlun quando voltar para a sua terra natal.";
+	close;
+}
+
+gonryun,153,64,7	script	Anunciante de Kunlun#04	776,{
+	show "[Jangchungryong]";
+	show "Tenha um belo dia em Kunlun. Quando desejar terminar sua visita, eu irei leva-lo para o porto.";
+	next;
+	if (select("Retornar ao porto.:Cancelar.") == 1) {
+		show "[Jangchungryong]";
+		show "Eu espero que você tenha se divertido conosco.";
+		show "Vamos indo então?";
+		close2;
+		warp "gon_fild01",258,82;
+		end;
+	}
+	show "[Jangchungryong]";
+	show "Demore o tempo que quiser aqui, amigo. Existem muitos lugares misteriosos em Kunlun pra você visitar.";
+	close;
+}
+
+// Generic Kunlun NPCs
+//============================================================ 
+gonryun,200,82,3	script	SungSon Gam#gon	774,{
+	show "[SungSon Gam]";
+	show "Festas são sempre divertidas. É por isso que eu amo essa cidade. Essa cidade me faz sentir como se eu vivesse em uma grande festa.";
+	close;
+}
+
+gonryun,268,88,3	script	JoonPo Lyang#gon	776,{
+	show "[JoonPo Lyang]";
+	show "Somos uma nação indenpendente e orgulhosa. Sempre lutamos bravamente contra os invasores que tentaram tomar essa terra abençoada. E vencemos todas as batalhas por nossa terra até hoje.";
+	next;
+	show "[JoonPo Lyang]";
+	show "Nós acreditamos na canção da Vitória Triunfal! Ela representa o espírito de nossa nação!";
+	close;
+}
+
+gonryun,113,127,6	duplicate(Guardião#gon)	Guardião#gon2	780
+
+gon_in,73,82,5	script	SungChul Ki#gon	778,{
+	if (nakha >= 0 && nakha <= 2) {
+		show "[SungChul Ki]";
+		show "............";
+		next;
+		show "[SungChul Ki]";
+		show "Hmmm... Isto é algo preocupante, com certeza.";
+		close;
+	}
+	if (nakha == 3) {
+		set cha,1;
+		show "[SungChul Ki]";
+		show "I am Ji Chung Zhe, a renown brewer";
+		show "of teas. Everyday, I put all my";
+		show "efforts in making scrumptious, delicious tea.";
+		next;
+		show "[SungChul Ki]";
+		show "*Sigh* But lately, the tea I've";
+		show "been making hasn't been that";
+		show "great... If I only had some special ingredients...";
+		next;
+		show "[SungChul Ki]";
+		show "I've been told that if you use";
+		show "a snake, you can concoct a truly";
+		show "extraordinary beverage~";
+		show "But...where can I find one";
+		show "and how can I catch one?";
+		show "Hmm...";
+		close;
+	}
+}
+
+gon_in,173,27,3	script	KuHa Woo#gon	774,{
+	show "[KuHa Woo]";
+	show "É claro que ninguém vende bebidas alcoólicas para uma criança como eu. Mas os adultos parecem gostar. Como será o gosto?";
+	next;
+	show "[KuHa Woo]";
+	show "Mas isso é bobagem!";
+	show "Crianças não devem beber álcool. O que eu gosto mesmo é do delicioso chá que é produzido aqui na minha cidade. Só de pensar eu já fico com água na boca.";
+	close;
+}
+
+gonryun,166,196,3	script	Soldado#gon	780,{
+	if (b_sword < 7) {
+		show "[WaGuo]";
+		show "Você sabia que esse local foi um santuário? Há muito tempo atrás, depois que foi abandonado pelos monges que buscavam o reino dos céus, ele se tornou a morada de vários monstros.";
+		close;
+	}
+	else if ((b_sword > 6) && (b_sword < 10)) {
+		show "[WaGuo]";
+		show "Você pensou que estava barulhento a noite passada? Isso devido ao ladrão. Fez um barulho... que era tão alto que causou sono a todos...";
+		next;
+		show "[WaGuo]";
+		show "Ah, no meio da confusão, observei que estava se aproximando do santuário.";
+		next;
+		show "[WaGuo]";
+		show "Estava andando rapidamente que fiquei curioso. Olhei para tentar saber o que era...";
+		next;
+		show "[WaGuo]";
+		show "Pode ter sido o ladrão, mas andou tão rápido que cansei, semelhante a um borrão.";
+		close;
+	}
+	show "[WaGuo]";
+	show "Você sabia que esse local foi um santuário? Há muito tempo atrás, depois que foi abandonado pelos monges que buscavam o reino dos céus, ele se tornou a morada de vários monstros.";
+	close;
+}
+
+gonryun,169,71,3	script	Guia#gon	770,{
+	show "[LeeHee Min]";
+	show "Bem vindo!";
+	show "Você gostou da paisagem no seu caminho para cá?";
+	show "O que achou daquelas pequenas construções no caminho?";
+	next;
+	show "[LeeHee Min]";
+	show "São miniaturas das cidades do reino de Rune-Midgard. Você pode olhar para todas as cidades de uma só vez. Foi um trabalho muito difícil. Mas não é uma obra de arte?";
+	next;
+	show "[LeeHee Min]";
+	show "Se você souber apreciar, você verá muitas paisagens bonitas pela cidade.";
+	close;
+}

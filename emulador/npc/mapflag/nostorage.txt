@@ -1,0 +1,15 @@
+-	script	nostorage	-1,{
+OnInit:
+setarray($___maps$[0],"prtg_cas01"); // Digite os mapas.
+for(set(.@__m,0);.@__m<getarraysize($___maps$);set(.@__m,.@__m+1))
+setmapflag($___maps$[.@__m],mf_nostorage);
+end();
+}
+
+-	script	nostoragealde	-1,{
+OnInit:
+setarray($___maps$[0],"aldeg_cas02"); // Digite os mapas.
+for(set(.@__m,0);.@__m<getarraysize($___maps$);set(.@__m,.@__m+1))
+setmapflag($___maps$[.@__m],mf_nostorage);
+end();
+}

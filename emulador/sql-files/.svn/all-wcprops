@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/cronusemulator/!svn/ver/3163/Server/trunk/sql-files
+END
+mob_db.sql
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/3128/Server/trunk/sql-files/mob_db.sql
+END
+repair.sql
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/3163/Server/trunk/sql-files/repair.sql
+END
+item_db.sql
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/cronusemulator/!svn/ver/3128/Server/trunk/sql-files/item_db.sql
+END
+logs.sql
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/sql-files/logs.sql
+END
+main.sql
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/cronusemulator/!svn/ver/3112/Server/trunk/sql-files/main.sql
+END
+mob_db2.sql
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/cronusemulator/!svn/ver/3111/Server/trunk/sql-files/mob_db2.sql
+END
+item_db2.sql
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/sql-files/item_db2.sql
+END
+optimize.sql
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/3163/Server/trunk/sql-files/optimize.sql
+END

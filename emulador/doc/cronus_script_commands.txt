@@ -1,0 +1,291 @@
+//===== Cronus Documentos ====================================
+//= Comandos de Scripts do Cronus
+//===== Por: =================================================
+//= SoulBlaker
+//===== Versão Atual: ========================================
+//= 0.0.1
+//===== Descrição: ===========================================
+//= Isto é um manual das linguagens dos scripts do Cronus.
+//= Comandos são classificados com suas funções e funcionalidade.
+//============================================================
+//= 0.0.1 Iniciado Documentação com comandos gerados no Cronus. [SoulBlaker]
+//============================================================
+
+*show "<string>"{,"<second string>"};
+
+Funciona da mesma forma que o comando 'mes'.
+
+    show "Texto que irá aparecer na caixa de diálogo";
+
+Exibe uma mensagem de dialogo no npc, antigamente existia somente uma sintaxe, agora você pode optar pela segunda.
+A primeira sintaxe mostra a string como diálogo no npc, para ambos sexo, a segunda sintaxe exibe a string como diálogo, definido pelo sexo.
+
+    show "Olá, bem-vindo garoto!","Olá, bem-vinda garota!";
+
+Esta segunda sintaxe é opcional, você pode utilizar o condicional 'if' para definir o diálogo segundo sexo.
+
+---------------------------------------
+
+*strsex "<male string>","<female string>";
+
+Este comando diferente da segunda sintaxe do 'mes' ou 'show', ele volta com a string defenida no sexo em mensagens.
+
+    show "Bem-vind"+strsex("o","a")+" à Corporação Kafra.";
+
+Vendo neste exemplo, ele retorna com a string da comparação, ou seja para masculino "Bem-vindo" e para feminino "Bem-vinda".
+Comando muito bom para quem não deseja adicionar uma nova linha para um novo sexo.
+
+---------------------------------------
+
+*setjob <job number>{,<upper flag>};
+
+Funciona da mesma forma que o comando 'jobchange'.
+
+---------------------------------------
+
+*setbase <job ID number>;
+
+Funciona da mesma forma que o comando 'changebase'.
+
+---------------------------------------
+
+*setsex;
+
+Funciona da mesma forma que o comando 'changesex'.
+
+---------------------------------------
+
+*digit <variable>{,<min>{,<max>}};
+
+Funciona da mesma forma que o comando 'input'.
+
+---------------------------------------
+
+*additem <item id>,<amount>{,<character ID>};
+*additem "<item name>",<amount>{,<character ID>};
+
+Funciona da mesma forma que o comando 'getitem'.
+
+---------------------------------------
+
+*additem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<character ID>};
+*additem2 "<Item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<character ID>};
+
+Funciona da mesma forma que o comando 'getitem2'.
+
+---------------------------------------
+
+*checkjob(<job>,<type);
+
+Esta função permite que você cheque classes em grupos, ou seja, pelo grupo que elas pertencem.
+
+Job é a ID da classe desejada para checagem, ou para informar sua classe utilize a sintaxe 'Class'.
+
+Type é o grupo de classe:
+
+ 1 - Checa se sua classe pertence ao grupo de job 1-1
+ 2 - Checa se sua classe pertence ao grupo de job 2-1 e 2-2
+ 3 - Checa se sua classe pertence ao grupo de job 1-1 Transclasse 
+ 4 - Checa se sua classe pertence ao grupo de job 2-1 e 2-2 Transclasse 
+ 5 - Checa se sua classe pertence ao grupo de job 1-1 baby
+ 6 - Checa se sua classe pertence ao grupo de job 2-1 e 2-2 Baby
+ 7 - Checa se sua classe pertence ao grupo de job 1-1e
+
+Estas são as sintaxe usadas para este comando, vamos a algumas explicações:
+
+Exemplo de Checando se tal classe pertence ao grupo tal:
+
+-	script	checkjob#sample_	-1,{
+
+	if(checkjob(JobSwordman,1))
+		show "Esta classe pertence ao grupo de classe 1-1!";
+	else
+		show "Esta classe não pertence ao grupo de classe 1-1!";
+	close;
+}
+
+Exemplo de Checando se sua classe pertence a tal grupo:
+
+-	script	checkjob#sample_	-1,{
+	if(checkjob(Class,1))
+		show "Sua classe pertence ao grupo de classe 1-1!";
+	else
+		show "Sua classe não pertence ao grupo de classe 1-1!";
+	close;
+}
+
+---------------------------------------
+
+*callcashshop "<nome do npc>";
+ 
+Este comando é igual o callshop que tem o mesmo suporte, ele chama um npc de cashshop existente pelo seu nome.
+
+-	cashshop	Lojas em Cash	-1,501:100,502:100,503:100
+
+prontera,175,184,4	script	TesteCashShop	74,{
+
+	show "[Vendedor]";
+	show "Olá, gostária de checar nossa loja especia?";
+	next;
+	switch(select("Sim","Não")){
+		case 1: break;
+		case 2: close;
+	}
+	close2;
+	callcashshop "Lojas em Cash",0;
+	end;
+}
+
+É fácil de se usar, simples para quem utiliza scripts customizados.
+
+---------------------------------------
+
+*npccashshopitem "Nome do Shop",<id do item>,<pontos>{,<id do item>,<pontos>,{...}};
+
+Este comando é idêntico ao 'npcshopitem', mas muda o npc de shop para cashshop. Ele
+permite que você adicione outros itens no cashshop, exterminando os existentes, ou seja
+se no cashshop estiver vendendo um item ex.:'501' por '30' pontos, ele vai exterminar os itens
+que estão vendendo e adicionar os novos para você.
+
+Esta função retorna com 1 se tiver atualizado com sucesso ou 0 se não encontrar.
+
+Nota que este comando não utiliza valores negativos, como -1 para preços padrão!
+
+---------------------------------------
+
+*npccashshopadditem "Nome do Shop",<id do item>,<pontos>{,<id do item>,<pontos>,{...}};
+
+Este comando é identico ao 'npccashshopadditem', mas adiciona um novo item para vender no seu cashshop.
+Todos itens que já havia para vender ficam intactos, e um novo é gerado.
+
+Esta função retorna com 1 se tiver atualizado com sucesso ou 0 se não encontrar.
+
+Nota que este comando não utiliza valores negativos, como -1 para preços padrão!
+
+---------------------------------------
+
+*npccashshopdelitem "Nome do Shop",<id do item>{,<id do item>{...}};
+
+Este comando é identico ao 'npccashshopdelitem', mais rempve um item que está vendendo no seu cashshop.
+Todos itens que já havia para vender ficam intactos, somente o id adiciona será removido.
+
+Esta função retorna com 1 se tiver atualizado com sucesso, ou 0 se não encontrar.
+
+Nota que este comando não utiliza valores negativos, como -1 para preços padrão!
+
+---------------------------------------
+
+*npccashshopattach "NPCDECASHSHOP";
+
+Este comando faz com que você controle a venda do Cashshop, ou seja, o jogador comprou, você pode manusear informações e alguns
+dados sobre este comando. Porem, funciona apenas com o callcashshop em conjunto.
+
+ - Váriaveis Geradas:
+  @bought_nameid = ID do Item Vendido.
+  @bought_amount = Quantidade de Itens Comprados
+  @bought_points = Pontos de Kafra que vale o item.
+  @bought_cash   = Pontos de Cash que vale o item.
+
+ - Label de Evento:
+ OnCashBuy
+
+ Exemplo do script:
+
+-	cashshop	attachedcashshop	-1,501:100
+
+prontera,172,138,4	script	Dinamico Cash Shop#01	57,{
+
+	callcashshop "attachedcashshop";
+	npccashshopattach "attachedcashshop";
+	end;
+
+OnCashBuy:
+	announce "O Jogador " + strcharinfo(0) + " comprou " + @bought_amount + "x " + getitemname(@bought_nameid) + " no valor de  " + @bought_points +" Pontos Kafras e " + @bought_cash +" Pontos de Cash! Não perca tempo, compre você também!",0;
+	end;
+}
+
+---------------------------------------
+
+*makehomun <homunid>;
+
+Este comando, sem edições efetivas dele na source, apenas cria homunculos com id maior ou igual a 6001 até menor ou igual a 6016.
+Fácil de ser adicionado em um NPC, desta seguinte maneira:
+
+ prontera,178,144,4	script	MakeHomun#makehomun	48,{
+
+	show "[Make Homun]";
+	show "Consegui!!! Consegui!!!!";
+	show "Aprendi a criar um homunculo,";
+	show "mais até agora só consegui Lif[1],";
+	show "Que tal você tentar?";
+	next;
+	if(select("Sim!! Eu quero ver!!:Nã Obrigado...")==1){
+		makehomun 6001;
+		show "["+strcharinfo(0)+"]";
+		show "Huasusaasuasu!! É verdade mesmo, vlw!! VLW!!";
+		close;
+	}
+	close;
+}
+
+O simples comando makehomun <iddohomun>; cuida de criar, se o jogador já tem um homunculo, ele simplesmente não cria,
+é um ótimo comando para aqueles que desejam ter um servidor cheio de customização!
+
+---------------------------------------
+
+*healhomun <porcentagem_hp/porcentagem_sp>;
+
+Semelhante ao comando que restaura o HP/SP do seu Personagem, mais simplesmente ele restaura o do seu homunculo ao invés de curar seu personagem.
+Veja o exemplo abaixo:
+
+prontera,179,148,4	script	Curador de Homunculos#1	48,{
+
+	show "[Curador de Homunculos]";
+	show "Olá "+strcharinfo(0)+", gostária que eu cura-se seu homunculo?";
+	next;
+	switch(select("Sim.:Não.")){
+		case 1:
+			show "[Curador de Homunculos]";
+			show "Hehe... muito bem, seu amiguinho está melhor agora!";
+			healhomun 100,100; //100%hp,100%sp
+			break;
+		case 2:
+			show "[Curador de Homunculos]";
+			show "Hehe... não fique preocupado, eu não cobro nada v.V.";
+			break;
+	}
+	close;
+}
+
+Fácil né? Então, vamos lá, crie um npc bem bolado para seu servidor, no qual Alquimistas e Criadores não reclamem do HP/SP do Homunculo ;).
+
+---------------------------------------
+
+*getequipname equip_id{,"Mensagem Desequipado"};
+
+Este comando no jAthena/eAthena, tem apenas uma sintaxe, mostra se o item está equipado ou não, caso esteja retorna com o nome do item, caso não,
+retorna com o nom do slot + [Desequipado] já definido na source.
+Aqui no Cronus, foi definido uma nova sintaxe para ele, uma sintaxe opcional baseada no aegis, se o item estiver equipado em um slot de equipamento,
+ele retorna com o nome do equipamento, caso não ele retorna com a string defenida na segunda sintaxe.
+
+Este comando pode ser usado em comparações também, retornando com o valor do seu slot se estiver equipado, ou retornando com 0 se não estiver equipado.
+Veja duas explicações deste comando:
+
+-	script	getequipname#sample_	-1,{
+
+	mes getequipname(1); // Primeira Sintaxe
+	mes getequipname(1,"Não está equipado"); // Segunda sintaxe
+	close;
+}
+
+-	script	getequipname#sample_	-1,{
+
+	if(getequipname(1) == 0)
+		mes "Não está equipado";
+	else
+		mes "Está equipado.";
+}
+
+Fácil de ser manuseado.
+
+---------------------------------------

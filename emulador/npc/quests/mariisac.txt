@@ -1,0 +1,120 @@
+// Mari Isac
+comodo,274,137,5	script	Mari Isac	702,{
+	show "[Mari Isac]";
+	show "Eu viajo pelo mundo todo e ouço muitas histórias das pessoas que conheço.";
+	show "Algumas vezes, aprendi como fazer itens especiais";
+	next;
+	show "[Mari Isac]";
+	show "Está interessado nos itens especiais que aprendi à fazer?";
+M_Menu:
+	next;
+	menu "Fale-me sobre eles.",M_0, "Faça-me um.",M_1;
+
+	M_0:
+		menu "-Capacete de Mineiro",sM_Mine, "-Trouxinha",sM_Parcel, "-Avareza",sM_Money;
+
+		sM_Mine:
+			show "[Mari Isac]";
+			show "Eu aprendi como fazer o Capacete de Mineiro durante uma viagem as minas de Carvão de Geffen.";
+			next;
+			show "[Mari Isac]";
+			show "As coisas mais importantes para os mineiros são luz e proteção para a cabeça.";
+			show "Um inventor-mineiro foi capaz de unir as duas em um só.";
+			next;
+			show "[Mari Isac]";
+			show "Ele uniu a luz ao seu capacete, e o chamou de Capacete de Mineiro.";
+			show "Assim não precisam se preocupar em carregar lampadas, e podem trabalhar melhor assim.";
+			next;
+			show "[Mari Isac]";
+			show "Enfim, os itens de que precisa me trazer para que eu o faça um Capacete de Mineiro é:";
+			show "^5555FF1 Capacete de Segurança^000000,";
+			show "^5555FF1 Vela^000000,";
+			show "^5555FF1 Espelho de Cristal^000000,";
+			show "^5555FF25 Aços^000000.";
+			next;
+			goto M_0;
+		sM_Parcel:
+			show "[Mari Isac]";
+			show "Eu aprendi como fazer o chapéu 'Trouxinha' em Alberta. Eles tem essa maneira unica de transportar correspondencias e outras coisas.";
+			next;
+			show "[Mari Isac]";
+			show "Invés de usar sacolas, ele usam esse tipo diferente de chapéu, chamado de Trouxinha.";
+			show "Ele permite levar coisas pessoais e em grande numero sobre sua cabeça É claro que você precisa de equilibrio para usa-la.";
+			next;
+			show "[Mari Isac]";
+			show "Enfim, os itens de que precisa me trazer para que eu o faça uma Trouxinha é:";
+			show "^5555FF150 Tecidos^000000,";
+			show "^5555FF100 Resinas^000000,";
+			show "^5555FF1 Tintura Azul^000000.";
+			next;
+			goto M_0;
+		sM_Money:
+			show "[Mari Isac]";
+			show "Eu aprendi como fazer o chapéu Avareza nas minhas viajens por Morroc.";
+			next;
+			show "[Mari Isac]";
+			show "A muito tempo, um honesto mercado entrou em conflito com um clã.";
+			show "Para ira do clã, o mercador não trapaceava nem superfaturava sobre as pessoas.";
+			next;
+			show "[Mari Isac]";
+			show "Por causa disso, o clã assaltou a loja dele, e levou tudo que ele tinha de bom.";
+			next;
+			show "[Mari Isac]";
+			show "O mercador ficou arrasado com a perda de sua loja.";
+			show "Na sua insanidade, ele fez com o que sobrou no seu estoque um novo item.";
+			next;
+			show "[Mari Isac]";
+			show "Ele criou a Avareza, um simbolo de sua grande loucura. Quando o povo o vê, não ajuda, mas são simpáticos ao equipamento.";
+			next;
+			show "[Mari Isac]";
+			show "Muitos mercadores usam para atrairem mais compradores. É claro, é bom lembrar que só mercadores loucos dizem isso.";
+			next;
+			show "[Mari Isac]";
+			show "Enfim, os itens de que precisa me trazer para que eu o faça uma Avareza é:";
+			show "^5555FF1 Tiara [1]^000000,";
+			show "^5555FF1 Ouro^000000,";
+			show "^5555FF20 Aços^000000,";
+			show "^5555FF80 Plumas^000000,";
+			show "^5555FF800 Mucos Pegajosos^000000.";
+			next;
+			goto M_0;
+		M_1:
+		menu "-Capacete de Mineiro",sM_MakeMine, "-Trouxinha",sM_MakePar, "-Avareza",sM_MakeMon;
+
+		sM_MakeMine:
+			if (countitem(5009)<1 || countitem(5028)<1 || countitem(747)<1 || countitem(999)<25) goto ssL_NoItems;
+			show "[Mari Isac]";
+			show "Aqui está. Aproveite o seu Capacete de Mineiro!";
+			delitem 5009, 1;
+			delitem 5028, 1;
+			delitem 747, 1;
+			delitem 999, 25;
+			additem 5031,1;
+			close;
+		sM_MakePar:
+			if (countitem(1059)<150 || countitem(907)<100 || countitem(978)<1) goto ssL_NoItems;
+			show "[Mari Isac]";
+			show "Aqui está. Aproveite a sua Trouxinha!";
+			delitem 1059, 150;
+			delitem 907, 100;
+			delitem 978, 1;
+			additem 5023,1;
+			close;
+		sM_MakeMon:
+			if (countitem(2233)<1 || countitem(969)<1 || countitem(999)<20 || countitem(949)<80 || countitem(938)<800) goto ssL_NoItems;
+			show "[Mari Isac]";
+			show "Aqui está. Aproveite a sua Avareza!";
+			delitem 2233, 1;
+			delitem 969, 1;
+			delitem 999, 20;
+			delitem 949, 80;
+			delitem 938, 800;
+			additem 5021,1;
+			close;
+
+			ssL_NoItems:
+				show "[Mari Isac]";
+				show "Infelizmente, você não tem os itens de que necessito. Volte mais tarde.";
+				close;
+
+}

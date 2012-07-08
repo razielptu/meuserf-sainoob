@@ -1,0 +1,40 @@
+yuno_fild01.gat,0,0,0,0	monster	Poring	1002,40,0,0,0
+yuno_fild01.gat,0,0,0,0	monster	Poporing	1031,30,0,0,0
+yuno_fild01.gat,0,0,0,0	monster	Poeira	1114,20,0,0,0
+yuno_fild01.gat,0,0,0,0	monster	Grande Peco	1369,20,0,0,0
+
+yuno_fild02.gat,0,0,0,0	monster	Poring	1002,40,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Poeira	1114,20,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Furador	1380,10,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Planta Carnívora	1368,10,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Grande Peco	1369,10,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Rochoso	1386,5,0,0,0
+yuno_fild02.gat,0,0,0,0	monster	Archangeling	1388,1,3600000,0,1
+
+yuno_fild03.gat,0,0,0,0	monster	Pungus	1378,20,0,0,0
+yuno_fild03.gat,0,0,0,0	monster	Planta Carnívora	1368,10,0,0,0
+yuno_fild03.gat,0,0,0,0	monster	Rochoso	1386,5,0,0,0
+yuno_fild03.gat,0,0,0,0	monster	Bode	1372,20,0,0,0
+yuno_fild03.gat,0,0,0,0	monster	Harpia	1376,5,0,0,0
+
+yuno_fild04.gat,0,0,0,0	monster	Poring	1002,40,0,0,0
+yuno_fild04.gat,0,0,0,0	monster	Furador	1380,10,0,0,0
+yuno_fild04.gat,0,0,0,0	monster	Planta Carnívora	1368,10,0,0,0
+yuno_fild04.gat,0,0,0,0	monster	Rochoso	1386,5,0,0,0
+yuno_fild04.gat,0,0,0,0	monster	Bode	1372,10,0,0,0
+yuno_fild04.gat,0,0,0,0	monster	Harpia	1376,5,0,0,0
+
+mag_dun01.gat,0,0,0,0	monster	Estrondo	1383,10,0,0,0
+mag_dun01.gat,0,0,0,0	monster	Labareda	1367,10,0,0,0
+mag_dun01.gat,0,0,0,0	monster	Diabólico	1382,10,0,0,0
+mag_dun01.gat,0,0,0,0	monster	Grizzly	1381,5,0,0,0
+mag_dun01.gat,0,0,0,0	monster	Lava Golem	1366,3,0,0,0
+mag_dun01.gat,0,0,0,0	monster	Kaho	1072,10,0,0,0
+
+mag_dun02.gat,0,0,0,0	monster	Ferrão	1387,10,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Labareda	1367,10,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Diabólico	1382,10,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Pesadelo Sombrio	1379,3,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Exterminador	1384,5,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Earth Deleter	1385,5,0,0,0
+mag_dun02.gat,0,0,0,0	monster	Kaho	1072,10,0,0,0

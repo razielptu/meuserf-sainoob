@@ -1,0 +1,160 @@
+//===== Cronus Script =======================================
+//= Guerra do Emperium (Geffen)
+//===== Por: ==================================================
+//= L0ne_W0lf
+//===== Versão Atual: =====================================
+//= 1.0/1.1
+//===== Compatível com: =====================================
+//= Cronus SVN
+//===== Descrição: =========================================
+//= NPCs relativos ao 1º Castelo de Geffen
+//===== Additional Comments: =================================
+//= 1.0 First Version. No longer uses functions. [L0ne_W0lf]
+//= 1.1 Traduzido ao Português-BR de acordo com o bRo [Asus]
+//= 1.2 Corrigido erros [Soulblaker]
+//============================================================
+
+// Guild Flag (Cidade)
+//============================================================
+prontera,152,197,4	script	Arsulf#g1-1::Repherion	722,{
+	set .@GID, GetCastleData("gefg_cas01",1);
+	if (.@GID == 0) {
+		show "[ Decreto do Reino de Rune Midgard ]";
+		show " ";
+		show "1. Conforme o Pacto do Reino de Rune Midgard e o Feudo de Britoniah,";
+		show "Declaramos que não há nenhum";
+		show "dono formal deste castelo.";
+		show " ";
+		show "2. Se sua guild conseguir";
+		show "passar por todos os desafios";
+		show "e destruír o Emperium deste castelo,";
+		show "você será nomeado como o dono deste castelo.";
+		close;
+		}
+		show "[ Decreto do Reino de Rune Midgard ]";
+		show " ";
+		show "1. Conforme o Pacto do Reino de Rune Midgard e o Feudo de Britoniah,";
+		show "declaro que este castelo pertence";
+		show "ao Clã ^ff0000" + GetGuildName(.@GID) + "^000000.";
+		show " ";
+		show "2. O Líder do Clã ^ff0000"+ GetGuildName(.@GID) + "^000000 se chama";
+		show "^FF0000" + GetGuildMaster(.@GID) + "^000000";
+		show "Se alguém se opõe a este decreto";
+		show "desembainhe sua espada para fazer valer sua vontade.";
+		close;
+
+OnRecvCastleG01:
+	FlagEmblem GetCastleData("gefg_cas01",1);
+	end;
+}
+sec_in02,15,175,4	duplicate(Repherion)	Arsulf#f5-2	722
+// Guild Flag (Fora do Castelo)
+//============================================================
+gef_fild13,148,51,5	script	Arsulf#g1-2::Repherion2	722,{
+	set .@GID, GetCastleData("gefg_cas01",1);
+	if (.@GID == 0) {
+		show "[ Decreto do Reino de Rune Midgard ]";
+		show " ";
+		show "1. Conforme o Pacto do Reino de Rune Midgard e o Feudo de Britoniah,";
+		show "Declaramos que não há nenhum";
+		show "dono formal deste castelo.";
+		show " ";
+		show "2. Se sua guild conseguir";
+		show "passar por todos os desafios";
+		show "e destruír o Emperium deste castelo,";
+		show "você será nomeado como o dono deste castelo.";
+	}
+	else {
+		if (getcharid(2) == .@GID) {
+			show "Bravo guerreiro...";
+			show "Você quer retornar ao seu honorável lugar?";
+			next;
+			if (select("Voltar ao castelo de sua Guild.:Sair.") == 1) {
+				if (getcharid(2) == GetCastleData("gefg_cas01",1)) {
+					warp "gefg_cas01",83,47;
+					end;
+				}
+			}
+			close;
+		}
+		show "[ Decreto do Reino de Rune Midgard ]";
+		show " ";
+		show "1. Conforme o Pacto do Reino de Rune Midgard e o Feudo de Britoniah,";
+		show "declaro que este castelo pertence";
+		show "ao Clã ^ff0000" + GetGuildName(.@GID) + "^000000.";
+		show " ";
+		show "2. O Líder do Clã ^ff0000"+ GetGuildName(.@GID) + "^000000 se chama";
+		show "^FF0000" + GetGuildMaster(.@GID) + "^000000";
+		show "Se alguém se opõe a este decreto";
+		show "desembainhe sua espada para fazer valer sua vontade.";
+	}
+	close;
+
+OnRecvCastleG01:
+	FlagEmblem GetCastleData("gefg_cas01",1);
+	end;
+}
+
+gef_fild13,155,54,5	duplicate(Repherion2)	Arsulf#g1-3	722
+gef_fild13,212,79,6	duplicate(Repherion2)	Arsulf#g1-4	722
+gef_fild13,211,71,6	duplicate(Repherion2)	Arsulf#g1-5	722
+
+// Guild Flag (Dentro do Castelo)
+//============================================================
+gefg_cas01,28,157,4	script	Arsulf#g1-6::Repherion3	722,{
+	end;
+
+OnRecvCastleG01:
+	FlagEmblem GetCastleData("gefg_cas01",1);
+	end;
+}
+
+gefg_cas01,22,156,5	duplicate(Repherion3)	Arsulf#g1-7	722
+gefg_cas01,68,185,3	duplicate(Repherion3)	Arsulf#g1-8	722
+gefg_cas01,17,171,5	duplicate(Repherion3)	Arsulf#g1-9	722
+gefg_cas01,59,16,4	duplicate(Repherion3)	Arsulf#g1-10	722
+gefg_cas01,64,16,4	duplicate(Repherion3)	Arsulf#g1-11	722
+
+// AGIT Manager
+//============================================================
+gefg_cas01,198,182,0	duplicate(Gld_Agit_Manager)	Agit#gefg_cas01	-1
+
+// Steward
+//============================================================
+gefg_cas01,40,48,5	duplicate(Gld_Mngr_Template)	Gnahcher#gefg_cas01	55
+
+// Guardians
+//============================================================
+gefg_cas01,40,48,5	duplicate(Gld_Guard_Template)	Guardian#gefg_cas01	-1
+
+// Kafra Staff
+//============================================================
+gefg_cas01,84,47,0	duplicate(Gld_Kafra_Template)	Kafra#gefg_cas01	117
+
+// Saída da Sala do Mestre
+//============================================================
+gefg_cas01,152,117,0	script	#switch_G01	111,{
+	show " ";
+	show "Existe uma pequena alavanca. Será que você puxa-la?";
+	next;
+	switch(select("Puxar.:Não puxar.")) {
+	case 1:
+		warp "gefg_cas01",40,49;
+		break;
+	case 2:
+		break;
+	}
+	end;
+}
+
+// Guild Treasure Protection
+//============================================================
+gefg_cas01,154,112,0	duplicate(Gld_Trea_Protect)	ban_warp#gefg_cas01	-1,6,6
+
+// Guild Treasure Spawns
+//============================================================
+gefg_cas01,154,112,0	duplicate(Gld_Trea_Spawn)	Treasure#gefg_cas01	-1
+
+// Guild Dungeon Switch
+//============================================================
+gefg_cas01,78,84,0	duplicate(Gld_Dun_Template)	#gefg_cas01	111

@@ -1,0 +1,43 @@
+//===== Cronus Script ========================================
+//= Guerra do Emperium - Início Automático da WoE
+//===== Por: =================================================
+//= kalen (1.0)
+//= 1.1 by Akaru and ho|yAnge|
+//===== Versão Atual: ========================================
+//= 2.4
+//===== Descrição: ===========================================
+//= Início Automático da Guerra do Emperium
+//= Para configuração do mesmo, leia por favor o arquivo em doc\woe_time_explanation.txt
+//= Tempo de Início/Fim da WoE 
+//===== Comentários Adicionais: ==============================
+//= 2.0 Trazido do eAthena. [Asus]
+//= 2.1 Adicionado announce oficial do bRO. [SoulBlaker]
+//= 2.2 Modificação de configuração de horário e preparamento para quests futuras. [Reply.]
+//= 2.2a Correção no Script, não pode usar duas labels iguals. [RoM]
+//= 2.3 Reestruturado. [RoM]
+//= 2.3b Alterado de label para função [Heaven]
+//= 2.4 Adicionado o suporte ao Log da WoE para broadcasts. [RoM]
+//= 2.5a Corrigido pequeno erro de sintaxe nos callsubs [Wilk Maia]
+//============================================================
+-	script	Agit_Event	-1,{
+	end;
+
+OnInit:
+OnMinute00:
+OnTimer60000:
+
+stopnpctimer;
+if(gettime(3) == $agit_hora_start[gettime(4)] && gettime(2) == $agit_min_start[gettime(4)] && !agitcheck()){
+	announce "A equipe RagnaTempo deseja boa sorte a todos!",8;
+	announce "A Guerra do emperium começou!",8;
+	AgitStart;
+}
+else if(gettime(3) == $agit_hora_end[gettime(4)] && gettime(2) == $agit_min_end[gettime(4)] && agitcheck()){
+	announce "Obrigado a todos que participaram!",8;
+	announce "A Guerra do Emperium terminou.",8;
+	AgitEnd;
+}
+initnpctimer;
+end;
+
+}

@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/cronusemulator/!svn/ver/3165/Server/trunk/conf
+END
+battle_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/battle_athena.conf
+END
+motd.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/motd.txt
+END
+map_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/3109/Server/trunk/conf/map_athena.conf
+END
+char_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/char_athena.conf
+END
+log_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/log_athena.conf
+END
+inter_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/inter_athena.conf
+END
+help2.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/help2.txt
+END
+msg_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/cronusemulator/!svn/ver/3165/Server/trunk/conf/msg_athena.conf
+END
+grf-files.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/grf-files.txt
+END
+plugin_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/plugin_athena.conf
+END
+maps_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/cronusemulator/!svn/ver/3165/Server/trunk/conf/maps_athena.conf
+END
+charhelp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/charhelp.txt
+END
+subnet_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/subnet_athena.conf
+END
+help.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/cronusemulator/!svn/ver/3134/Server/trunk/conf/help.txt
+END
+atcommand_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/atcommand_athena.conf
+END
+script_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/script_athena.conf
+END
+packet_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/packet_athena.conf
+END
+login_athena.conf
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/cronusemulator/!svn/ver/3104/Server/trunk/conf/login_athena.conf
+END

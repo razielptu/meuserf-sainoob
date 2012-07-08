@@ -1,0 +1,631 @@
+//===== Cronus Script ========================================
+//= Quest em Juno
+//===== Por: =================================================
+//= Cronus Dev Team
+//===== Versão: ==============================================
+//= 1.1
+//===== Descrição: ===========================================
+//= Quest do Metto
+//===== Changelog: ===========================================
+//= 1.0 Merge e reestruturação da quest do Metto. [SoulBlaker]
+//= 1.1 Adicionado prevenção de peso e classes.   [SoulBlaker]
+//============================================================
+
+// Metto Quest
+yuno_in03,26,39,3	script	Metto#juno	709,{
+
+	if( metto_q == 0 )
+	{
+		show "[Metto]";
+		show "Pode ser hoje, amanhã, ou";
+		show "depois de amanhã.";
+		show "Eu gasto cada tempo que";
+		show "que tenho em minha pesquisa.";
+		show "Dediquei minha vida inteira";
+		show "para fazer uma....";
+		next;
+		show "[Metto]";
+		show "Nova Juno, meu próprio reino.";
+		show "Para tal eu preciso saber como";
+		show "essa cidade flutua no ar.";
+		show "Se eu fosse capaz de fazer...";
+		show "meus objetivos não seriam meros";
+		show "sonhos, mais uma realidade!!!";
+		next;
+		show "[Metto]";
+		show "Aquele ^5544FFWagan^000000 pensa que minha";
+		show "pesquisa não é nada...";
+		show "Mas ele não percebe que";
+		show "minha pesquisa foi abençoada";
+		show "pelos próprios Deuses!";
+	}
+	else
+	if( metto_q == 1 )
+	{
+		show "[Metto]";
+		show "Vou pedir para meu colega";
+		show "^5533FFStangclke^0000000 me ajudar.";
+		show "Tenho certeza que ele ajudará";
+		show " de bom grado um velho amigo.";
+		next;
+		show "[Metto]";
+		show "Hmmm...";
+		show "Se eu tiver a ajuda do meu camarada";
+		show "será muito mais fácil...";
+		show "Ore! Ore para qualquer Deus que você";
+		show "acreditar para que dê certo!";
+		set metto_q, 2;
+	}
+	else
+	if( metto_q == 3 )
+	{
+		show "[Metto]";
+		show "O que??!! Aquele tolo do";
+		show "Stangckle disse que não";
+		show "quer me ajudar??";
+		show "Isso não é bomm...";
+		show "Minha pesquisa vai demorar";
+		show "para sair consideravelmente.";
+		show "...... O que farei agora?!?!?";
+		emotion e_swt2;
+		next;
+		show "[Metto]";
+		show "Por sorte eu tenho";
+		show "um plano de reserva.";
+		show "Estou certo de que";
+		show "meu amigo ^5533Kato^000000";
+		show "me dará uma mãozinha.";
+		next;
+		show "[Metto]";
+		show "Se eu tivesse a chance de estudar";
+		show "o super robô dele, o 'Grande Z',";
+		show "eu poderia continuar minha pesquisa...";
+		next;
+		show "[Metto]";
+		show "Quero mais que aquele";
+		show "Stangckle se dane.";
+		show "Mesmo que ele não queira";
+		show "ajudar, minha pesquisa";
+		show "pode continuar...";
+		show "deve continuar!!";
+		next;
+		show "[Metto]";
+		show "Pode esperar grandes coisas";
+		show "de mim jovem amigo...";
+		show "MUHAHAHAHAHAHAH!!!!";
+		emotion e_gg;
+		set metto_q, 4;
+	}
+	else
+	if( metto_q == 5 )
+	{
+		show "[Metto]";
+		show "O que!?";
+		show "Você está dizendo que a";
+		show "coisa que mais preciso";
+		show "para fazer minha pesquisa,";
+		show "o Grande Z...";
+		show "foi DESTRUIDO!?!?";
+		emotion e_wah;
+		next;
+		show "[Metto]";
+		show "Não!!! Porque?? Como??";
+		show "Porque ele fez aquilo?";
+		show "Os Deuses estão me amaldiçoando?!?";
+		emotion e_an;
+		next;
+		show "[Metto]";
+		show "Espere... Preciso me acalmar...";
+		show "Se eu pudesse ter a ajuda do";
+		show "Professor ^5533FFCiCi^000000 com sua";
+		show "'Teoria de Motor Giratório',";
+		show "eu seria capaz de terminar minha pesquisa...";
+		next;
+		show "[Metto]";
+		show "*sigggghhhh*";
+		show "Eu ainda tenho esperança...";
+		show "Sim, eu tenho!! Hahaha!!!";
+		emotion e_gg;
+		set metto_q, 6;
+	}
+	else
+	if( metto_q == 7 )
+	{
+		show "[Metto]";
+		show ".....................";
+		next;
+		show "[Metto]";
+		show "Como algo assim podê acontecer??";
+		show "Todos os meus 3 colegas me";
+		show "abandonaram afinal?!?!";
+		show "É verdade... os Deuses me odeiam...";
+		show "Estou arruinado... ARRUINADO!!";
+		emotion e_sob;
+		next;
+		show "[Metto]";
+		show "O que posso fazer agora?";
+		show "Será que chegou a hora de";
+		show "interromper meus estudos?....";
+		show "Esses muitos, muitos anos de pesquisa?";
+		show "........";
+		emotion e_sob;
+		next;
+		show "[Metto]";
+		show "Você deve estar desapontado....";
+		show "mas por favor, esqueça tudo isso...";
+		show "me esqueça também...";
+		show "Quem fez isso para mim? Que tipo de";
+		show "pessoa maligna iria destruir os sonhos";
+		show "de um homem??";
+		next;
+		show "[Metto]";
+		show "De repente me senti cansado...";
+		show "Chegou minha hora de desistir...";
+		show "Está tudo acabado.";
+		show "Por favor, não fique desapontado também...";
+		set metto_q, 8;
+	}
+	else
+	if( metto_q > 7 )
+	{
+		show "[Metto]";
+		show "Talvezeu deva procurar um";
+		show "novo emprego.";
+		show "Eu ouvi que já coisas populares";
+		show "para se fazer hoje em dia.";
+		show "Me pergunto qual profissão eu";
+		show "deveria seguir?";
+		show "Tudo que sei é que não quero";
+		show "mais ser cientista.";
+		next;
+		show "[Metto]";
+		show "Nunca  mais me envolverei";
+		show "em pesquisas...";
+	}
+	else {
+		show "[Metto]";
+		show "É melhor eu ir indo para";
+		show "checar esse novo aparato...";
+		show "O que você ainda está fazendo aqui?";
+		show "Vou sair por um momentinho.";
+		show "Preciso me preparar, então";
+		show "saia daqui e continue seu procurando...";
+	}
+	close;
+}
+
+yuno_in01,17,95,5	script	Stangckle#juno	99,{
+
+	if( metto_q == 2 )
+	{
+		show "[Stangckle]";
+		show "O que posso fazer por você?";
+		show "Meu colega Metto virá aqui em";
+		show "breve, então eu não tenho muito.";
+		show "Então o que você disse que precisa?";
+		next;
+		if( Select("Preciso falar com você sobre Metto!","Atualmente, eu não preciso de nada.") == 1 )
+		{
+			show "[Stangckle]";
+			show "........................";
+			next;
+			show "[Stangckle]";
+			show "...................................";
+			next;
+			show "[Stangckle]";
+			show "Isto é verdade??";
+			show "Metto não me vê como um colega,";
+			show "e está apenas me usando?";
+			show "Ele me vê apenas como um assistente";
+			show "e vai roubar todos os créditos pela";
+			show "nossas descobertas?!?";
+			emotion e_omg;
+			next;
+			show "[Stangckle]";
+			show "Não acho que vou suportar ver";
+			show "aquela cara nojenta dele novamente...";
+			next;
+			show "[Stangckle]";
+			show "Estou feliz que uma pessoa";
+			show "verdadeira e honesta como";
+			show "você teve coragem para me contar";
+			show "a verdade sobre Metto.";
+			show "Obrigado por compartilhar esta";
+			show "informação comigo.";
+			next;
+			show "[Stangckle]";
+			show "Agora, se você me permite,";
+			show "eu tenho trabalho á fazer.";
+			set metto_q, 3;
+		}
+		else {
+			show "[Stangckle]";
+			show "O que está fazendo aqui então?";
+			show "Não me faça desperdiçar tempo.";
+		}
+	}
+	else
+	if( metto_q > 2 )
+	{
+		show "[Stangckle]";
+		show "Então Metto era";
+		show "verdadeiramente um cientista";
+		show "louco no final das contas...";
+		show "Eu acho que ele é quem vai";
+		show "mais se prejudicar pela escolha";
+		show "que ele fez...";
+	}
+	else {
+		show "[Stangckle]";
+		show "Eu sou um dos cientistas";
+		show "desta cidade.";
+		show "Meu nome é ^5533FFStangckle^000000.";
+		show "Lembre-se do meu nome, talvez";
+		show "seja útil no futuro.";
+		show "Quem sabe, talvez eu invente algo incrível.";
+	}
+	close;
+}
+
+yuno_in01,19,183,5	script	Kato#juno	55,{
+
+	if( metto_q == 4 )
+	{
+		show "[Kato]";
+		show "Como cientista, eu pesquiso";
+		show "sobre muitas coisas...";
+		show "é claro que são pesquisas secretas.";
+		show "O que posso fazer por você?";
+		next;
+		if( Select("Eu tenho notícias de Metto!","Só queria dizer um olá.") == 1 )
+		{
+			show "[Kato]";
+			show "O que?!?! Metto disse que";
+			show "o Grande Z é inferior aos";
+			show "experimentos de Stangckle?!?!";
+			show "Ele... ele disse que eu devo";
+			show "mudar o nome do meu robô para";
+			show "'Vergonhoso Z'?? ......";
+			emotion e_omg;
+			next;
+			show "[Kato]";
+			show "*Sniff*";
+			show "Eu... Eu não acredito...";
+			show "*sob*";
+			show "como ele pode dizer isto?";
+			show ".......";
+			show "se... se meu invento não é bom...";
+			show "Então eu acho que devo destruí-lo...";
+			show "meu Grande Z....";
+			show "*sigh*";
+			emotion e_sob;
+			next;
+			show "[Kato]";
+			show "Como aquele Metto, te tornou";
+			show "um desgraçado sem coração??";
+			show "Obrigado por me contar os";
+			show "verdadeiros sentimentos de";
+			show "Metto sobre meu trabalho.";
+			set metto_q, 5;
+		}
+		else {
+			show "[Kato]";
+			show "............ Ok...... Humm..... Olá...";
+		}
+	}
+	else
+	if( metto_q > 4 )
+	{
+		show "[Kato]";
+		show "Estou interessado em";
+		show "pesquisar inteligência artificial.";
+		show "Você sabe, com robôs.";
+		show "Eu sei que é algo bem difícil";
+		show "de se fazer, mas se tem um jeito,";
+		show "eu irei conseguir.";
+		next;
+		show "[Kato]";
+		show "Se você ver algo incrível";
+		show "relacionado ao que descreví,";
+		show "você saberá que é obra minha.";
+	}
+	else {
+		show "[Kato]";
+		show "Eu sou um cientista especializado";
+		show "em ^5533FFInteligência artificial e robótica^000000.";
+		show "Porém não estou trabalhando em projeto";
+		show "algum no momento, minha última criação";
+		show "foi o 'Grande Z', sem dúvida um trabalho de gênio!";
+	}
+	close;
+}
+
+yuno_in03,178,43,0	script	CiCi#juno	121,{
+
+	if( metto_q == 6 )
+	{
+		show "[CiCi]";
+		show "Meu nome é ^5533FFCiCi^000000.";
+		show "Eu sou um dos^5533FF3 maiores";
+		show "cientistas^000000 que vivem";
+		show "nesta cidade.";
+		next;
+		show "[CiCi]";
+		show "Porém, existem muitos cientistas";
+		show "nesta cidade, ser um dos 3 melhores";
+		show "é uma verdadeira honra, você não acha?";
+		next;
+		show "[CiCi]";
+		show "Heh, eu acho que estou";
+		show "sendo um pouco egoísta...";
+		show "de qualquer forma, o que";
+		show "posso fazer por você?";
+		next;
+		if( Select("Metto quer que eu lhe conte algo...","Nada, apenas dizer um Oi.") == 1 )
+		{
+			show "[CiCi]";
+			show "Hmm??";
+			show "Metto disse que não precia";
+			show "da minha Teoria de Motor Giratório??";
+			show "Hmmpf! Como ele ousa!!!";
+			emotion e_pif;
+			next;
+			show "[CiCi]";
+			show "Acho que vou ensinar á ele";
+			show "algumas coisas sobre a";
+			show "verdadeira ciência e a pesquisas";
+			show "inteligentes!!";
+			emotion e_ag;
+			next;
+			show "[CiCi]";
+			show "... Mas... mesmo assim";
+			show "eu não tenho o equipamento";
+			show "nescessário para ajudá-lo.";
+			show "Eu accho que ele não tem";
+			show "chanse alguma de conseguir";
+			show "o que quer.";
+			next;
+			show "[CiCi]";
+			show "Em primeiro lugar, diga a";
+			show "ele que não quero fazer";
+			show "parte do experimento dele.";
+			show "Ele não está fazendo algo";
+			show "que seja de utilidade pública...";
+			set metto_q, 7;
+		}
+		else {
+			show "[CiCi]";
+			show "O que? É isso?";
+			show "Você só queria gastar meu tempo?";
+			show ".............";
+		}
+	}
+	else
+	if( metto_q > 6 )
+	{
+		show "[CiCi]";
+		show "Hmmm...";
+		show "Eu quero melhorar o Motor";
+		show "Giratório, mais não tenho as";
+		show "peças nescessárias.";
+		show "Que dor de cabeça...";
+		show "Metto nunca me ofereceu ajuda";
+		show "alguma. Isso não será fácil...";	
+	}
+	else {
+		show "[CiCi]";
+		show "Meu nome é ^5533FFCiCi^000000.";
+		show "Eu sou um dos^5533FF3 maiores";
+		show "cientistas^000000 que vivem";
+		show "nesta cidade.";
+		next;
+		show "[CiCi]";
+		show "Porém, existem muitos cientistas";
+		show "nesta cidade, ser um dos 3 melhores";
+		show "é uma verdadeira honra, você não acha?";
+	}
+	close;
+}
+
+yuno_in01,17,30,5	script	Wagan#juno	85,{
+
+	if( metto_q == 0 )
+	{
+		show "[Wagan]";
+		show "Estou certo que nossa";
+		show "vila é capaz de prosperar";
+		show "por causa da brilhante";
+		show "pesquisa realizada aqui.";
+		show "Nós devemos muito áqueles";
+		show "que dedicaram suas vidas";
+		show "aos estudos e pesquisas.";
+		next;
+		show "[Wagan]";
+		show "É por causa deles que hoje";
+		show "nós podemos aproveitar de uma";
+		show "excelente qualidade de vida aqui.";
+		show "Eles foramm capazes de ajudar";
+		show "uns aos outros, o que é ótimo de se ver.";
+		next;
+		show "[Wagan]";
+		show "Infelizmente, existem algumas";
+		show "'Laranjas Podres', que causam";
+		show "problemas nessa sólida comunidade";
+		show "de pesquisadores.";
+		next;
+		show "[Wagan]";
+		show "Essas pessoas me";
+		show "deixam louco!";
+		emotion e_an;
+		next;
+		show "[Wagan]";
+		show "Eles só pensam em sí mesmo";
+		show "e em suas ações loucas, tornam";
+		show "tudo difícil para todos.";
+		show "De todos esses homens egoístas,";
+		show "^FF3333'Meto'^000000 deve ser,";
+		show "de longe, o pior.";
+		next;
+		show "[Wagan]";
+		show "Esse indivíduo perturbado não";
+		show "faz nada, a não ser destruír";
+		show "a facilidades públicas,";
+		show "criar coisas exageradamente poluentes,";
+		show "perturbar a vida dos outros...";
+		next;
+		show "[Wagan]";
+		show "... e a lista ainda vai longe.";
+		show "E o que é pior... Ele tenta";
+		show "justificar susa terríveis ações,";
+		show "dizendo quee são 'pesquisas'!!!";
+		show "Ele definitivamente perdeu suas sanidades!!";
+		emotion e_ag;
+		next;
+		show "[Wagna]";
+		show "Se tivesse um jeito de";
+		show "impedir esse homem louco";
+		show "de destruír nossa comunidade...";
+		show "Queria que existisse alguém capaz";
+		show "e bravo o suficiente para curar";
+		show "a insanidade de ^FF3333Metto^000...";
+		next;
+		if( Select("Deixa comigo.","Desejo sorte para sua cidade.") == 1 )
+		{
+			if( Class == Job_Novice )
+			{
+				show "[Wagan]";
+				show "Hmm...";
+				show "Obrigado pela oferta,";
+				show "mas não creio que isso";
+				show "é algo quue você poderia";
+				show "fazer...";
+				next;
+				show "[Wagan]";
+				show "Acho que precisamos de alguém";
+				show "um pouco mais duro para nos ajudar.";
+				show "Penso que seria um pouco demais";
+				show "para um Aprendiz.";
+				next;
+				show "[Wagan]";
+				show "Por favor, não se ofenda com isto.";
+				close;
+			}
+			show "[Wagan]";
+			show "Oh??";
+			show "Você realmente vai nos";
+			show "ajudar à parar Metto?";
+			show "Nossa cidade ficará muito";
+			show "grata se você conseguir...";
+			show "Mas como, exatamente, você";
+			show "pretende por seu plano em prática?";
+			emotion e_what;
+			next;
+			if( Select("Éh, realmente vai ser difícil...","Bem, acho que preciso pensar em um plano agora...") == 2 )
+			{
+				show "[Wagan]";
+				show "Sim, um plano sólido";
+				show "será nescessário para";
+				show "Mettp. Precisaremos de";
+				show "uma boa artimanha se";
+				show "quisermos parar aquele cara...";
+				show "Tem que ser algo bem bolado,";
+				show "como... hmm.......";
+				next;
+				show "[Wagan]";
+				show "... Sabotar seus experimentos";
+				show "de forma que ele pense que está";
+				show "destinado á falhar.";
+				show "Ele é bem falante, então você";
+				show "conseguirá saber de forma fácil";
+				show "tudo que precisa saber sobre seus";
+				show "inventos.";
+				next;
+				show "[Wagan]";
+				show "Para ser honesto... Pensarei";
+				show "mais sobre esse plano por um tempo...";
+				set metto_q, 1;
+				close;
+			}
+		}
+		show "[Wagan]";
+		show "Temos a esperança de que";
+		show "a fé estará do nosso lado";
+		show "enquanto esperamos as coisas";
+		show "acontecerem...";
+		show "Pense nisso... Metto acredita";
+		show "fortemente em sua fé...";
+		show "Se nós pudessemos usar isso";
+		show "de alguma  forma para ganhar vantagem...";
+	}
+	else
+	if( metto_q == 8 )
+	{
+		show "[Wagan]";
+		show "É verdade?";
+		show "Você foi capaz de parar";
+		show "os experimentos malucos de Metto?";
+		show "Muito obrigado por sua ajuda.";
+		show "Sem Metto causando problemas,";
+		show "temos muito menos coisas para";
+		show "nos preocupar.";
+		emotion e_ic;
+		next;
+		show "[Wagan]";
+		show "O povo dessa cidade é grato á você.";
+		show "Aqui está uma pequena demonstração";
+		show "da nossa gratidão...";
+		next;
+		show "[Wagan]";
+		if( Class == Job_Sage )
+		{
+			set .@Weight, MaxWeight - Weight;
+			if( .@Weight < 300 )
+			{
+				show "Ah, não, parece que você";
+				show "está carregando muita coisa!";
+				show "Deixaria algum espaço?";
+				close;
+			}
+			show "Desejo boa sorte nos seus futuros empreendimentos...";
+			emotion e_thx;
+			getitem 715,10; // Gema_Amarela
+		}
+		else {
+			set .@Weight, MaxWeight - Weight;
+			if( .@Weight < 150 )
+			{
+				show "Ah, não, parece que você";
+				show "Está carregando muita coisa!";
+				show "Deixaria algum espaço?";
+				close;
+			}		
+			show "Desejo boa sorte nos seus futors empreendimentos...";
+			emotion e_thx;
+			set metto_q, 9;
+			getitem 717,5; // Gema_Azul
+		}
+	}
+	else
+	if( metto_q == 9 )
+	{
+		show "[Wagan]";
+		show "As coisas estão mais";
+		show "calmas por aqui, agora";
+		show "que Metto parou com suas";
+		show "experiências malucas.";
+		show "Obrigado mais uma vez";
+		show "por sua ajuda.";
+		emotion e_thx;
+	}
+	else {
+		show "[Wagan]";
+		show "Como vai seu trabalho";
+		show "de sabotar os experimentos";
+		show "de Metto?";
+		show "Espero que esteja indo muito bem.";
+		show "Me desculpe, por te envolver nos";
+		show "problemas de nossa cidade, mas";
+		show "nós estamos apreciando seu esforço.";
+	}
+	close;
+}

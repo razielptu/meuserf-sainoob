@@ -1,0 +1,85 @@
+//===== Cronus Script ========================================
+//= Quest de Classe - Atirador de Elite
+//===== Por: =================================================
+//= Nana
+//= finished, optimized and tested by Lupus
+//===== Versão Atual: ========================================
+//= 1.3b
+//===== Compatibilidade: =====================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Fazer um Arqueiro T. se tornar um Atirador de Elite
+//===== Comentários Adicionais: ==============================
+//= 1.1 Made all into functions, additional checks, etc. [Lupus]
+//= 1.2 Made numbers into constants. [Vicious]
+//= 1.3 Now saves/restores all the quest skills [Lupus]
+//= 1.3a Traduzido. [.zuport]
+//= 1.3b Revisado. [Heaven]
+//============================================================
+
+valkyrie,44,55,5	script	Atirador de Elite#Valk	727,{
+	if (ADVJOB == 0 || Upper != 1) {
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			show "[Atirador de Elite]";
+			show "Parabéns.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		show "[Atirador de Elite]";
+		show "Um tiro.";
+		show "Um morto.";
+		show "Isso não é tão difícil";
+		show "quando você desenvolve a";
+		show "visão para esse estilo";
+		show "de batalha.";
+		close;
+	}
+	else if (ADVJOB == Job_Sniper && Class == Job_Archer_High && JobLevel > 39) {
+		show "[Atirador de Elite]";
+		show "O mundo está precisando";
+		show "de um poderoso Arqueiro";
+		show "como você. Você está pronto para";
+		show "essa incrível responsabilidade?";
+		next;
+		show "[Atirador de Elite]";
+		show "Está disposto a dar";
+		show "o próximo passo e se";
+		show "tornar um Atirador de Elite?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			show "[Atirador de Elite]";
+			show "Quando estiver pronto,";
+			show "sinta-se livre para voltar.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			show "[Atirador de Elite]";
+			show "Ainda é possível para você aprender mais algumas habilidades. Por favor";
+			show "use todos seus pontos de habilidade restantes antes de voltar aqui.";
+			close;
+		}
+		setjob Job_Sniper;
+		set ADVJOB,0;
+		show "[Atirador de Elite]";
+		show "Parabéns!";
+		show "Como Atirador de Elite, eu espero";
+		show "que os seres do mal";
+		show "nunca estarão seguros";
+		show "enquanto estiverem";
+		show "na sua visão!";
+		close;
+	}
+	show "[Atirador de Elite]";
+	show "Bem-vindo";
+	show "a Valhalla,";
+	show "o Salão da Honra.";
+	next;
+	show "[Atirador de Elite]";
+	show "Por favor sinta-se";
+	show "confortável enquanto";
+	show "estiver aqui.";
+	show "Honra aos guerreiros!";
+	close;
+}

@@ -1,0 +1,5 @@
+//===== Cronus Script ========================================
+//= Map flags that allow players to drop items/equips on death
+//===== Por: =================================================
+//= eAthena Dev Team
+//===== Versão Atual: ========================================

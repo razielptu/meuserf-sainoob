@@ -1,0 +1,87 @@
+//===== Cronus Script ========================================
+//= Quest de Classe - Paladino
+//===== Por: =================================================
+//= Nana
+//= finished, optimized and tested by Lupus
+//===== Versão Atual: ========================================
+//= 1.3b
+//===== Compatibilidade: =====================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Fazer um Espadachim T. se tornar um Paladino
+//===== Comentários Adicionais: ==============================
+//= 1.1 Made all into functions, additional checks, etc. [Lupus]
+//= 1.2 Made numbers into constants. [Vicious]
+//= 1.3 Now saves/restores all the quest skills [Lupus] 
+//= 1.3a Traduzido. [BisoN]
+//= 1.3b Revisado. [Heaven]
+//============================================================
+
+valkyrie,53,39,3	script	Paladino#Valkyrie	752,{
+	if (ADVJOB == 0 || Upper != 1) {
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			show "[Paladino]";
+			show "Parabéns.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		show "[Paladino]";
+		show "Nunca esqueça";
+		show "que a Guerra Santa";
+		show "está próxima!";
+		show "Temos que estar prontos!";
+		show "Que a luz da justiça";
+		show "sempre ilumine nossos caminhos!";
+		close;
+	}
+	else if (ADVJOB == Job_Paladin && Class == Job_Swordman_High && JobLevel > 39) {
+		show "[Paladino]";
+		show "A Guerra Santa";
+		show "será antes do que";
+		show "esperavamos. Mais do que nunca,";
+		show "precisamos de homens e mulheres";
+		show "fortes para lutar";
+		show "pelo bem e correto.";
+		next;
+		show "[Paladino]";
+		show "Deseja lutar";
+		show "ao lado da justiça";
+		show "como um Paladino?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			show "[Paladino]";
+			show "Quando estiver pronto,";
+			show "fique a vontade para voltar.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			show "[Paladino]";
+			show "Você ainda tem pontos de habilidade. Por favor";
+			show "use todos os pontos de habilidade restantes.";
+			close;
+		}
+		setjob Job_Paladin;
+		set ADVJOB,0;
+		show "[Paladino]";
+		show "Parabéns.";
+		show "Como um Paladino, espero";
+		show "que você proteja os";
+		show "mais fracos, e nos dê";
+		show "a vitória na próxima";
+		show "guerra entre o bem e o mal.";
+		close;
+	}
+	show "[Paladino]";
+	show "Bem-vindo";
+	show "a Valhalla,";
+	show "o Salão da Honra.";
+	next;
+	show "[Lorde]";
+	show "Por favor fique";
+	show "a vontade";
+	show "enquanto estiver aqui.";
+	show "Honra aos guerreiros!";
+	close;
+}

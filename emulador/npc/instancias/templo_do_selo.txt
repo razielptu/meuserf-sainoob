@@ -1,0 +1,675 @@
+//=====================================================================================================
+//= Templo do Selo
+//==== Créditos =======================================================================================
+//= LimitLine
+//= Orcao   (Instancing Source Mod)
+//= Saithis (Memorial Dungeon Window, General Coordinates, Ideas about how to handle some stuff)
+//==== Versão =========================================================================================
+//= 1.3b
+//==== Compatível com =================================================================================
+//= Cronus SVN
+//==== Descrição ======================================================================================
+//= Instanced Sealed Shrine Script supporting up to 127 instances and with Memorial Dungeon Window
+//= 127 instances because progress data is stored in a single array, which supports up to 127 indexes.
+//= Used Vars:
+//= $SS_Cooldown                    --> Cooldown Time after registering to participate again.
+//= $SS_Minlevel                    --> Minimum Level to participate.
+//= $SS_Minparty                    --> Minimum party members to participate.
+//= $SS_Locations[1-X]		    --> Location of Pendant and Magic Seals
+//= $SS_Progress[1-X]		    --> Progression of party throughout the quest
+//= $SS_Bapho[1-X]		    --> GID of Great Demon Baphomet
+//= $SS_Instances[1-X]              --> Array with participating parties ID.
+//= $SS_Instances[0]                --> Amount of instances in progress.
+//= $SS_GM			    --> Minimum GM Level -> Set this to the minimum GM level of your server
+//==== Changelog ======================================================================================
+//= 1.0  First version. [LimitLine]
+//= 1.1  Fixed little bug [LimitLine]
+//= 1.2  Improvements and fixes [Saithis]
+//= 1.3  Fixed bugs yay /o/ [LimitLine]
+//= 1.3a Traduzido e Revisado [LEOzinn]
+//= 1.3b Corrigido vários bug's e mudada a configuração de acordo com o bRO. [RoM]
+//=====================================================================================================
+
+// = Settings - Modify them as you feel you should =
+// ====================================================================================================
+-	script	SS_Settings	-1,{
+OnInit:
+	set $SS_Cooldown,12*60*60;
+	set $SS_Minlevel,75;
+	set $SS_Minparty,2;
+	set $SS_GM,60;
+	set $SS_Cooldown_Msg$,"Nas próximas 12 horas.";
+	set .@i,0;
+	while(.@i <= 127){
+		set $SS_Instances[.@i],0;
+		set .@i,.@i+1;
+	}
+	set .@l,0;
+	while(.@l <= 127){
+		set $SS_Progress[.@l],0;
+		set .@l,.@l+1;
+	}
+	set .@j,0;
+	while(.@j <= 127){
+		set $SS_Locations[.@j],0;
+		set .@j,.@j+1;
+	}
+	set .@k,0;
+	while(.@k <= 127){
+		set $SS_Bapho[.@k],0;
+		set .@k,.@k+1;
+	}
+	end;
+}
+
+
+// = SS_Clean - Do not modify this, or you might get unwanted results =
+// ====================================================================================================
+function	script	SS_Clean	{
+	getpartymember($SS_Instances[getarg(0)]);
+	for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+		if (isloggedin(getcharid(3,$@partymembername$[$@k]))){
+			attachrid(getcharid(3,$@partymembername$[$@k]));
+			setinstance (4,3);
+		}
+	}
+	set $SS_Locations[getarg(0)],0;
+	set $SS_Progress[getarg(0)],0;
+	set $SS_Instances[getarg(0)],0;
+	set $SS_Instances[0],$SS_Instances[0]-1;
+	mapwarp getarg(0)+"#1@cata","monk_test",305,143;
+	mapwarp getarg(0)+"#2@cata","monk_test",305,143;
+	killmonsterall getarg(0)+"#1@cata";
+	removenpcsfrommap getarg(0)+"#1@cata";
+	deleteinstance getarg(0)+"#1@cata";
+	killmonsterall getarg(0)+"#2@cata";
+	removenpcsfrommap getarg(0)+"#2@cata";
+	deleteinstance getarg(0)+"#2@cata";
+	end;
+}
+
+// = SS_Manager - Many general functions regarding the Endless Tower - Controls the instance =
+// ====================================================================================================
+1@cata,1,1,1	script	SS_Manager	-1,{
+
+OnWhisperGlobal:
+	if(getgmlevel() < $SS_GM) end;
+	set .@i,atoi(strnpcinfo(2));
+	mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+	mes "Olá "+strcharinfo(0)+",";
+	mes "Como eu posso ajudá-lo?";
+	next;
+	switch(select("Determinar Progresso:Deletar/Resetar Instância:Informações de Instância:Cancelar")){
+	case 1:
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Digite o valor selecionado de progressão.";
+		input .@p;
+		if(.@p == 0 || .@p > 5) close;
+		next;
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Feito.";
+		set $SS_Progress[.@i],.@p;
+		close;
+	case 2:
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Você tem ^0000FFCERTEZA^000000?";
+		next;
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Selecionando continuar você irá ^FFAA00deletar a instância, teleportando todo mundo, como se o temporizador tivesse atingido zero^000000";
+		next;
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Continuar?";
+		next;
+		if(select("Sim:Cancelar") == 2) close;
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Quando você fechar essa janela a instância será deletada.";
+		close2;
+		donpcevent "SS_Manager#"+.@i+"::OnReset";
+		end;
+	case 3:
+		mes "[Gerente - Instância ^FF0000"+.@i+"^000000";
+		mes "Número da Instância: ^FFAA00"+.@i+"^000000";
+		mes "Nome do Grupo:     ^FFAA00"+getpartyname($SS_Instances[.@i])+"^000000";
+		mes "Líder do Grupo:    ^FFAA00"+getpartyleader($SS_Instances[.@i])+"^000000";
+		close;
+	default:
+	}
+	close;
+
+OnMobDead:
+	announce "Você derrotou um Apóstolo do Bafomé.",bc_self | bc_blue;
+	getitem 6002,1;
+	end;
+
+OnBaphoDead:
+	set .@i,atoi(strnpcinfo(2));
+	set $SS_Progress[.@i],6;
+	mapannounce .@i+"#2@cata","Bafomé: Não..............",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#2@cata","Bafomé: Como isso é possível............",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#2@cata","Bafomé: Você não irá.... você não irá me aprisionar de novo!!!",bc_map,0xFF0000;
+	sleep 3000;
+	mapannounce .@i+"#2@cata","Bafomé: Nãããããããããããããããããããããoooooooooooooooooo!!!",bc_map,0xFF0000;
+	sleep 9999;
+	mapannounce .@i+"#2@cata","O Calabouço Memorial irá desaparecer em 30 segundos!",bc_blue | bc_map;
+	sleep 30000;
+	donpcevent "SS_Manager#"+.@i+"::OnReset";
+	end;
+
+OnReset:
+	set .@i,atoi(strnpcinfo(2));
+	callfunc "SS_Clean",.@i;
+	end;
+}
+
+// = SS_Check - Checks every 5 minutes if the map is empty; if it is, it resets the instance =
+// = TODO: It should only clean, if the map if for 5 minutes empty, this way it could happen earlier
+// ====================================================================================================
+1@cata,1,1,1	script	SS_Check	-1,{
+	end;
+
+OnTimer300000:
+	set .@i,atoi(strnpcinfo(2));
+	if(!getmapusers(.@i+"#1@cata") && !getmapusers (.@i+"#2@cata")){
+		stopnpctimer;
+		getpartymember($SS_Instances[.@i]);
+		for(set .k,0; .k < $@partymembercount; set .k,.k+1){
+			if(isloggedin(getcharid(3,$@partymembername$[.k]))){
+				attachrid(getcharid(3,$@partymembername$[.k]));
+				setinstance (4,2);
+			}
+		}
+		donpcevent "SS_Manager#"+.@i+"::OnReset";
+	}
+	startnpctimer;
+	end;
+}
+
+// = SS_Timer - Has all the timers functions. Reminder: You have 4 hours to finish the Endless cata =
+// ====================================================================================================
+1@cata,1,1,1	script	SS_Timer	-1,{
+	end;
+
+OnTimer6590000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@cata","10 Minutos Remanescentes",bc_map | bc_blue;
+	mapannounce .@i+"#2@cata","10 Minutos Remanescentes",bc_map | bc_blue;
+	end;
+
+OnTimer7500000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@cata","5 Minutos Remanescentes",bc_map | bc_blue;
+	mapannounce .@i+"#2@cata","5 Minutos Remanescentes",bc_map | bc_blue;
+	end;
+
+OnTimer7200000:
+	set .@i,atoi(strnpcinfo(2));
+	mapannounce .@i+"#1@cata","Tempo Esgotado",bc_map | bc_blue;
+	mapannounce .@i+"#2@cata","Tempo Esgotado",bc_map | bc_blue;
+	sleep2 5000;
+	donpcevent "SS_Manager#"+.@i+"::OnReset";
+	end;
+}
+
+// = Sealed Shrine - Entrance to Instance =
+// ====================================================================================================
+monk_test,306,151,5	script	Túmulo do Bafomé	111,{
+	switch(select("Entrar no ^0000FFCalabouço Memorial^000000:Cancelar")){
+	case 1:
+		if(!getcharid(1)){
+			mes "Você deve estar em um Grupo.";
+			close;
+		}
+		if(BaseLevel < $SS_Minlevel){
+			mes "Você deve ter ^0000FFLevel "+$SS_Minlevel+" de Base^000000 ou mais para entrar.";
+			close;
+		}
+		if(SS_Lasttime + $SS_Cooldown > gettimetick(2) && getgmlevel() < $SS_GM){
+			mes "Você já entrou no Templo do Selo nas últimas "+($SS_Cooldown / 120)+" horas.";
+			close;
+		}
+		set .@i,1;
+		while(.@i <= 126){
+			if($SS_Instances[.@i] == getcharid(1)){
+				set SSlasttime,gettimetick(2)-getnpctimer(0,"SS_Timer#"+.@i)/1000;
+				setinstance (3,"Templo do Selo",gettimetick(2)+5*60,0);
+				delitem 6001,countitem(6001); // Essence_of_Fire
+				delitem 6002,countitem(6002); // Token_of_Apostles
+				delitem 6003,countitem(6003); // Pendant_of_Spirit
+				warp .@i+"#1@cata",170,215;
+		 		end;
+			}
+			set .@i,.@i+1;
+		}
+		mes "Você deve estar registrado antes de entrar no Calabouço Memorial.";
+		close;
+
+	case 2:
+		close;
+	}
+}
+
+// = Friar Patrick - Register =
+// =====================================================================================================
+monk_test,309,146,5	script	Frei Patrick#SS	412,{
+	if($@SS_Waiting == 1){ npctalk "Já existe um grupo se registrando para o Templo do Selo no momento. Por favor tente daqui alguns segundos."; end; }
+	mes "[Frei Patrick]";
+	cutin "ins_cata_pri_n",2;
+	mes "Bem-vindo, "+strcharinfo(0)+",";
+	mes "ao Monastério de Sta. Capitolina.";
+	mes "Como eu posso ajudá-lo?";
+	next;
+	switch(select("Criar ^0000FFInstância do Calabouço Memorial^000000:Cancelar")){
+	case 1:
+		mes "[Frei Patrick]";
+		if(getcharid(1) == 0){ mes "Você deve estar em um Grupo."; close2; cutin "",255; end; }
+		if(getpartyleader(getcharid(1),2) != getcharid(0)){ mes "Somente o líder do Grupo poderá registrá-lo."; close2; cutin "",255; end; }
+		if($SS_Minparty > 1){ getpartymember(getcharid(1)); if($@partymembercount < $SS_Minparty){ mes "Você deve possuir no mínimo ^0000FF"+$SS_Minparty+"^000000 membros no seu grupo."; close2; cutin "",255; end; }}
+		set .@i,1;
+		while(.@i<=126){
+			if($SS_Instances[.@i] == getcharid(1)){ mes "Seu Grupo já está registrado."; next; mes "[Frei Patrick]"; mes "Selecione ^0000FFEntrar no Calabouço Memorial^000000 com ^0000FFO Templo do Selo^000000."; close2; cutin "",255; end; }
+			set .@i,.@i+1;
+		}
+		getpartymember(getcharid(1));
+		set $@SS_Save,getcharid(3);
+		set $@SS_POnline,0;
+		for (set $@k,0; $@k < $@partymembercount; set $@k,$@k+1) {
+			if (isloggedin(getcharid(3,$@partymembername$[$@k]))) {
+				attachrid(getcharid(3,$@partymembername$[$@k]));
+				if (BaseLevel < $SS_Minlevel) {
+					set $@SS_Save2$,strcharinfo(0);
+					attachrid($@SS_Save);
+					mes "[Frei Patrick]";
+					mes "^0000FF"+$@SS_Save2$+"^000000, seu nível é menor que ^0000FF"+$SS_Minlevel+"^000000.";
+					close2;
+					cutin "",255;
+					end;
+				}
+				if (SS_Lasttime + $SS_Cooldown > gettimetick(2) && getgmlevel() < $SS_GM) {
+					set $@SS_Save2$,strcharinfo(0);
+					attachrid($@SS_Save);
+					mes "[Friar Patrick]";
+					mes "^0000FF"+$@SS_Save2$+"^000000, você já entrou no Templo do Selo nas últimas "+($SS_Cooldown / 120)+" horas.";
+					close2;
+					cutin "",255;
+					end;
+				}
+				set $@SS_POnline,$@SS_POnline+1;
+			}
+		}
+		attachrid($@SS_Save);
+		if ($@SS_POnline < $SS_Minparty){
+			mes "[Frei Patrick]";
+			mes "Seu Grupo deve possuir no mínimo ^0000FF"+$SS_Minparty+"^000000 membros online.";
+			close2;
+			cutin "",255;
+			end;
+		}
+		mes "Por favor espere alguns segundos, enquanto a Instância para o Calabouço Memorial está sendo criada...";
+		mapannounce "monk_test","Frei Patrick: O Grupo "+getpartyname(getcharid(1))+" foi registrado para o Templo do Selo.",bc_map,0xFFFFFF;
+		close2;
+		cutin "",255;
+		set $@SS_Waiting,1;
+		mapannounce "monk_test","Frei Patrick: Por favor espere alguns segundos, enquanto a Instância para o Calabouço Memorial está sendo criada...",bc_map,0xFFFFFF;
+		setinstance (1,"Templo do Selo",$SS_Instances+1);
+		if($SS_Instances[0] >= 126){ mes "[Frei Patrick]"; mes "Erro ao criar Instância do Calabouço Memorial."; next; mes "[Frei Patrick]"; mes "^FF0000O Número de Calabouços Memoriais chegou ao limite.^000000"; next; mes "[Frei Patrick]"; mes "Por favor reporte este erro a um Administrador ou Game-Master."; setinstance (4,2); setinstance (4,3); close; }
+		sleep2 $SS_Instances[0]+1*8000; // Disable it if you don't want that fake waiting time thingy xD
+		set $SS_Instances[0],$SS_Instances[0]+1; // This is the number of your instance
+		set $SS_Instances[$SS_Instances[0]],getcharid(1); // This is your party ID in your instance number (above) index
+		createinstance $SS_Instances[0],"1@cata";
+		createinstance $SS_Instances[0],"2@cata";
+		initnpctimer "SS_Timer#"+$SS_Instances[0];
+		initnpctimer "SS_Check#"+$SS_Instances[0];
+		monster $SS_Instances[0]+"#1@cata",0,0,"Zumbi Mestre",1298,40,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Esqueleto General",1290,40,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Aparição",1291,40,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Crânio Flamejante",1869,40,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Druida Maligno",1117,30,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Xamã do Vento",1263,30,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Khalitzburg",1132,20,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Lude",1509,20,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Mímico Antigo",1699,20,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Banshee",1867,10,"";
+		monster $SS_Instances[0]+"#1@cata",0,0,"Ilusão das Trevas",1302,1,"";
+		setarray .@apostle[0],1298,1290,1291,1869,1117,1263,1132,1509,1699,1867,1302;
+		for(set .@j,0; .@j < 15; set .@j,.@j+1){
+			set .@mob,.@apostle[rand(getarraysize(.@apostle))];
+			monster $SS_Instances[0]+"#1@cata",0,0,"Apóstolo de Bafomé",.@mob,1,"SS_Manager#"+$SS_Instances[0]+"::OnMobDead";
+		}
+		disablenpc "SSwarp#"+$SS_Instances[0];
+		set $@SS_Waiting,0;
+		mes "[Frei Patrick]";
+		mes "A Instância para o Calabouço Memorial foi criada.";
+		set $@SS_Save,getcharid(3);
+		for(set $@k,0; $@k < $@partymembercount; set $@k,$@k+1){
+			if (isloggedin(getcharid(3,$@partymembername$[$@k]))) {
+				attachrid(getcharid(3,$@partymembername$[$@k]));
+				set SS_Lasttime,gettimetick(2);
+				setinstance (3,"Templo do Selo",gettimetick(2)+5*60,1);
+			}
+		}
+		attachrid($@SS_Save);
+		next;
+		mes "[Frei Patrick]";
+		mes "Se você não entrar em 5 minutos ^FF0000a Instância para o Calabouço Memorial será deletada^000000.";
+		close2;
+		cutin "",255;
+		end;
+
+	default:
+		close2;
+		cutin "",255;
+		end;
+	}
+}
+
+// = Hero's Soul =
+// =====================================================================================================
+1@cata,175,120,5	script	Alma do Herói	802,{
+	set .@i,atoi(strnpcinfo(2));
+	cutin "ins_cata_champ_a",2;
+	if(getpartyleader(getcharid(1),2) != getcharid(0)){
+		mes "[Alma do Herói]";
+		mes "Eu só posso falar com o Líder do Grupo.";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if($SS_Progress[.@i] == 1){
+		mes "[Alma do Herói]";
+		mes "Eu preciso que você pegue meu ^0000FFPingente do Espírito^000000 do meu túmulo, depois de achá-lo num dos 13 túmulos ao redor desse lugar.";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if($SS_Progress[.@i] == 3 && countitem(6001) >= 10){
+		mes "[Alma do Herói]";
+		mes "Obrigado, "+strcharinfo(0)+".";
+		next;
+		mes "[Alma do Herói]";
+		mes "Deixe-me abrir a entrada para o Templo do Selo.";
+		next;
+		misceffect 90;
+		mes "[Alma do Herói]";
+		mes "A entrada para o Templo do Selo pode ser encontrada no canto inferior direito das catacumbas.";
+		next;
+		mes "[Alma do Herói]";
+		mes "Uma vez chegado lá, eu lhe darei instruções específicas.";
+		next;
+		cutin "ins_cata_champ_n",2;
+		mes "[Alma do Herói]";
+		mes "Boa Sorte.";
+		close2;
+		delitem 6001,10;
+		set $SS_Progress[.@i],4;
+		enablenpc "SSwarp#"+.@i;
+		cutin "",255;
+		end;
+	}
+	if($SS_Progress[.@i] == 2 || $SS_Progress[.@i] == 3){
+		mes "[Alma do Herói]";
+		mes "Obrigado, "+strcharinfo(0)+".";
+		next;
+		mes "[Alma do Herói]";
+		mes "Como você deve saber, a razão porque você foi mandando aqui foi para impedir a ressurreição do Bafomé.";
+		next;
+		mes "[Alma do Herói]";
+		mes "Mas primeiro eu preciso abrir a entrada para o Templo Selado.";
+		next;
+		mes "[Alma do Herói]";
+		mes "Para isso eu preciso que você traga para mim ^FFAA0010 Essências de Fogo^000000 encontradas nas tochas desse lugar.";
+		if($SS_Progress[.@i] == 2) set $SS_Progress[.@i],3;
+		close2;
+		cutin "",255;
+		end;
+	}
+	if($SS_Progress[.@i] == 4){
+		mes "[Alma do Herói]";
+		mes "A entrada para o Templo do Selo pode ser encontrada no canto inferior direito das catacumbas.";
+		next;
+		mes "[Alma do Herói]";
+		mes "Uma vez chegado lá, eu lhe darei instruções específicas.";
+		close2;
+		cutin "",255;
+		end;
+	}
+	mes "[Alma do Herói]";
+	mes "Bem-vindo as Catacumbas, "+strcharinfo(0)+".";
+	next;
+	mes "[Alma do Herói]";
+	mes "Por favor ache meu ^0000FFPingente do Espírito^000000 localizado aleatoriamente ao redor das 13 túmulos desse lugar e o leve para o meu Túmulo, e eu posso ajudá-lo a fazer o seu caminho para o Bafomé.";
+	set $SS_Locations[.@i],rand(1,13);
+	set $SS_Progress[.@i],1;
+	close2;
+	cutin "",255;
+	end;
+}
+
+// = Collapsed Tomb =
+// =====================================================================================================
+1@cata,141,222,5	script	Túmulo	111,{
+	set .@i,atoi(strnpcinfo(2));
+	if($SS_Progress[.@i] == 1 && countitem(6003) >= 1){
+		mes "^0000FFVocê inseriu o Pingente do Espírito dentro do Túmulo.^000000";
+		delitem 6003,countitem(6003);
+		set $SS_Progress[.@i],2;
+		next;
+		mes "^0000FFVocê pode ver um flash de luz azul vindo do lado de fora dele.^000000";
+		close2;
+		setnpcdisplay("Alma do Herói#"+.@i,"Alma do Herói#"+.@i,411);
+		mapannounce .@i$+"#1@cata","Herói Morto: Obrigado.",bc_map;
+		sleep2 500;
+		mapannounce .@i+"#1@cata","Herói Morto: Por favor me encontre no centro dos Túmulos, logo eu poderei lhe dar instruções específicas de como chegar no Templo do Selo.",bc_map;
+		end;
+	}
+	end;
+}
+
+// = Fallen Grave =
+// =====================================================================================================
+function	script	SS_Grave	{
+	if($SS_Progress[getarg(0)] == 1){
+		if($SS_Locations[getarg(0)] == getarg(1)){
+			mes "^0000FFVocê achou o Pingente do Espírito!^000000";
+			getitem 6003,1;
+			close;
+		}
+		mes "^0000FFO Pingente não está aqui.";
+		mes "Melhor você procurar em outros lugares...^000000";
+		close;
+	}
+	end;
+}
+
+// = Fallen Graves =
+// ======================================================================================================
+1@cata,85,215,1	script	Túmulo 1	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,1; end; }
+1@cata,155,65,1	script	Túmulo 2	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,2; end; }
+1@cata,91,97,1	script	Túmulo 3	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,3; end; }
+1@cata,127,33,1	script	Túmulo 4	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,4; end; }
+1@cata,200,210,1	script	Túmulo 5	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,5; end; }
+1@cata,255,155,1	script	Túmulo 6	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,6; end; }
+1@cata,231,195,1	script	Túmulo 7	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,7; end; }
+1@cata,130,115,1	script	Túmulo 8	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,8; end; }
+1@cata,192,182,1	script	Túmulo 9	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,9; end; }
+1@cata,118,180,1	script	Túmulo 10	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,10; end; }
+1@cata,89,153,1	script	Túmulo 11	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,11; end; }
+1@cata,267,31,1	script	Túmulo 12	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,12; end; }
+1@cata,244,40,1	script	Túmulo 13	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Grave",.@i,13; end; }
+
+// = Torch =
+// =======================================================================================================
+function	script	SS_Torch	{
+	if($SS_Progress[getarg(0)] == 3){
+		mes "^0000FFVocê Obteve uma Essência de Fogo da Tocha.^000000";
+		getitem 6001,1;
+		close2;
+		disablenpc "Torch "+getarg(1)+"#"+getarg(0);
+		end;
+	}
+	end;
+}
+
+// = Torches =
+// =======================================================================================================
+1@cata,254,56,5	script	Tocha 1	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,1; end; }
+1@cata,86,181,5	script	Tocha 2	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,2; end; }
+1@cata,156,13,5	script	Tocha 3	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,3; end; }
+1@cata,239,56,5	script	Tocha 4	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,4; end; }
+1@cata,114,111,5	script	Tocha 5	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,5; end; }
+1@cata,158,137,5	script	Tocha 6	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,6; end; }
+1@cata,194,136,5	script	Tocha 7	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,7; end; }
+1@cata,193,101,5	script	Tocha 8	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,8; end; }
+1@cata,158,101,5	script	Tocha 9	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,9; end; }
+1@cata,268,210,5	script	Tocha 10	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,10; end; }
+1@cata,268,153,5	script	Tocha 11	111,{ set .@i,atoi(strnpcinfo(2)); callfunc "SS_Torch",.@i,11; end; }
+
+// = Warp =
+// =======================================================================================================
+1@cata,282,8,1	script	SSwarp	45,1,1,{
+	set .@i,atoi(strnpcinfo(2));
+	if(!countitem(6002)){
+		mes "^0000FFVocê deve possuir o Medalhão do Apóstolo para prosseguir.^000000";
+		close;
+	}
+	warp .@i+"#2@cata",80,140;
+	end;
+}
+
+// = Magic Seal =
+// =======================================================================================================
+-	script	SS_Seal	-1,{
+
+OnTouch:
+	set .@i,atoi(strnpcinfo(2));
+	if($SS_Progress[.@i] != 5) end;
+	set .@k,atoi(strnpcinfo(1));
+	set .@playername$,strcharinfo(0);
+	getmapxy(.@map$,.@x,.@y,1);
+	getmobdata($SS_Bapho[.@i],.@bp);
+	if(distance(.@x,.@y,.@bp[6],.@bp[7]) <= 4) callsub Activate;
+	end;
+
+OnTouchNPC:
+	set .@i,atoi(strnpcinfo(2));
+	if($SS_Progress[.@i] != 5) end;
+	set .@k,atoi(strnpcinfo(1));
+	set .@playername$,strcharinfo(0);
+	getmapxy(.@map$,.@x,.@y,1);
+	getmobdata($SS_Bapho[.@i],.@bp);
+	if(distance(.@x,.@y,.@bp[6],.@bp[7]) <= 4) callsub Activate;
+	end;
+
+Activate:
+	percentheal -50,-50;
+	set .@i,atoi(strnpcinfo(2));
+	set .@k,atoi(strnpcinfo(1));
+	if($SS_Locations[.@i] == .@k){
+		if(SS_Seal > gettimetick(2)) {
+			dispbottom "Você precisa esperar 3 minutos!";
+			end;
+		}
+		set SS_Seal,gettimetick(2)+180;
+		dispbottom "Você reativou o Altar. Você será congelado por 20 segundos.";
+		mapannounce .@i+"#2@cata","Alma do Herói: Rápido meus descendentes, a imunidade do Bafomé foi quebrada por um minuto!",bc_map;
+		setmobdatax $SS_Bapho[.@i],27,0;
+		pcblockmove getcharid(3,strcharinfo(0)),1;
+		sleep2 20000;
+		pcblockmove getcharid(3,strcharinfo(0)),0;
+		sleep2 40000;
+		if($SS_Bapho[.@i] == 0) end;
+		setmobdatax $SS_Bapho[.@i],27,100;
+		while($SS_Locations[.@i] == .@k) set $SS_Locations[.@i],rand(1,5);
+		switch($SS_Locations[.@i]){
+			case 1: mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar das 10 horas está enfraquecendo. Vá para o altar e reative-o.",bc_map; break;
+			case 2: mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar das 2 horas está enfraquecendo. Vá para o altar e reative-o.",bc_map; break;
+			case 3: mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar das 4 horas está enfraquecendo. Vá para o altar e reative-o.",bc_map; break;
+			case 4: mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar das 8 horas está enfraquecendo. Vá para o altar e reative-o.",bc_map; break;
+			case 5: mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar central está enfraquecendo. Vá para o altar e reative-o.",bc_map; break;
+		}
+		sleep2 120000;
+		dispbottom "Você pode agora usar os selos!";
+		atcommand "@refresh";
+		end;
+	}
+	dispbottom "Esse não é o selo correto!";
+	close;
+}
+
+// = Magic Seals =
+// =======================================================================================================
+2@cata,36,109,1	duplicate(SS_Seal)	1	139,3,3
+2@cata,123,109,1	duplicate(SS_Seal)	2	139,3,3
+2@cata,123,22,1	duplicate(SS_Seal)	3	139,3,3
+2@cata,36,22,1	duplicate(SS_Seal)	4	139,3,3
+2@cata,79,84,1	duplicate(SS_Seal)	5	139,3,3
+
+// = Main Altar =
+// =======================================================================================================
+2@cata,79,65,0	script	Altar Principal	111,{
+	set .@i,atoi(strnpcinfo(2));
+	if($SS_Progress[.@i] == 4){
+		mes "Um grande poder do demônio no qual é muito poderoso para descrever descansa em baixo do altar principal que irradia cor violeta.";
+		next;
+		mes "Complicadas Runas escritas estão piscando muito rápido e tentam controlar um poder espantoso, mas aparentam muito arriscadas.";
+		next;
+		mes "Uma corrente explosiva de demônios está aproximando com o fundo do altar principal tremendo furiosamente.";
+		next;
+		mes "["+strcharinfo(0)+"]";
+		mes "Tenha cuidado! Alguma coisa... Alguma coisa está vindo.";
+		misceffect 92;
+		misceffect 92;
+		close2;
+		mapannounce .@i+"#2@cata","Alma do Herói: Meu Deus! O poder controlado pelo altar principal está enfraquecendo. Se isso continuar, o renascimento do Bafomé será meramente numa questão de tempo.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Meus descendentes... Escutem atentamente o que vou lhes dizer.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Na direção de 2 horas, 4 horas, 8 horas, 10 horas, e no centro exato desse lugar, os altares estão mantendo o controle do altar principal.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Você deve achar o selo não-selado e coloque o poder mágico nele antes do Bafomé possa correr para fora do Túmulo.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Grito de Bafomé: É tarde demais, meninos... Agora, tudo que sentirão será o desespero da morte.",bc_map,0xFF0000;
+		sleep2 3000;
+		set $SS_Progress[.@i],5;
+		set $SS_Bapho[.@i],mobspawn("Bafomé",1929,.@i+"#2@cata",79,65,"SS_Manager#"+.@i+"::OnBaphoDead");
+		setmobdatax $SS_Bapho[.@i],27,100;
+		mapannounce .@i+"#2@cata","Grito do Bafomé: Neste lugar, você não pode fazer um arranhão em mim. Esteja preparado para ser minha primeira oferenda.",bc_map,0xFF0000;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Agora, Eu irei dizer o modo de colocar o poder mágico nos altares. Vá para o altar e coloque os poderes mágicos dentro dele.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Sempre quando você ativar um altar, A imunidade a dano do Bafomé será quebrada temporariamente.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Nunca esqueça, aquele Bafomé deve estar dentro do selo também, caso contrário isso será inútil.",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: Lembre-se, nós temos apenas uma hora!",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Grito de Bafomé: Seus selos são inúteis! Eu irei quebrar todos eles!",bc_map;
+		sleep2 3000;
+		mapannounce .@i+"#2@cata","Alma do Herói: O poder do altar central está enfraquecendo. Vá para o altar e reative-o.",bc_map;
+		set $SS_Locations[.@i],5;
+		end;
+	}
+	end;
+}
+
+// = Mapflags =
+// =======================================================================================================
+1@cata	mapflag	nowarp
+1@cata	mapflag	nowarpto
+1@cata	mapflag	noteleport
+1@cata	mapflag	nosave	SavePoint
+1@cata	mapflag	nomemo
+1@cata	mapflag	nobranch
+1@cata	mapflag	noicewall
+1@cata	mapflag	restricted	6
+1@cata	mapflag	monster_noteleport
+
+2@cata	mapflag	nowarp
+2@cata	mapflag	nowarpto
+2@cata	mapflag	noteleport
+2@cata	mapflag	nosave	SavePoint
+2@cata	mapflag	nomemo
+2@cata	mapflag	nobranch
+2@cata	mapflag	noicewall
+2@cata	mapflag	restricted	6

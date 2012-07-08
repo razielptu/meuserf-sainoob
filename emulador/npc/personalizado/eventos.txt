@@ -1,0 +1,1205 @@
+//**************************************************************************//
+//*               Um Nome... Um Reinado... Uma Reputação...                *//
+//**************************************************************************//
+//*                                                                        *//
+//*                                                                        *//
+//*                                 \|||/                                  *//
+//*            .-.________          (o o)               ________.-.        *//
+//*       ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----   *//
+//*          (    ()___)    |                       |    (___()     )      *//
+//*               ()__)     |      * L Y K O *      |     (__()            *//
+//*       ----\___()_)      |                       |      (_()___/-----   *//
+//*                         +------------Ooo--------+                      *//
+//*                                |__|__|                                 *//
+//*                                 || ||                                  *//
+//*                        ________ooO Ooo________                         *//
+//*                                                                        *//
+//**************************************************************************//
+//* Invejados Por Muitos, Copiados Por Alguns, e Admirados Por Todos!!!... *//
+//**************************************************************************//
+prontera,140,169,5	script	Guerra dos Tesouros	125,{
+
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+if(getgmlevel()>98) menu "Modificar os Prêmios",MM,"Ver Lista dos Prêmios",Verificar,"Desejo ir para a Guerra dos Tesouros",TeleportY;
+if(getgmlevel()<98) menu "Desejo ir para a Guerra dos Tesouros",TeleportY;
+
+MM:
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 1 do Tesouro";
+digit $Drop1;
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 2 do Tesouro";
+digit $Drop2;
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 3 do Tesouro";
+digit $Drop3;
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 4 do Tesouro";
+digit $Drop4;
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 5 do Tesouro";
+digit $Drop5;
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Digite aqui o Prêmio 6 do Tesouro";
+digit $Drop6;
+goto Verificar;
+
+Verificar:
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Drop1 == "+getitemname($Drop1)+"";
+show "Drop2 == "+getitemname($Drop2)+"";
+show "Drop3 == "+getitemname($Drop3)+"";
+show "Drop4 == "+getitemname($Drop4)+"";
+show "Drop5 == "+getitemname($Drop5)+"";
+show "Drop6 == "+getitemname($Drop6)+"";
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Deseja modificar algo?";
+menu "Não",R_Nops,"Sim",MM;
+
+TeleportY:
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Olá "+strcharinfo(0)+" deseja ir para a Sala da Guerra dos Tesouros?";
+menu "Sim, eu irei vencer",R_Sim,"Não, obrigado",R_Nops;
+
+R_Sim:
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Boa Sorte Então";
+warp "izlude", 128,209;
+close;
+
+R_Nops:
+next;
+show "[^1E90FF Guerra dos Tesouros ^000000]";
+show "Volte sempre que precisar";
+close;
+
+}
+
+-	script	WoT	-1,{
+
+OnClock2300:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock2305:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnClock0200:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock0205:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnClock0500:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock0505:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnClock0800:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock0805:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnClock1100:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock1105:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+
+OnClock1400:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock1405:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnClock1700:
+Announce "Guerra dos Tesouros: Os Tesouros estão prestes a Surgirem!",8;
+killmonsterall "prt_are_in.gat";
+end;
+
+OnClock1705:
+monster	"prt_are_in.gat",74,192,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+monster	"prt_are_in.gat",126,139,	"Tesouro",1732,1,"WoT::OnAlguemGanhou";
+end;
+
+OnAlguemGanhou:
+set @GID,getcharid(2);
+set @CID,getcharid(0);
+Announce "O jogador ["+strcharinfo(0)+"] do clã ["+ GetGuildName(@GID) +"] acaba de destruir um dos tesouros",8;
+
+set @Prize, rand(1,6);
+
+if(@Prize == 1) additem $Drop1,1;
+if(@Prize == 2) additem $Drop2,1;
+if(@Prize == 3) additem $Drop3,1;
+if(@Prize == 4) additem $Drop4,1;
+if(@Prize == 5) additem $Drop5,1;
+if(@Prize == 6) additem $Drop6,1;
+}
+
+prt_are_in.gat	mapflag	pvp
+prt_are_in.gat	mapflag	nosave
+prt_are_in.gat	mapflag	nomemo
+prt_are_in.gat	mapflag	nopenalty
+prt_are_in.gat	mapflag	nobranch
+prt_are_in.gat	mapflag	nowarp
+prt_are_in.gat	mapflag	nowarpto
+prt_are_in.gat	mapflag	noteleport
+
+izlude,128,225,0	warp	prt	1,1,arena_room,99,99
+prt_are_in,142,13,0	warp	iz4311	1,1,prt_are_in,73,183
+prt_are_in,73,179,0	warp	iz4321	1,1,prt_are_in,138,13
+prt_are_in,56,14,0	warp	iz4331	1,1,prt_are_in,125,130
+prt_are_in,125,127,0	warp	iz4341	1,1,prt_are_in,59,13
+prt_are_in,97,30,0	warp	iz4351	1,1,arena_room,100,30
+arena_room,100,25,0	warp	prt21	1,1,prt_are_in,97,27
+
+//**************************************************************************//
+
+prontera.gat,140,172,5	script	Arena de Caça	869,{
+
+show "[^1E90FF Arena de Caça ^000000]";
+show "Olá sou o guardião da Arena";
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Quanto mais monstros você matar mais pontos você ganhará";
+show " ";
+show "E esses pontos poderão ser trocados por itens!";
+if(getgmlevel()>98){ menu "Desejo entrar na Arena",GoArena,"Trocar Pontos",GoPontos,"Mudar Itens da Loja",GoMudar,"Ver Items da Loja",Checagem;}
+menu "Desejo entrar na Arena",GoArena,"Trocar Pontos",GoPontos;
+
+GoArena:
+if($WarpLiberado == 1){
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Boa sorte, tente sobreviver";
+warp "ordeal_2-1.gat",150,150;
+close;
+}
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "A Arena de Caça está fechada agora!";
+close;
+
+GoMudar:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite os items que serão vendidos e o preço";
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Primeiro item";
+digit $Item1;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos1;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Segundo item";
+digit $Item2;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos2;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Terceiro item";
+digit $Item3;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos3;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Quarto item";
+digit $Item4;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos4;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Quinto item";
+digit $Item5;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos5;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a ID do Sexto item";
+digit $Item6;
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite aqui o preço em pontos";
+digit $Pontos6;
+goto Checagem;
+
+Checagem:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show ""+getitemname($Item1)+" "+$Pontos1+" pontos";
+show ""+getitemname($Item2)+" "+$Pontos2+" pontos";
+show ""+getitemname($Item3)+" "+$Pontos3+" pontos";
+show ""+getitemname($Item4)+" "+$Pontos4+" pontos";
+show ""+getitemname($Item5)+" "+$Pontos5+" pontos";
+show ""+getitemname($Item6)+" "+$Pontos6+" pontos";
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Deseja modificar algo?";
+menu "Não",Nem,"Sim",GoMudar;
+
+Nem:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Volte sempre que precisar";
+close;
+
+GoPontos:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Escolha aqui os items que serão vendidos";
+show "Você tem "+Ponto+" pontos";
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Se algum item estiver escrito NULL, não tente compra-lo, pois irá perder seus pontos";
+switch (select(""+getitemname($Item1)+" == "+$Pontos1+"",""+getitemname($Item2)+" == "+$Pontos2+"",""+getitemname($Item3)+" == "+$Pontos3+"",""+getitemname($Item4)+" == "+$Pontos4+"",""+getitemname($Item5)+" == "+$Pontos5+"",""+getitemname($Item6)+" == "+$Pontos6+"")){
+
+case 1:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item1+" por "+$Pontos1+" pontos?";
+menu "Sim",R_SimM1,"Não",Nem;
+
+R_SimM1:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos1*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos1*@Quantia;
+additem $Item1,@Quantia;
+close;
+
+
+case 2:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item2+" por "+$Pontos2+" pontos?";
+menu "Sim",R_SimM2,"Não",Nem;
+
+R_SimM2:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos2*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos2*@Quantia;
+additem $Item2,@Quantia;
+close;
+
+case 3:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item3+" por "+$Pontos3+" pontos?";
+menu "Sim",R_SimM3,"Não",Nem;
+
+R_SimM3:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos3*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos3*@Quantia;
+additem $Item3,@Quantia;
+close;
+
+case 4:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item4+" por "+$Pontos4+" pontos?";
+menu "Sim",R_SimM4,"Não",Nem;
+
+R_SimM4:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos4*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos4*@Quantia;
+additem $Item4,@Quantia;
+close;
+
+case 5:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item5+" por "+$Pontos5+" pontos?";
+menu "Sim",R_SimM5,"Não",Nem;
+
+R_SimM5:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos5*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos5*@Quantia;
+additem $Item5,@Quantia;
+close;
+
+case 6:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Você está certo que deseja comprar o "+$Item6+" por "+$Pontos6+" pontos?";
+menu "Sim",R_SimM6,"Não",Nem;
+
+R_SimM6:
+next;
+show "[^1E90FF Arena de Caça ^000000]";
+show "Digite a quantia de items que você deseja:";
+digit @Quantia;
+next;
+if(Ponto < $Pontos6*@Quantia){
+show "Você não tem pontos para comprar essa quantia deste item.";
+close;
+}
+show "[^1E90FF Arena de Caça ^000000]";
+show "Muito Bem aqui estão seus items!";
+set Ponto,Ponto-$Pontos6*@Quantia;
+additem $Item6,@Quantia;
+close;
+
+}
+}
+-	script	MobArena	-1,{
+
+OnClock0000:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock0005:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnClock0300:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock0305:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnClock0600:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock0605:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnClock0900:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock0905:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnClock1200:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock1205:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnClock1500:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock1505:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;;
+end;
+
+OnClock1800:
+killmonsterall "ordeal_2-1.gat";
+Announce "Arena de Caça Está Aberta em 5 minutos os Warps estarão fechados, quer participar? Corra!",8;
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1002,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 1 Ponto",1229,25,"MobArena::OnVale1";
+monster "ordeal_2-1",0,0,"Vale 10 Pontos",1054,25,"MobArena::OnVale10";
+monster "ordeal_2-1",0,0,"Vale 15 Pontos",1034,25,"MobArena::OnVale15";
+monster "ordeal_2-1",0,0,"Vale 20 Pontos",1111,25,"MobArena::OnVale20";
+monster "ordeal_2-1",0,0,"Vale 25 Pontos",1152,25,"MobArena::OnVale25";
+monster "ordeal_2-1",0,0,"Vale 30 Pontos",1177,25,"MobArena::OnVale30";
+monster "ordeal_2-1",0,0,"Vale 35 Pontos",1499,25,"MobArena::OnVale35";
+monster "ordeal_2-1",0,0,"Vale 40 Pontos",1412,25,"MobArena::OnVale40";
+monster "ordeal_2-1",0,0,"Vale 45 Pontos",1410,25,"MobArena::OnVale45";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1194,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 50 Pontos",1211,25,"MobArena::OnVale50";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1382,25,"MobArena::OnVale100";
+monster "ordeal_2-1",0,0,"Vale 100 Pontos",1295,25,"MobArena::OnVale100";
+monster "ordeal_2-1",150,273,"Vale 1.000 Pontos",1418,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",245,245,"Vale 1.000 Pontos",1159,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",272,149,"Vale 1.000 Pontos",1583,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",244,52,"Vale 1.000 Pontos",1046,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",149,27,"Vale 1.000 Pontos",1373,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",55,55,"Vale 1.000 Pontos",1251,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",26,149,"Vale 1.000 Pontos",1252,1,"MobArena::OnVale1000";
+monster "ordeal_2-1",54,245,"Vale 1.000 Pontos",1039,1,"MobArena::OnVale1000";
+set $WarpLiberado,1;
+end;
+
+OnClock1805:
+set $WarpLiberado,0;
+Announce "Warps Fechados, não está na arena? tente na próxima!",8;
+end;
+
+OnVale1:
+set Ponto,Ponto+1;
+end;
+
+OnVale10:
+set Ponto,Ponto+10;
+end;
+
+OnVale15:
+set Ponto,Ponto+15;
+end;
+
+OnVale20:
+set Ponto,Ponto+20;
+end;
+
+OnVale25:
+set Ponto,Ponto+25;
+end;
+
+OnVale30:
+set Ponto,Ponto+30;
+end;
+
+OnVale35:
+set Ponto,Ponto+35;
+end;
+
+OnVale40:
+set Ponto,Ponto+40;
+end;
+
+OnVale45:
+set Ponto,Ponto+45;
+end;
+
+OnVale50:
+set Ponto,Ponto+50;
+end;
+
+OnVale100:
+set Ponto,Ponto+100;
+end;
+
+OnVale1000:
+set Ponto,Ponto+1000;
+end;
+
+}
+
+ordeal_2-1.gat,0,0,0	script	MatadorMVP	-1,{
+
+OnClock0055:
+atcommand "@killmonster";
+end;
+
+OnClock0355:
+atcommand "@killmonster";
+end;
+
+OnClock0655:
+atcommand "@killmonster";
+end;
+
+OnClock0955:
+atcommand "@killmonster";
+end;
+
+OnClock1255:
+atcommand "@killmonster";
+end;
+
+OnClock1555:
+atcommand "@killmonster";
+end;
+
+OnClock1855:
+atcommand "@killmonster";
+end;
+
+}
+
+ordeal_2-1	mapflag	pvp
+ordeal_2-1	mapflag	nomemo
+ordeal_2-1	mapflag	nosave	SavePoint
+ordeal_2-1	mapflag	nowarpto
+ordeal_2-1	mapflag	noicewall
+ordeal_2-1	mapflag	noreturn
+
+//**************************************************************************//
+
+prontera,140,175,5	script	Devil Square	705,{
+
+show "[^1E90FF Guarda Devil Square ^000000]";
+show "Bem-Vindo para a porta do ^FF0000Devil Square^000000";
+show " ";
+show "Se você falar você morre, a porta está fechada e você deverá esperar começar o Devil Square";
+next;
+menu "Entrar",-,"Informações",Info;
+
+if(Baselevel < 75) goto LReq;
+if($inf == 1) goto L_go;
+goto L_eror;
+
+LReq:
+show "[^1E90FF Guarda Devil Square ^000000]";
+show "Level minimo para entrada é 75";
+close;
+
+L_go:
+if (getmapusers("ordeal_1-1.gat")==20) goto toomany;
+announce ""+strcharinfo(0)+" entrou no Devil Square",8;
+percentheal 100,100;
+warp "ordeal_1-1.gat",187,186;
+end;
+
+L_eror:
+show "[^1E90FF Guarda Devil Square ^000000]";
+show "O Devil Square está fechado agora!";
+close;
+
+Info:
+show "[^1E90FF Guarda Devil Square ^000000]";
+show "O Devil Square tem 6 niveis de dificuldades";
+show " ";
+show "Quando você passar por todos niveis, você poderá abrir 10 Baús do Tesouro!!!";
+close;
+end;
+
+toomany:
+show "[^1E90FF Guarda Devil Square ^000000]";
+show "Desculpe o Devil está cheio";
+show "Maximo de players é 20";
+set $inf,0;
+close;
+end;
+}
+
+////End Of Devil Square Entrance
+
+ordeal_1-1.gat,182,183,5	script	Cek	-1,{
+
+OnTimer90000:
+if($status == 1) end;
+if (getmapusers("ordeal_1-1.gat") == 0) Announce "Ninguem sobreviveu ao Devil Square",8;
+if (getmapusers("ordeal_1-1.gat") == 0) set $status,1;
+if (getmapusers("ordeal_1-1.gat") == 0) killmonsterall "ordeal_1-1.gat";
+if (getmapusers("ordeal_1-1.gat") == 0) end;
+Announce getmapusers("ordeal_1-1.gat") + " player(s) esta(ão) sobrevivendo no Devil Square",8;
+initnpctimer;
+end;
+
+}
+
+ordeal_1-1.gat,182,183,5	script	HiddenNpc	-1,{
+
+OnClock0100:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock0400:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock0700:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock1000:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock1300:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock1600:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnClock1900:
+Announce "O Evento Devil Square está ABERTO AGORA!!! em 5 Minutos irá começar...",8;
+disablenpc "Exit";
+initnpctimer;
+set $inf,1;
+set $status,0;
+killmonsterall "ordeal_1-1.gat";
+end;
+
+OnTimer60000:
+Announce "O Evento Devil Square começará em 4 Minutos...",8;
+end;
+
+OnTimer120000:
+Announce "O Evento Devil Square começará em 3 Minutos...",8;
+end;
+
+OnTimer180000:
+Announce "O Evento Devil Square começará em 2 Minutos...",8;
+end;
+
+OnTimer240000:
+Announce "O Evento Devil Square começará em 1 Minuto...",8;
+end;
+
+OnTimer300000:
+Announce "O Evento Devil Square COMEÇOU AGORA!!!",8;
+initnpctimer "Cek";
+set $inf,0;
+set $mob,60;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Poring",1002,10,"HiddenNpc::Ondevildead";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Poporing",1031,10,"HiddenNpc::Ondevildead";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Poring Noel",1062,10,"HiddenNpc::Ondevildead";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Metaling",1613,10,"HiddenNpc::Ondevildead";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Drops",1113,10,"HiddenNpc::Ondevildead";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Marin",1242,10,"HiddenNpc::Ondevildead";
+end;
+
+Ondevildead:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 25) Announce "Devil Square: Restam 25 monstros para começar o 2º Nivel",8;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para começar o 2º Nivel",8;
+if($mob == 0) Announce "Devil Square: Começou o 2º Nivel!",8;
+if($mob == 0) goto Ondevil2;
+end;
+
+Ondevil2:
+set $mob,45;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Guerreiro Orc",1023,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Esqueleto",1152,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Zumbi",1153,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Arqueiro",1189,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Grand Orc",1213,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Fumante",1235,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Senhora Orc",1273,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Natalino",1588,5,"HiddenNpc::Ondevildead2";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Filhote de Orc",1686,5,"HiddenNpc::Ondevildead2";
+end;
+
+Ondevildead2:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 25) Announce "Devil Square: Restam 25 monstros para começar o 3º Nivel",8;
+if($mob == 5) Announce "Devil Square: 5 monstros para começar o 3º Nivel",8;
+if($mob == 0) Announce "Devil Square: Começou o 3º Nivel!",8;
+if($mob == 0) goto Ondevil3;
+end;
+
+Ondevil3:
+set $mob,47;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Guerreiro Orc",1023,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Esqueleto",1152,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Zumbi",1153,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Arqueiro",1189,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Grand Orc",1213,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Fumante",1235,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Senhora Orc",1273,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Natalino",1588,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Filhote de Orc",1686,5,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Senhor dos Orcs",1190,1,"HiddenNpc::Ondevildead3";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Orc Héroi",1087,1,"HiddenNpc::Ondevildead3";
+end;
+
+Ondevildead3:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 25) Announce "Devil Square: Restam 25 monstros para começar o 4º Nivel",8;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para começar o 4º Nivel",8;
+if($mob == 0) Announce "Devil Square: Começou o 4º Nivel!",8;
+if($mob == 0) goto Ondevil4;
+end;
+
+Ondevil4:
+set $mob,27;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Hatii",1252,1,"HiddenNpc::Ondevildead4";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Cavaleiro da Tempestade",1251,1,"HiddenNpc::Ondevildead4";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Filhote de Hatii",1515,25,"HiddenNpc::Ondevildead4";
+end;
+
+Ondevildead4:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 25) Announce "Devil Square: Restam 25 monstros para começar o 5º Nivel",8;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para comecar o 5º Nivel",8;
+if($mob == 0) Announce "Devil Square: Começou o 5º Nivel!",8;
+if($mob == 0) goto Ondevil5;
+end;
+
+Ondevil5:
+set $mob,6;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] General Tartaruga",1312,1,"HiddenNpc::Ondevildead5";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Besouro Ladrão Dourado",1086,1,"HiddenNpc::Ondevildead5";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Tao Gunka",1583,1,"HiddenNpc::Ondevildead5";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Angeling",1096,1,"HiddenNpc::Ondevildead5";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Deviling",1582,1,"HiddenNpc::Ondevildead5";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Doppelganger",1046,1,"HiddenNpc::Ondevildead5";
+end;
+
+Ondevildead5:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para começar o 6º Nivel",8;
+if($mob == 0) Announce "Devil Square: Começou o 6º Nivel!",8;
+if($mob == 0) goto Ondevil6;
+end;
+
+Ondevil6:
+set $mob,6;
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Amon Ra",1511,1,"HiddenNpc::Ondevildead6";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Faraó",1157,1,"HiddenNpc::Ondevildead6";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Osiris",1038,1,"HiddenNpc::Ondevildead6";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Senhor dos Mortos",1373,1,"HiddenNpc::Ondevildead6";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Senhor das Trevas",1272,1,"HiddenNpc::Ondevildead6";
+areamonster "ordeal_1-1.gat",183,182,246,244,"[DS] Bafomé",1039,1,"HiddenNpc::Ondevildead61";
+end;
+
+Ondevildead6:
+if ($status == 1) end;
+set $mob,$mob-1;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para VITORIA",8;
+if($mob == 4) Announce "Devil Square: Restam 4 monstros para VITORIA",8;
+if($mob == 3) Announce "Devil Square: Restam 3 monstros para VITORIA",8;
+if($mob == 2) Announce "Devil Square: Restam 2 monstros para VITORIA",8;
+if($mob == 1) Announce "Devil Square: Resta 1 monstro para VITORIA",8;
+if($mob == 0) Announce "Devil Square: PARABENS - 10 Baú do Tesouro você(s) agora",8;
+if($mob == 0) goto Ondevilfinal;
+end;
+
+Ondevildead61:
+if ($status == 1) end;
+set $mob,$mob-1;
+Announce "Devil Square: Meu DEUS mataram o Bafomé, e o heroi foi o " + strcharinfo(0) +" cuidado com ele!!!",8;
+if($mob == 5) Announce "Devil Square: Restam 5 monstros para VITORIA",8;
+if($mob == 4) Announce "Devil Square: Restam 4 monstros para VITORIA",8;
+if($mob == 3) Announce "Devil Square: Restam 3 monstros para VITORIA",8;
+if($mob == 2) Announce "Devil Square: Restam 2 monstros para VITORIA",8;
+if($mob == 1) Announce "Devil Square: Resta 1 monstro para VITORIA",8;
+if($mob == 0) Announce "Devil Square: PARABENS - 10 Baú do Tesouro você(s) agora",8;
+if($mob == 0) goto Ondevilfinal;
+end;
+
+Ondevilfinal:
+set $mob,10;
+monster "ordeal_1-1.gat",231,250,"Tesouro Box",1354,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",234,247,"Tesouro Box",1355,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",237,244,"Tesouro Box",1356,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",240,241,"Tesouro Box",1357,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",243,238,"Tesouro Box",1358,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",246,235,"Tesouro Box",1359,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",249,232,"Tesouro Box",1360,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",252,229,"Tesouro Box",1361,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",249,241,"Tesouro Box",1362,1,"HiddenNpc::Onboxdead";
+monster "ordeal_1-1.gat",240,249,"Tesouro Box",1363,1,"HiddenNpc::Onboxdead";
+end;
+
+Onboxdead:
+if ($status == 1) end;
+set $mob, $mob - 1;
+Announce "Devil Square : " + strcharinfo(0) +" abriu o Baú do Tesouro do Devil Square",8;
+if($mob == 0) enablenpc "Exit";
+if($mob == 0) set $status,1;
+end;
+
+}
+
+// -- Mapflags
+ordeal_1-1	mapflag	pvp
+ordeal_1-1	mapflag	nomemo
+ordeal_1-1	mapflag	nosave	SavePoint
+ordeal_1-1	mapflag	nowarpto
+ordeal_1-1	mapflag	noicewall
+ordeal_1-1	mapflag	noreturn
+// -- End of Mapflags
+
+ordeal_1-1.gat,246,245,7	script	Exit	51,{
+atcommand "@go 0";
+close;
+
+}
+
+//**************************************************************************//
+
+prontera,140,178,3	script	Guarda#arena	413,{
+
+show "[^1E90FF Guarda da Arena ^000000]";
+show "Bem-vindo, "+jobname(Class)+" "+strcharinfo(0)+"!";
+show "O que deseja fazer?";
+next;
+setarray @menu$[1],"Entrar na Arena de Guerra.","Informações sobre a Arena de Guerra";
+if (!$arena_aberta )set @menu$[1],"";
+if(select(@menu$[1],@menu$[2],"Cancelar")==3)close;
+show "[^1E90FF Guarda da Arena ^000000]";
+if(@menu == (getarraysize(@menu$)/(3*TRUE+FALSE))){
+show "Você será teletransportado";
+show "em instantes.";
+sleep2 2000;
+close2;
+warp "sec_in01",175,35;
+end;
+}
+show "A Arena de Guerra funciona da seguinte maneira: de tempos em tempos, a sala de espera é aberta por 30 segundos. Nesse tempo, os jogadores que quiserem podem adentrá-la.";
+next;
+show "[^1E90FF Guarda da Arena ^000000]";
+show "Depois dos 30 segundos, a arena é fechada novamente e todos os que ficaram para fora terão que esperar a próxima vez.";
+next;
+show "[^1E90FF Guarda da Arena ^000000]";
+show "Depois que a arena estiver fechada, haverá um intervalo de 10 segundos. Acabado esse tempo, os jogadores que estão na sala de espera serão levados para a arena.";
+next;
+show "[^1E90FF Guarda da Arena ^000000]";
+show "Quando só restar um jogador na arena, aparecerão quatro baús para que ele possa quebrar e pegar seu prêmio.";
+next;
+show "[^1E90FF Guarda da Arena ^000000]";
+show "Os prêmios vão desde itens consumíveis até chapéus de ROP temporários.";
+close;
+
+OnClock2100:
+set $arena_aberta,1;
+announce "A Arena de Guerra está aberta! 30 segundos restantes!",bc_all,0x00FFFF;
+sleep 10000;
+announce "A Arena de Guerra fechará em 20 segundos!",bc_all,0x00FFFF;
+sleep 10000;
+announce "A Arena de Guerra fechará em 10 segundos!",bc_all,0x00FFFF;
+sleep 5000;
+announce "A Arena de Guerra fechará em 5 segundos!",bc_all,0x00FFFF;
+sleep 5000;
+announce "A Arena de Guerra está fechada!",bc_all,0x00FFFF;
+set $arena_aberta,0;
+donpcevent "Guarda#arena::OnBegin";
+end;
+
+OnInit:
+waitingroom "Arena de Guerra",0;
+setarray $premios_etc[0],969,607,616,617,603,604,12218,12215;
+set $premios_etc_qtd,2;
+setarray $premios_eqp[0],5137,5141,5170,5123,5227,5241;
+set $premios_eqp_temp,7;
+removemapflag "force_5-1",9;
+setmapflagnosave "force_5-1","SavePoint",0,0;
+setarray .@mf[1],6,0,13,34,3;
+for(set .@i,TRUE;.@i < getarraysize(.@mf);set .@i,.@i + 1)
+setmapflag "force_5-1",.@mf[.@i];
+end;
+
+OnBegin:
+sleep 10000;
+if (getareausers("sec_in01",181,39,166,24) < 2){
+announce "[ Arena de Guerra ]: A disputa foi cancelada por falta de jogadores!",bc_all,0x00FFFF;
+areawarp "sec_in01",181,39,166,24,"prontera",155,185;
+end;
+}
+areawarp "sec_in01",181,39,166,24,"force_5-1",100,125;
+mapannounce "force_5-1","[ Arena de Guerra ]: Que a guerra começe!",0x00FFFF;
+sleep 5000;
+mapannounce "force_5-1","[ Arena de Guerra ] Lembrem-se, o sobrevivente fica com os tesouros!",0x00FFFF;
+end;
+
+OnWinner:
+announce "[ Arena de Guerra ]: O jogador "+$vencedor$+" venceu!",0x00FFFF;
+sleep 5000;
+announce "[ Arena de Guerra ]: Parabéns, agora pegue seus prêmios.",0x00FFFF;
+monster "force_5-1",99,101,"Baú de Guerra",1732,1,"Guarda#arena::OnTreasureBreaked";
+monster "force_5-1",100,101,"Baú de Guerra",1732,1,"Guarda#arena::OnTreasureBreaked";
+monster "force_5-1",100,100,"Baú de Guerra",1732,1,"Guarda#arena::OnTreasureBreaked";
+monster "force_5-1",99,100,"Baú de Guerra",1732,1,"Guarda#arena::OnTreasureBreaked";
+end;
+
+OnTreasureBreaked:
+announce "[ Arena de Guerra ]: O jogador "+$vencedor$+" quebrou um Baú de Guerra!",bc_all,0x00FFFF;
+set .@tipo_premio,rand(0,100);
+if (.@tipo_premio <= 5){
+set .@premio,$premios_eqp[rand(1,getarraysize($premios_eqp))];
+rentitem @premio,($premios_eqp_temp*86400);
+announce "[ Arena de Guerra ]: Seu prêmio foi "+getitemname(.@premio)+" ("+$premios_eqp_temp+" dias)!",bc_all,0x00FFFF;
+} else if (.@tipo_premio > 5 || .@tipo_premio <= 90){
+set .@premio,$premios_etc[rand(1,getarraysize($premios_etc))];
+getitem .@premio,$premios_etc_qtd;
+announce "[ Arena de Guerra ]: Seu prêmio foi "+getitemname(.@premio)+" (x"+$premios_etc_qtd+") !",bc_all,0x00FFFF;
+} else if (@tipo_premio > 90){
+announce "[ Arena de Guerra ] O baú estava vazio!",bc_all,0x00FFFF;
+}
+set $baus,$baus+1;
+if ($baus == 4){
+set $baus,FALSE;
+mapwarp "force_5-1","prontera",155,185;
+}
+end;
+
+OnPCKillEvent:
+getmapxy .@map$,@x,@y,0;
+if (.@map$ != "force_5-1")end;
+if (getmapusers("force_5-1") == 1){
+set $vencedor$,strcharinfo(0);
+donpcevent "Guarda#arena::OnWinner";
+}
+end;
+
+OnPCDieEvent:
+getmapxy .@map$,@x,@y,0;
+if (.@map$ == "force_5-1")
+warp "prontera",155,185;
+end;
+}
+

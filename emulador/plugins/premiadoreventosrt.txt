@@ -1,0 +1,57 @@
+prontera,130,215,5	script	Prêmio de Eventos	108,{
+	if(countitem(7338) == 0 ) goto L_SemCartao;
+	if(TrocaCartaoForte > 0) goto L_TrocaForte;
+	
+	mes "[Prêmio de Eventos]";
+	mes "Você não participou de nenhum";
+	mes "evento recentemente para receber";
+	mes "itens.";
+	close;
+
+L_TrocaForte:
+
+	mes "[Prêmio de Eventos]";
+	mes "Você gostaria de trocar seu Cartão";
+	mes "de Premiação pelos prêmios por ter";
+	mes "terminado o evento do Forte Saint";
+	mes "Darmain ?";
+	next;
+	switch(select("Sim.:Não.")) {
+	case 1:
+		mes "[Prêmio de Eventos]";
+		mes "Lembre-se de liberar seu peso para";
+		mes "que seus itens não caiam no chão!";
+		next;
+		mes "[Prêmio de Eventos]";
+		mes "Quer continuar e receber os itens?";
+		next;
+		menu "Sim.",L_Sim,"Não.",L_Exit;
+		L_Sim:
+			mes "[Prêmio de Eventos]";
+			mes "Aqui estão seus itens, parabéns!";
+			getitem 526, 100;
+			getitem 522, 150;
+			getitem 607, 10;
+			getitem 7139, 10;
+			getitem 7135, 5;
+			getitem 7136, 5;
+			delitem 7338,1;
+			set TrocaCartaoForte, TrocaCartaoForte - 1;
+			close;
+		L_Exit:
+			mes "[Prêmio de Eventos]";
+			mes "Volte quando tiver checado o peso.";
+			close;
+	case 2:
+		mes "[Prêmio de Eventos]";
+		mes "Volte quando quiser receber";
+		mes "sua premiação.";
+		close;
+	}
+
+L_SemCartao:
+	mes "[Prêmio de Eventos]";
+	mes "Sem o cartão de premiação eu";
+	mes "não posso fazer nada por você.";
+	close;
+}

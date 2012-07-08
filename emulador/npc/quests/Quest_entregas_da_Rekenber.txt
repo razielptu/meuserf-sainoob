@@ -1,0 +1,1302 @@
+//===== Cronus Script ======================================== 
+//= Rekenber JOB quest
+//===== Por: ================================================= 
+//= ??
+//===== Versão: ============================================== 
+//= 1.0b
+//===== Compatible With: ===================================== 
+//= eAthena SVN
+//===== Descrição: =========================================== 
+//= Simples trabalhos
+//===== Changelog: =========================================== 
+//= 1.0 Script Criado [??]
+//= 1.0b Script Traduzido e Revisado [Keoy]
+//= 1.1 Corrigido erros de sintaxe. [Lord]
+//============================================================ 
+
+lhz_in01,174,258,3	script	Jovem Homem#reken	868,{
+
+	if(lhz_rekenber > 21)
+	{
+		show "[Kazien]";
+		show "Só...";
+		show "Me deixe sozinho.";
+		show "Eu não sinto nada além";
+		show "de culpa quando vejo você.";
+		next;
+		show "[Kazien]";
+		show "Não entenda isso de maneira";
+		show "errada. Quer dizer, não é como";
+		show "você ter feito algo errado. Eu sou";
+		show "aquele que é... Eu queria que";
+		show "um dia eu pudesse viver do geito que você vive.";
+		show "Algum dia, talvez irei ser forte o suficiente...";
+		close;
+	}
+	else if(lhz_rekenber == 21)
+	{
+		show "[Kazien]";
+		show "Ei, você voltou. Como sempre,";
+		show "você fez um bom trabalho. Você";
+		show "parece exausto: você topou";
+		show "com aqueles bandidos de novo?";
+		show "Por que você não descansa um pouco?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Kazien...";
+		show "Enquanto eu estava lutando com";
+		show "aqueles bandidos, um dos pacotes";
+		show "foi acidentalmente abrido";
+		show "e Eu vi o que estava dentro";
+		show "daqueles pacotes.";
+		next;
+		show "[Kazien]";
+		show "......";
+		show ".........";
+		show "............";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Po..Por que você está fornecendo";
+		show "aquelas coisas? Se deixarmos";
+		show "esses pacotes serem importados";
+		show "por outros países, podem causar";
+		show "muitos problemas...!";
+		next;
+		show "[Kazien]";
+		show "Pare. Por favor.";
+		show "S-só pare com isso.";
+		show "Não quero escutar mais.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Segure isso, Eu quero uma";
+		show "resposta!! Como você pode fazer";
+		show "vista grossa e fornecer para";
+		show "alguém ^FF0000armas hi-tech";
+		show "e guardiões^000000? É como se você";
+		show "estivesse promovendo guerra e violência!";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "E sobre seu pequeno irmão";
+		show "Lyozien? Ele não faz idéia do";
+		show "que está fazendo!!";
+		show "Nós não temos uma responsabilidade para";
+		show "com o mundo para que essas";
+		show "armas não sejam distribuidas?";
+		next;
+		show "[Kazien]";
+		show "Cale a boca! Você não";
+		show "sabe de nada! Só cale a boca!";
+		show "Estou fazendo isso pelo bem";
+		show "de minha família!";
+		show "Você não sabe como é viver";
+		show "viver na periferia de Lighthalzen!";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show ".................";
+		next;
+		show "[Kazien]";
+		show "Antigamente...";
+		show "Meu irmão e eu não tínhamos nada para";
+		show "comer. Então quando ouvi falar sobre este";
+		show "emprego, eu o peguei. Que boa é a paz";
+		show "no mundo se eu não estou vivo para";
+		show "aproveitar, huh?";
+		next;
+		show "[Kazien]";
+		show "Agora, meu irmão Lyozien é";
+		show "uma boa alma, não tem nada";
+		show "só amor para todos. Então, Claro";
+		show "que eu não posso contar a ele o que";
+		show "estou realmente fazendo--ele nunca aceitaria";
+		show "isso, acredite.";
+		next;
+		show "[Kazien]";
+		show "Eu odeio esse emprego e O que";
+		show "estou fazendo, e-eu queria sair.";
+		show "Mas e dai o que?! Voltar para as";
+		show "periferias? Esqueça. Enquanto";
+		show "Lyozien estiver feliz, eu não me importo em fazer esse trabalho.";
+		next;
+		show "[Kazien]";
+		show "Pelo menos desse modo, deixando tudo";
+		show "em segredo, Eu consigo proteger";
+		show "Lyozien da natureza horrível deste";
+		show "emprego, por mais que eu esteja sujando minhas mãos, fazendo Zenys";
+		show "da morte de outras pessoas.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Mas isso não continua certo.";
+		show "Você está fazendo armas para";
+		show "as pessoas se matarem! Por mais que isso seja";
+		show "pela sua família...";
+		next;
+		show "[Kazien]";
+		show "Olha cara, isso é o que eu";
+		show "decidi. Eu não me importo com o que";
+		show "os outros irão pensar.";
+		show "talvez eu va para o inferno";
+		show "quando morrer, mas isso é problema meu.";
+		next;
+		show "[Kazien]";
+		show "Também, vocês aventureiros";
+		show "estão sempre matando com";
+		show "suas espadas e feitiços... Isso não é tão mau quanto?";
+		show "Não é a arma ou o poder que são ruins: é como são usados.";
+		next;
+		show "[Kazien]";
+		show "Claro, muitos de meus clientes";
+		show "são qüestionáveis, e";
+		show "vocês aventureiros normalmente usam";
+		show "seus poderes para o bem, mas...";
+		show "Que se exploda! Só... Não";
+		show "volte. Não consigo trabalhar assim...";
+		next;
+		show "[Kazien]";
+		show "Olha não consigo ter você";
+		show "Trabalhando comigo e com o";
+		show "Lyozien mais.";
+		show "Desculpe, mas isso é para o bem dele.";
+		show "E você me faz sentir culpado...";
+		set lhz_rekenber,22;
+		getexp 550000,0;
+		close;
+	}
+	else if(lhz_rekenber > 16)
+	{
+		show "[Kazien]";
+		show "Ei! É melhor você pegar";
+		show "estrada ja. Você tem";
+		show "outra entrega para";
+		show "Rune-Midgard.";
+		close;
+	}
+	else if(lhz_rekenber == 16)
+	{
+		show "[Kazien]";
+		show "Ah, Eu ouvi pelo Lyozien";
+		show "que vocês terminaram a";
+		show "entrega. Você é provavelmente";
+		show "o melhor trabalhador de meio-turno";
+		show "que eu tive em muito, muito tempo.";
+		next;
+		show "[Kazien]";
+		show "De qualquer forma, Nós ja temos outra";
+		show "entrega para Rude-Midgard é";
+		show "estranho, estamos tendo mais pedidos de la,";
+		show "enquanto os pedidos de outros paises estão diminuindo.";
+		next;
+		show "[Kazien]";
+		show "É, não tenho tempo para pensar sobre isso.";
+		show "Lyozien está te esperando ok?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "E-espere! Durante a ultima entrega";
+		show "eu fui atacado por um grupo de ladrões";
+		show "que queriam distruir os pacotes";
+		show "Por que eles queria fazer isso?";
+		next;
+		show "[Kazien]";
+		show "Olhe... É melhor você não saber.";
+		show "Ou você está pedindo para que eu te pague";
+		show "mais pelo risco do emprego?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Eu entendo a que confidencialidade do";
+		show "comprador é importante mas eu me sentiria";
+		show "melhor se eu soubesse o que tem nesses pacotes";
+		show "E por que nós fomos atacados.";
+		next;
+		show "[Kazien]";
+		show "Escute, Não sou obrigado--";
+		show "Não posso te contar. Eu não posso contar nem para";
+		show "meu irmão o que tem neles. Você pode ver isso,";
+		show "não? De qualquer forma você pode cuidar desses";
+		show "assaltantes né?";
+		next;
+		show "[Kazien]";
+		show "Agora vá para o Aeroplano e fale com o";
+		show "Lyozien de novo. Não dê a ele nenhum";
+		show "problema, e tenha certeza de protege-lo";
+		set lhz_rekenber,17;
+		getexp 450000,0;
+		close;
+	}
+	else if(lhz_rekenber > 11)
+	{
+		show "[Kazien]";
+		show "O que você está fazendo esperando por aqui?!";
+		show "Você tem um trabalho a fazer!";
+		close;
+	}
+	else if(lhz_rekenber == 11)
+	{
+		show "[Kazien]";
+		show "Ei, você voltou. Eu tenho uma";
+		show "mensagem de Rune-Midgard,";
+		show "falando que receberam o pedido.";
+		show "Bom trabalho! Bem, você";
+		show "gosta de trabalhar com o Lyozien?";
+		show "Ele é um dos meus melhores homens.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Espere, não é pra você e o";
+		show "Lyozien serem irmãos?!";
+		next;
+		show "[Kazien]";
+		show "WHOA, ele te contou isso?";
+		show "Eu acho que ele pensa que pode";
+		show "confiar nesse tipo de pessoal que";
+		show "vocês falam...";
+		show "Yeah, ele é meu irmão menor.";
+		show "E um melhor homem que eu...";
+		next;
+		show "[Kazien]";
+		show "Eu fiquei com 'mãos sujas'";
+		show "fazendo esse...";
+		show "Oh, esqueci. você veio aqui ";
+		show "para um trabalho, né?";
+		show "Que bom, Tenho mais uma entrega";
+		show "para você trabalhar...";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Bem... Kazien...";
+		show "Eu estou curioso. O que exatamente";
+		show "nós estamos entregando?";
+		show "Eu digo, nem o Lyozien";
+		show "sabe exatamente o que carregamos";
+		show "nesses pacotes.";
+		next;
+		show "[Kazien]";
+		show "Huh... Isso quer dizer que";
+		show "você não consegue trabalhar conosco se";
+		show "você não souber exatamente o que você";
+		show "está fazendo?";
+		next;
+		show "[Kazien]";
+		show " A me me poupe né? Eu te disse antes";
+		show "--é secreto.";
+		next;
+		show "[Kazien]";
+		show "Olha, para seu próprio bem,";
+		show "sem perguntas. Saber o que você";
+		show "está entregando não mudará nada,";
+		show "Confie em mim.";
+		next;
+		show "[Kazien]";
+		show "De qualquer maneira, esse próximo trabalho";
+		show "é mais que o normal. Encontre";
+		show "Lyozien no aeroplano internacional";
+		show "e proteja outro pacote para Rune-Midgard.";
+		next;
+		set lhz_rekenber,12;
+		getexp 400000,0;
+		show "[Kazien]";
+		show "Ok, Vejo você mais tarde.";
+		show "A coisa mais importante que você pode fazer é";
+		show "fazer o melhor trabalho possível.";
+		show "E não de nenhum problema para Lyozien:";
+		show "Esse é meu trabalho! hehe~";
+		close;
+	}
+	else if(lhz_rekenber > 7)
+	{
+		show "[Kazien]";
+		show "Lyozien está te esperando no";
+		show "aeroplano internacional, então vá encontra-lo";
+		show "o mais rapido possível.";
+		show "Te vejo mais tarde...";
+		close;
+	}
+	else if(lhz_rekenber == 7)
+	{
+		show "[Kazien]";
+		show "Hey, você voltou~";
+		show "Exelente, Acho que isso quer dizer que";
+		show "você decidiu trabalhar conosco!";
+		show "Ok, deixe-me te contar sobre seu 1º emprego de verdade.";
+		show "Sempre: ^FF0000mante-lo em segredo^000000.";
+		next;
+		show "[Kazien]";
+		show "Vá para o AeroPlano internacional,";
+		show "não os vôos domésticos, e encontre um homem chamado";
+		show "^FF0000Lyozien^000000 la dentro.";
+		show "Ele irá te dar mais informações.";
+		next;
+		show "[Kazien]";
+		show "Oh. você pode falar com Lyozien";
+		show "sobre o trabalho, mas com ninguém mais!";
+		show "Quando você tiver terminado,";
+		show "venha aqui para outro serviço ok?";
+		next;
+		set lhz_rekenber,8;
+		show "[Kazien]";
+		show "Não esqueça...";
+		show "Fale com ^FF0000Lyozien^000000, nosso";
+		show "informante, no Aeroplano para";
+		show "vôos internacionais.";
+		close;
+	}
+	else if(lhz_rekenber == 6)
+	{
+		set @rekenrand,rand(1,15);
+		if(@rekenrand == 7)
+		{
+			show "[Kazien]";
+			show "Oh, ei, é você de novo.";
+			show "Espere. Não. Você só me lembra";
+			show "alguém que conheci. hm,";
+			show "ja nos vimos antes? Não me lembro bem...";
+			show "Oooh, Odeio ficar tão ocupado!";
+			show "Não consigo me concentrar!";
+			next;
+			set lhz_rekenber,0;
+			show "[Kazien]";
+			show "Arrgh, this is not good.";
+			show "We are this busy but we don't have enough people,";
+			show "yet it is not that extrememly bad";
+			show "to a point that we need to hire more people.";
+			next;
+			show "[Kazien]";
+			show "Will you step back? You are hindering my vision.";
+			close;
+		}
+		else
+		{
+			show "[Kazien]";
+			show "Oh, ei, é você de novo.";
+			show "Escute, você não me veio aqui para";
+			show "procurar um emprego de meio turno,";
+			show "veio? Eu ja te disse";
+			show "Que não posso confiar em você, sabe?";
+			next;
+			show "[Kazien]";
+			show "Olha,você não é um cara mau,";
+			show "então tenho certeza que você será perfeito";
+			show "para outro empregador.";
+			show "Não se sinta mau... Hm, qual era seu nome?";
+			show "Espere, você disse ele pra mim...?";
+			close;
+		}
+	}
+	else if(lhz_rekenber == 5)
+	{
+		show "[Kazien]";
+		show "Foi fácil contactar Garins?";
+		show "Ou você teve problemas?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Bem, eu vim aqui para contar";
+		show "pra você que eu não consegui achar o caminho";
+		show "dentro do laboratório de Einbroch.";
+		show "Foi a segurança, não consegui contar pra ele";
+		show "realmente nada.";
+		next;
+		show "[Kazien]";
+		show "Oqueee~?";
+		show "Tenho certeza que ele deixou você contar";
+		show "que você tinha que falar com Garins, certo?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Mas...";
+		show "Mas você disse que eu não devo contar";
+		show "pra ninguém os detalhes da minha missão?";
+		next;
+		show "[Kazien]";
+		show "Heh... Sim.";
+		show "Sim, ta certo.";
+		show "Heh heh heh! Hahahaha!";
+		show "Exelente! Estou feliz em dizer que,";
+		show "você passou no teste!";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "H-huh? Mas eu não consegui ver";
+		show "Garins... Eu não terminei a tarefa.";
+		next;
+		show "[Kazien]";
+		show "Garins é só um nome que inventei.";
+		show "Ele nem sequer existe.";
+		show "Eu só queria ver se você era confiável.";
+		show "Entende agora?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Eu... Eu acho.";
+		show "Então você fez uma pegadinha comigo!";
+		show "Como posso confiar em você agora?!";
+		next;
+		show "[Kazien]";
+		show "Oh... Você...";
+		show "Você conseguiu um ponto lá.";
+		show "Huh, não é ironico? Me desculpe, amigo, deixe-me desculpar.";
+		show "Pense um pouco e volte depois, ok?";
+		set lhz_rekenber,7;
+		close;
+	}
+	else if(lhz_rekenber == 4)
+	{
+		show "[Kazien]";
+		show "Então, você encontrou Garins?";
+		show "Ou teve problemas?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Bem, Eu não conseguir acha-lo.";
+		show "Nem sei se ele trabalha no laboratório de";
+		show "Einbroch.";
+		next;
+		show "[Kazien]";
+		show "Oqueee~?";
+		show "Não pode ser verdade.";
+		show "Bem, como você descobriu isso?!";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Eu perguntei para o Guarda,";
+		show "mas ele não me deixou entrar.";
+		next;
+		set lhz_rekenber,6;
+		show "[Kazien]";
+		show "Uh oh...";
+		show "Pensei nisso.";
+		show "Desculpe, mas você falhou no teste.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "H-huh? O que?";
+		show "O que você quer dizer?";
+		next;
+		show "[Kazien]";
+		show "Você disse para o guarda,";
+		show "mas você não devia deixar ninguém";
+		show "saber detalhes sobre a tarefa.";
+		show "Sim... Garins só é um nome que criei.";
+		show "Ele nem existe!";
+		next;
+		show "[Kazien]";
+		show "Desculpe, você liberou informações secretas...";
+		show "Não podemos confiar em você";
+		close;
+	}
+	else if(lhz_rekenber == 3)
+	{
+		show "[Kazien]";
+		show "Lembre, ache ^FF0000Garins^000000";
+		show "no ^FF0000Laboratório de Einbroch^000000";
+		show "e ^FF0000confirme que ele recebeu seu";
+		show "pedido^000000. Nós nos importamos muito com a privacidade de nossos clientes,";
+		show "^FFFFFF  ^000000 então mantenha isso em segredo ok??";
+		next;
+		show "[Kazien]";
+		show "Eu estarei esperando por aqui,";
+		show "quando terminar, venha até mim.";
+		close;
+	}
+	else if(lhz_rekenber == 2)
+	{
+		show "[Kazien]";
+		show "Okay! Seu primeiro trabalho será bem";
+		show "simples, mas leve a sério.";
+		next;
+		show "[Kazien]";
+		show "Você precisa ir para Einbroch, achar o Laboratório la,";
+		show "e achar um pesquisador, Garins.";
+		show "Confirme se ele recebeu seu pedido.";
+		next;
+		show "[Kazien]";
+		show "Fácil, né?";
+		show "Agora não deixe ninguém saber sobre";
+		show "sua tarefa.";
+		show "De qualuqer maneira não podemos confiar em você";
+		show "para coisas mais importantes. Quero saber se posso";
+		show "Confiar em você.";
+		next;
+		show "[Kazien]";
+		show "Lembre, ache ^FF0000Garins^000000";
+		show "no ^FF0000Laboratório de Einbroch^000000";
+		show "e ^FF0000confirme que ele recebeu seu";
+		show "pedido^000000. Nós nos importamos muito com a privacidade de nossos clientes,";
+		show "^FFFFFF  ^000000 então mantenha isso em segredo ok??";
+		next;
+		set lhz_rekenber,3;
+		show "[Kazien]";
+		show "Eu estarei esperando por aqui,";
+		show "quando terminar, venha até mim.";
+		close;
+	}
+	else if(lhz_rekenber == 1)
+	{
+		show "[Kazien]";
+		show "Estamos tão ocupados, nem temos pessoas suficientes";
+		show "para cobrir nossa demanda, então não é ruim que";
+		show "possamos empregar novas pessoas.";
+		next;
+		show "[Kazien]";
+		show "Oh hey, desculpe amigo,";
+		show "mas se importa em ir para tras?";
+		show "Você está bloqueando minha visão.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Espere, você não disse que precisava de ajuda?";
+		show "Eu gostaria de te ajudar, er, de";
+		show "graça ou por algum tipo de recompensa.";
+		show "Você sabe...";
+		next;
+		show "[Kazien]";
+		show "Hey, ok~";
+		show "Eu posso usar uma mão extra";
+		show "se você quer trabalhar";
+		show "por meio periodo. Mais,";
+		show "você é bom de tiro.";
+		show "Eu gosto disso. Deixe me ver...";
+		next;
+		if(BaseLevel < 70)
+		{
+			show "[Kazien]";
+			show "Awww, Desculpe, amigo.";
+			show "Você é bom, mas antes de vir falar comigo,";
+			show "pegue algum musculo...";
+			close;
+		}
+		show "[Kazien]";
+		show "Sim, ok. Parece que você agüenta isso.";
+		show "Mas eu posso confiar em você?";
+		show "Você pode manter informações em segredo?";
+		next;
+		switch( select( "Claro!.","Nem... Adoro falar segredos." ) )
+		{
+			case 1:
+				set lhz_rekenber,2;
+				show "[Kazien]";
+				show "Exelente, Exelente.";
+				show "Acho que posso confiar em você.";
+				show "Primeiro irei te dar algo simples para";
+				show "trabalhar...";
+				close;
+
+			case 2:
+				show "[Kazien]";
+				show "Awww, cara.";
+				show "Não posso te empregar...";
+				show "Você vai abrir sua boca...";
+				close;
+		}
+	}
+	show "[Kazien]";
+	show "Estamos tão ocupados, nem temos pessoas suficientes";
+	show "para cobrir nossa demanda, então não é ruim que";
+	show "possamos empregar novas pessoas.";
+	next;
+	show "[Kazien]";
+	show "Oh hey, desculpe amigo,";
+	show "mas se importa em ir para tras?";
+	show "Você está bloqueando minha visão.";
+	close;
+}
+
+lighthalzen,141,162,3	script	Velho Homem#reken	85,{
+
+	show "[Velho Homem]";
+	show "Ultimamente, parece que Kazien está";
+	show "tendo problemas na administração do seu negócio.";
+	show "Sempre reclamando que falta mão-de-obra...";
+	next;
+	show "[Velho Homem]";
+	show "Não sei que tipo de negócio ele está conduzindo,";
+	show "mas porque não ajuda-lo?";
+	show "Não acredito que nenhuma habilidade em especial";
+	show "seja necessária em algumas posições.";
+	next;
+	show "[Velho Homem]";
+	show "Bem, se você estiver interessado,";
+	show "você pode achar Kazien dentro";
+	show "do prédio da corporação.";
+	show "Pessoas jovens como ele nunca devem ter medo de pedir ajuda.";
+	show "Ele ainda precisa aprender muito...";
+	if(!lhz_rekenber) set lhz_rekenber,1;
+	close;
+}
+
+einbroch,55,52,3	script	Guarda do laboratório#rk	852,{
+
+	if(lhz_rekenber == 3){
+		show "[Guarda do laboratório]";
+		show "Espere! Essa é uma área restrita";
+		show "para o público! A não ser que você";
+		show "tenha algum negócio especial a tratar, você";
+		show "terá que sair agora!";
+		next;
+		switch( select( "Bem, eu tenho negócios a tratar aqui.","Wow, To saindo!" ) )
+		{
+			case 1:
+				show "[Guarda do laboratório]";
+				show "Sim? Ok, preciso saber quem você,";
+				show "quer ver aqui.";
+				show "Para checar a lista, para você poder";
+				show "contatar essa pessoa.";
+				next;
+				switch( select( "Preciso ver o Sr. Garins...","Voltarei mais tarde." ) )
+				{
+					case 1:
+						show "[" + strcharinfo(0) + "]";
+						show "Preciso ver o Sr. Garins";
+						show "e confirmar se ele recebeu o pacote que foi";
+						show "enviado à ele.";
+						next;
+						show "[Guarda do laboratório]";
+						show "Garins?";
+						show "Ok, deixe-me checar a lista de funcionários...";
+						show "Hmm...";
+						show "Garins... Garins... Err?";
+						show "Ele não está aqui. Talvez você tenha vindo ao local errado?";
+						next;
+						show "[Guarda do laboratório]";
+						show "Desculpe, mas parece que você gastou seu tempo";
+						show "à toa.";
+						show "N[os não temos nenhum Garins";
+						show "trabalhando aqui. De qualquer forma,";
+						show "Ainda não posso deixa-lo entrar no laboratório...";
+						set lhz_rekenber,4;
+						close;
+
+					case 2:
+						break;
+				}
+				
+			case 2:
+				show "[" + strcharinfo(0) + "]";
+				show "Wow, TO saindo!!";
+				show "(^333333Melhor eu falar com Kazien";
+				show "E contar para ele que tive um problema";
+				show "para entrar no laboratório.";
+				show "Ou eu nunca terminarei esse";
+				show "trabalho!^000000)";
+				set lhz_rekenber,5;
+				close;
+		}
+	}
+	show "[Guarda do laboratório]";
+	show "Espere! Essa é uma área restrita";
+	show "para o público! A não ser que você";
+	show "tenha algum negócio especial a tratar, você";
+	show "terá que sair agora!";
+	close;
+}
+
+airplane_01,96,48,3	script	Homem#Lyozien	868,{
+
+	if(lhz_rekenber > 21)
+	{
+		show "[Lyozien]";
+		show "Hey, Eu ouvi do meu irmão";
+		show "que você não pode mais trabalhar conosco";
+		show "por causa de algum conflito...";
+		show "Desculpe, mas eu ouvi aquilo. Foi muito bom trabalhar";
+		show "Com você!";
+		close;
+	}
+	else if(lhz_rekenber == 21)
+	{
+		show "[Lyozien]";
+		show "Oh exelente, você voltou.";
+		show "Mr. Ahman acabou de sair e pegar";
+		show "suas encomendas. Nós estamos";
+		show "prontos, então vá reportar nossa missão";
+		show "para meu irmão em Lighthalzen.";
+		next;
+		show "[Lyozien]";
+		show "Está tudo bem??";
+		show "Você precisa de um descanso";
+		show "ou alguma coisa?";
+		close;
+	}	
+	else if(lhz_rekenber == 20)
+	{
+		show "[Lyozien]";
+		show "Heya, mantenha o bom trabalho";
+		show "Só quando você falar com o";
+		show "Mr. Ahman dentro do aeroporto de Izlude,";
+		show "a entrega estará pronta.";
+		close;
+	}
+	else if(lhz_rekenber == 19)
+	{
+		show "[Lyozien]";
+		show "Whoa, você foi exelente!";
+		show "Tiveram mais deles desta vez,";
+		show "Mas você despachou eles facilmente.Bom trabalho!";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Obrigado, mas...";
+		show "Agora estou preocupado,";
+		show "sobre o que pode ter nesses pacotes.";
+		show "Você tem certeza que não sabe, Lyozien?";
+		next;
+		show "[Lyozien]";
+		show "Você não sabe quando parar né?";
+		show "Nem, Eu não sei tudo. Meu irmão diz";
+		show "que é uma má ideia. Então nem tenho vontade";
+		show "de saber.";
+		next;
+		set lhz_rekenber,20;
+		getitem 504,1;
+		show "[Lyozien]";
+		show "Aqui está um pequeno presente";
+		show "para refrescar você depois de um trabalho,";
+		show "contate o Mr. Ahman em Izlude.";
+		close;
+	}	
+	else if(lhz_rekenber == 18)
+	{
+		show "[Lyozien]";
+		show "Ok, como antes, temos que entregar esses pacotes";
+		show "para o Mr. Ahmam. Quando chegarmos em Izlude";
+		show "ache-o no aeroporto e conte a ele que os pacotes chegaram.";
+		next;
+		show "[Lyozien]";
+		show "E-espere...";
+		show "você ouviu isso?";
+		show "Eu ouvi--Acho que são eles.";
+		show "Aqueles ladrões estão de volta! Não deixe eles";
+		show "estragarem os pacotes!";
+		close2;
+		set lhz_rekenber,19;
+		donpcevent "#bully2::OnEnter";
+		donpcevent "Homem#Lyozien::OnStop";
+		end;
+	}
+	else if(lhz_rekenber == 17)
+	{
+		show "[Lyozien]";
+		show "Eu ouvi que você encheu";
+		show "Kyozien um pouquinho com suas perguntas.";
+		show "Quer dizer, Eu entendo, mas temos que lembrar";
+		show "que temos obrigações.";
+		next;
+		show "[Lyozien]";
+		show "Eu sei que esses pacotes podem estar colocando nós em perigo,";
+		show "mas eu confio no meu irmão. Se ele diz que aqueles ladrões são maus,";
+		show "então eles são definitivamente maus!";
+		next;
+		show "[Lyozien]";
+		show "Sim, desde crianças, Kyozien sempre está certo.";
+		show "Mesmo que eu queira saber o que tem nas caixas,";
+		show "Eu não quero desaponta-lo, sabe?";
+		next;
+		set lhz_rekenber,18;
+		show "[Lyozien]";
+		show "De qualquer forma, isso é suficiente.";
+		show "Voltemos ao trabalho -- hehe";
+		close;
+	}
+	else if(lhz_rekenber == 16)
+	{
+		show "[Lyozien]";
+		show "Tenho sorte de você está por perto";
+		show "mantendo aqueles bandidos longe de nós, né?";
+		show "Ei, quando você estiver pronto para outro trabalho";
+		show "procure Kazien ok?";
+		close;
+	}
+	else if(lhz_rekenber == 15)
+	{
+		show "[Lyozien]";
+		show "Então você ja falou com o";
+		show "Mr. Ahman?";
+		show "Bom, bom. Agora podemos voltar para";
+		show "a republica de Schwaltzvalt";
+		show "para achar nosso próximo trabalho.";
+		next;
+		show "[Lyozien]";
+		show "Só fale com meu irmão Kazien, ele deve te dar";
+		show "mais detalhes pra você saber.";
+		show "Cara é bom saber que você está trabalhando conosco...";
+		show "Se não fosse por você eu ja estaria morto, malditos bandidos!";
+		set lhz_rekenber,16;
+		close;
+	}
+	else if(lhz_rekenber == 14)
+	{
+		show "[Lyozien]";
+		show "Agora que eles se foram, vamos nos concentrar";
+		show "na nossa tarefa. Como antes, desça em Izlude";
+		show "e fale pro Mr. Ahman que os pacotes dele chegaram.";
+		show "Te vejo mais tarde~";
+		close;
+	}
+	else if(lhz_rekenber == 13)
+	{
+		show "[Lyozien]";
+		show "Oh, valeu!";
+		show "Você salvou minha vida!";
+		show "Como você pode saber, não sou bom lutador...";
+		show "Eu só corri quando aqueles bandidos";
+		show "apareceram.";
+		next;
+		show "[Lyozien]";
+		show "Essa é a razão do meu irmão empregar" ;
+		show "vocês aventureiros-- precisamos manter ";
+		show "esses pacotes longe";
+		show "dessas organizações.";
+		show "Elas sempre estão depois da gente...";
+		next;
+		show "[Lyozien]";
+		show "Toda vez que eu os vejo,";
+		show "eles estão falando coisas tipo";
+		show "vocês servem o mau,";
+		show "ou esses pacotes devem ser destruidos.";
+		show "Cara, tenho certeza, estou contente de ter";
+		show "você aqui!";
+		set lhz_rekenber,14;
+		close;
+	}
+	else if(lhz_rekenber == 12)
+	{
+		show "[Lyozien]";
+		show "Ei, Ja temos outro pacote para entregar";
+		show "para rune-midgard de novo";
+		show "Consegue acreditar nisso?";
+		show "Parece que estamos trabalhando bastante";
+		show "ultimamente.";
+		next;
+		show "[Lyozien]";
+		show "É tão longe de casa, mas trabalho é trabalho.";
+		show "Somos obrigados a fazer o que nos mandam";
+		show "até sa--Nossa. Você ouviu isso?";
+		show "O-o-que foi isso...?";
+		next;
+		show "[Lyozien]";
+		show "A não!";
+		show "São aqueles bandidos!";
+		show "Vou explicar mais tarde, mas agora,";
+		show "proteja os pacotes, e tenha certeza de que";
+		show "eles não os peguem!";
+		close2;
+		set lhz_rekenber,13;
+		donpcevent "Homem#Lyozien::OnStop";
+		donpcevent "#bully1::OnEnter";
+		end;
+	}
+	if(lhz_rekenber == 11)
+	{
+		show "[Lyozien]";
+		show "Ei, você deve ir ver meu irmão";
+		show "Kazien pra saber se ele tem outro trabalho";
+		show "para nós fazermos. Vou estar esperando aqui";
+		show "quando precisar me achar... Até depois~";
+		close;
+	}
+	else if(lhz_rekenber == 10)
+	{
+		show "[Lyozien]";
+		show "Bom trabalho, Mr. Ahman acabou de chegar";
+		show "e pegar seus pacotes. Parece que fizemos";
+		show "tudo por hoje. Quando você estiver pronto para";
+		show "outra missão fale com meu irmão Kazien, ok?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Lyozien, você sabe que tipos";
+		show "de coisas estamos entregando?";
+		next;
+		show "[Lyozien]";
+		show "Não tenho idéia. Eu tenho sido um pouquinho";
+		show "curioso, mas meu irmão me avisou para não perguntar.";
+		show "Talvez isso não faça diferença no que temos";
+		show "que fazer, certo?";
+		next;
+		show "[Lyozien]";
+		show "De qualuqer forma, isso seria";
+		show "ruim. Quer dizer, nossos clientes merecem privacidade.";
+		next;
+		show "[Lyozien]";
+		show "Não? Então vá falar com meu irmão para ver";
+		show "se ele tem mais algum trabalho para nós, ok?";
+		show "Estarei esperando aqui.";
+		set lhz_rekenber,11;
+		close;
+	}	
+	else if(lhz_rekenber == 9)
+	{
+		show "[Lyozien]";
+		show "Ok, quando o aeroplano chegar em Izlude";
+		show "saia e entre no aeroporto para encontrar";
+		show "um homem chamado Mr. Ahman.";
+		show "Fale pra ele que o pedido dele chegou, ok?";
+		close;
+	}	
+	else if(lhz_rekenber == 8)
+	{
+		show "[Homem]";
+		show "Hm... Você se importaria de sair";
+		show "dessa área? E for para as pilhas?";
+		show "Sim, esses pacotes são frageis.";
+		show "Obrigado.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Licença, Mas você é";
+		show "o Lyozien?";
+		next;
+		show "[Lyozien]";
+		show "Hey, você é aquele que meu irmão Kazien mandou?";
+		show "Ótimo, Estava esperando por você.";
+		show "Como você pode ver estou tendo uns probleminhas";
+		show "com esses pacotes aqui.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Espere, Kazien é";
+		show "seu irmão? Isso é estranho,";
+		show "ele não mencionou isso.";
+		next;
+		show "[Lyozien]";
+		show "A sim, ele é assim desde que viviamos na";
+		show "periferia de Lighthalzen.";
+		show "Quando ele entrou para a corporação, ajudou";
+		show "a melhorar nossa vida...";
+		next;
+		show "[Lyozien]";
+		show "É por isso que eu gosto de trabalhar pra ele.";
+		show "Não consigo deixa-lo pra baixo.";
+		show "De qualquer forma, de volta ao trabalho temos";
+		show "que entregar esses pacotes para Rune-Midgard.";
+		next;
+		show "[Lyozien]";
+		show "Tenho que cuidar para esses pacotes não sofram";
+		show "dano ou sejam roubados.";
+		show "Seu trabalho é ir para Izlude, achar";
+		show "Mr. Ahman no aeroporto, e contar para ele que seus pedidos chegaram.";
+		next;
+		set lhz_rekenber,9;
+		show "[Lyozien]";
+		show "Só se você falar para o Mr. Ahman";
+		show "a mensagem, ele virá pegar seus pacotes.";
+		show "Mas eu ficarei para tras para proteger os produtos.";
+		close;
+	}
+	show "[Homem]";
+	show "Hm... Você se importaria de sair";
+	show "dessa área? E for para as pilhas?";
+	show "Sim, esses pacotes são frageis.";
+	show "Obrigado.";
+	close;
+
+OnEnter:
+	enablenpc "Homem#Lyozien";
+	end;
+
+OnStop:
+	disablenpc "Homem#Lyozien";
+	end;
+}
+
+izlude,186,57,5	script	Scamp	853,{
+
+	if(lhz_rekenber > 21)
+	{
+		show "[Ahman]";
+		show "Oh, Olá. Ouvi que você teve que sair.";
+		show "Isso é meio ruim sabe?";
+		show "Se não fosse por você meus pacotes teriam sido destruidos.";
+		close;
+	}
+	else if(lhz_rekenber == 21)
+	{
+		show "[Ahman]";
+		show "Você não deveria estar descançando?";
+		show "Talvez Lyozien ainda está te esperando";
+		show "no aeroplano, não?";
+		close;
+	}
+	else if(lhz_rekenber == 20)
+	{
+		show "[Ahman]";
+		show "Oh, meus pacotes chegaram?";
+		show "Ótimo,Ótimo!";
+		show "Eu aprecio muito seu trabalho, estou";
+		show "surpreso que não te empregaram em";
+		show "tempo integral.";
+		next;
+		show "[Ahman]";
+		show "Tem algum problema??";
+		show "Você parece estar muito pálido. Oh";
+		show "vá relaxar um pouco no aeroplano.";
+		show "E não se preocupe eu cuido dos pacotes.";
+		set lhz_rekenber,21;
+		close;
+	}
+	else if (lhz_rekenber > 15 && lhz_rekenber < 20)
+	{
+		show "[Ahman]";
+		show "Oh, olá. Não estou esperando";
+		show "nenhum pacote nesse momento,";
+		show "Eu só pego algumas entregas...";
+		show "Não era para você estar em Lighthalzen?";
+		close;
+	}
+	else if(lhz_rekenber == 15)
+	{
+		show "[Ahman]";
+		show "Você não deveria estar indo reportar para";
+		show "Lyozien? Você precisa correr";
+		show "antes que o aeroplano decole.";
+		close;
+	}
+	else if(lhz_rekenber == 14)
+	{
+		show "[Ahman]";
+		show "Ah, é você de novo.";
+		show "Eu acho que então meus pacotes";
+		show "chegaram bem. Certo?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Sim, está certo.";
+		show "Na verdade, dessa vez fomos emboscados... ";
+		show "Por um grupo de bandidos, eu estava pensando";
+		show "se você sabe algo sobre isso...";
+		next;
+		show "[Ahman]";
+		show "Eles atacaram de novo?";
+		show "Oh, isso não é bom.";
+		show "Bem, eu não tenho idéia do que está acontecendo.";
+		show "Eu queria saber...";
+		next;
+		set lhz_rekenber,15;
+		show "[Ahman]";
+		show "Agora vá reportar para Lyozien.";
+		show "Que bom que você protegeu meus pacotes, Obrigado pelo";
+		show "Seu ótipo trabalho. Agora devo pegar o que pedi...";
+		close;
+	}
+	else if (lhz_rekenber > 10 && lhz_rekenber < 14)
+	{
+		show "[Ahman]";
+		show "Oh, é você de novo.";
+		show "Você não deveria estar no aeroplano";
+		show "para a república de Schwaltzvalt?";
+		show "Tem mais entregas esperando, você sabe.";
+		close;
+	}
+	else if(lhz_rekenber == 10)
+	{
+		show "[Ahman]";
+		show "Obrigado por me falar que meu pedido chegou.";
+		show "Você deveria ir falar com Lyozien";
+		show "para terminar seu trabalho.";
+		show "Talvez eu te veja de novo, aventureiro.";
+		close;
+	}
+	else if(lhz_rekenber == 9)
+	{
+		show "[Homem]";
+		show "Hmm, você pode realmente chamar esse local";
+		show "de aeroporto? É muito pequeno, não concorda?";
+		show "Mesmo assim eu gosto de sentar aqui.";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Lincença, mas você sabe onde posso";
+		show "achar um homem chamado Ahman?";
+		show "Tenho uma mensagem pra ele.";
+		next;
+		show "[Ahman]";
+		show "Eu sou Ahman, como pode--";
+		show "Oh! Você deve estar aqui para falar";
+		show "Que meus pacotes chegaram certo?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "S-sim. Está certo.";
+		show "Seus pacotes chegaram, e serão guardados";
+		show "até você ir pega-los.";
+		next;
+		show "[Ahman]";
+		show "Ah, é muito bom saber.";
+		show "Diga, você é o novo empregado de";
+		show "Lyozien e Kazien?";
+		show "Eu não acredito, nunca tinha te visto antes.";
+		show "Finalmente eles estão contratando trabalhadores de meio-periodo?";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Sim.";
+		show "Na verdade estou trabalhando por meio-periodo.";
+		show "Eu ouvi que eles estavam tendo problemas.";
+		show "Então me voluntariei.";
+		next;
+		show "[Ahman]";
+		show "Certo, Certo.";
+		show "Então acho que você não sabe o que está entregando,";
+		show "como o Lyozien.";
+		next;
+		show "[Ahman]";
+		show "Bem. É confidencial.";
+		show "Então não se preocupe com isso.";
+		show "Obrigado por me notificar.";
+		show "^FFFFFF  ^000000 Agora você deve ir ver ";
+		show "Lyozien. Chau~";
+		set lhz_rekenber,10;
+		close;
+	}
+	show "[Homem]";
+	show "Hmm, você pode realmente chamar esse local";
+	show "de aeroporto? É muito pequeno, não concorda?";
+	show "Mesmo assim eu gosto de sentar aqui.";
+	close;
+}
+
+airplane_01,1,1,1	script	#bully1	-1,{
+
+OnInit:
+	disablenpc "#bully1";
+	end;
+	
+OnEnter:
+	enablenpc "#bully1";
+	initnpctimer;
+	monster "airplane_01",96,53,"Bandido",1592,1,"#bully1::OnMyMobDead";
+	monster "airplane_01",87,47,"Bandido",1592,1,"#bully1::OnMyMobDead";
+	set .bullymobs,2;
+	end;
+	
+OnReset:
+	killmonster "airplane_01","#bully1::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	set .bullymobs,.bullymobs -1;
+	if(.bullymobs < 1)
+	{
+		show "[Bully]";
+		show "Saco! Prox-Proxima vez...";
+		show "Vamos pegar esses pacotes!";
+		show "^333333*Cough cough*^000000 Por tempo,";
+		show "recuemos para lutar outro dia!";
+		close2;
+		donpcevent "#bully1::OnInit";
+		donpcevent "Homem#Lyozien::OnEnter";
+		stopnpctimer;
+	}
+	end;
+	
+OnTimer120000:
+	donpcevent "#bully1::OnReset";
+	donpcevent "#bully1::OnInit";
+	donpcevent "Homem#Lyozien::OnEnter";
+	stopnpctimer;
+	end;
+}
+
+airplane_01,2,2,1	script	#bully2	-1,{
+
+OnInit:
+	disablenpc "#bully2";
+	end;
+	
+OnEnter:
+	enablenpc "#bully2";
+	initnpctimer;
+	monster "airplane_01",96,53,"Thug",1592,1,"#bully2::OnMyMobDead";
+	monster "airplane_01",87,47,"Thug",1592,1,"#bully2::OnMyMobDead";
+	monster "airplane_01",97,43,"Thug",1592,1,"#bully2::OnMyMobDead";
+	set .bullymobs,3;
+	end;
+	
+OnReset:
+	killmonster "airplane_01","#bully2::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	set .bullymobs,.bullymobs -1;
+	if(.bullymobs < 1)
+	{
+		show "^3355FFHey-- Algo caiu de";
+		show "um  dos pacotes.";
+		show "Deve ter caido durante";
+		show "a luta.^000000";
+		close2;
+		donpcevent "#bully2::OnInit";
+		donpcevent "#packidentity::OnEnter";
+		stopnpctimer;
+	}
+	end;
+	
+OnTimer120000:
+	donpcevent "#bully2::OnReset";
+	donpcevent "#bully2::OnInit";
+	donpcevent "#packidentity::OnEnter";
+	stopnpctimer;
+	end;
+}
+
+airplane_01,99,47,3	script	#packidentity	139,2,2,{
+	end;
+	
+OnInit:
+	disablenpc "#packidentity";
+	end;
+
+OnEnter:
+	enablenpc "#packidentity";
+	end;
+
+OnTouch:
+	if(lhz_rekenber == 19)
+	{
+		show "^3355FFVocê pega o que caiu";
+		show "de um dos pacotes.^000000";
+		next;
+		show "[" + strcharinfo(0) + "]";
+		show "Oh... meu Deus!";
+		show "É... São";
+		show "armas de destruição em massa.";
+		show "são partes de guardiões, os usados em castelos...";
+		close2;
+		donpcevent "Homem#Lyozien::OnEnter";
+		donpcevent "#packidentity::OnInit";
+		end;
+	}
+}
+
+lhz_in01,187,247,3	script	#flashback1	139,2,2,{
+
+OnTouch:
+	if(lhz_rekenber == 22)
+	{
+		show "[Kazien]";
+		show "-Você não tem nada a proteger, huh?- ";
+		show "-Você está certo que está fazendo a coisa certa?-";
+		next;
+		show "[Kazien]";
+		show "Responda-me! Responda-me! Responda-meEE!";
+		next;
+		set lhz_rekenber,23;
+		show "[" + strcharinfo(0) + "]";
+		show ".............Que se dane.";
+		close;
+	}
+	end;
+}
+
+lhz_in01,75,248,3	script	#flashback2	139,2,2,{
+
+OnTouch:
+	if(lhz_rekenber == 22)
+	{
+		show "[Kazien]";
+		show "Olha cara é isso que decidi.";
+		show "Pessoas não se importam com o que os outros pensam.";
+		show "Posso ir pro inferno quando morrer,";
+		show "mas isso é MEU problema.";
+		next;
+		show "[Kazien]";
+		show "E vocês aventureiros que sempre estão com seus feitços e espadas... Não é tão mau quanto?";
+		show "Não é o poder que é ruim, é como é usado.";
+		next;
+		show "[Kazien]";
+		show "Antigamente...";
+		show "Meu irmão e eu não tínhamos nada para";
+		show "comer. Então quando ouvi falar sobre este";
+		show "emprego, eu o peguei. Que boa é a paz";
+		show "no mundo se eu não estou vivo para";
+		show "aproveitar, huh?";
+		next;
+		set lhz_rekenber,23;
+		show "[" + strcharinfo(0) + "]";
+		show "......";
+		show ".........";
+		show "Que se dane!";
+		close;
+	}
+	end;
+}

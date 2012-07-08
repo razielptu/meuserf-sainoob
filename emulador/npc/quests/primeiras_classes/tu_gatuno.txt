@@ -1,0 +1,672 @@
+//===== Cronus Script ========================================
+//= Quest Específica da Classe Gatuno
+//===== Por: =================================================
+//= Cardoso
+//===== Versão Atual: ========================================
+//= 1.0/1.2
+//===== Descrição: ===========================================
+//= Quest para Gatunos
+//===== Changelog: ===========================================
+//= 1.0 Traduzido e revisado [Cardoso]
+//============================================================
+
+moc_ruins,66,164,4	script	Treinador de Gatunos#T	84,{
+	show "[Yierhan]";
+	if(Class == Job_Novice){
+		show "Humn...?";
+		show "Um aprendiz?";
+		show "Ainda pensando";
+		show "em qual classe";
+		show "irá escolher...";
+		show "Não é mesmo?";
+		next;
+		show "[Yierhan]";
+		show "Escute, se você decidir se tornar um gatuno--uma ótima escolha";
+		show "Venha e fale comigo. Eu lhe mostro o caminho!";
+		close;
+
+	} else if(Class == Job_Thief || Class == Job_Thief_High || Class == Job_Assassin || Class ==Job_Assassin_Cross || Class == Job_Rogue || Class == Job_Stalker){
+		if(Class == Job_Thief_High || Class == Job_Assassin || Class == Job_Assassin_Cross || Class == Job_Rogue || Class == Job_Stalker){
+			if(tu_thief01 < 8){
+				show "O que você está";
+				show "fazendo aqui!? Não há";
+				show "nada que eu possa lhe ensinar!";
+				show "Você está muito a minha frente!";
+				next;
+				show "[Yierhan]";
+				show "Aproveitando, você";
+				show "poderia me ensinar";
+				show "algumas coisas!";
+				show "Por favor! Preciso de novos golpes!";
+				close;
+			}
+		}
+		if(tu_thief01 == 0){
+			show "Olá.";
+			show "Sou Yierhan.";
+			show "Eu sou o cara";
+			show "encarregado de treinar";
+			show "novos gatunos.";
+			next;
+			switch(select("Treino?:Treino? Agora?")){
+			case 1:
+				show "[Yierhan]";
+				show "Isso, treino. Mas fique tranquilo é apenas uma precaução.";
+				next;
+				break;
+			case 2:
+				show "[Yierhan]";
+				show "Agora?";
+				show "Sim, agora!";
+				show "Mas se você não está preparado(a) por alguma razão, eu acho que posso esperar.";
+				close;
+				break;
+			}
+			show "[Yierhan]";
+			show "Ok, primeiro de tudo, Gatunos usam ataques físicos. Bom, a maioria. Há alguns que gostam de usar arcos. Mas todos gostamos de velocidade!";
+			next;
+			show "[Yierhan]";
+			show "Então para ataques físicos, qual atributo aumenta o dano? Vamos ";
+			show "você deve saber isso se você não pulou o treino básico";
+			next;
+			switch(select("^6B8E23INT^000000:^2F4F2FFOR^000000:^23238EDES^000000")){
+			case 1:
+				show "[Yierhan]";
+				show "Affee? ^6B8E23INT^000000 implica no dano mágico, defesa mágica e algumas habilidades. Gatunos não usam magia!";
+				next;
+				show "[Yierhan]";
+				show "Você deve ter pulado o treinamento básico mesmo! Não que eu esteja criticando. De qualquer forma, é ^2F4F2FFOR^000000 que aumenta o dano físico, ok?";
+				next;
+				show "[Yierhan]";
+				show "Se você achar que seu dano físico está muito fraquinho, tente colocar mais pontos ^2F4F2FFOR^000000.";
+				set tu_thief01, 1;
+				getexp 200,100;
+				//misceffect EF_HIT5;
+				close;
+				break;
+			case 2:
+				show "[Yierhan]";
+				show "Isso, está certo! Se você deseja aumenta o dano físico";
+				show "você deve colocar mais ponto em ^2F4F2FFOR^000000. Aumentando FOR aumenta";
+				show "sua capacidade de carregar itens também.";
+				next;
+				show "[Yierhan]";
+				show "Se você achar que seu dano físico está muito fraquinho, tente colocar mais pontos ^2F4F2FFOR^000000.";
+				next;
+				show "[Yierhan]";
+				show "Claro, ^23238EDEs^000000 e SOR podem";
+				show "também aumentar se  dano físico, mas é muito pouco comparado com FOR.";
+				set tu_thief01, 1;
+				getexp 400,200;
+				//misceffect EF_HIT5;
+				close;
+				break;
+			case 3:
+				show "[Yierhan]";
+				show "Affee? ^23238EDES^000000 implica na";
+				show "precisão dos ataques, não o dano! Bom, a não ser que esteja";
+				show "usando um arco. Se não for o caso DES aumentará muito pouco o dano.";
+				next;
+				show "[Yierhan]";
+				show "Você deve ter pulado o treinamento básico mesmo! Não que eu esteja criticando. De qualquer forma, é ^2F4F2FFOR^000000 que aumenta o dano físico, ok?";
+				next;
+				show "[Yierhan]";
+				show "Se você achar que seu dano físico está muito fraquinho, tente colocar mais pontos ^2F4F2FFOR^000000.";
+				set tu_thief01, 1;
+				getexp 200,100;
+				//misceffect EF_HIT5;
+				close;
+				break;
+			}
+		} else if(tu_thief01 == 1){
+			show "Ok, chega de falar sobre atributos.";
+			show "Quer saber? Eu acho que vou falar sobre as habilidades que nós gatunos usamos.";
+			next;
+			show "[Yierhan]";
+			show "Mas antes tente evoluir um pouco suas habilidades";
+			show "e depois volte aqui.";
+			set tu_thief01, 2;
+			close;
+		} else if(tu_thief01 == 2){
+			show "Ok, deixe-me ver suas habilidades. Você sabia que dependendo das suas habilidades você deve mudar sua estratégia de batalha? Habilidades são tão importantes como atributos.!";
+			next;
+			set @chk_th_skill1, getskilllv("TF_DOUBLE");
+			set @chk_th_skill2, getskilllv("TF_MISS");
+			set @chk_th_skill3, getskilllv("TF_STEAL");
+			set @chk_th_skill4, getskilllv("TF_HIDING");
+			set @chk_th_skill5, getskilllv("TF_POISON");
+			set @chk_th_skill6, getskilllv("TF_DETOXIFY");
+
+			if(@chk_th_skill1 == 0 && @chk_th_skill2 == 0 && @chk_th_skill3 == 0 && @chk_th_skill4 == 0 && @chk_th_skill5 == 0 && @chk_th_skill6 == 0){
+				show "[Yierhan]";
+				show "Você ainda não aprendeu nenhuma habilidade? Vamos lá, são suas habilidades que o diferenciam de todo mundo!";
+				close;
+			} else {
+				if(@chk_th_skill1 > 0){
+					show "[Yierhan]";
+					show "Ah, então você aprendeu:";
+					show "Level "+@chk_th_skill1+" Ataque duplo.";
+					show "Ótimo! Essa habilidade lhe dá a chance de atacar duas vezes o";
+					show "invés de uma. É muito boa!";
+					next;
+					show "[Yierhan]";
+					show "É uma habilidade passiva, por isso não usa SP e sempre está ativa.";
+					next;
+				}
+				if(@chk_th_skill2 > 0){
+					show "[Yierhan]";
+					show "Ah, então você aprendeu:";
+					show "Level "+@chk_th_skill2+" Perícia em esquiva?";
+					show "Essa habilidade aumenta a chance de seus inimigos errarem o ataque.";
+					next;
+				}
+				if(@chk_th_skill3 > 0){
+					show "[Yierhan]";
+					show "Uau, você conseguiu";
+					show "Level "+@chk_th_skill3+" Furto~";
+					show "É essa a habilidade que dá o nome de nossa classe! Porem não dá para";
+					show "usar nas pessoas, infelizmente...";
+					next;
+					show "[Yierhan]";
+					show "Mas você pode roubar itens de monstros. Se você tiver sorte, pode conseguir um item bom.";
+					next;
+				}
+				if(@chk_th_skill4 > 0){
+					show "[Yierhan]";
+					show "Você aprendeu:";
+					show "Level "+@chk_th_skill4+" Esconderijo?";
+					next;
+					show "[Yierhan]";
+					show "Essa habilidade é muito útil,";
+					show "principalmente quando você está rodeado de inimigos fortes. Mas tome cuidado...";
+					next;
+					show "[Yierhan]";
+					show "Alguns monstros ainda podem detecta-lo não importando o quando tente se esconder, eles te acharam!";
+					next;
+				}
+				if(@chk_th_skill5 > 0){
+					show "[Yierhan]";
+					show "Ok, vejo que aprendeu";
+					show "Level "+@chk_th_skill5+" Envenenar.";
+					show "Você gosta de ser perigoso,";
+					show "não gosta?";
+					next;
+					show "[Yierhan]";
+					show "Esse ataque tem a chance de envenenar";
+					show "seu inimigo por um periodo de tempo. Enquanto envenenado o inimigo perderá HP constantemente e ficará com a defesa fragilizada.";
+					next;
+					show "[Yierhan]";
+					show "Eh, mas lembre se.";
+					show "Se o monstro for muito mais forte que você será quase impossível envenena-lo. Então não dê uma de louco.";
+					next;
+				}
+				if(@chk_th_skill6 > 0){
+					show "[Yierhan]";
+					show "Level "+@chk_th_skill6+" Desintoxicar.";
+					next;
+					show "[Yierhan]";
+					show "Você só pode aprender Desintoxicar";
+					show "depois de ter aprendido a habilidade Envenenar. Desintoxicar lhe permite retirar o envenenamento de certo alvo.";
+					next;
+				}
+			}
+			show "[Yierhan]";
+			show "Ok, se você";
+			show "quiser saber sobre";
+			show "qualquer outra habilidade,";
+			show "eu posso lhe explicar rapidamente.";
+			set tu_thief01, 3;
+			getexp BaseLevel*30,BaseLevel*15;
+			//misceffect EF_HIT5;//CHECK
+			close;
+		} else if(tu_thief01 == 3){
+			show "Então...";
+			show "Há mais alguma";
+			show "habilidade que você";
+			show "quer que eu explique ou";
+			show "já tem toda informação";
+			show "que deseja?";
+			next;
+			while(1){
+				switch(select("Ataque Duplo:Perícia em esquiva:Furto:Esconderijo:Envenenar:Desintoxicar:Cancelar")){
+				case 1: 
+					show "[Yierhan]";
+					show "Como o nome diz,";
+					show "permite que você de dois ataques ao invés de um, com uma % de sucesso.";
+					next;
+					show "[Yierhan]";
+					show "É uma habilidade passiva, por isso não usa SP e sempre está ativa.";
+					set @read_d, 1;
+					next;
+					break;
+				case 2:
+					show "[Yierhan]";
+					show "Perícia em esquiva";
+					show "aumenta sua taxa de";
+					show "esquiva que faz com";
+					show "que seus inimigos errem";
+					show "ataques contra você.";
+					next;
+					show "[Yierhan]";
+					show "Assim como o ataque duplo, essa habilidade é passiva por isso não usa SP e sempre está ativa.";
+					set @read_f, 1;
+					next;
+					break;
+				case 3:
+					show "[Yierhan]";
+					show "Furto é uma habilidade ativa que dá a chance de roubar alguns itens de graça.";
+					show "Mas você só pode roubar itens de monstros. Infelizmente não funciona com humanos.";
+					set @read_s, 1;
+					next;
+					break;
+				case 4:
+					show "[Yierhan]";
+					show "Esconderijo é uma habilidade ativa, que permite que você se esconda no subsolo. Você não poderá se mexer enquanto essa habilidade estiver ativada.";
+					next;
+					show "[Yierhan]";
+					show "Essa habilidade é muito útil,";
+					show "principalmente quando você está rodeado de inimigos fortes. Mas tome cuidado...";
+					next;
+					show "[Yierhan]";
+					show "Alguns monstros ainda podem detecta-lo não importando o quando tente se esconder, eles te acharam!";
+					set @read_p, 1;
+					next;
+					break;
+				case 5: 
+					show "[Yierhan]";
+					show "Envenenar é uma habilidade ativa e ofensiva, que todo gatuno deveria ter, na minha opinião...";
+					next;
+					show "[Yierhan]";
+					show "Esse ataque tem a chance de";
+					show "envenenar seu inimigo por um periodo de tempo. Enquanto envenenado o inimigo perderá HP constantemente e ficará com a defesa fragilizada.";
+					show "Lembre-se disso.";
+					set @read_h, 1;
+					next;
+					break;
+				case 6: 
+					show "[Yierhan]";
+					show "Já que nós gatunos";
+					show "podemos envenar, é";
+					show "necessário saber como";
+					show "reverter o envenenamento,";
+					show "e é para isso que serve a habilidade Desintoxicar.";
+					next;
+					show "[Yierhan]";
+					show "Você só pode aprender Desintoxicar";
+					show "depois de ter aprendido a habilidade Envenenar. Desintoxicar lhe permite retirar o envenenamento de certo alvo.";
+					set @read_r, 1;
+					next;
+					//misceffect EF_DETOXICATION;
+					next;
+					break;
+				case 7:
+					show "[Yierhan]";
+					show "Boa...";
+					show "Eu estou cansado de explicar todas essas habilidades mesmo. Vamos avançar para a";
+					show "próxima parte de nosso treinamento...";
+					next;
+					show "[Yierhan]";
+					show "Agora que você é praticamente um Expert em habilidades, eu queria que você evoluísse um pouco as habilidades, ok?";
+					set tu_thief01, 4;
+					//misceffect EF_HIT5;
+					if(@read_d){
+						getexp 300,100;
+					}
+					if(@read_f){
+						getexp 300,100;
+					}
+					if(@read_s){
+						getexp 300,100;
+					}
+					if(@read_p){
+						getexp 300,100;
+					}
+					if(@read_h){
+						getexp 300,100;
+					}
+					if(@read_r){
+						getexp 300,100;
+					}
+					close;
+					break;
+				}
+			}
+		} else if(tu_thief01 == 4){
+			show "Ok, nós estudamos as habilidades, você já práticou um pouco, não é?...Espero que sim.";
+			next;
+			show "[Yierhan]";
+			show "Ok, agora quero que você faça esse treinamento de luta. Está é a chance de experimentar qual habilidade é melhor em certas situações.";
+			next;
+			show "[Yierhan]";
+			show "Vá e me traga";
+			show "10 ^ff0000"+getitemname(916)+"^000000.";
+			show "Você pode consiguir isso matando Pickys. Não vai ser difícil. Ah, e use essa asa para voltar aqui.";
+			set tu_thief01, 5;
+			savepoint "moc_ruins",80,164;
+			additem 602, 1;
+			getexp 100,50;
+			//misceffect EF_HIT5;
+			close2;
+			warp "moc_fild12",158,373;
+			end;
+		} else if(tu_thief01 == 5 || tu_thief01 == 6){
+			if(countitem(916) < 10){	//Feather_Of_Birds
+				show "'Ei, você não";
+				show "tem 10 ^ff0000"+getitemname(916)+"^000000 que lhe pedi.";
+				show "Lembre-se que, experiência é o mais importante.";
+				close2;
+				warp "moc_fild07",203,38;
+				end;
+			} else {
+				show "Ah~ Agora sim.";
+				show "Bom trabalho, meu amigo.";
+				show "Essas penas são o símbolo de sua evolução.";
+				next;
+				show "[Yierhan]";
+				show "Eu espero que continua dando o melhor de você.";
+				show "Você tem alguma dúvida?";
+				next;
+				if(tu_thief01 == 6){
+					switch(select("A respeito dos vestigios.", "No.")){
+					case 1:
+						show "[Yierhan]";
+						show "Ah....";
+						show "Você achou alguns vestigios, né?";
+						show "Hmmm...";
+						show "Eu não gostaria de lhe contar sobre isso,";
+						show "logo depois de ter se tornado um gatuno...mas...";
+						next;
+						show "[Yierhan]";
+						show "Houve uma batalha ao sul da cidade.";
+						show "Era mei noite quando aconteceu, por isso";
+						show "apenas algumas sabem sobre isso.";
+						show "Eu fiquei acordado até mais tarde para uma reunião da guilda,";
+						show "e sem querer testemunhei a batalha.";
+						next;
+						show "[Yierhan]";
+						show "Depois eu fui até onde ocorreu a batalha.";
+						show "Tudo que achei foi aqueles vestigios indicando que a batalha continuou mais para o sul.";
+						show "Parece que esses vestigios tem a ver com alguns Assassinos...";
+						show "já que o vestigios são venenosos.";
+						show "Mas isso é somente minha suposição.";
+						next;
+						show "[Yierhan]";
+						show "Se você estiver interessado, siga os vestigios.";
+						show "Mas não se esqueça, eles ainda são venenosos.";
+						set tu_thief01, 8;
+						additem 1207, 1;
+						getexp 1000,500;
+						//misceffect EF_HIT5;
+						close;
+						break;
+					case 2:
+						show "[Yierhan]";
+						show "Ah, tudo bem então.";
+						show "Espero ver você muito mais forte, futuramente.";
+						show "E por favor aceite isso.";
+						show "Hahaha...";
+						set tu_thief01, 7;
+						additem 1207, 1;
+						getexp 500,200;
+						//misceffect EF_HIT5;
+						close;
+						break;
+					}
+				} else {
+					switch(select("Foi um prazer lhe conhecer.", "No.")){
+					case 1:
+						show "[Yierhan]";
+						show "Hahaha...foi um prazer para mim também.";
+						show "Espero que de o melhor de si sempre!";
+						show "Assim, você se tornará o mais poderoso gatuno de todos os tempos.";
+						next;
+						show "[Yierhan]";
+						show "E por favor aceite isso.";
+						show "Hahaha...";
+						set tu_thief01, 7;
+						additem 1207, 1;
+						getexp 500,200;
+						//misceffect EF_HIT5;
+						close;
+						break;
+					case 2:
+						show "[Yierhan]";
+						show "Ah, tudo bem então.";
+						show "Espero ver você muito mais forte, futuramente.";
+						show "E por favor aceite isso.";
+						show "Hahaha...";
+						set tu_thief01, 7;
+						additem 1207, 1;
+						getexp 500,200;
+						//misceffect EF_HIT5;
+						close;
+						break;
+					}
+				}
+			}
+		} else if(tu_thief01 == 7){
+			show "Houve uma batalha ao sul da cidade.";
+			show "Era mei noite quando aconteceu, por isso";
+			show "apenas algumas sabem sobre isso.";
+			show "Eu fiquei acordado até mais tarde para uma reunião da guilda,";
+			show "e sem querer testemunhei a batalha.";
+			next;
+			show "[Yierhan]";
+			show "Depois eu fui até onde ocorreu a batalha.";
+			show "Tudo que achei foi aqueles vestigios indicando que a batalha continuou mais para o sul.";
+			show "Parece que esses vestigios tem a ver com alguns Assassinos...";
+			show "já que o vestigios são venenosos.";
+			show "Mas isso é somente minha suposição.";
+			next;
+			show "[Yierhan]";
+			show "Se você estiver interessado, siga os vestigios.";
+			show "Mas não se esqueça, eles ainda são venenosos.";
+			next;
+			show "[Yierhan]";
+			show "Não se esqueça, erva verde e poção verde podem";
+			show "curar envenenamento. Se alguem";
+			show "aparecer com uma Gema Vermelha na sua frente, cuidado.";
+			show "Ele pode tentar te envenenar com a Gema.";
+			set tu_thief01, 8;
+			getexp 200,100;
+			//misceffect EF_HIT5;
+			close;
+		} else if(tu_thief01 == 8){
+			show "Então, como você está?";
+			show "Lutando contra inimigos desconhecidos e correndo";
+			show "grande perigo como sempre?.";
+			show "Parece que em torno da cidade há alguns inimigos poderosos,";
+			show "portanto cuidado.";
+			next;
+			show "[Yierhan]";
+			show "Quando estiver por ai, tome o máximo";
+			show "de cuidado. Não só monstros são seus inimigos,";
+			show "mas, pessoas também, até seus amigos.";
+			close;
+		} else if(tu_thief01 < 26){
+			show "Eu fiquei sabendo que um grande assassino";
+			show "nunca voltou de sua missão.";
+			show "Porem a Guilda dos Assassinos divulgou que a missão foi concluída,";
+			show "mas ele nunca voltou para lá.";
+			show "E olha que ele era muito forte e competente...pelo que me recordo.";
+			next;
+			show "[Yierhan]";
+			show "Portanto, tome cuidado, fique sempre atento.";
+			close;
+		} else if(tu_thief01 == 26){
+			show "Você terminou sua missão?";
+			show "Eu sei que ela não fácil.";
+			next;
+			switch(select("Estou ainda investigando.:Ainda não.:Sim, terminei.")){
+			case 1:
+				show "[Yierhan]";
+				show "Ah...";
+				show "Entendo. Ela não é simples de ser terminada.";
+				show "Continue fazendo um bom trabalho.";
+				close;
+				break;
+			case 2:
+				show "[Yierhan]";
+				show "Ah...";
+				show "Entendo. Ela não é simples de ser terminada.";
+				show "Continue fazendo um bom trabalho.";
+				close;
+				break;
+			case 3:
+				show "[Yierhan]";
+				show "Ohhhh, você conseguiu!";
+				show "Ok, está tudo certo.";
+				show "Estava esperando por muito tempo esse dia chegar.";
+				next;
+				show "- Você informou ele sobre sua investigação -";
+				show "- e sobre o pedaço de pano adiquirida na missão. -";
+				next;
+				show "[Yierhan]";
+				show "Hmm...";
+				show "Deixe-me ver o pano.";
+				next;
+				show "- Você deu a ele o pedaço de pano. -";
+				next;
+				show "[Yierhan]";
+				show "HUmm...";
+				show "Você fez...";
+				show "Você fez um ótimo trabalho.";
+				show "Você me trouxe informações muito impotantes.";
+				next;
+				show "[Yierhan]";
+				show "Como você pode ver, a textura desse pano";
+				show "é peculiar de assassinos.";
+				show "E essa textura particularmente é";
+				show "usada por Algozes.";
+				next;
+				show "[Yierhan]";
+				show "Com isso, eu posso descubrir";
+				show "o que aconteceu aquela noite.";
+				show "Obrigado.";
+				next;
+				show "[Yierhan]";
+				show "Vou perguntar para outros integrantes mais sábio da guilda para cuidar";
+				show "da investigação.";
+				show "Você fez perfeitamente o trabalho, agora quero";
+				show "que você foque o seu treinamento.";
+				next;
+				show "[Yierhan]";
+				show "Por favor aceite isso.";
+				show "É uma recompença pelo seu ótimo trabalho.";
+				set tu_thief01, 27;
+				getitem 2307, 1;
+				set Zeny, Zeny + 5000;
+				getexp 8000,3000;
+				next;
+				show "[Yierhan]";
+				show "Tome cuidado agora.";
+				close;
+				break;
+			}
+		} else {
+			show "Sempre busque seu sonho.";
+			show "A vida sem um sonho não é uma vida perfeita.";
+			close2;
+		}
+	} else if(Class == Job_Mage || Class == Job_Mage_High || Class == Job_Wizard || Class == Job_High_Wizard || Class == Job_Sage || Class == Job_Professor){
+		if(tu_magician01 < 7){
+			show "Sou um treinador de gatunos.";
+			show "E pelo visto você não é um.";
+			show "Você deve ser gatuno se quiser";
+			show "ter um professor como eu...hahaha.";
+			close;
+		} else if(tu_magician01 == 7){
+			show "Hm...?";
+			show "Estranho, apenas gatunos andam por aqui. O que alguem como você faz por aqui? A não ser que...";
+			next;
+			switch(select("Estou aqui em nome de 'Mana.'")){
+			case 1:
+				show "[Yierhan]";
+				show "Ah, estava esperando por você. Bom bom, eu pedi a Mana que me ajuda com uma coisa.";
+				next;
+				show "[Yierhan]";
+				show "Você veio na hora certa. Sabe, algo muito estranho foi achado ao sul de Morroc.";
+				next;
+				show "[Yierhan]";
+				show "Basicamente, achamos rastros de veneno usado em uma batalha. Nós iamos investigar, mas temos coisas mais importantes a fazer.";
+				next;
+				show "[Yierhan]";
+				show "Foi por isso que pedi uma ajuda a Guilda dos Magos. Felizmente, tenho amizade com Mana...";
+				next;
+				show "[Yierhan]";
+				show "Então, por favor se dirija para o sul de morroc, lá é o melhor local para começar a investigação. Você logo verá o que achamos logo que sair de Morroc.";
+				set tu_magician01, 8;
+				break;
+			}
+		} else if(tu_magician01 < 26){
+			show "Há histórias que dizem que um Grande Assassino desapareceu em uma missão...";
+			next;
+			show "[Yierhan]";
+			show "O que é estranho sobre isso, é que a Guilda dos Assassinos informaram que a missão foi concluída.";
+			next;
+			show "[Yierhan]";
+			show "Tome cuidado, amigo. Parece que sua missão tem a ver com esse misterioso assassino...";
+			close;
+		} else if(tu_magician01 == 26){
+			show "Hmm.....";
+			show "Então como vai indo?";
+			show "Estou tão ocupado com vários trabalhos ultimamente";
+			show "que quase não tenho tempo para investigar.";
+			next;
+			switch(select("Eu ainda estou investigando.:Ainda nada.:Terminei de investigar.")){
+			case 1:
+				show "[Yierhan]";
+				show "Ah...";
+				show "Entendo. Ela não é simples de ser terminada.";
+				show "Continue fazendo um bom trabalho.";
+				close2;
+				break;
+			case 2:
+				show "[Yierhan]";
+				show "Ah...";
+				show "Entendo. Ela não é simples de ser terminada.";
+				show "Continue tentando.";
+				close2;
+				break;
+			case 3:
+				show "[Yierhan]";
+				show "Ohhhh, você conseguiu!";
+				show "Ok, está tudo certo.";
+				show "Estava esperando por muito tempo esse dia chegar.";
+				next;
+				show "- Você informou ele sobre sua investigação -";
+				show "- e sobre o pedaço de pano adiquirida na missão. -";
+				next;
+				show "[Yierhan]";
+				show "Como você pode ver, a textura desse pano";
+				show "é peculiar de assassinos.";
+				show "E essa textura particularmente é";
+				show "usada por Algozes.";
+				next;
+				show "[Yierhan]";
+				show "Com isso, eu posso descubrir";
+				show "o que aconteceu aquela noite.";
+				show "Obrigado.";
+				next;
+				show "[Yierhan]";
+				show "Ah, aceite isso como forma de gratidão.";
+				show "Mandarei uma mensagem à Mana falando sobre sua ajuda.";
+				show "Se cuide.";
+				set tu_magician01, 27;
+				set Zeny, Zeny + 5000;
+				getexp 5000,2000;
+				close2;
+				break;
+			}
+		} else {
+			show "Como disse, não foi apenas um grupo mas no mínimo";
+			show "dois ou até três grupos envolvidos com isso.";
+			show "Hmm...Tenho a sensaçao que algo ruim acontecerá em breve.";
+			close;
+		}
+	}
+	show "A coisa mais romantica ";
+	show "no deserto é com certeza";
+	show "as tempestades de areia. Hahaha.";
+	close;
+}

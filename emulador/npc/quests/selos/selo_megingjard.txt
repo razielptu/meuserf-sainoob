@@ -1,0 +1,3457 @@
+//===== Cronus Script ========================================
+//= Selo Megingjard Destravando NPCs.
+//===== Por: =================================================
+//= SinSloth
+//===== Versão Atual: ========================================
+//= 1.4/1.2
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Quest para quebrar o Selo da Megingjard.
+//===== Comentários Adicionais: ==============================
+//= 1.0 First version. Thanks to SinSloth for scripting it. [MasterOfMuppets]
+//= 1.1 fixed exploit [Lupus]
+//= 1.2 Fixed experience gains to match upcoming rate adjustments. [SinSloth]
+//= 1.3 Script traduzido com base no eAthena [Sensei]
+//= 1.4 Trocado efeitos numéricos por nomes. [Lord]
+//============================================================
+
+prt_castle,44,151,0	script	Rebarev Doug	56,{
+
+if(countitem(7080) > 3 && countitem(7081) > 4 && countitem(7082) > 3 && countitem(7084) > 2 && countitem(7085) > 2)
+{
+	show "[Rebarev Doug]";
+	show "O que é isso?";
+	show "Você...! Você tem";
+	show "tudo que eu preciso para";
+	show "criar a Gleipnir!";
+	next;
+	switch( select( "Fazer Gleipnir.", "Cancelar." ) )
+	{
+
+		case 1:
+			show "[Rebarev Doug]";
+			show "Eu sou o único humano na terra abençoado com habilidades para criar a Gleipnir. Aparte de Dwarves, Eu sou a única pessoa que pode criar este item!";
+			next;
+			delitem 7080,4;
+			delitem 7081,5;
+			delitem 7082,4;
+			delitem 7084,3;
+			delitem 7085,3;
+			additem 7058,1;
+			show "[Rebarev Doug]";
+			show "Lá vai!";
+			next;
+			show "[Rebarev Doug]";
+			show "A Gleipnir é dita como muito forte que nem o Lobo Fenrir pode quebrá-la! Estou muito orgulhoso que eu pude fazer este item!";
+			close;
+		break;
+
+		case 2:
+			close;
+		break;
+
+	}
+}
+
+if($God1 < 50)
+{
+	show "[Rebarev Doug]";
+	show "Nós somos templários que foram treinados para se preparar para a guerra santa quando chegar a hora.";
+	next;
+	show "[Rebarev Doug]";
+	show "Como nossos antepassados fizeram a milhões de anos atrás, nós derrotaremos as hordas de Demônios quando o dia chegar.";
+	next;
+	show "[Rebarev Doug]";
+	show "Se você tem alguma pergunta sobre templários, sinta-se livre para me perguntar. Eu devo ser muito velho e fraco para lutar, mas eu gastarei nossos esforços como nós podermos.";
+	show "Sinta-se livre para me perguntar.";
+	next;
+	switch( select( "O que é Crux Divinium?", "O que é Crux Magnum?", "O que é Redenção?", "O que é Gleipnir?" ) )
+	{
+		case 1:
+			show "[Rebarev Doug]";
+			show "Crux Divinium é a primeira manifestação de fé de um templário. Pelo sinal da Cruz, o Templário pode inflingi um ataque sagrado em seus inimigos.";
+			next;
+			show "[Rebarev Doug]";
+			show "Os monstros que são fracos contra a propriedade sagrada, particularmente os mortos-vivos, serão cegados pela luz do Crux Divinium. Tudo que eles podem fazer é se apróximar do; Julgamento Sagrado.";
+			next;
+			show "[Rebarev Doug]";
+			show "Baseado em nossas últimas pesquisas, O Crux Divinium pode inflingi 4.5 vezes mais danos do que um ataque normal uma vez que ele for apreendido.";
+			close;
+		break;
+
+		case 2:
+			show "[Rebarev Doug]";
+			show "Crux Magnum...!";
+			show "A fúria divina de deus em forma de uma cruz de luz é dado por essa destrutiva habilidade.";
+			next;
+			show "[Rebarev Doug]";
+			show "Deus garante a nós seu poder então nós podemos punir as forças do mal, e a fúria divina é dada em um crucifixo gigante de poder.";
+			next;
+			show "[Rebarev Doug]";
+			show "O poder do Crucifixo de Luz pode causar danos nos inimigos através de três vezes ataques. Cada ataque tem cinco vezes a força de sua força de ataque normal.";
+			next;
+			show "[Rebarev Doug]";
+			show "Dessa forma, quando os Templários usam Crux Magnum, eles precisam fazer um exercício extremo de preocação. O corpo humano é tão fraco para usar toda a froça de Deus.";
+			next;
+			show "[Rebarev Doug]";
+			show "Então, usando esta habilidade, causará no templário danos sofridos. Dessa forma, este dano pode ser reduzido pela metade com a Habilidade Fé no Level 10.";
+			close;
+		break;
+
+		case 3:
+			show "[Rebarev Doug]";
+			show "Praticando o que nós oramos, Templários escolhem proteger outros agüentando o sofrimento deles.";
+			next;
+			show "[Rebarev Doug]";
+			show "A habilidade Redenção permite os Templários manter seus companheiros protegidos dos danos tomando os danos para eles.";
+			next;
+			show "[Rebarev Doug]";
+			show "É a maior demostração de fé, e de amor com as pessoas. É uma atitude essencial para um servo de Deus!";
+			next;
+			show "[Rebarev Doug]";
+			show "Toda via, se as pessoas que você quer proteger ficarem muito longe de te, você não poderá usar a habilidade Redenção neles até que eles cheguem perto de você novamente.";
+			next;
+			show "[Rebarev Doug]";
+			show "Como você ver o sofrimento desses que você quer proteger, voê nunca hesitará em se sacrificar.";
+			next;
+			show "[Rebarev Doug]";
+			show "Obrigado, Deus, por me conceder com o seu poder para proteger as pessoas.";
+			close;
+		break;
+
+		case 4:
+			show "[Rebarev Doug]";
+			show "Gleipnir é a essencia da Megingjard como eu estive pesquisando.";
+			next;
+			show "[Rebarev Doug]";
+			show "É a única ligação forte bastante que permitirá um humano usar Megingjard ao redor da cintura dele.";
+			next;
+			show "[Rebarev Doug]";
+			show "Embora eu já não posso lutar, eu tenho estudado como criar Gleipnir durante anos. Eu serei mais que isto se eu criar para você se me trazer...";
+			next;
+			show "[Rebarev Doug]";
+			show "^0000FF4 Passos de Gato^000000,";
+			show "^0000FF5 Barbas de Mulher^000000,";
+			show "^0000FF4 Raiz de Montanha^000000,";
+			show "^0000FF3 Saliva de Ave^000000 e";
+			show "^0000FF3 Nervos de Urso^000000,";
+			close;
+		break;
+	}
+}
+else if($God1 > 49 && $God2 < 100)
+{
+	if(BaseLevel > 59)
+	{
+		if(god_eremes == 0)
+		{
+			show "[Rebarev Doug]";
+			show "...";
+			next;
+			show "[Rebarev Doug]";
+			show "Por que você está caminhando pelos arredores desse lugar sagrado? Você não entende que nós precisamos nos preparar para a Guerra Santa?";
+			next;
+			show "[Rebarev Doug]";
+			show "Não importa o quanto eu explique, os ignorantes nunca entenderam o certo sobre a importância da nossa tarefa. A balança de força mudará quando menos esperarmos!";
+			next;
+			show "[Rebarev Doug]";
+			show "Eu poderia voltar atrás algumas vezes no treinamento dos Templários, os ignorantes não orava.";
+			next;
+			show "[Rebarev Doug]";
+			show "Eu sinto falta dos meus Templários entusiasmados a escutar o que eu tinha a dizer, e seguiam nossas ordens com lealdade.";
+			next;
+			show "[Rebarev Doug]";
+			show "Eu imagino";
+			show "onde todos eles tem";
+			show "ido agora...";
+			next;
+			show "[Rebarev Doug]";
+			show "...";
+			show "......";
+			show ".........";
+			next;
+			show "[Rebarev Doug]";
+			show "Aventureiro, se tiver tempo de escutar fale comigo, por que você não faz uma tarefa para mim?";
+			next;
+			show "[Rebarev Doug]";
+			show "Pode ser uma experiência enriquecedora para você. É possível que você tenha uma grande apreciação pelos templários.";
+			next;
+			switch( select( "O que é isso?", "Estou doende e cansado de fazer favores." ) )
+			{
+				case 1:
+					show "[Rebarev Doug]";
+					show "Eu quero que você encontre os membros do 3° Esquadrão do 1° pelotão da 3ª companhia. Se acontecer de você encontrar eles em suas viagens, por favor pergunte a eles o que eles estão fazendo.";
+					next;
+					show "[Rebarev Doug]";
+					show "Isso não deve ser difícil de fazer, e não tomara muito do seu tempo se você está planejando explorar o mundo.";
+					next;
+					switch( select( "Concerteza, porque não.", "Eu sinto muito, mas não quero." ) )
+					{
+						case 1:
+							show "[Rebarev Doug]";
+							show "Excelente!";
+							show "Tudo que eu quero que você faça é encontrar meus velhos companheiros, e me informe o que eles estão fazendo.";
+							next;
+							show "[Rebarev Doug]";
+							show "Toda via...";
+							show "Não há problemas.";
+							show "Eu não sei onde eles estão.";
+							next;
+							show "[Rebarev Doug]";
+							show "Você poderia tentar encontrar uma gravção de residência de mudanças dos cidadãos do Reino de Rune-Midgard na livraria de Prontera...";
+							next;
+							show "[Rebarev Doug]";
+							show "Porém, os registros pessoais dos Templários são considerados confidenciais, assim eu não estou seguro se você pode ou não os ver.";
+							next;
+							show "[Rebarev Doug]";
+							show "Obrigado de qualquer maneira.";
+							show ".........";
+							next;
+							show "[Rebarev Doug]";
+							show "Você precisa entender, minha posição me exige permanecer nesta área 24 horas, 7 dias por semana. Eu não posso partir sem o consentimento da hierarquia superior.";
+							next;
+							show "[Rebarev Doug]";
+							show " Porém, eu sei que você tem a liberdade e o tempo para ir onde quer que deseje. Eu apreciaria se você fizesse isto para mim.";
+							next;
+							show "[Rebarev Doug]";
+							show "Meus velhos companheiros de guerra. Você não faz idéia o quanto eu sinto falta deles...";
+							set god_eremes,1;
+							close;
+						break;
+
+						case 2:
+							show "[Rebarev Doug]";
+							show "^333333*Sigh...*^000000";
+							show "Por favor entenda que eu não estaria pedindo isso á você se não fosse para as restrições de minha posição.";
+							next;
+							show "[Rebarev Doug]";
+							show "Eu tenho uma obrigação para com este Reino de manter meu posto e informar os aventureiros sobre a classe Templário. Por causa desta responsabilidade temerosa, eu tenho que permanecer aqui como vigilante.";
+							next;
+							show "[Rebarev Doug]";
+							show "Se você não pode entender, então você tem que estar levando sua liberdade para conceder...";
+							close;
+						break;
+					}
+				break;
+
+				case 2:
+					show "[Rebarev Doug]";
+					show "Até onde eu me lembro, esta é a primeira vez eu lhe pedi que me faça um favor.";
+					next;
+					show "[Rebarev Doug]";
+					show "Ao contrário de você, eu sei o significado de responsabilidade. Eu permaneço aqui, ajudando os aventureiros inquisitivos por causa do Rei e do país.";
+					next;
+					show "[Rebarev Doug]";
+					show "Still...";
+					show "Know this.";
+					show "Embora os resultados podem não ser imediatos, você sempre será recompensado quando você ajudar outros.";
+					next;
+					show "[Rebarev Doug]";
+					show "Por favor reconsidere quando você tiver a chance.";
+					close;
+				break;
+			}
+		}
+		else if(god_eremes > 0 && god_eremes < 4)
+		{
+
+			if(rand(1,10) > 6 && god_eremes == 2)
+			{
+				show "[Rebarev Doug]";
+				show "Eu estou imaginando como meus membros estão fazendo de agora em diante...";
+				show "Eu não consigo me lembrar quando foi a última vez que eu os vi...";
+				next;
+				show "[Rebarev Doug]";
+				show "Hum? Por que você ainda está aqui?";
+				next;
+				switch( select( "Onde eu deveria ir?", "Eu estou indo.", "Qual é o significado da última missão?" ) )
+				{
+					case 1:
+						show "[Rebarev Doug]";
+						show "Bem...Eu não faço idéia de onde eles estão.";
+						show "Você pode encontar informações da";
+						show "^0000FF3ª Companhia Pessoal dentro e fora dos registros dos tripulantes^000000 na livraria?";
+						close;
+					break;
+
+					case 2:
+						show "[Rebarev Doug]";
+						show "Oh, você está? Eu vejo... Eu estou desejando saber o que eles têm feito desde então depois do que nós fomos licenciados na ^0000FFúltima missão^000000...";
+						close;
+					break;
+
+					case 3:
+						show "[Rebarev Doug]";
+						show "A última missão...? Isso deu a razão para licenciar o 1° esquadrão do 3º pelotão...";
+						show "Eu não posso pensar nesta separação da memória...bah..";
+						next;
+						show "[Rebarev Doug]";
+						show "Você sabe, hum.";
+						show "Nós templários temos hirarquias...basicamente nós temos que ouvir oficias mais graduados.";
+						next;
+						show "[Rebarev Doug]";
+						show "............";
+						show "...Se......não havia ele na ocasião...";
+						next;
+						show "[Rebarev Doug]";
+						show ".............";
+						next;
+						show "";
+						show "- Após um tempo, ele falou comigo como se estivesse com raiva. -";
+						next;
+						show "[Rebarev Doug]";
+						show "Não vamos mais falar sobre isso. Há pouco me lembro da razão para licenciar meu esquadrão.";
+						next;
+						show "[Rebarev Doug]";
+						show "Agora, por favor você podeira ir encontrar ^0000FFA 3ª Companhia Pessoal dentro ou fora dos registros de tripulantes^000000 na livraria por mim?";
+						set god_eremes,3;
+						close;
+					break;
+				}
+			}
+			else
+			{
+				show "[Rebarev Doug]";
+				show "Eu estou imaginando como meus membros estão fazendo de agora em diante...";
+				show "Eu não consigo me lembrar quando foi a última vez que eu os vi...";
+				next;
+				show "[Rebarev Doug]";
+				show "Hum? Por que você ainda está aqui?";
+				next;
+				switch( select( "Onde eu deveria ir?", "Estou indo." ) )
+				{
+					case 1:
+						show "[Rebarev Doug]";
+						show "Bem...Eu não faço idéia de onde eles estão.";
+						show "Você pode encontrar informações na livraria.";
+						close;
+					break;
+
+					case 2:
+						show "[Rebarev Doug]";
+						show "Oh, você está? Eu vejo... Eu estou desejando saber o que eles têm feito desde então depois que nós fomos licenciados na ^0000FFúltima missão^000000...";
+						set god_eremes,2;
+						close;
+					break;
+				}
+			}
+		}
+		else if(god_eremes > 3 && god_eremes < 18)
+		{
+			show "[Rebarev Doug]";
+			show "Huh? O bibliotecário não deixou você ler os registros?";
+			show "Hum...Eu suponho que se você tentar fazer o seu melhor para convensê-lo, ele pode muda de idéia.";
+			next;
+			show "[Rebarev Doug]";
+			show "Até mesmo se coisas forem duras hoje em dia, ele só um homem com um coração...";
+			next;
+			show "[Rebarev Doug]";
+			show "Por favor eu te imploro, por favor encontre o que meus membros estão fazendo...";
+			close;
+		}
+		else if(god_eremes > 17 && god_eremes < 20)
+		{
+			if(god_megin_1 > 0 || god_megin_2 > 0 || god_megin_3 > 0 || god_megin_4 > 0 || god_megin_5 > 0 || god_megin_6 > 0)
+			{
+				show "[Rebarev Doug]";
+				show "Oh...";
+				show "Então você encontrou eles?";
+				show "Eles estão bem?";
+				next;
+				show "- Você  falou que eles estão bem e outros tiveram perdidos suas memórias tendo enxaquecas.-";
+				close;
+			}
+			show "- Você falou a eles que você leu dos registros -";
+			next;
+			show "- que onde eles estariam e como estavam. -";
+			next;
+			show "[Rebarev Doug]";
+			show "Oh! Você leu o registro? Estou feliz em ouvir isso!";
+			show "Pelo jeito...Eu não confio no que estava escrito nos papeis desde a última data...";
+			next;
+			show "[Rebarev Doug]";
+			show "Se é possível, eu espero que você possa encontrar meus membros para achar as últimas notícias sobre eles...";
+			show "Isso significa com seus ^0000FFpróprios olhos^000000!";
+			next;
+			show "[Rebarev Doug]";
+			show "Por favor eu imploro...por favor encontre eles.";
+			next;
+			show "[Rebarev Doug]";
+			show "Por favor eu imploro...por favor encontre eles.";
+			show "Eu não posso confiar em registros velhos...eu sou apenas um pobre homem velho que esqueceu dos seus amigos.";
+			close;
+		}
+		else if(god_eremes > 19 && god_eremes < 23)
+		{
+			show "[Rebarev Doug]";
+			show "Oh~ Bem vindo de volta.";
+			show "Então você viu todos eles?? Faz um tempo desde a última vez que te vi.";
+			show "HUm? O que? Por que você está me olhando estranhamente?";
+			next;
+			switch( select( "Perguntar a ele sobre o Suspeito.", "Este não é o momento certo para perguntar sobre o suspeito. espere." ) )
+			{
+				case 1:
+					show "- Você tentou organize seus pensamentos sobre todos os suspeitos que você teve encontrado -";
+					next;
+					show "- Todos os membros não estão em condicões normais, -";
+					next;
+					show "- eles perderam suas memórias parcialmente -";
+					next;
+					show "- e sobre o comentário da realeza Myst...-";
+					next;
+					show "- e quem é Egnigem de que todos os membros estavam falando? -";
+					next;
+					show "- Todos estes pensamentos entupiram seu cérebro assim você estava falando sobre o relativo dos membros que não eram importantes.-";
+					next;
+					show "[Rebarev Doug]";
+					show "?!...Eu não consigo entender o que você está falando...você está fora de si.";
+					next;
+					show "[Rebarev Doug]";
+					show "Pare de olhar para mim assim, fale algo comigo!";
+					show "Se você já terminou o que tinha a dizer, me dê licensa. Eu preciso pensar em algumas coisas.";
+					next;
+					show "[Rebarev Doug]";
+					show "Eu sou grato por você ter me trago notícias dos meus membros -";
+					show "Agora, eu preciso continuar minhas pesquisas...sobre a ordem de Vossa Majestade.";
+					show "Deus te abençoe.";
+					set god_eremes,21;
+					close;
+				break;
+
+				case 2:
+					show "- Você fingiu como se nada tivesse acontecido -";
+					next;
+					show "- e contou sobre os membros do 1° Esquadrão da 3ª Companhia.-";
+					next;
+					show "- É claro, você não contou toda a verdade a ele mas as informações que você leu nos registros são algumas notícias reais. -";
+					next;
+					show "[Rebarev Doug]";
+					show "Hum~ entendo. Estou tão realizado de ouvir que eles estão fazendo tudo bem! Hahaha...";
+					next;
+					show "- Você sentiu o modo que ele olhava para você mudando rapidamente. Parece que ele começou a vigiar você?-";
+					next;
+					show "[Rebarev Doug]";
+					show "Eu sou grato por você ter me trago notícias dos meus membros -";
+					show "Agora, eu preciso continuar minhas pesquisas...sobre a ordem de Vossa Majestade.";
+					show "Deus te abençoe.";
+					next;
+					show "- Você se sintiu detestado com o sorriso dele.-";
+					set god_eremes,22;
+					close;
+				break;
+			}
+		}
+		else if(god_eremes > 22 && god_eremes < 25)
+		{
+			show "- Enquanto você falava sobre o resultado de sua viagem, você mencionou Egnigem.-";
+			next;
+			show "- Ele não parecia estar agitado como pensei ele sabia algo mais do que ele disse.-";
+			next;
+			show "[Rebarev Doug]";
+			show "É muito tarde para falar sobre esse assunto...";
+			show "até mesmo se eu sentisse arrependido por você saber disso...?";
+			show "Porém...não há nada que você possa provar.";
+			show "Risadinha risadinha risadinha....";
+			next;
+			show "[Rebarev Doug]";
+			show "Não importa o quanto você lute duro,";
+			show "após tudo, A elite como eu governará o mundo.";
+			show "risadinha risadinha...deixe os rolar no chão como corpos do exército frios e podres! Eu não me preocupo muito!";
+			next;
+			show "[Rebarev Doug]";
+			show "Você me odeia? Você realmente me odeia?";
+			show "Deixe me te dizer o que você pode fazer.";
+			next;
+			show "[Rebarev Doug]";
+			show "Dê uma olhada nas minhas costas. Você verá um juiz que toma conta de todos os crimes militares.";
+			next;
+			show "[Rebarev Doug]";
+			show "Parece que ele segurará uma tentativa se pelo menos 100 pessoas informarem um mesmo crime...";
+			show "Então, você pode fazer isso se você realmente quiser revelar o assunto ao público!";
+			show "Muhahahahaha!";
+			close;
+		}
+		else if(god_eremes > 23 && god_eremes < 26)
+		{
+			show "[Rebarev Doug]";
+			show "Bah...Eu não sei se você deveria fazer isso mesmo.";
+			show "Ei...você se sentirá muito mau...";
+			show "Após tudo, a elite como eu governará o mundo.";
+			close;
+		}
+		else
+		{
+			show "[Rebarev Doug]";
+			show "Não importa o quanto você lute duro,";
+			show "após tudo, A elite como eu governará o mundo.";
+			show "risadinha risadinha...deixe os rolar no chão como corpos do exército frios e podres! Eu não me preocupo muito!";
+			close;
+		}
+	}
+	else
+	{
+		show "[Rebarev Doug]";
+		show "Você não está em nível para falar comigo.";
+		show "Assim se você é um aventureiro, você supostamente tem alguma experiencia e conhecimentos para uma conversa comigo.";
+		show "você entendeu?";
+		close;
+	}
+}
+else
+{
+	show "[Rebarev Doug]";
+	show "Nós somos Templários que são preparados para a Guerra Santa no comando de Odin.";
+	show "Assim como nós fizemos a milhões de anos atrás, nós estamos esperando pelo dia da eliminação dos demônios do mundo.";
+	close;
+}
+
+}
+
+prt_castle,48,164,0	script	Templário#God	734,{
+
+if($God1 > 49 && $God2 < 100)
+{
+	if(god_eremes > 22 && god_eremes < 25)
+	{
+		show "[Max Von Shedough]";
+		show "Bem vindo, amigo!";
+		show "Aqui no Castelo de Prontera, nós Templários somos preparados para a Guerra Santa quando chegar a hora.";
+		next;
+		show "[Max Von Shedough]";
+		show "Deixe me apresentar. Meu nome é Max Von Shedough, O Juiz Militar! Você tem algum negócio comigo?";
+		next;
+		show "^3355FFVocê deu para Max Von Shedough a petição contra Rebarev Doug baseado em sua investigação com Egnigem.^000000";
+		next;
+		show "[Max Von Shedough]";
+		show "Hum? Isto é sério.";
+		show "Tudo certo, eu investigarei sua acusação com minha melhor habilidade.";
+		next;
+		show "[Max Von Shedough]";
+		show "Porém, aparti de agora, a petição que você há pouco me deu é considerada informação classificada. Por favor mantenha como um Segredo Militar.";
+
+		set $God2,$God2+1;
+
+		if($God2 == 50)
+			announce "O 2° Solo da [Megingjard] apareceu.",bc_all;
+		else if($God1 > 99 && $God2 > 99 && $God3 > 99 && $God4 > 99)
+			announce "Os quatros selos foram quebrados ao mesmo tempo com os selos da [Megingjard].",bc_all;
+		else if($God2 > 99)
+			announce "Os Selos da [Megingjard] foram quebrados.",bc_all;
+
+		if(god_eremes == 23)
+			set god_eremes,25;
+		else if(god_eremes == 24)
+			set god_eremes,26;
+		close;
+	}
+	else if(god_eremes > 26)
+	{
+		show "[Max Von Shedough]";
+		show "Infelizmente, eu não tenho certeza se é possível manter uma petição contra Rebarev Doug.";
+		next;
+		show "[Max Von Shedough]";
+		show "Lamentávelmente, parece que ele ainda tem muita influência. Ainda, me deixe assegurar que eu estarei tentando meu melhor eu não estou seguro se nós estaremos de acordo uma petição com o documento que você submeteu ou não...";
+		next;
+		show "[Max Von Shedough]";
+		show "Mas conte comigo, eu farei meu melhor para pegar o acusado.";
+		close;
+	}
+	else
+	{
+		show "[Max Von Shedough]";
+		show "Bem vindo, meu amigo! Este é um lugar sagrado para se preparar para a Guerra Santa, A sala do Comandante dos Templários.";
+		show "qualquer um que deseje participar na Guerra Santa será bem vindo!";
+		close;
+	}
+}
+else
+{
+	show "[Max Von Shedough]";
+	show "Bem vindo, meu amigo! Este é um lugar sagrado para se preparar para a Guerra Santa, A sala do Comandante dos Templários.";
+	show "qualquer um que deseje participar na Guerra Santa será bem vindo!";
+	close;
+}
+
+}
+
+prt_in,172,109,0	script	Um Aquivo#God1	111,{
+
+if(god_eremes == 12)
+{
+	show "Você encontrou ^0000FF- O Registro da 3ª Companhia Pessoal -^000000!";
+	close;
+}
+else if(god_eremes > 6 && god_eremes < 12)
+{
+	if(rand(1,10) > 6 && god_eremes > 6)
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		set god_eremes,god_eremes+1;
+		close;
+	}
+	else
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		close;
+	}
+}
+else if(god_eremes < 7)
+{
+	show "[Bibliotecário Jekan]";
+	if(Sex)
+		show "Eu sinto muito senhor,";
+	else
+		show "Eu sinto muito senhora,";
+	show "mas é preciso uma autorização especial para acessar essa seção. De outra forma, Está fora dos limites.";
+	close;
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+
+}
+
+prt_in,170,109,0	script	Um Arquivo#God2	111,{
+
+if(god_eremes == 12)
+{
+	show "Você encontrou ^0000FF- O Registro da 3ª Companhia Pessoal -^000000!";
+	close;
+}
+else if(god_eremes > 6 && god_eremes < 12)
+{
+	if (rand(1,10) > 6 && god_eremes > 6)
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		set god_eremes,god_eremes+1;
+		close;
+	}
+	else
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		close;
+	}
+}
+else if(god_eremes < 7)
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+
+}
+
+prt_in,168,109,0	script	Um Arquivo#God3	111,{
+
+if(god_eremes == 12)
+{
+	show "Você encontrou ^0000FF- O Registro da 3ª Companhia Pessoal -^000000!";
+	close;
+}
+else if(god_eremes > 6 && god_eremes < 12)
+{
+	if (rand(1,10) > 6 && god_eremes > 6)
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		set god_eremes,god_eremes+1;
+		close;
+	}
+	else
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		close;
+	}
+}
+else if(god_eremes < 7)
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+
+}
+
+prt_in,169,109,0	script	Um Arquivo#God4	111,{
+
+if(god_eremes == 12)
+{
+	show "Você encontrou ^0000FF- O Registro da 3ª Companhia Pessoal -^000000!";
+	close;
+}
+else if(god_eremes > 6 && god_eremes < 12)
+{
+	if (rand(1,10) > 6 && god_eremes > 6)
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		set god_eremes,god_eremes+1;
+		close;
+	}
+	else
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		close;
+	}
+}
+else if(god_eremes < 7)
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+
+}
+
+prt_in,166,109,0	script	Um Arquivo#God5	111,{
+
+if(god_eremes == 12)
+{
+	show "Você encontrou ^0000FF- O Registro da 3ª Companhia Pessoal -^000000!";
+	close;
+}
+else if(god_eremes > 6 && god_eremes < 12)
+{
+	if (rand(1,10) > 6 && god_eremes > 6)
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		set god_eremes,god_eremes+1;
+		close;
+	}
+	else
+	{
+		show "Você encontrou uma carteira cheia vários arquivos.";
+		show "Você começou a pesquisar arquivos um por um.";
+		close;
+	}
+}
+else if(god_eremes < 7)
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Por favor não entre nessa seção.";
+	next;
+	show "- Você foi impurrado de volta assim que ele falou a você -";
+	close;
+}
+
+}
+
+prt_in,172,106,0	script	Blibliotecário#God	833,{
+
+if($God1 > 49 && $God2 < 100)
+{
+	if(god_eremes > 2 && god_eremes < 7)
+	{
+		show "[Blibliotecário Jekan]";
+		show "Ah, por favor não toque nesses arquivos desta seção.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Algumas informações são classificados, e é proibido pelos Militares de Prontera de folheia-los.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Eu estou atualmente no processo de procurar os arquivos classificados naquela seção, de forma que só eu posso separar-los da informação que é domínio público, então eu apreciaria isso se você não interferisse com meu trabalho.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Droga! eu não consigo ler quando as luzes estão apgadas ou fracas! É muito ruim já que meus olhos estão maus...";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Se você está procurando por um livro, você deve ir pesquisar em outra seção.";
+		next;
+			switch( select( "Você tem má visão?", "Eu quero ler alguns documentos.", "Deixe-me ajudá-lo a encontrar esses arquivos...", "Que tipo de Arquivos você está procurando?" ) )
+			{
+				case 1:
+					show "[Blibliotecário Jekan]";
+					show "Desde que eu tive que trabalhar com pouca luz por muito tempo, meus olhos ficaram doentes.";
+					show "Eles conseguiram para mim ^0000FFuma nova luz^000000, pelo outro lado eu estarei cego logo logo ou mais tarde...";
+					if(god_eremes == 5 && ( countitem(2203) > 0 || countitem(1041) > 0 ) )
+					{
+						next;
+						show "[Blibliotecário Jekan]";
+						show "?! Oh~ você tem materiais muito úteis com você!";
+						show "Você se importa se eu usar esses materias por enquanto? Seria de grande ajuda para mim encontrar os arquivos!";
+						next;
+						switch( select( "Sim, eu ligo.", "Não, não ligo." ) )
+						{
+							case 1:
+								show "[Blibliotecário Jekan]";
+								show "...bah. não importa.";
+								close;
+							break;
+
+							case 2:
+								show "[Blibliotecário Jekan]";
+								show "Que tipo de pessoa você é!";
+								show "Agora eu posso acreditar que você realmente quer em ajudar!";
+								if(countitem(2203) && countitem(1041))
+								{
+									delitem 1041,countitem(1041);
+									delitem 2203,1;
+								}
+								else if(countitem(2203))
+									delitem 2203,1;
+								else if(countitem(1041))
+									delitem 1041,countitem(1041);
+								set god_eremes,6;
+								next;
+								show "[Blibliotecário Jekan]";
+								show "Obrigado, muito obrigado mesmo. Agora eu posso encontrar os arquivos sem preocupações.";
+								show "...se for possível, eu gostaria que você me ajudasse a encontrar os arquivos...você pode?";
+							break;
+
+						}
+					}
+					else if(god_eremes > 5)
+					{
+						show "[Blibliotecário Jekan]";
+						show "Obrigado. Será de grande ajuda para encontrar os arquivos.";
+					}
+					close;
+				break;
+
+				case 2:
+					if(god_eremes == 6)
+					{
+						show "[Blibliotecário Jekan]";
+						show "Ler alguns documentos? Bem, você veio you've come here to the Library. That's a good start.";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "Bem, contanto que você saiba que  tipo de documento está procurando, você podera achar-lo.";
+						next;
+						show "[Librarian Jekin]";
+						show "Mantenha em mente que esta seção particular agora está  fora dos limites. Por que você não confere os arquivos à frente?";
+						next;
+						show "[Librarian Jekin]";
+						show "Eu tenho que achar os arquivos classificados assim que eu puder!";
+						set god_eremes,7;
+						close;
+					}
+					else
+					{
+						show "[Blibliotecário Jekan]";
+						show "Hum...?";
+						show "Ei, eu não";
+						show "já te falei isso?";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "É proibido o povo de folheia esses arquivos dessa seção! Quantas vezes eu preciso repetir isso?";
+						close;
+					}
+				break;
+
+				case 3:
+					if(god_eremes == 4)
+					{
+						show "[Blibliotecário Jekan]";
+						show "Hum. Bem, Eu aceitaria sua ajuda alegremente se não fosse para o fato que eu não posso permitir liberar informação classificada ao público.";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "Eu não tenho idéia de como algo tão importante foi arrastado nos arquivos aqui na Biblioteca de Prontera, mas nós não podemos permitir que o público acesse as.";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "Todavia, aquele arquivo não parece ser tão importante, mas eu ainda tenho que desperdiçar meu tempo em encontrar ele...";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "Droga, meus olhos estão doloridos. Trabalhando como um funcionário do governo é fácil com exceção das vezes quando os burocratas fazem você fazer coisas como essas.";
+						set god_eremes,5;
+						close;
+					}
+					else if(god_eremes > 4)
+					{
+						show "[Blibliotecário Jekan]";
+						show "Eu acho que estou ficando louco em procurar por esse arquivo...!";
+						next;
+						show "[Blibliotecário Jekan]";
+						show "Huh...?";
+						show "Você só está dizendo que quer me ajudar? Ótimo, eu aprecio isso.";
+						close;
+					}
+					else
+					{
+						show "[Blibliotecário Jekan]";
+						show "Hum, você não sabe realmente que tipo de arquivo eu estou procurando. Se você soubesse, eu não permitiria mostrar a você o que tem dentro!";
+						close;
+					}
+				break;
+
+				case 4:
+					show "[Blibliotecário Jekan]";
+					show "Hum. Eu realmente não permitiria descobrir qualquer informação relacionada à esse arquivo. Eu sinto muito por isso.";
+					next;
+					show "[" + strcharinfo(0) + "]";
+					show "Mas este";
+					show "arquivo é sobre...";
+					digit @str$;
+					show "^0000FF" + @str$ + "?";
+					next;
+					if (@str$ == "o Registro da 3ª Companhia Pessoal" || @str$ == "o Registro da 3ª Companhia Pessoal")
+					{
+						show "[Blibliotecário Jekan]";
+						show "Hum...?";
+						show "Como você";
+						show "sabe sobre isso?";
+						set god_eremes,4;
+						close;
+					}
+					else
+					{
+						show "[Blibliotecário Jekan]";
+						show "Errmmm...";
+						show "Eu não penso que seja....?";
+						close;
+					}	
+				break;
+			}
+	}
+	else if(god_eremes == 2)
+	{
+		show "[Blibliotecário Jekan]";
+		show "Ah, por favor não toque nesses arquivos dessa seção. Normalmente, é domínio público mas parece que um arquivo classificado conseguiu ser perdido lá.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "De agpra em, diante, eu não posso deixar ninguém sem autorização especial olhar através dessa seção. Eu preciso encontrar aquele arquivo e mandar para os Militares de Prontera o mais rápido que eu puder.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Ergh! Esta luz não brilhar o bastante para meus olhos. Eles estão começando a ficarem ardendos...";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Então o que te trouxe aqui? Se você está procurando por algo em particular, você deveria tentar em outra seção.";
+		next;
+		switch( select( "Eu quero ler alguns documentos.", "Você tem má visão?", "Deixe-me ajudá-lo a encontrar esses arquivos...", "Que tipo de Arquivos você está procurando?" ) )
+		{
+			case 1:
+				show "[Blibliotecário Jekan]";
+				show "Grrrrrrr~ Eu ja te falei!";
+				show "Os Arquivos desta seção são proibidos ao público, certo?";
+				show "Por que você me faz repetir a mesma coisa de novo e de novo?";
+				close;
+			break;
+
+			case 2:
+				show "[Blibliotecário Jekan]";
+				show "Desde que eu tive que trabalhar com pouca luz por muito tempo, meus olhos ficaram doentes.";
+				show "Eles conseguiram para mim uma nova luz, pelo outro lado eu estarei cego logo logo ou mais tarde...";
+				close;
+			break;
+
+			case 3:
+				show "[Blibliotecário Jekan]";
+				show "Hum? Como você sabe qual arquivo estou procurando?";
+				show "Você não sabe o que está escrito dentro dele?";
+				show "Não me interrompa, sai daquí!";
+				close;
+			break;
+
+			case 4:
+				show "[Blibliotecário Jekan]";
+				show "Hum. Eu não vou revelar algo que está reltado no arquivo.";
+				next;
+				show "[" + strcharinfo(0) + "]";
+				show "Este arquivo não é sobre...";
+				digit @str$;
+				show "[" + strcharinfo(0) + "]";
+				show "^0000FF" + @str$ + "?";
+				next;
+				show "[Blibliotecário Jekan]";
+				show "Talvez...";
+				show "Talvez não~";
+				close;
+			break;
+
+		}
+	}
+	else if(god_eremes > 6 && god_eremes < 12)
+	{
+		if(rand(1,10) > 4)
+		{
+			show "[Blibliotecário Jekan]";
+			show "Hum? Então você encontrou ele? eu estive procurando por este arquivo por muito tempo, mas não consegui encontra-lo.";
+			next;
+			show "[Blibliotecário Jekan]";
+			show "Eu vou na frente e pesquisar o lado direito, então você pode pensar em pesquisar o lado esquerdo?";
+			close;
+		}
+		else
+		{
+			show "[Blibliotecário Jekan]";
+			show "Você não encontrou ainda? Todo este tempo, e eu ainda não encontrei este arquivo.";
+			next;
+			show "[Blibliotecário Jekan]";
+			show "Eu vou na frente e checarei o lado esquerdo, então você pode procurar no meio ou no lado direito?";
+			close;
+		}
+	}
+	else if(god_eremes == 12)
+	{
+		show "[Blibliotecário Jekan]";
+		show "Ah! Aqui está!";
+		show "Muito obrigado! Estou feliz de ver que ainda há pessoas legais como você no mundo.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "eu relamente quero te dá algo para mostrar a você minha gratidão, mas eu preciso mandar isso de volta para os Militares em Prontera agora mesmo.";
+		next;
+		menu "Eu quero ler o documento.",-;
+
+		show "[Blibliotecário Jekan]";
+		show "Oh, certo, já que você mencionou isso, não é? Isso não me parece tão importante, mas eu realmente não tenho certeza disso...";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Bem, não vai machucar se eu fizer uma copia disto primeiro para você, mas primeiro eu preciso de alguns materias.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Eu lançarei a magia de procura até mesmo nisto, de forma que isto será igual a original. Certo, eu preciso das seguintes coisas para fazer uma cópia...";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "2 Pedaço de Papel,";
+		show "1 Papel Amarelado,";
+		show "3 Tintas de Polvo,";
+		show "3 Pluma de Aves e";
+		show "20 Gemas azuis.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Por favor consiga esses itens e traga o mais rapido possível, e eu estarei aqui fazendo outras preparações para fazer a cópia.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Também, eu manterei esta cópia na Biblioteca para você ler, e prevenir isto de ser escoado ao público. Assim você terá que vir visita sempre que quiser ler.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Certo, agora...";
+		show "Volte aqui";
+		show "o mais rápido que puder.";
+		set god_eremes,13;
+		close;
+	}
+	else if(god_eremes == 13)
+	{
+		if(countitem(7111) > 1 && countitem(7151) && countitem(1024) > 2 && countitem(916) > 2 && countitem(717) > 19)
+		{
+			show "[Blibliotecário Jekan]";
+			show "Oh, você voltou. Eu não esperava que você voltasse aqui tão depressa. Tudo que esta aqui dentro deve ser realmente importante para você saber.";
+			next;
+			show "[Blibliotecário Jekan]";
+			show "De qualquer jeito, por favor me dê um momento enquanto eu faço a cópia para você.";
+			delitem 7111,2;
+			delitem 7151,1;
+			delitem 1024,3;
+			delitem 916,3;
+			delitem 717,20;
+			set god_eremes,14;
+			next;
+			show "[Blibliotecário Jekan]";
+			show "Tudo certo então...";
+			show "Eu vejo você daqui a pouco.";
+			close;
+		}
+		else
+		{
+			show "[Blibliotecário Jekan]";
+			show "Você esqueceu o que eu preciso para fazer a cópia? Certo, deixe-me te falar novamente...";
+			next;
+			show "[Blibliotecário Jekan]";
+		        show "2 Pedaço de Papel,";
+		        show "1 Papel Amarelado,";
+		        show "3 Tintas de Polvo,";
+		        show "3 Pluma de Aves e";
+		        show "20 Gemas azuis.";
+			next;
+			show "[Blibliotecário Jekan]";
+			show "Por favor volte com esses itens o mais rápido que puder.";
+			close;
+		}
+	}
+	else if(god_eremes > 13 && god_eremes < 16)
+	{
+		if(rand(1,10) > 4)
+		{
+			show "[Blibliotecário Jekan]";
+			show "Deixe me ir e revisa o documento antes de fazer a cópia.";
+			close;
+		}
+		else
+		{
+			show "[Blibliotecário Jekan]";
+			show "Deixe me ir e revisa o documento antes de fazer a cópia.";
+			set god_eremes,god_eremes+1;
+			close;
+		}
+	}
+	else if(god_eremes == 16)
+	{
+		show "[Blibliotecário Jekan]";
+		show "Lá vai. Como eu pensei, o documento não parece conter qualquer dados crucialmente importantes.";
+		next;
+		show "[Blibliotecário Jekan]";
+		show "Apenas lembre, esta cópia precisa ficar na Biblioteca de Prontera. Isso significa que você tem que voltar se você precisar ler o documento novamente.";
+		set god_eremes,17;
+		close;
+	}
+	else if(god_eremes > 16)
+	{
+		show "[Blibliotecário Jekan]";
+		show "Bem vindo, meu amigo!";
+		show "Então, o que você precisa hoje?";
+		next;
+			switch( select( "Pesquisar palavras no documento.", "Terminar de pesquisar.", "Conversar." ) )
+			{
+				case 1:
+					show "- Pesquisa de Mágica Iniciada -";
+					show "- Por favor entre uma palvra-chave. -";
+					next;
+					digit @str$;
+					if(@str$ == "Templário" || @str$ == "templário") 
+					{
+						show "- pesquisar com a palavra-chave : Templário -";
+						show "Templário : Guerreiros se preparam para a Guerra Santa. Eles são selecionados e testados por espadachins religiosos.";
+						show "Qualquer dado referente a força militar é confidencial, não pode ser pesquisado.";
+						next;
+						show "Este documento é específico sobre o Registro pessoal da 3ª companhia.";
+						set @godtemplib4,1;
+						close;
+					}
+					else if((@str$ == "A 3ª companhia" || @str$ == "a 3ª companhia" || @str$ == "A terceira companhia") && @godtemplib4)
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "A 3ª companhia : Templários.";
+						show "A 3ª companhia é conhecido como organização dos melhores membros dos templários,";
+						show "não houve nenhum relatório pessoal referente ao registro dessa companhia. Porém,";
+						next;
+						show "O 3° esquadrão do 1° pelotão da 3ª companhia era um caso de execeção,";
+						show "os membros do 1° esquadrão foram todos retirados ou transferidos para outras forças.";
+						show "Informação específicada pode ser pesquisada com artigos sobre o 1° pelotão.";
+						set @godtemplib1,1;
+						close;
+					}
+					else if((@str$ == "O 1° pelotão" || @str$ == "o 1° pelotão" || @str$ == "A primeiro pelotão") && @godtemplib1)
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O 1° pelotão : O 1° pelotão da 3ª companhia, dos Templários.";
+						show "Cada companhia consiste em 4 pelotões, e este é o único registro referente o 3° esquadrão do 1° pelotão.";
+						next;
+						show "Informação específico pode ser pesquisado com artigos sobre o 3° esquadrão.";
+						set @godtemplib2,1;
+						close;
+					}
+					else if((@str$ == "O 3° esquadrão" || @str$ == "o 3° esquadrão" || @str$ == "O terceiro esquadrão") && @godtemplib2)
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "A 3° esquadrão : Templários.";
+						show "Lista dos membros que participaram na ^0000FFúltima missão^000000.";
+						next;
+						show "^0000FF : Rebarev Doug";
+						show " : Jack O";
+						show " : Zan.Huadoku";
+						show " : Cuaque Donon";
+						show " : Emma Searth";
+						show " : Royal Myst";
+						show " : The Nineball^000000";
+						set @godtemplib3,1;
+						if(god_eremes == 17)set god_eremes,18;
+						close;
+					}
+					else if((@str$ == "A última missão" || @str$ == "a última missão") && @godtemplib3)
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "A parte superior decidiu licenciar o 3° esquadrão que buscou a melhor equipe de salvamento da força templária após a seguinte missão.";
+						next;
+						show "O 3° esquadrão foi nomeada para encalçar secretamente ^0000FFos sinais de Deus^000000 sobre o comando da corte real.";
+						next;
+						show "Durante a missão, um enesperado acidente aconteceu.";
+						show "Um membro começou  a questionar a liderança do líder do esquadrão e ^0000FFagindo por sua própria autoridade^000000.";
+						next;
+						show "Resultou em uma disputa partidarista. Para resolver o problema, o líder organizou uma reunião com os outros.";
+						show "Baseado em outras opiniões, o líder do esquadrão concluiu que o ato do membro como ^0000FFinsubordinação^000000,";
+						next;
+						show "e ele e outros membros fizeram um castigo físico a membro. O Membro foi informado para ser púnido e saiu do esquadrão durante a missão.";
+						next;
+						show "Devido a este incidente infame, o 3° esquadrão não pôde completar a missão.";
+						show "E por causa do resultado insatisfeito da missão, o 3º líder do esquadrão foi duramente precionado pelo líder do 1° pelotão e o comandante da 3º companhia.";
+						next;
+						show "O  comandante da 3ª  companhia propôs a licencia do 3° esquadrão a hierarquia superior e a proposta dele foi aceitada.";
+						show "Depois que o 3° esquadrão foi licenciada, foram enviados os membros inclusive o líder do esquadrão para treinamento disciplinar por 3 mêses. Depois desse treinamento, todos eles foram transferidos para o outro esquadrão.";
+						next;
+						show "Atualmente Rebarev Doug que foi na ocasião o líder  3º do esquadrão têm pesquisado os sinais de Deus baseado no resultado da missão.";
+						show "E a pesquisa foi ordenada pelo Rei do reino de Rune-Midgard.";
+						close2;
+						if(god_eremes == 18)set god_eremes,19;
+						end;
+					}
+					else if((@str$ == "O 1° pelotão" || @str$ == "o 1° pelotão" || @str$ == "O primeiro pelotão") && @godtemplib4)
+					{
+						show "- pesquisar com a palavra-chave: " + @str$ + " -";
+						show "O 1° pelotão : O 1° pelotão da 3ª companhia, dos Templários.";
+						show "Cada companhia consite de 4 pelotões e este é o primeiro dos quatro.";
+						next;
+						show "O 1° pelotão da 1ª companhia, Força dos Templários.";
+						show "Sugerido pesquisar 'Companhia' como uma palavra-chave de alto rank.";
+						next;
+						show "Outras informações são confidencias, não pode ser pesquisado neste documento.";
+						close;
+					}
+					else if((@str$ == "O 3° esquadrão" || @str$ == "o 3° esquadrão" || @str$ == "O terceiro esquadrão") && @godtemplib1) 
+						{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O 3° esquadrão : Templários.";
+						show "Cada pelotão consiste de 4 esquadrões e esta é a terceira dos quatro.";
+						show "Sugerido pesquisar 'Pelotão' como uma palavra-chave de alto rank.";
+						next;
+						show "Geralmente um esquadrão tem 8 membros.";
+						show "Outras informações são confidencias, não pode ser pesquisado neste documento.";
+						close;
+					}
+					else if(@str$ == "A última missão" || @str$ == "a última missão") 
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "- Nenhum resultado foi encontrado.-";
+						show "- Sugerido entrar com um nome específico forte para melhora sua pesquisa.-";
+						close;
+					}
+					else if((@str$ == "Templário" || @str$ == "templário") && @godtemplib4)
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "A 3ª companhia : Templários.";
+						show "A 3ª companhia é conhecido como organização dos melhores membros dos templários,";
+						show "não houve nenhum relatório pessoal referente ao registro dessa companhia. Porém,";
+						next;
+						show "O 3° esquadrão do 1° pelotão da 3ª companhia era um caso de execeção,";
+						show "os membros do 1° esquadrão foram todos retirados ou transferidos para outras forças.";
+						show "Informação específicada pode ser pesquisada com artigos sobre o 1° pelotão.";
+						close;
+					}
+					else if(@str$ == "O 1° pelotão" || @str$ == "o 1° pelotão" || @str$ == "A primeiro pelotão")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O 1° pelotão : ";
+						show "- Nenhum resultado foi encontrado.-";
+						show "- Sugerido entrar com uma palavra=chave mais específica.-";
+						close;
+					}
+					else if(@str$ == "O 3° esquadrão" || @str$ == "o 3° esquadrão" || @str$ == "O terceiro esquadrão")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "A 3ª companhia : ";
+						show "- Nenhum resultado foi encontrado.-";
+						show "- Sugerido entrar com uma palavra-chave mais específica.-";
+						close;
+					}
+					else if((@str$ == "A última missão" || @str$ == "a última missão") && god_eremes > 17) // ¸¶Áö¸· ÀÓ¹«
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "- Nenhum resultado foi encontrado.-";
+						show "- Sugerido entrar com um nome específico forte para melhora sua pesquisa.-";
+						close;
+					}
+					else if(@str$ == "Rebarev Doug")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O líder anterior do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Esteve em serviço como instrutor de acampamento dos templários com o Castelo de Prontera.";
+						show "Ele também toma conta de uma pesquisa sobre o comando do tribunal real.";
+						close;
+					}
+					else if(@str$ == "Egnigem")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "Nenhum resultado foi encontrado.";
+						show "Nenhum resultado foi encontrado.";
+						show "Nenhum resultado foi encontrado.";
+						show "Nenhum resultado foi encontrado.";
+						show "Nenhum resultado foi encontrado.";
+						show "Nenhum resultado foi encontrado.";
+						show "^FF0000Esta palavra é proibida de ser pesquisada.^000000";
+						close;
+					}
+					else if(@str$ == "Zan.Huadoku")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Esteve desde então em serviço como um general de armas em Geffen que o esquadrão foi licenciado.";
+						show "Localização atual : Guilda dos ferreiros, Geffen.";
+						close;
+					}
+					else if(@str$ == "Cuaque Donon")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Se aposentou do serviço e voltou para a cidade natal dele, Morroc desde que o esquadrão foi licenciado.";
+						show "Informado de trabalho em um INN em Morroc.";
+						close;
+					}
+					else if(@str$ == "Jack O")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Esteve desde então em serviço como um oficial de recrutamento em Alberta desde que o esquadrão foi licenciado.";
+						show "Localização atual : Perto do porto de Alberta.";
+						close;
+					}
+					else if(@str$ == "Emma Searth")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Se aposentou do serviço e foi para Al De Baran para fazer algo diferente desde que o esquadrão foi licenciado.";
+						show "Informado para submeter um currículo à corporação Kafra.";
+						close;
+					}
+					else if(@str$ == "Royal Myst")
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Esteve desde então em serviço em Comodo desde que o esquadrão foi licenciado.";
+						show "Seu dever atual é desconhecido.";
+						show "Localização atual : No Casino em Comodo.";
+						close;
+					}
+					else if(@str$ == "The Nineball")
+					{
+						show "- search with the keyword : " + @str$ + " -";
+						show "O Membro procedente do 3° esquadrão no 1º pelotão da 3ª companhia.";
+						show "Esteve desde então em serviço como o oficial de segurança de Jawaii desde que o esquadrão foi licenciado.";
+						show "Localização atual : Na Taverna em Jawaii.";
+						close;
+					}
+					else
+					{
+						show "- pesquisar com a palavra-chave : " + @str$ + " -";
+						show "- Nenhum resultado foi encontrado.-";
+						close;
+					}
+				break;
+
+				case 2:
+					show "- Pesquisa mágica está se interropendo.-";
+					next;
+					show "- Não há resposta da Pesquisa mágica.-";
+					show "- Você gostaria de interroper imediatamente?-";
+					next;
+					show " - Se você não interroper sem fechar a mágica corretamente -";
+					show "- há uma probabilidade muito alta de danificar datos não salvos. -";
+					next;
+					show "- ... -";
+					next;
+					show "- ...... -";
+					next;
+					show "- ........pesquisa mágica foi interrompida. -";
+					close;
+				break;
+
+				case 3:
+					show "[Blibliotecário Jekan]";
+					show "Você pode contar que nosso governo realmente não sabe alocar seus fundos e recursos.";
+					next;
+					show "[Blibliotecário Jekan]";
+					show "Primeiro, existe Jawaii. Recém casados realmente precisam de uma ilha inteira para eles? Então novamente, eu sou único assim eu sou provavelmente parcial.";
+					next;
+					show "[Blibliotecário Jekan]";
+					show "E olhe para mim. Não são supostos gênios que desperdiçam o tempo precioso  fazendo coisas inúteis para bibliotecas!";
+					close;
+				break;
+			}
+	}
+	else
+	{
+		show "[Blibliotecário Jekan]";
+		show "Ah, por favor não toque em nenhum livro naquela seção. ... Eu estou certo que não há nada lá que poderia ser útil a você.";
+		next;
+		switch( select( "Ignore ele e cheque os livros.", "Voltar atrás." ) )
+		{
+			case 1:
+				show "[Blibliotecário Jekan]";
+				show "Ei...!";
+				show "Eu pensei ter dito";
+				show "para não tocar nesses!";
+				close2;
+				warp "prontera",120,264;
+				end;
+			break;
+
+			case 2:
+				show "[Blibliotecário Jekan]";
+				show "Obrigado. Sinta-se livre para ir nas outras seções.";
+				next;
+				show "[Blibliotecário Jekan]";
+				show "É realmente agradável ter visitas na Biblioteca, especialmente quando hoje em dia tantas pessoas não lêem livros.";
+				close;
+			break;
+		}
+	}
+}
+else
+{
+	show "[Blibliotecário Jekan]";
+	show "Ah, por favor não toque em alguns livros daquela seção.";
+	show "....there is nothing much useful for you there.";
+	next;
+	switch( select( "Ignore ele e Cheque os livros.", "Voltar atrás." ) )
+	{
+		case 1:
+			show "[Blibliotecário Jekan]";
+			show "Eu falei pra você não tocar nesses livros!";
+			close2;
+			warp "prontera",120,264;
+			end;
+		break;
+
+		case 2:
+			show "[Blibliotecário Jekan]";
+			show "Ótimo, você deve ir checar as outras seções.";
+			show "É ótimo ver um homem visitando a Biblioteca quando hoje em dia as pessoas não lêem livros.";
+			close;
+		break;
+	}
+}
+
+}
+
+geffen_in,109,161,3	script	Templário#God1	751,{
+
+if($God1 > 49 && $God2 < 100)
+{
+	if(god_eremes > 17 && god_megin_1 < 2)
+	{
+		show "[Zan.Huadoku]";
+		show "^333333*Phew...*^000000";
+		show "Este trabalho realmente está adquirindo a mim. Indo muito melhor que isto em uma missão com meus amigos de guerra.";
+		next;
+		show "[Zan.Huadoku]";
+		show "Pelo menos por esses dias, eu sentia como se eu estivesse fazendo algo útil de fato!";
+		next;
+		show "[Zan.Huadoku]";
+		show "Ei...";
+		show "Você pode me ajudar";
+		show "em alguma coisa?";
+		next;
+		switch( select( "Perguntar a ele sobre o 3° Esquadrão.", "Perguntar a ele o que ele tem feito.", "Perguntar a ele sobre o 3° Esquadrão na última missão." ) )
+		{
+			case 1:
+				if(god_eremes == 18)
+				{
+					show "[Zan.Huadoku]";
+					show "Sim, Eu era um membro do 3° Esquadrão no 1° pelotão há muito tempo. Como você sabe disso?";
+					next;
+					show "[Zan.Huadoku]";
+					show "Eu sinto falta dos caras do esquadrão. Eu gostaria de saber o que nosso líder tem feito recentimente...";
+					next;
+					show "^3355FFVocê contou a Zan sobre Rebarev Doug, e sobre como ele é agora um instrutor do Acampamento dos Templários. Ele parece ser absorvido em seus pensamentos do passado.^000000";
+					close;
+				}
+				else if(god_eremes > 18)
+				{
+					show "[Zan.Huadoku]";
+					show "Sim, Eu era um membro do 3° Esquadrão no 1° pelotão há muito tempo. Como você sabe disso?";
+					next;
+					show "[Zan.Huadoku]";
+					show "Eu sinto falta dos caras do esquadrão. Eu gostaria de saber o que nosso líder tem feito recentimente...";
+					next;
+					show "^3355FFVocê contou a Zan sobre Rebarev Doug, e sobre como ele é agora um instrutor do Acampamento dos Templários. Ele parece ser absorvido em seus pensamentos do passado.^000000";
+					next;
+					show "[Zan.Huadoku]";
+					show "...";
+					show "......";
+					next;
+					show "[Zan.Huadoku]";
+					show "Antes de nós irmos para nossa última missão, os setes de nós eramos como irmãos e irmãs. Se ^FF0000ele^000000 não tivesse desobedecido a ordem, nós ainda estariamos juntos até hoje.";
+					next;
+					show "[Zan.Huadoku]";
+					show "Espere, qual era o nome dele...? Que estranho. Não há como eu esquecer algo como esse...";
+					next;
+					show "[Zan.Huadoku]";
+					show "C-como eu consegui lembrar o nome dele! Ele é a razão para minha vida está...!";
+					next;
+					show "[Zan.Huadoku]";
+					show "^333333*Groan...*^000000";
+					show "Eu.... Minha cabeça...";
+					show "Minha cabeça doí...";
+					next;
+					show "[Zan.Huadoku]";
+					show "^3355FFZan parece muito confuso e os olhos dele começam a envidraçar com um olhar ofuscado. Você tenta falar novamente com ele, mas ele não responde em nada.^000000";
+					if(!god_megin_1)set god_megin_1,1;
+					close;
+				}
+			break;
+
+			case 2:
+				show "[Zan.Huadoku]";
+				show "Como? o que eu estive fazendo?";
+				show "Bem, Eu trabalho para a Guilda dos Ferreiros, fazendo boas armas para supri os templários.";
+				next;
+				show "[Zan.Huadoku]";
+				show "Algumas vezes, eu fico realmente aborrecido com o que estou fazendo. eu tento me convencer que meu trabalho é importante para o futuro dos templários, mas...";
+				next;
+				show "[Zan.Huadoku]";
+				show "O que você sabe? Muitas pessoas tem me perguntado questões estranhas sobre mim recentimente. Eu me sinto como se estivesse sendo espionado, mas talvêz eu apenas esteja ficando paranóico.";
+				close;
+			break;
+
+			case 3:
+				if(god_eremes == 18)
+				{
+					show "[Zan.Huadoku]";
+					show "Sim, em nossa";
+					show "missão final...";
+					next;
+					show "[Zan.Huadoku]";
+					show "Final...? O que? Eu sabia que isso ia acontecer, mas por alguma razão, tudo que eu posso ver estar completamente em branco quando tento pensar sobre isso.";
+					next;
+					show "[Zan.Huadoku]";
+					show "Eu...";
+					show "Eu sei que eu preciso de algo que me lembre? Eu sei que aconteceu, mas... eu estou tão confuso.";
+					next;
+					show "^3355FFZan parece estar tendo um tempo muito difícil para recorda aquela memória específica do passado dele.^000000";
+					close;
+				}
+				else if(god_eremes > 18 && god_megin_1 > 0)
+				{
+					show "[Zan.Huadoku]";
+					show "A última missão...";
+					next;
+					show "[Zan.Huadoku]";
+					show "Hum...Eu não posso recordar nenhuma memória sobre a missão... talvez eu preciso de uma pista.";
+					next;
+					show "- Parece que ele teve um tempo muito ruim para lembrar de algo. -";
+					next;
+					show "- Você começou a contar a  ele sobre o que você leu no documento.-";
+					next;
+					show ".....";
+					next;
+					show "A parte superior decidiu licenciar o 3° esquadrão que buscou a melhor equipe de salvamento da força dos templários depois da seguinte missão .";
+					next;
+					show "O 3° esquadrão foi nomeado para encalçar secretamente ^0000FFos sinais de Deus^000000 sobre o comando da corte real.";
+					next;
+					show "Durante a missião, um enexperado incidente aconteceu.";
+					show "Um membro começou a questionar a liderança do líder do esquadrão e ^0000FFagiu por conta própria^000000.";
+					next;
+					show "Resultou em uma disputa partidarista. Para resolver o problema, o líder realizou uma reunião com os outros.";
+					show "Baseado em outras opiniões, o líder do esquadrão concluiu que o ato do membro como ^0000FFinsubordinação^000000,";
+					next;
+					show "e ele e outros membros fizeram uma púnição física no membro. O membro foi informado para ser prejudicado e saiu do esquadrão durante a missão.";
+					next;
+					show "Devido a este incidente infame, o 3° esquadrão não pôde completar a missão.";
+					show "E por causa do resultado da missão de insatisfeito, o líder do 3º esquadrão foi fortemente precionado pelo líder do 1° pelotão e o comandante da 3ª companhia.";
+					next;
+					show "O  comandante da 3ª companhia propôs licencia do 3° esquadrão para a hierarquia superior a proposta dele foi aceitada.";
+					show "Depois qu o 3° esquadrão foi licenciado, foram enviados os membros inclusive o líder do esquadrão a um treinamento diciplinar novamente para 3 mês. Depois desse treinamento novamente, todos eles foram transferidos à outra esquadra.";
+					next;
+					show "Atualmente Rebarev Doug que foi na ocasião o  líder do 3° esquadrão têm pesquisado os sinais de Deus baseado no resultado da missão.";
+					show "E a pesquisa foi ordenada pelo Rei do Reino de Rune-Midgard.";
+					next;
+					show ".....................";
+					next;
+					show "............";
+					next;
+					show ".....";
+					next;
+					show "[Zan.Huadoku]";
+					show "S-sim está certo! E então três dias depois que nós começamos a missão, nós achamos algo como...";
+					next;
+					show "[Zan.Huadoku]";
+					show "Bem, eu não tenho certeza o que era isso. Mas nós encontramos um ^0000FFFragmento Desconhecido^000000 que era um sinal de Deus! E então...!";
+					next;
+					show "[Zan.Huadoku]";
+					show "E então...";
+					show "Oh. Oh Deus.";
+					show "Eu não consigo lembrar...";
+					next;
+					show "[Zan.Huadoku]";
+					show "Eu não posso pensar em mais nada do que isso. Eu nem consigo me lembrar o que nós achamos. Mas eu tenho certeza que esse maldito era importante.";
+					next;
+					show "^3355FFZan ficou parado em silêncio, com um olhar aflito em sua face.^000000";
+					if(god_megin_1 == 1)set god_megin_1,2;
+					close;
+				}
+				else
+				{
+					show "[Zan.Huadoku]";
+					show "A última missão...";
+					next;
+					show "[Zan.Huadoku]";
+					show "Hum...Eu não consigo me recordar de algumas memórias sobre a missão...talvêz eu precise de uma pista.";
+					next;
+					show "- Parece que ele teve um tempo muito ruim para lembrar de algo. -";
+					close;
+				}
+			break;
+		}
+	}
+	else if(god_megin_1 > 1 && god_megin_1 < 3)
+	{
+		show ".....................";
+		next;
+		show "............";
+		next;
+		show ".....";
+		next;
+		show "[Zan.Huadoku]";
+		show "Eu me recordeu de alguma coisa.";
+		show "3 dias mais tardes do dia que nós começamos nossa missão, nós encontramos ^0000FFUm fragmento desconhecido^000000 que era um sinal de Deus!";
+		show "E então...";
+		show "E então...";
+		show "E então...";
+		next;
+		show "[Zan.Huadoku]";
+		show "Eu sinto muito... eu não posso me lembrar mais do que isso...";
+		show "Eu posso nem mesmo se lembrar do que era o que nós encontramos...";
+		show "Eu estive sofrendo ^0000FFdesde os 3 mêses^000000 mais tarde...";
+		next;
+		show "- Ele ficou parado com um olhar doloroso em sua face.-";
+		set god_megin_1,3;
+		close;
+	}
+	else if(god_megin_1 > 2)
+	{
+		show "^3355FFAgarrando a cabeça dele, enquanto rasgando o cabelo dele e se estorcendo em Agonia, Zan continuou repetindo as mesmas palavras inúmeras vezes...^000000";
+		next;
+		show "[Zan.Huadoku]";
+		show "3 dias mais tarde! Nós encontramos algum ^0000FFFragmento^000000! Esse era um Sinal de D-Deus! Mas por que eu não consigo me lembrar?! porque?!";
+		close;
+	}
+	else
+	{
+		show "[Zan.Huadoku]";
+		show "Ei você.";
+		show "Você pode me ajudar?";
+		close;
+	}
+}
+else
+{
+	show "[Zan.Huadoku]";
+	show "Bom dia!";
+	show "Você sabe a";
+	show "importância dos suplimentos?";
+	next;
+	switch( select( "Não.", "Sim!" ) )
+	{
+		case 1:
+			show "[Zan.Huadoku]";
+			show "Qualquer força militar ou grupo precisa dos materiais deles para ser reenchido se eles forem continuar batalhando por um período prolongado de tempo.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Por exemplo, digamos que seu grupo vá caçar sem um curandeiro. Neste caso, todo o mundo consumiria artigos de restauração de saúde, como poções.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Considerando que você pode levar só vários artigos por vez, você eventualmente ficará sem poções.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Mas se um de seus membros do grupo viajasse entre cidade e a área de caça, ele poderia trazer para seu grupo artigos curativos novos.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Provendo seu grupo deste modo os deixariam caçar com menos preocupação. Para aquele dever, seria a classe Mercador o melhor com seus Carrinhos.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Eu suponho que é por que eu estou trabalhando aqui na Guilda dos Ferreiros. Como Mestre em Armas, mee obrigam a que proveja materiais para as forças dos templários.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Os Ferreiros nesta Guilda também me ajudam a prover armas de qualidade altas para os Templários.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Acontece se você ficar sem artigos de saúde enquanto caça, por que você não pede para um Mercador ajuda?";
+			next;
+			show "[Zan.Huadoku]";
+			show "Provável, eles terão alguns artigos sobressalente e estariam disposto a compartilhar com você se você perguntar educadamente o bastante.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Eu espero ter ver novamente! que Odin te proteja em suas viagens.";
+			close;
+		break;
+
+		case 2:
+			show "[Zan.Huadoku]";
+			show "Oh...";
+			show "Bem então.";
+			show "Nesse caso.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Me deixe lhe falar um pouco sobre conhecimento útil que eu aprendi enquanto trabalhava com os Ferreiros.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Um Personagem de Ferreiro de Forja, suas habilidades são afetadas pelos atributos DES e SOR. DES e SOR também afeta as habilidades de criação dos Alquimistas.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Considerando que eu tenho ficado aqui na Guilda dos Ferreiros, eu estou tentando entender melhor os Ferreiros e desenvolver uma avaliação mais funda do trabalho deles.";
+			next;
+			show "[Zan.Huadoku]";
+			show "Certo então...";
+			show "Pega leve.";
+			close;
+		break;
+	}
+}
+
+}
+
+morocc_in,146,179,0	script	Empregada#God1	66,{
+
+if($God1 > 49 && $God2 < 100)
+{
+	if(god_eremes > 17 && god_megin_2 < 1)
+	{
+		show "^3355FFA Empregada da Hospedaria olha você suspeitamente.^000000";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Em que posso ajuda-lo?";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Excuse me.";
+		show "Como posso ajuda-lo?";
+		next;
+		digit @str$;
+		if (@str$ == "Cuaque Donon" || @str$ == "Cuaque" || @str$ == "Donon")
+		{
+			show "[" + strcharinfo(0) + "]";
+			show "Você sabe o que aconteceu com uma pessoa chamada " + @str$ + " ...?";
+			if (god_eremes == 18)
+			{
+				show "[Empregada da Hospedaria]";
+				show "Eu acho que eu não conheço essa pessoa. Eu acho que esse cara partiu antes de mim começar a trabalhar aqui, talvez?";
+				close;
+			}
+			else if(god_eremes > 18)
+			{
+				next;
+				show "^3355FFApós você ter dito aquele nome, ela imediatamente chegou perto de você e começou a falar baixo, com tom ameaçador.^000000";
+				next;
+				show "[Srtª. Empregada da Hospedaria Assustador]";
+				show "Quem é você? Se você tentar algo engraçado, Eu cortarei fora seu coração!";
+				next;
+				show "[Srtª. Empregada da Hospedaria Assustador]";
+				show "Por que você está tão curioso?! Você é um deles?! Como é que você me encontrou?!";
+				next;
+				switch( select( "Rebarev Doug quer saber sobre você.", "Eu estou pensando porque ele está escondido.", "Só por curiosidade." ) )
+				{
+					case 1:
+						if(rand(1,10) > 3)
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Hah!...sim, Eu estava falando milhões de vezes sobre isso.";
+							show "Aquele velho deve estar com medo de rumor ir a público...";
+							show "...ele deve estar desesperado para mandar um homem me encontrar.";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Pórem!";
+							show "Eu não estou disposta a guiar você a ele hoje!";
+							next;
+							show "- Assim que ela tirou a espada de sua bainha, -";
+							show "- ela bateu em você com força na nuca e no pescoço. -";
+							close2;
+							percentheal -100,0;
+							end;
+						}
+						else
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Hah!...sim, Eu estava falando milhões de vezes sobre isso.";
+							show "Aquele velho deve estar com medo de rumor ir a público...";
+							show "...ele deve estar desesperado para mandar um homem me encontrar.";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Ok, Eu acho que é hora de te dar uma dica para um velho cachorro. Mas, você conseguiu uma única chance de me ouvir.";
+							next;
+							show "- Ela sussurou em seus ouvidos.-";
+							show "^0000FFAragham nunca acumula items para atualização.^000000";
+							set god_megin_2,1;
+							close;
+						}
+					break;
+
+					case 2:
+						if(rand(1,10) > 4)
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Bah...desde que você está aqui, isso significa que você sabe o porque que ele tem se escondido aqui.";
+							show "Eu não posso confiar em você assim que eu vi você mentindo.";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "É hora de ir para cama!";
+							show "Eu não estou disposta a guiar você a ele hoje!";
+							next;
+							show "- Assim que ela tirou a espada de sua bainha, -";
+							show "- ela bateu em você com força na nuca e no pescoço. -";
+							close2;
+							percentheal -100,0;
+						}
+						else
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Bah...desde que você está aqui, isso significa que você sabe o porque que ele tem se escondido aqui.";
+							show "Você é um cachorro astuto, não é?";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Bem, eu não penso que uma sugestão fará algum dano. De alguma maneira você não parece perigoso.";
+							next;
+							show "- Ela sussurou em seus ouvidos.-";
+							show "^0000FFAragham nunca acumula items para atualização.^000000";
+							set god_megin_2,1;
+							close;
+						}
+					break;
+
+					case 3:
+						if (rand(1,10) > 3)
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Só por curiosidade? Hahaha!";
+							show "Você tem muitos instintos, não é?";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Eu sinto muito dizer isso...mas";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Você é o tipo de homem";
+							show "que eu mais odeio!";
+							next;
+							show "- Assim que ela tirou a espada de sua bainha, -";
+							show "- ela bateu em você com força na nuca e no pescoço. -";
+							close2;
+							percentheal -100,0;
+							end;
+						}
+						else
+						{
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Só por curiosidade? Hahaha!";
+							show "Você tem muitos instintos, não é?";
+							next;
+							show "[Srtª. Empregada da Hospedaria Assustador]";
+							show "Oh bem, as vezes pode ser que pareca lindo.";
+							show "Me escute bem, estou dando a você uma única chance.";
+							next;
+							show "- Ela sussurou em seus ouvidos.-";
+							show "^0000FFAragham nunca acumula items para atualização.^000000";
+							set god_megin_2,1;
+							close;
+						}
+					break;
+				}
+			}
+		}
+		else
+		{
+			show "[Empregada da Hospedaria]";
+			show "......?";
+			show "Eu sinto muito mas eu acho que você me entendeu mal em algo aqui.";
+			close;
+		}
+	}
+	else if(god_megin_2 > 0)
+	{
+		show "[Empregada da Hospedaria]";
+		show "Como eu posso ajudá-lo?";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Bem vindo a Hospedaria.";
+		show "Quando você se mover para a entrada, você também pode entrar em uma zona de PvP através de um porteiro de PvP.";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Normalmente você pode visitar hospedarias em grandes cidades.";
+		show "Se você quer descansar um pouco ou competir sua força com os outros, este é o lugar onde você deve vir.";
+		next;
+		show "- Ele te recebeu com maneiras profissionais como se nada tivesse acontecido. -";
+		close;
+	}
+	else
+	{
+		show "[Empregada da Hospedaria]";
+		show "Como eu posso ajudá-lo?";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Bem vindo a Hospedaria.";
+		show "Quando você se mover para a entrada, você também pode entrar em uma zona de PvP através de um porteiro de PvP.";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Normalmente você pode visitar hospedarias em grandes cidades.";
+		show "Se você quer descansar um pouco ou competir sua força com os outros, este é o lugar onde você deve vir.";
+		close;
+	}
+}
+else
+{
+	show "[Empregada da Hospedaria]";
+	show "Como eu posso ajudá-lo?";
+	next;
+	show "[Empregada da Hospedaria]";
+		show "Bem vindo a Hospedaria.";
+		show "Quando você se mover para a entrada, você também pode entrar em uma zona de PvP através de um porteiro de PvP.";
+		next;
+		show "[Empregada da Hospedaria]";
+		show "Normalmente você pode visitar hospedarias em grandes cidades.";
+		show "Se você quer descansar um pouco ou competir sua força com os outros, este é o lugar onde você deve vir.";
+	next;
+	show "[Empregada da Hospedaria]";
+	show "Oh, eu também tenho um segredo para te contar...";
+	show "Eu estava falando que o Dono da Hospedaria está planejando alguns negócios das sombras.";
+	next;
+	show "[Empregada da Hospedaria]";
+	show " - Eu acho que isso era chamado de 'o projeto de descanso para todos' ou algo assim...";
+	next;
+	show "[Empregada da Hospedaria]";
+	show "Mas não conte a ninguém que eu te falei isso, por favor!";
+	close;
+}
+
+}
+
+in_rogue,243,61,0	script	Homem Suspeito#God	748,{
+
+	if($God1 > 49 && $God2 < 100)
+{
+		if(god_eremes == 18)
+	{
+		show "[Cuaque Donon]";
+		show "O q... O que é você! Como você veio aqui!";
+		show "Vá embora, Saia da minha frente!";
+		show "Vaaaaaaá emboraaaaa!";
+		close;
+	}
+		else if(god_eremes > 18)
+	{
+			if(god_megin_2 > 0 && god_megin_2 < 4)
+		{
+			show "[Cuaque Donon]";
+		        show "O q... O que é você! Como você veio aqui!";
+		        show "Vá embora, Saia da minha frente!";
+		        show "Vaaaaaaá emboraaaaa!";
+			next;
+			show "- Você tentou o seu melhor para faze-lo ficar calmo e falou a ele o que encontrou no documento.-";
+			next;
+				if (countitem(740) > 0 || countitem(741) > 0 || countitem(742) > 0 || countitem(743) > 0 || countitem(750) > 0 || countitem(751) > 0 || countitem(752) > 0 || countitem(753) > 0 || countitem(754) > 0 || countitem(7206) > 0 || countitem(7212) > 0)
+			{
+				show "- Você tirou uma boneca e usou ela como se ela contasse a ele a história. -";
+			}
+				else
+			{
+					show "A parte superior decidiu licenciar o 3° esquadrão que buscou a melhor equipe de salvamento da força dos templários depois da seguinte missão .";
+					next;
+					show "O 3° esquadrão foi nomeado para encalçar secretamente ^0000FFos sinais de Deus^000000 sobre o comando da corte real.";
+					next;
+					show "Durante a missião, um enexperado incidente aconteceu.";
+					show "Um membro começou a questionar a liderança do líder do esquadrão e ^0000FFagiu por conta própria^000000.";
+					next;
+					show "Resultou em uma disputa partidarista. Para resolver o problema, o líder realizou uma reunião com os outros.";
+					show "Baseado em outras opiniões, o líder do esquadrão concluiu que o ato do membro como ^0000FFinsubordinação^000000,";
+					next;
+					show "e ele e outros membros fizeram uma púnição física no membro. O membro foi informado para ser prejudicado e saiu do esquadrão durante a missão.";
+					next;
+					show "Devido a este incidente infame, o 3° esquadrão não pôde completar a missão.";
+					show "E por causa do resultado da missão de insatisfeito, o líder do 3º esquadrão foi fortemente precionado pelo líder do 1° pelotão e o comandante da 3ª companhia.";
+					next;
+					show "O  comandante da 3ª companhia propôs licencia do 3° esquadrão para a hierarquia superior a proposta dele foi aceitada.";
+					show "Depois qu o 3° esquadrão foi licenciado, foram enviados os membros inclusive o líder do esquadrão a um treinamento diciplinar novamente para 3 mês. Depois desse treinamento novamente, todos eles foram transferidos à outra esquadra.";
+					next;
+					show "Atualmente Rebarev Doug que foi na ocasião o  líder do 3° esquadrão têm pesquisado os sinais de Deus baseado no resultado da missão.";
+					show "E a pesquisa foi ordenada pelo Rei do Reino de Rune-Midgard.";
+				next;
+				show "- Você precisar achar algo que faça com que ele fique calmo.-";
+				next;
+				show "- Assim que você viu ele agindo como uma criança, seria uma boa idéia trazer algo que seja atrativo para crianças. -";
+				close;
+			}
+
+			next;
+			show "- Ele estava acernando com a cabeça e chupando o dedo alegremente igual uma criança quando elas estão felizes. -";
+			next;
+			show "- ele parecia bastante bem para responder algumas perguntas.-";
+			next;
+				switch( select( "Pergunta a ele sobre a Empregada da Hospedaria.", "Pergunta a ele o que ele tem feito.", "Pergunta a ele sobre a última missão do 3° Esquadrão." ) )
+			{
+				case 1:
+					show "[Cuaque Donon]";
+					show "Ela...ela é minha irmã.";
+					show "E ela também é uma arruaceira.";
+					show "Quando eu estava se aposentando do serviço....";
+					next;
+					show "[Cuaque Donon]";
+					show ".................";
+					next;
+					show "[Cuaque Donon]";
+					show "Minha família sempre esperava mais de mim do que eu poderia fazer desde que eu nasci.";
+					show "Por isso eu me tornei voluntário para ser um templário.";
+					show "Templário não é uma responsabilidade alta demais mas também é um trablho bem pago...";
+					show "E eu estava me aposentando do serviço.";
+					next;
+					show "[Cuaque Donon]";
+					show "Minha irmã estava chateada comigo...naquele tempo.";
+					show "Ela é a única que eu tenho...ela estava tão chateada";
+					show "pelo fato que eu fiz confusão...";
+					next;
+					show "[Cuaque Donon]";
+					show "E ela consegiu um trabalho para mim na hospedaria";
+					show "até mesmo depois de gritar comigo dizendo que eu sou inútil, ela consegiu um trabalho para mim de qualquer maneira.";
+					next;
+					show "[Cuaque Donon]";
+					show "Desde quando, Eu notei que houve muitas pessoas que me visitam por alguma razão.";
+					show "Parece que eles querem algo de mim...awwwwwwwwwww....minha cabeça..! Minha cabeça está doendo!";
+					next;
+					show "[Cuaque Donon]";
+					show "...eu não sei o que eu disse para eles.";
+					show "Eles estavam excitados com o que eu disse e tentaram me machucar.";
+					next;
+					show "[Cuaque Donon]";
+					show "Então, ela me escondeu aqui.";
+					show "Mas, estou tão aborrecido de estar sozinho. Um cara nas escadarias sempre faz nada a não ser me gritar...";
+					show "Ele sempre grita comigo mandando eu sair.";
+					next;
+					show "[Cuaque Donon]";
+					show "Até mesmo a Guilda dos Arruaceiros de onde minha irmã é em algumas vezes vinheram me ouvir.";
+					show "E eles estavam sempre excitados como os outros e gritaram comigo algo que eu supostamente sabia.";
+					next;
+					show "[Cuaque Donon]";
+					show "Estou dizendo a você, eu não consigo me lembrar de nada!";
+					show "Eu sei que este lugar é segura dessas pessoas perigosas.";
+					next;
+					show "[Cuaque Donon]";
+					show "Ela é a única que eu tenho agora...eu ainda não quero ela chateada comigo.";
+					next;
+					show "[Cuaque Donon]";
+					show "ela disse que eu devia contar aos arruaceiros da Guilda dos Arruaceiros o que eu sei...caso contrário eles não protegeriam ela e eu nunca mais.";
+					show "Ela parecia triste quando ela tá triste desse jeito...";
+						if (god_megin_2 == 2)
+					{
+						next;
+						show "[Cuaque Donon]";
+						show "Oh, eu me lembrei de alguma coisa.";
+						show "Ela me pediu para não contar a ninguém mas eu vou contar a você...";
+						next;
+						show "- Ele sussurou em seus ouvidos.-";
+						next;
+						show "[Cuaque Donon]";
+						show "ela disse...parece que a Guilda dos Arruaceiros quer algo de mim.";
+						show "Então ela disse que ia me manda boas pessoas que ela confia para me ajudar.";
+						next;
+						show "[Cuaque Donon]";
+						show "Mas esse ainda é o lugar mais seguro para mim ficar por enquanto.";
+						show "Ao mesmo tempo, eu sempre estou pronto para fugir...";
+						set god_megin_2,3;
+						close;
+					}
+					close;
+				break;
+
+				case 2:
+					show "[Cuaque Donon]";
+					show "Como? o que eu estive fazendo?";
+					show "Eu tenho medo das pessoas que me visitam com propósito.";
+					next;
+					show "[Cuaque Donon]";
+					show "A Guilda dos Arruaceiros prometeu me proteger...mas eles estavam com assustados com que ás vezes sai o inferno fora de mim do chão sem nenhum aviso.";
+					show "Ah, e minha irmã disse que ela vai se queixar a meu ex-chefe sobre alguma coisa.";
+					next;
+					show "[Cuaque Donon]";
+					show "Ela disse que eu ficaria bem depois. Mas desde que eu me aposentei do serviço, eu tenho agido estranho...";
+					next;
+					show "[Cuaque Donon]";
+					show "Mas ela não queria encontrar com minha irmã...foi o que ela disse. Então ela foi pedir ajuda a Guilda dos Arruaceiros para espalhar alguns rumores...";
+					show "Um rumor como que alguém que é voluntário para ser templário pensar que o ex-chefe é retardado....";
+					next;
+					show "[Cuaque Donon]";
+					show "Isso é o que era recentimente.";
+					if (god_megin_2 == 1) set god_megin_2,2;
+					close;
+				break;
+
+				case 3:
+					show "[Cuaque Donon]";
+					show "Eu não sei...eu não consigo me lembrar isso...";
+						if (god_megin_2 == 3)
+					{
+						next;
+						show "[Cuaque Donon]";
+						show "?!... Espere, eu só me lembro de uma coisa...";
+						show "Eu vi a ^0000FFMegingjard^000000. Aquela coisa parecia com um fragmento de algo, mas eu sabia que esse era o nome Megingjard sem nem mesmo saber.";
+						next;
+							if (rand(1,10) > 4)
+						{
+								switch( select( "^FF0000Megingjard^000000!", "^FFFFFFOuví-lo quietamente^000000." ) )
+							{
+								case 1:
+									show "[Cuaque Donon]";
+									show "Waaaaaaaaaaaaahhhhhhh!";
+									show "Você é igual aos outros! Vá embora!";
+									set god_megin_2,0;
+									close;
+								break;
+
+								case 2:
+									show "[Cuaque Donon]";
+									show "E...naquela noite...eu ouvi que ^0000FFele^000000 teve discutido com o líder.";
+									show "Eu fiquei a noite toda observando e aconteceu que eu ouvi a discussão deles.";
+									next;
+									show "[Cuaque Donon]";
+									show "Eu não consigo me lembrar de nada mais do que isso.";
+									set god_megin_2,4;
+									close;
+								break;
+							}
+						}
+							else
+						{
+								switch( select( "^FF0000Megingjard^000000!", "^FFFFFFMegingjard!^000000.", "^FFFFFFOuví-lo quietamente^000000" ) )
+							{
+								case 1:
+									show "[Cuaque Donon]";
+									show "Waaaaaaaaaaaaahhhhhhh!";
+									show "Você é igual aos outros! Vá embora!";
+									set god_megin_2,0;
+									close;
+								break;
+
+								case 2:
+									show "[Cuaque Donon]";
+									show "Waaaaaaaaaaaaahhhhhhh!";
+									show "Você é igual aos outros! Vá embora!";
+									set god_megin_2,0;
+									close;
+								break;
+								case 3:
+									show "[Cuaque Donon]";
+									show "E...naquela noite...eu ouvi que ^0000FFele^000000 teve discutido com o líder.";
+									show "Eu fiquei a noite toda observando e aconteceu que eu ouvi a discussão deles.";
+									next;
+									show "[Cuaque Donon]";
+									show "Eu não consigo me lembrar de nada mais do que isso.";
+									set god_megin_2,4;
+									close;
+								break;
+							}
+						}
+					}
+					close;
+				break;
+			}
+		}
+			else if(god_megin_2 == 4)
+		{
+			show "[Cuaque Donon]";
+			show "E...naquela noite...eu ouvi que ^0000FFele^000000 teve discutido com o líder.";
+			show "Eu fiquei a noite toda observando e aconteceu que eu ouvi a discussão deles.";
+			next;
+			show "[Cuaque Donon]";
+			show "Eu não consigo me lembrar de nada mais do que isso.";
+			next;
+			show "[Cuaque Donon]";
+			show "Dormir...minha cabeça está doendo. Eu quero descansar agora...";
+			close;
+		}
+			else
+		{
+			show "[Cuaque Donon]";
+			show "O q... o que é você! Como você veio aqui!";
+			show "Vá embora, Vá embora de mim!";
+			show "Vaaaá emboraaaa!";
+			close;
+		}
+	}
+}
+	else
+{
+	show "[Cuaque Donon]";
+	show "O q... o que é você! Como você veio aqui!";
+	show "Wahhhhh! Minha cabeça...minha cabeça está doendo muito!";
+	show "Estou com medo! Estou com medo!";
+	close;
+}
+
+}
+
+alberta,196,146,0	script	Templário#megin2	751,{
+
+	if ($God1 > 49 && $God2 < 100)
+{
+		if(god_eremes == 18)
+	{
+		show "[Jack O]";
+		show "^333333*Bocejo...*^000000";
+		show "Está quieto e enfadante, como por habitual. Vejamos se há alguns espadachins que eu posso recrutar hoje.";
+		next;
+		show "[Jack O]";
+		show "Eh...?";
+		next;
+			switch( select( "Pergunta a ele sobre Rebarev Doug.", "Pergunta a ele o que ele tem feito.", "Pergunta a ele sobre a última missão do 3° Esquadrão." ) )
+		{
+			case 1:
+				show "[Jack O]";
+				show "Ah! Sim, nosso velho lider voltou para o 3° esquadrão. Hehe. Eu não o tenho visto desde que nós fomos licenciados.";
+				close;
+			break;
+
+			case 2:
+				show "[Jack O]";
+				show "Eu? Sim, eu sempre estou ocupado recurtando futuros templários.";
+				show "Nós sempre damos boas vindas";
+				show "aos espadachins de grande abilidades!";
+				next;
+				show "[Jack O]";
+				show "Como soa isso? Por que você não se voluntaria para se torna um templário?";
+				close;
+			break;
+
+			case 3:
+				show "[Jack O]";
+				show "Última missão?";
+				show "Eh, eu realmente não me lembro disso.";
+				close;
+			break;
+		}
+	}
+		else if(god_eremes > 18)
+	{
+			if (god_megin_3 == 0 || god_megin_3 == 1)
+		{
+			show "[Jack O]";
+			show "*bocejo*...tão entediante.";
+			show "Vamos ver...se há alguns espadachins que eu possa recrutar...?";
+			next;
+			show "[Jack O]";
+			show "Hum...?";
+			next;
+				switch( select( "Pergunta a ele sobre Rebarev Doug.", "Pergunta a ele o que ele tem feito.", "Pergunta sobre a missão final do 3° esquadrão." ) )
+			{
+				case 1:
+						if (god_megin_3 == 1)
+					{
+						show "[Jack O]";
+						show "Ah certo. Nosso velho líder.";
+						show "Agora eu lembro: Ele era";
+						show "um que tinha um ego bem íntegro";
+						show "agora que eu pensei sobre isso!";
+						next;
+						show "[Jack O]";
+						show "Você pode acreditar que ele costumava dizer que ^0000FFnão há ninguém mais religioso que ele no mundo^000000?! Isso é muito egoísmo dele. E talvez insano.";
+						next;
+						show "[Jack O]";
+						show "De qualquer jeito, todo mundo no esquadrão";
+						show "tomaram orgulho em sua fé. Quando";
+						show "você está tendo um tempo díficil no";
+						show "mundo real, você depende da religião, você sabia?";
+						next;
+						show "[Jack O]";
+						show "De qualquer forma, nos registros sobre nosso";
+						show "esquadrão, dizia que um de nós foi punido por insubordinação, se rebelando ou algo assim.";
+						show "Isso é uma completa mentira.";
+						next;
+						show "[Jack O]";
+						show "Durante nossa missão final,";
+						show "nosso velho líder teve um argumento enorme com um de nós em cima de algo que nós achamos. Eu lembro que era algo de um Artefato Religioso, mas eu não consigo lembrar claramente o que isso era.";
+						next;
+						show "[Jack O]";
+						show "Embora houvesse uma disputa obvia, eu penso que isso foi que nosso líder ficou fora de linha.";
+						show "Eu... eu realmente não consigo dizer...";
+						next;
+						show "[Jack O]";
+						show "Eu não consigo lembrar por vida";
+						show "como se parecia o cara que discutiu";
+						show "com o líder do esquadrão.";
+						show "Os altos-ups";
+						show "devem ter feito algo para mim...";
+						next;
+						show "[Jack O]";
+						show "Dessa forma, eu tenho certeza que sei que tudo o que o cara fez, e não era insubordinação. Em fato, eu acho que ele deveria estar certo!";
+						next;
+						show "[Jack O]";
+						show "É tudo o que eu consegui lembrar.";
+						show "É melhor eu toma algumas Ervas Verdes agora. Minha cabeça palpita como louca toda vez que penso sobre aquele tempo.";
+						set god_megin_3,2;
+						close;
+					}
+						else
+					{
+						show "[Jack O]";
+						show "Ah! Sim, nosso líder voltou para o 3° esquadrão. Hehe. Eu não o vejo desde que nós fomos licenciados.";
+						close;
+					}
+				break;
+
+				case 2:
+					show "[Jack O]";
+					show "Eu? Sim, eu não estou fazendo nada mal. me mantenho ocupado recrutando futuros templários. Nós damos boas vindas";
+					show "a todos os Espadachins se eles mostrarem potencial~";
+					close;
+				break;
+
+				case 3:
+					show "[Jack O]";
+					show "Huh...?";
+					show "Por que";
+					show "você quer saber?";
+					next;
+					show "- Você falou a ele o que você encontrou no documento. -";
+					next;
+					show "^0000FFA última missão do 3° Esquadrão^000000";
+					show "A parte superior decidiu licenciar o 3° esquadrão que era a melhor equipe de salvamento da força templaria após a seguinte missão.";
+					next;
+					show "O 3° esquadrão foi nomeado para encalçar secretamente ^0000FFos sinais de Deus^000000 sobre o comando da corte real.";
+					next;
+					show "Durante a missião, um enexperado incidente aconteceu.";
+					show "Um membro começou a questionar a liderança do líder do esquadrão e ^0000FFagiu por conta própria^000000.";
+					next;
+					show "Resultou em uma disputa partidarista. Para resolver o problema, o líder realizou uma reunião com os outros.";
+					show "Baseado em outras opiniões, o líder do esquadrão concluiu que o ato do membro como ^0000FFinsubordinação^000000,";
+					next;
+					show "e ele e outros membros fizeram uma púnição física no membro. O membro foi informado para ser prejudicado e saiu do esquadrão durante a missão.";
+					next;
+					show "Devido a este incidente infame, o 3° esquadrão não pôde completar a missão.";
+					show "E por causa do resultado da missão de insatisfeito, o líder do 3º esquadrão foi fortemente precionado pelo líder do 1° pelotão e o comandante da 3ª companhia.";
+					next;
+					show "O  comandante da 3ª companhia propôs licencia do 3° esquadrão para a hierarquia superior a proposta dele foi aceitada.";
+					show "Depois qu o 3° esquadrão foi licenciado, foram enviados os membros inclusive o líder do esquadrão a um treinamento diciplinar novamente para 3 mês. Depois desse treinamento novamente, todos eles foram transferidos à outra esquadra.";
+					next;
+					show "Atualmente Rebarev Doug que foi na ocasião o  líder do 3° esquadrão têm pesquisado os sinais de Deus baseado no resultado da missão.";
+					show "E a pesquisa foi ordenada pelo Rei do Reino de Rune-Midgard.";
+					next;
+					show "^3355FFAssim que ele ouviu o registro do 3° esquadrão, Jack O parecia um pouco confuso.^000000";
+					next;
+					show "[Jack O]";
+					show "Huh...?";
+					show "Eu posso não ser capaz de lembrar";
+					show "tudo do passado, mas a parte sobre ^0000FFinsubordinação^000000 não pode estar correta. Eu tenho certeza disso.";
+					if (god_megin_3 == 0) set god_megin_3,1;
+					close;
+				break;
+			}
+		}
+			else if (god_megin_3 == 2)
+		{
+			show "[Jack O]";
+			show "Nosso velhor líder era";
+			show "tão arrogante ao ponto de";
+			show "ser um pouco fora de si.";
+			next;
+			show "[Jack O]";
+			show "Entendo, pessoas normais";
+			show "não dizem coisas como '^0000FFEu sou o homem mais religioso no universo! Ajoelhem-se perante mim!^000000' Sim. Não é uma coisa normal de se falar.";
+			next;
+			show "[Jack O]";
+			show "Dessa forma, se o líder";
+			show "do esquadrão punisse alguém por insubordinação, eu tenho certeza que isso não foi comprovado. Eu não me lembro muito, mas tenho certeza disso.";
+			next;
+			show "[Jack O]";
+			show "Com licensa, Eu preciso tomar algumas Ervas Verdes. Tomando elas";
+			show "parece ser a única coisa que funciona para minha dor de cabeça.";
+			next;
+			show "^3355FFJack O se ocupou mastigando";
+			show "algumas Ervas Verdes.";
+			show "Parecia grandemente aliviar a dor das dores de cabeças dele.^000000";
+			close;
+		}
+			else
+		{
+			show "[Jack O]";
+			show "^333333*Bocejo...*^000000";
+			show "Está quieto e entediante, como de sempre. Vamos ver se há alguns espadachins que eu possa recrutar hoje.";
+			close;
+		}
+	}
+		else
+	{
+		show "[Jack O]";
+		show "Ei Garoto!";
+		show "O que você acha";
+		show "de ser um templário?";
+		close;
+	}
+}
+	else
+{
+		if (Class == Job_Swordman)
+	{
+		show "[Jack O]";
+		show "Ei Garoto!";
+		show "O que você acha";
+		show "de ser um templário?";
+		next;
+		show "[Jack O]";
+		show "Basicamente, você seria voluntariado a ser parte de nossos militares, com bom treinamento para a Guerra Santa.";
+		next;
+		show "[Jack O]";
+		show "Se você tem alguma fé e sabe como branda uma espada, você será mais do que bem vindo aqui.";
+		next;
+		show "[Jack O]";
+		show "Apenas pense em minha sugestão";
+		show "e volte se estiver interessado. Então tudo certo, te vejo mais tarde~";
+		close;
+	}
+		else
+	{
+		show "[Jack O]";
+		show "^333333*Bocejo...*^000000";
+		show "Está quieto e entediante, como de sempre. Vamos ver se há alguns espadachins que eu possa recrutar hoje.";
+		next;
+		show "[Jack O]";
+		show "Huh...?";
+		show "Você está interessado em saber mais sobre os Templários? Hahaha, eu acho que deve ser esse o caso.";
+		next;
+		show "[Jack O]";
+		show "A propósito, traga uma boneca";
+		show "para a criança em frente de mim. Se você tiver sorte, ela te dará algo limpo em troca. O que é isso, eu não sei. Eu não tenho nenhuma boneca.";
+		next;
+		show "[Jack O]";
+		show "De acordo com o Código dos Templários, eu não posso mentir. Então, você pode confiar em mim!";
+		close;
+	}
+}
+
+}
+
+aldebaran,66,213,0	script	Dama#megin	69,{
+
+	if ($God1 > 49 && $God2 < 100)
+{
+		if(god_eremes == 18)
+	{
+		show "[Emma Searth]";
+		show "^333333*Suspiro...*^000000 Eu não obtive nenhuma resposta deles. Eu não sei";
+		show "se eu posso esperar mais para me juntar a Corporação Kfra.";
+		close;
+	}
+		else if(god_eremes > 18 && god_eremes < 26)
+	{
+			if (god_megin_4 < 2)
+		{
+			show "[Emma Searth]";
+			show "^333333*Suspiro...*^000000 Eu não obtive nenhuma resposta deles. Eu não se";
+			show "se eu posso esperar mais para me juntar a Corporação Kfra.";
+			next;
+			show "[Emma Searth]";
+			show "Oh, um aventureiro! Eu atualmente trabalhava no mesmo campo que você. Mais específicamente, eu era uma templária.";
+			next;
+			show "[Emma Searth]";
+			show "Meu nome é Emma Searth. Agora mesmo, estou indo atrás do meu sonho e me aplicando para ser uma Dama Kfra. Então meus dias de branda uma espada acabaram.";
+			next;
+			show "[Emma Searth]";
+			show "Tristemente, eu não obtive sucesso ainda porque eu fui diagnosticada com";
+			show "alguma estranha ^0000FFamnesia^000000.";
+			next;
+			show "[Emma Searth]";
+			show "É claro, eu entendo que a";
+			show "Corporação Kafra é uma grande, profissional empresa, mas";
+			show "se eu puder trabalhar para eles até mesmo se for por meio período...";
+			next;
+			show "[Emma Searth]";
+			show "Esse é o grande problema?";
+			show "eu acho que eles estão preocupados";
+			show "que eu vá esquecer informações importantes dos clientes uma vez que contratada.";
+			next;
+			show "[Emma Searth]";
+			show "É estranho. Quando eu era";
+			show "uma Templária, eu lembrava";
+			show "de tudo lucidamente, e eu nunca tive nenhum problema em relembrar do passado.";
+			next;
+			show "[Emma Searth]";
+			show "Mas agora eu adquiri estas enxaquecas sempre que toda vez eu tento focalizar em minhas recordações";
+			show "quando eu lutava n Exêrcito de Prontera.";
+			next;
+			show "[Emma Searth]";
+			show "^333333*suspiro...*^000000";
+			next;
+				switch( select( "Sobre o passado dela.", "Por que ser uma Garota Kfra?", "Sobre as memórias que ela consegue se lembrar." ) )
+			{
+				case 1:
+						if (countitem(7015) > 0)
+					{
+						show "^3355FFO cheiro de seu";
+						show "Marcador de páginas de Memória";
+						show "parece trazer claridade";
+						show "aos pensamentos dela.^000000";
+						next;
+						show "[Emma Searth]";
+						show "Eu nasci em uma família rica onde eu fui criada para aprender etiqueta, esgrima, Montar em peco, e aulas de música desde";
+						show "que eu nasci. Eu acho que você pode dizer que eu sou muito bem educada.";
+						next;
+						show "[Emma Searth]";
+						show "Pórem, meus pais não";
+						show "estavam satisfeitos quando eles souberam que eu queria me torna uma Garota Kfra.";
+						next;
+						show "[Emma Searth]";
+						show "Meu pais insistiram que";
+						show "eu me torna se uma Sábia ou uma Professora.";
+						show "No final, eu acabei fugindo";
+						show "deles e me juntando aos Templários.";
+						next;
+						show "[Emma Searth]";
+						show "Afortunadamente, os Templários estavam avisando sobre seus recrutamentos no tempo, então eu peguei aquela chance. mais, tendo experiência militar poderia me ajudar a entrar para as Kfras!";
+						next;
+						show "[Emma Searth]";
+						show "Desde que eu fiz tão bem no Campo de Treinamento,";
+						show "Eu consegui a chance de me juntar a um esquadrão de elite. Meu esquadrão era freqüentemente nomeado com missões díficies, e nós nunca failhamos em completar elas.";
+						next;
+						show "[Emma Searth]";
+						show "Eventualmente, minha reputação como uma Templária, e de ser uma respeitável posição no exército, foi o bastante para deixar minha família satisfeita.";
+						next;
+						show "[Emma Searth]";
+						show "Mas após aquele dia,";
+						show "tudo saiu errado.";
+						show "eu só me lembro qeu isso";
+						show "era muito triste e depressivo.";
+						show "De alguma forma, eu me sinti como se nós";
+						show "tivessemos sido traidos...";
+						next;
+						show "[Emma Searth]";
+						show "Eu acho que eu posso";
+						show "tentar lembrar";
+						show "dos meus camaradas...";
+						set god_megin_4,1;
+						close;
+					}
+						else
+					{
+						show "[Emma Searth]";
+						show "Ah, não vamos falar sobre isso. É muito depressivo também. Talvez se você tivesse algum tipo de ^0000FFajuda para memória^000000 , eu poderia ser capaz de relembrar do meu passado esquecido. Qualquer coisa, como uma lembrança, uma lista, um marcador de páginas, um fio,...";
+						close;
+					}
+				break;
+
+				case 2:
+					show "[Emma Searth]";
+					show "Um dia, aconteceu que eu vi a Senhorita Leilah no trabalho aqui em Al De Baran. Ela estava lustrando com confiança e tratou com muito respeito seus cleintes.";
+					next;
+					show "[Emma Searth]";
+					show "Ela se levou como uma profissional, não importava qual fosse a situação. Embora eu soubesse que ela estava cansada de trabalhar no calor do verão, ela fez tudo parecer sem esforço!";
+					next;
+					show "[Emma Searth]";
+					show "Quando os cleintes masculinos tentavam flerta com ela, ela nunca perdia sua pose. Ela apenas ajustava seus óculos e fazia o que tinha que fazer.";
+					next;
+					show "[Emma Searth]";
+					show "Para mim, ela é como um solitário, anjo da guarda. Naquele momento, parecia que o mundo existia só para ser escarnecido pela Senhorita Leila.";
+					next;
+					show "[Emma Searth]";
+					show "Eu também ouvi falar que todas as Garotas Kfras sempre estão viajando ao redor do mundo, que é uma coisa que sempre sonhei em fazer.";
+					next;
+					show "[Emma Searth]";
+					show "A Senhorita Leilah é meu ídolo,";
+					show "e ela é a razão do porque";
+					show "de mim querer me torna uma Garota Kfra.";
+					close;
+				break;
+
+				case 3:
+						if (countitem(511) > 0 && god_megin_3 > 1)
+					{
+						show "^3355FFEmma Searth aperta a cabeça dela e estremecimentos como se ela sofresse de outra enxaqueca.^000000";
+						next;
+						show "^3355FFLembrando que a Erva Verde foi capaz de alivia Jack O, você deu uma Erva Verde para Emma. Ela tomou, e parece um pouco mais relaxada.^000000";
+						next;
+						show "[Emma Searth]";
+						show "Eu não tenho certeza";
+						show "o quanto eu posso me lembrar";
+						show "e o quanto eu atualmente";
+						show "esqueci.";
+						next;
+						show "[Emma Searth]";
+						show "Deixe me...";
+						show "Tentar lembrar de cada um de nosso esquadrão. Deixa ver, Havia Jack O, The Nineball. Z-Zan. Zan.H-Huadoku. C-Cuaque Donon. Eu. Um, E... Eni... Egni... Um...";
+						next;
+						show "[Emma Searth]";
+						show "Egni...";
+						show "Egnigem?^000000";
+						show "Quem era essa?";
+						show "Oh não. Eu tenho certeza que ele podia";
+						show "ter, não, havia alguém";
+						show "com esse nome conosco?";
+						close2;
+						set god_megin_4,2;
+						end;
+					}
+						else
+					{
+						show "^3355FFEmma Searth aperta a cabeça dela e estremecimentos como se ela sofresse de outra enxaqueca.^000000";
+						next;
+						show "[Emma Searth]";
+						show "Eu não tenho certeza";
+						show "o quanto eu posso me lembrar";
+						show "e o quanto eu atualmente";
+						show "esqueci.";
+						close;
+					}
+				break;
+			}
+		}
+			else if(god_megin_4 > 1)
+		{
+			show "[Emma Searth]";
+			show "^0000FFJack O, The Nineball, Zan.Huadoku, Cuaque Donon, Egnigem.^000000 Oh, eu relamente esqueci deles...";
+			close;
+		}
+			else
+		{
+			show "[Emma Searth]";
+		        show "^333333*Suspiro...*^000000 Eu não obtive nenhuma resposta deles. Eu não sei";
+		        show "se eu posso esperar mais para me juntar a Corporação Kfra.";
+			close;
+		}
+	}
+		else if (god_eremes == 25)
+	{
+		show "[Emma Searth]";
+		show "Egnigem...";
+		show "Esse nome me faz";
+		show "ficar tão triste. Eu não";
+		show "sei o porque, mas...";
+		close;
+	}
+		else if (god_eremes == 26 || god_eremes == 27)
+	{
+		show "[Emma Searth]";
+		show "Egnigem...";
+		show "Esse nome me faz";
+		show "ficar tão triste. Eu não";
+		show "sei o porque, mas...";
+		next;
+		show "^3355FFEmma vire antes que você pudesse ver ela chorar. Ainda, o suspiro dos ombros dela com cada soluço como você imagina o sofrimento que ela teve que suportar.^000000";
+		next;
+		show "[Emma Searth]";
+		show "Eu acho que eu sei o que esse nome realmente significa. Tenho certeza que um link importante de minha memória do passado.";
+		next;
+		show "[Emma Searth]";
+		show "Eu realmente aprecio sua vinda aqui e ter conversado comigo sobre esses velhos dias. Eu, eu quero que você tenha isto.";
+		set god_eremes,28;
+		additem 603,1;
+		if (BaseLevel < 56)
+			getexp 27000,0;
+		else if (BaseLevel > 55 && BaseLevel < 61)
+			getexp 30000,0;
+		else if (BaseLevel > 60 && BaseLevel < 66)
+			getexp 56052,0;
+		else if (BaseLevel > 65 && BaseLevel < 71)
+			getexp 82233,0;
+		else if (BaseLevel > 70 && BaseLevel < 76)
+			getexp 212271,0;
+		else if (BaseLevel > 75 && BaseLevel < 81)
+			getexp 390738,0;
+		else if (BaseLevel > 80 && BaseLevel < 86)
+			getexp 451020,0;
+		else if (BaseLevel > 85 && BaseLevel < 91)
+			getexp 546156,0;
+		else if (BaseLevel > 90)
+			getexp 1220358,0;
+		close;
+	}
+		else if (god_eremes == 28)
+	{
+		show "[Emma Searth]";
+		show "Egnigem...";
+		show "Esse nome me faz";
+		show "ficar tão triste. Eu não";
+		show "sei o porque, mas...";
+		next;
+		show "^3355FFEmma vire antes que você pudesse ver ela chorar. Ainda, o suspiro dos ombros dela com cada soluço como você imagina o sofrimento que ela teve que suportar..^000000";
+		close;
+	}
+		else
+	{
+		show "[Emma Searth]";
+		show "^333333*Suspiro...*^000000 Eu não obtive nenhuma resposta deles. Eu não sei";
+		show "se eu posso esperar mais para me juntar a Corporação Kfra.";
+		close;
+	}
+}
+	else
+{
+	show "[Emma Searth]";
+	show "Eu ouvi que as Garotas Kfras sempre viajam ao redor do mundo, algo que eu sempre sonhei em fazer! Esperançosamente, um desses dias, eu serei capaz de trabalhar para a Corporação Kfra também.";
+	next;
+	show "[Emma Searth]";
+	show "^333333*suspiro...*^000000";
+	show "Ainda, está desencorajada. Eu não tive nehuma notícia deles...";
+	close;
+}
+
+}
+
+cmd_in02,190,94,3	script	Homem#megin	828,{
+
+	if ($God1 > 49 && $God2 < 100)
+{
+		if (god_eremes == 18)
+	{
+		show "[Royal Myst]";
+		show "O que...?";
+		show "Você quer conversar?";
+		next;
+		show "[Royal Myst]";
+		show "O que eu sou, seu psiquiatra pessoal?! deixe me sozinho,";
+		show "estou ocupado aqui! Certo, agora";
+		show "em qual eu aposto...?";
+		next;
+			switch( select("Fale de Rebarev Doug.", "Fale do 3° esquadrão.", "Fale sobre jogar.", "Discutir passa tempos.") )
+		{
+			case 1:
+				show "[Royal Myst]";
+				show "O que--? Ele denovo?! Diga a ele que estou bem. até mesmo Dandy! Por que ele manda todas essas pessoas só para fazer";
+				show "uma pergunta tola?";
+				close;
+			break;
+			case 2:
+				show "[Royal Myst]";
+				show "3° esquadrão? Sim, eu era dele. Todos nós do esquadrão eramos bons soldados também.";
+				next;
+				show "[Royal Myst]";
+				show "Zan.Huadoku, Cuaque Donon,";
+				show "Jack O, Emma Searth e The Nineball. Sim... eu desejo saber onde todos eles estão?";
+				close;
+			break;
+			case 3:
+				show "[Royal Myst]";
+				show "Jogar? Eu amo isso, você";
+				show "sabia? Eh, eu não venço todo o tempo, mas eu amo isso ainda mais quando eu saio com mais zenys do que quando cheguei! Hahaha!";
+				close;
+			break;
+			case 4:
+				show "[Royal Myst]";
+				show "Passa tempos?";
+				show "O que, você veio";
+				show "até mim?";
+				next;
+				show "[Royal Myst]";
+				show "O passa tempo de um homem é beber, ou você não sabia disso? parece ser ótimo também! Mwahahaha!";
+				close;
+			break;
+		}
+	}
+		else if (god_eremes > 18 && god_eremes < 21)
+	{
+			if (god_megin_6 == 0 && god_megin_5 > 4 && god_megin_4 > 1 && god_megin_3 > 1 && god_megin_2 > 3 && god_megin_1 > 2)
+		{
+			show "[Royal Myst]";
+			show "O que...?";
+			show "Você quer conversar?";
+			next;
+			show "[Royal Myst]";
+		        show "O que eu sou, seu psiquiatra pessoal?! deixe me sozinho,";
+		        show "estou ocupado aqui! Certo, agora";
+		        show "em qual eu aposto...?";
+			next;
+		}
+			else if(god_megin_6 > 0)
+		{
+			show "[Royal Myst]";
+			show "Hum?";
+			show "O que foi?";
+			next;
+		}
+			else
+		{
+			show "[Royal Myst]";
+			show "O que...?";
+			show "Você quer conversar?";
+			next;
+			show "[Royal Myst]";
+		        show "O que eu sou, seu psiquiatra pessoal?! deixe me sozinho,";
+		        show "estou ocupado aqui! Certo, agora";
+		        show "em qual eu aposto...?";
+			close;
+		}
+			if (god_megin_6 < 16)
+		{
+				switch( select("Fale de Rebarev Doug.", "Fale do 3° esquadrão.", "Fale sobre jogar.", "Discutir passa tempos.") )
+			{
+				case 1:
+						if (god_megin_6 == 0)
+					{
+						show "[Royal Myst]";
+						show "Huh? O que aquele velho genzo quer dessa vez? Diga a ele que estou bem, até mesmo dandy! Por que ele continua mandando pessoas...";
+						set god_megin_6,1;
+						close;
+					}
+						else if (god_megin_6 > 0 && god_megin_6 < 15)
+					{
+						show "[Royal Myst]";
+						show "Que inferno!? Pare de fala sobre ele! Eu nunca mais quero ver a cara dele denovo! Diga a ele para me deixar em paz!";
+						close;
+					}
+						else if (god_megin_6 > 14)
+					{
+						show "[Royal Myst]";
+						show "Droga desse genzo...";
+						show "Quanto ele está pagando para estudar o que nós todos encontramos?! Eh, de alguma maneira, eu não me importo";
+						show "desde que ele me pague...";
+						next;
+						show "[Royal Myst]";
+						show "Sim...";
+						show "Eu só não";
+						show "me importo mais.";
+						close;
+					}
+				break;
+				case 2:
+						if (god_megin_6 < 15)
+					{
+						show "[Royal Myst]";
+						show "3° esquadrão? Sim, eu era dele. Todos nós do esquadrão eramos bons soldados também.";
+						next;
+						show "[Royal Myst]";
+						show "Zan.Huadoku, Cuaque Donon,";
+						show "Jack O, Emma Searth e The Nineball. Sim... eu desejo saber onde todos eles estão?";
+						close;
+					}
+						else if (god_megin_6 > 14)
+					{
+						show "[Royal Myst]";
+						show "3° esquadrão?";
+						show "Não conheço, não importa~";
+						show "Eu pareco com um Templário estúpido?";
+						close;
+					}
+					else
+				break;
+				case 3:
+						if (god_megin_6 < 15)
+					{
+						show "[Royal Myst]";
+						show "Jogar? ! Oh rapaz...";
+						show "Eu amo jogar, sabe!";
+						show "Hehe, mas eu não tenho tido sorte o bastante para ganhar ainda. Hahaha~!";
+						close;
+					}
+						else if (god_megin_6 > 14)
+					{
+						show "[Royal Myst]";
+						show "Jogar...!";
+						show "Hehe hehe! alguns riscos que você toma,";
+						show "e os outros realmente não deveria.";
+						show "Eu não posso ajudar mas me sinto arrependido pelo sujeito, E--";
+						next;
+						show "[Royal Myst]";
+						show "Ergh...?";
+						show "Droga, eu não posso nunca lembrar o nome dele.Você pensaria que eu não esqueceria do sujeito cujo piparote que eu estou levando, mas... Eh, eu só me lembro quando estou sobreo.";
+						next;
+						show "[Royal Myst]";
+						show "Ei, O que você acha que acontece com os Templários quando eles são moldados e mortos, huh? Onde exatamente eles vão? Niflheim, Vahalla...?";
+						set god_eremes,20;
+						close;
+					}
+				break;
+				case 4:
+						if (god_megin_6 == 0)
+					{
+				                show "Passa tempos?";
+				                show "O que, você veio";
+				                show "até mim?";
+				                next;
+				                show "[Royal Myst]";
+				                show "O passa tempo de um homem é beber, ou você não sabia disso? parece ser ótimo também! Mwahahaha!";
+						close;
+					}
+						else if (god_megin_6 > 0 && god_megin_6 < 15)
+					{
+							if (countitem(970) > 0)
+						{
+							show "[Royal Myst]";
+							show "Falando nisso,";
+							show "eu não tenho tomado uma bebida";
+							show "por muito tempo. Quase";
+							show "umas horas agora.";
+							next;
+							show "[Royal Myst]";
+							show "Oooh, parece que você têm uma bebida gostosa que eu posso desfrutar. Bwahahaha! Gimmie~!";
+							next;
+							show "^3355FFAntes que você pudesse pensar,";
+							show "Royal Myst colocou sua mão em seu inventário e se ajudou a pegar um álcool.^000000";
+							delitem 970,1;
+							set god_megin_6,god_megin_6 +2;
+							close;
+						}
+							else
+						{
+							show "[Royal Myst]";
+							show "Por que menciona isto? Você veio me trazer uma coisa que eu gosto? Pois eu sou mais que isso e disposto a pegá-lo! Bwahahaha!";
+							close;
+						}
+					}
+						else if (god_megin_6 > 14)
+					{
+						show "[Royal Myst]";
+						show "^333333*Soluço*^000000 Oh sim, este é o material. Não como as imitações que eles servem nos bares hoje em dia...";
+						next;
+						show "[Royal Myst]";
+						show "Ei! Há algo que você queira";
+						show "saber sobre mim? Você me fez um favor, então eu te contarei qualquer coisa! Tuuuuudooooooo~~!!";
+						close;
+					}
+				break;
+			}
+		}
+	}
+		else
+	{
+		show "[Royal Myst]";
+		show "Eh hehe hehe~";
+		show "Eu só sei que";
+		show "vou ganhar";
+		show "desta vez!";
+		close;
+	}
+}
+	else
+{
+	show "[Royal Myst]";
+	show "O que...?";
+	show "Você quer conversar?";
+	next;
+	show "[Royal Myst]";
+	show "O que eu sou, seu psiquiatra pessoal?! deixe me sozinho,";
+	show "estou ocupado aqui! Certo, agora";
+	show "em qual aposto...?";
+	close;
+}
+
+}
+
+jawaii_in,44,110,0	script	Segurança#megin	734,{
+
+	if ($God1 > 49 && $God2 < 100)
+{
+		if (god_eremes == 18)
+	{
+		show "[The Nineball]";
+		show "Bem vindo a Jawaii,";
+		show "a estância do paraíso!";
+		next;
+		show "[The Nineball]";
+		show "Eu sou o 'The Nineball', o segurança de Jawaii! se você se encontra em algum problema, ou encontrar alguns solteiros, por favor não hesite em me relatar assim que puder~";
+		next;
+		show "[The Nineball]";
+		show "Eu fui avisado que há";
+		show "muitos bêbados incontroláveis aqui ultimamente, mas é de nosso melhor interesse fazer de sua experiência aqui mais agradável possível.";
+		close;
+	}
+		else if (god_eremes > 18)
+	{
+			if (god_megin_5 < 5)
+		{
+			show "[The Nineball]";
+			show "Bem vindo a Jawaii,";
+			show "a estância do paraíso!";
+			next;
+			show "[The Nineball]";
+			show "Eu sou o 'The Nineball', o segurança de Jawaii! se você se encontra em algum problema, ou encontrar alguns solteiros, por favor não hesite em me relatar assim que puder~";
+			next;
+			show "[The Nineball]";
+			show "Eu fui avisado que há";
+			show "muitos bêbados incontroláveis aqui ultimamente, mas é de nosso melhor interesse fazer de sua experiência aqui mais agradável possível.";
+			set god_megin_5,god_megin_5 +1;
+			close;
+		}
+			else if (god_megin_5 == 5)
+		{
+			show "^3355FFEle agiu muito prestatível e amigável, mas por um momento passageiro, você pôde olhar brevemente um pouco de tristeza nos olhos dele.^000000";
+			next;
+			show "^3355FFNão parece que";
+			show "você será capaz de conseguir";
+			show "que ele fale o que aconteceu";
+			show "exatamente com o 3° esquadrão...^000000";
+			close;
+		}
+	}
+}
+	else
+{
+	show "[The Nineball]";
+	show "Bem vindo a Jawaii,";
+	show "a estância do paraíso!";
+	next;
+	show "[The Nineball]";
+	show "Eu sou o 'The Nineball', o segurança de Jawaii! se você se encontra em algum problema, ou encontrar alguns solteiros, por favor não hesite em me relatar assim que puder~";
+	next;
+	show "[The Nineball]";
+	show "Eu fui avisado que há";
+	show "muitos bêbados incontroláveis aqui ultimamente, mas é de nosso melhor interesse fazer de sua experiência aqui mais agradável possível.";
+	close;
+}
+
+}
+
+niflheim,109,254,0	script	Egnigem	796,{
+
+	if ($God1 > 49 && $God2 < 100)
+{
+		if (god_eremes > 19 && god_eremes < 25)
+	{
+			if (god_eremes > 22)
+		{
+			show "[Egnigem]";
+			show "Por que você retornou";
+			show "para este lugar solitário da escuridão?";
+			next;
+			show "[Egnigem]";
+			show "Por favor volte para o mundo";
+			show "dos vivos. Aqui é para ser sofredor, é a natureza de Nifflheim.";
+			close;
+		}
+			else
+		{
+			show "[Egnigem]";
+			show "Saudações...";
+			show ""+ strcharinfo(0) +".";
+			show "Eu estive observando você";
+			show "no mundo dos vivos. Vejo que você esteve ocupado procurando pela verdade sobre o 3° esquadrão, não é?";
+			next;
+			show "[Egnigem]";
+			show "Eu posso te dar as respostas. Depis de tudo, eu sou o único membro do 3° esquadrão que retenho tudo das minhas memórias...";
+			next;
+			show "[Egnigem]";
+			show "Hehe hehe...";
+			show "Deixe me te contar tudo";
+			show "sobre o 3° esquadrão";
+			show "que foi esquecido...";
+			L_Menu:
+			next;
+				switch( select( "A missão", "O destino do 3° esquadrão", "Por que você está em Nifflheim?", "Obrigado, eu tive o bastante." ) )
+			{
+					case 1:
+						show "[Egnigem]";
+						show "Primeiro de tudo, o registro oficial de nossa missão está enganado.";
+						show "Contém algumas verdades, baseadas";
+						show "em evidencias verbais, mas o mais importante detalhe foi deixado de fora ou mudado.";
+						next;
+						show "[Egnigem]";
+						show "Agora, nós fomos secretamente designados";
+						show "a encontrar ^0000FFos artefatos divinos^000000 pelo decreto real. Em apenas três dias, nós concluimos e encontramos a Megingjard!";
+						next;
+						show "[Egnigem]";
+						show "Agora, o registro dizia que a missão foi insatisfatória, correto? Isso foi por causa de mim.";
+						next;
+						show "[Egnigem]";
+						show "Você está ciente que a Megingjard";
+						show "era um cinto usado pelos deuses? Era atualmente uma das chaves da grande força de Thor. Outro nome para isso é o 'Cinto da Força.'";
+						next;
+						show "[Egnigem]";
+						show "Agora, se um humano estiver usando";
+						show "isso, há uma possibilidade que a Megingjard dará a ele  uma força comparada com a de um deus. Naturalmente, você ficaria com medo se uma coisa dessa caisse em mãos erradas.";
+						next;
+						show "[Egnigem]";
+						show "No pensamento de Rebarev Doug, ele";
+						show "era a única pessoa que poderia usar o cinto desde que ele se considerou a mais religiosa pessoa viva, com isso, perto dos deuses.";
+						next;
+						show "[Egnigem]";
+						show "ele fez isso ficar bem claro para nós que ele usaria a Megingjard. Embora que ele fosse nosso líder, alguns de nós sentíamos intranqüilo sobre ele usando o cinto e não dando isto aos superiores dele, que era nosso objetivo da missão.";
+						next;
+						show "[Egnigem]";
+						show "Naturalmente, Fui contra ele. Ele estava claramente descontrolado, e seria perigoso dá a ele o controle de tanto poder. Conduziu a uma briga de punho entre nós.";
+						next;
+						show "[Egnigem]";
+						show "O resto do esquadrão não poderia";
+						show "aceitar se ou não obedeceriamos nosso líder e deixaria ele ter o cinto. Alguns só queria completar a missão, enquanto outros estavam com medo do que poderia acontecer.";
+						next;
+						show "[Egnigem]";
+						show "Mas Rebarev não esperou que nós decidicimos. Ele destroiu a Megingjard em pedaços, com a intenção de mais futuramente reconstrui-lo, e só levou um pedaço para o Exército de Prontera.";
+						next;
+						show "[Egnigem]";
+						show "Ele sabia que ele não poderia conseguir";
+						show "se safar mantendo todos os pedaços da Megingjard para ele, como se o esquadrão fosse fácil de acreditar nele.";
+						next;
+						show "[Egnigem]";
+						show "Mas Rebarev sabia";
+						show "que ele poderia convencer seus";
+						show "superiores apenas dando a eles um fragmento do artefato, e diria que o resto foi destroido.";
+						next;
+						show "[Egnigem]";
+						show "Eu descobri sua intenção quando";
+						show "eu encontrei ele levando uma parte da Megingjard. Antes que eu pudesse parar ele,";
+						show "eu fui morto. Aquele desgraçado tinha";
+						show "uma armadilha pronta para mim...";
+						next;
+						show "[Egnigem]";
+						show "Após a missão, Rebarev Doug apenas deu um pedaço do cinto de volta para seus superiores, e deu a eles";
+						show "uma história diferente do que tinha realmente acontecido...";
+						goto L_Menu;
+					break;
+					case 2:
+						show "[Egnigem]";
+						show "Depois que a missão estava completada, Rebarev Doug relatou de volta para o Exército de Prontera com intenção de manter mais da Megingjard para si próprios.";
+						next;
+						show "[Egnigem]";
+						show "Por alguma razão, ele era uma força influente na hierarquia do exército. Agora, por esse tempo, tenho certeza que o esquadrão deduziu que foi ele que me matou.";
+						next;
+						show "[Egnigem]";
+						show "Mas Rebarev Doug esperava isso, e explicou para seus superiores que o esquadrão foi tentado pela força da Megingjard e deixou vários deles contra ele.";
+						next;
+						show "[Egnigem]";
+						show "Ele contou a seus superiores que a Megingjard foi danificada assim que nós";
+						show "lutamos ente si, e que aquele fragmento que ele deu foi tudo o que sobrou.";
+						next;
+						show "[Egnigem]";
+						show "Por causa de uma natureza confidencial de nossa missão, o 3° esquadrão foi licenciado e nós não demos a história de Rebarev alimentou os burocratas até que já era tarde demais."; //beaureaucrats
+						next;
+						show "[Egnigem]";
+						show "O esquadrão foi púnido";
+						show "e foi enviado para o retreinamento disciplinar por três meses. Durante este tempo, memórias específicas foram inaturalmente apagadas dos membros do esquadrão.";
+						next;
+						show "[Egnigem]";
+						show "E no final, todos foram transferidos para outros esquadrões e posições. Meu nome foi removido de todos os registros desde que ouviram ou leram meu nome poderia desfaçar a lavagem cerebral.";
+						next;
+						show "[Egnigem]";
+						show "Porém, eles ainda precisam de um bode espiatório oficial, então eles usaram o nome de Royal Myst nos registros. Que é uma probabilidade do porque que ele está passando por tempos ruins agora mesmo.";
+						next;
+						show "[Egnigem]";
+						show "E agora Rebarev Doug teve estudo os artefatos divinos baseado nos pedaços Megingjard que nós encontramos naquela missão usando os recursos da pesquisa do reino. Algum dia, ele deve ser capaz de reconstruir o cinto.";
+						next;
+						show "[Egnigem]";
+						show "Há também";
+						show "algumas perguntas que";
+						show "eu nunca fui capaz";
+						show "de responder.";
+						next;
+						show "[Egnigem]";
+						show "Eu nunca soube o porque do Rei Tristram III ordenou a pesquisa dos artefatos divinos. Isso me aborrece que Rebarev Doug está no cargo de pesquisar a Megingjard. Há alguma razão.";
+						next;
+						show "[Egnigem]";
+						show "Em algum caso, por causa de Rune-Midgard, seria sua responsabilidade encontrar as respostas.";
+						next;
+						show "[Egnigem]";
+						show "Não há muito para um homem morto";
+						show "possa fazer. Mas o que é pior mesmo é não ser lembrado nunca mais. Eu morri sozinho e ainda estou sozinho neste lugar para os mortos.";
+						goto L_Menu;
+					break;
+					case 3:
+						show "[Egnigem]";
+						show "A pior parte do esquadrão";
+						show "teve suas memórias apagadas é isso que";
+						show "Emma Searth tem absolutamente";
+						show "nenhuma lembrança de mim.";
+						next;
+						show "[Egnigem]";
+						show "Você se importa de me ouvir";
+						show "um pouco? Você é";
+						show "a única pessoa que com quem";
+						show "eu posso conversar sobre isso...";
+						next;
+						show "[Egnigem]";
+						show "Daqui, Eu tenho visto que Emma";
+						show "está seguindo seu sonho novamente, e";
+						show "estou feliz por ela. Mas ainda";
+						show "não é fácil, saber que a mulher que você ama";
+						show "teve te esquecido totalmente.";
+						next;
+						show "[Egnigem]";
+						show "eu me lembro da primeira vez que a encontrei. Eu acho que foi amor a primeira vista. Mas eu era muito covarde para confessar meu amor, então eu me desesperei quando ela se uniu aos Templários.";
+						next;
+						show "[Egnigem]";
+						show "Isso me levou por enquanto, mas eu me decidi e me alistei para ser um Templário.";
+						show "Eu queria ficar o mais perto dela possível.";
+						next;
+						show "[Egnigem]";
+						show "Agora, após todas as nossas aventuras e tempos ótimos juntos, eu estava no pior cenário possível.";
+						next;
+						show "[Egnigem]";
+						show "Estou morto...";
+						show "Mas eu nem mesmo tenho a consolação dela";
+						show "ou se está lamentando minha morte.";
+						next;
+						show "[Egnigem]";
+						show "Eu acho que é por isso que estou aqui";
+						show "em Nifflheim. Eu não posso ir para o paraiso, Valhalla ou qualquer outro lugar sem ela.";
+						next;
+						show "[Egnigem]";
+						show "De qualquer maneira, vá e visite o Quartel General dos Templários. Você pode ser capaz de aprender mais sobre Rebarev Doug e parar algumas novas sombras do que ele pode estar cospirando. Boa sorte, meu amigo.";
+						goto L_Menu;
+					break;
+					case 4:
+						show "[Egnigem]";
+						show "Obrigado por";
+						show "me ouvir~...";
+						if (god_eremes == 21) set god_eremes,23;
+						else if(god_eremes == 22) set god_eremes,24;
+						close;
+					break;
+				}
+		}
+	}
+		else if (god_eremes == 25)
+	{
+		show "[Egnigem]";
+		show "Ouça...";
+		show "Eu vou saturar você com os ^FF0000últimos vestigios da minha força^000000...";
+		next;
+		show "[Egnigem]";
+		show "Isto é tudo que eu posso fazer por você em gratidão...";
+		set god_eremes,27;
+		if (BaseLevel < 56)
+			getexp 27000,0;
+		else if (BaseLevel > 55 && BaseLevel < 61)
+			getexp 30000,0;
+		else if (BaseLevel > 60 && BaseLevel < 66)
+			getexp 56052,0;
+		else if (BaseLevel > 65 && BaseLevel < 71)
+			getexp 82233,0;
+		else if (BaseLevel > 70 && BaseLevel < 76)
+			getexp 212271,0;
+		else if (BaseLevel > 75 && BaseLevel < 81)
+			getexp 390738,0;
+		else if (BaseLevel > 80 && BaseLevel < 86)
+			getexp 451020,0;
+		else if (BaseLevel > 85 && BaseLevel < 91)
+			getexp 546156,0;
+		else if (BaseLevel > 90)
+			getexp 1220358,0;
+		close;
+	}
+		else if (god_eremes == 26)
+	{
+		show "[Egnigem]";
+		show "Como um Templário...";
+		show "Está é a melhor coisa";
+		show "que eu posso fazer em retribuição pelo";
+		show "que você fez por mim.";
+		next;
+		show "[Egnigem]";
+		show "Ouça...";
+		show "Eu vou saturar";
+		show "você com os";
+		show "^666666últimos vestigios da minha força^000000...";
+		specialeffect EF_BEGINSPELL5;
+		specialeffect2 EF_HOLYHIT;
+		next;
+		show "[Egnigem]";
+		show "Pode ser que o paraiso";
+		show "me respondar seu chamar pela";
+		show "luz da jústica que autoriza os defensores da verdade, e ameaça os inimigos da paz.";
+		specialeffect EF_BEGINSPELL6;
+		specialeffect2 EF_HOLYHIT;
+		next;
+		show "[Egnigem]";
+		show "Pode ser que você sempre brilhe com";
+		show "a luz da verdade. Deixe a luz em você erradicar as sombras";
+		show "da decepção, medo e malícia.";
+		specialeffect EF_BEGINSPELL6;
+		specialeffect2 EF_HOLYHIT;
+		next;
+		show "[Egnigem]";
+		show "Pela força divina";
+		show "investida em mim, eu passo minha força que resta para você. Lute honradamente, e não perca o sinal de retidão.";
+		specialeffect EF_LOCKON;
+		specialeffect2 EF_HOLYCROSS;
+		set god_eremes,27;
+		if (BaseLevel < 56)
+			getexp 27000,0;
+		else if (BaseLevel > 55 && BaseLevel < 61)
+			getexp 30000,0;
+		else if (BaseLevel > 60 && BaseLevel < 66)
+			getexp 56052,0;
+		else if (BaseLevel > 65 && BaseLevel < 71)
+			getexp 82233,0;
+		else if (BaseLevel > 70 && BaseLevel < 76)
+			getexp 212271,0;
+		else if (BaseLevel > 75 && BaseLevel < 81)
+			getexp 390738,0;
+		else if (BaseLevel > 80 && BaseLevel < 86)
+			getexp 451020,0;
+		else if (BaseLevel > 85 && BaseLevel < 91)
+			getexp 546156,0;
+		else if (BaseLevel > 90)
+			getexp 1220358,0;
+		close;
+	}
+		else if (god_eremes < 20)
+	{
+		show "[Egnigem]";
+		show "Você foi traído pelo destino, ou você simplesmente é um viajante que está perdido nesta terra de escuridão?";
+		next;
+		show "[Egnigem]";
+		show "Hum, os vivos não merece";
+		show "estar neste reino frio e triste. Mas eu só posso te ajudar a escapar falando";
+		show "o pouco que eu sei.";
+		next;
+			switch( select( "Pergunta a ele sobre as construções.", "Remover os pontos no mini-mapa.", "Cancelar." ) )
+		{
+			case 1:
+				show "[Egnigem]";
+				show "Eu entendo. Se você entender bem o plano de Niflheim, você tera uma grande chance de sobreviver e de escapar.";
+				next;
+					switch( select( "Castelo da Bruxa", "Casa de Utilidades", "Casa de Armas", "Taverna", "Cancelar" ) )
+				{
+					case 1:
+						show "[Egnigem]";
+						show "A bruxa de Nifflheim...";
+						show "Você encontrar o castelo dela no ^FF3355+^000000 ponto que eu farei no seu mini-mapa.";
+						next;
+						show "[Egnigem]";
+						show "Hrrrm...";
+						show "Parece que os vivos que arejam em Nifflheim estão buscando a bruxa. Mas eu não entendo o que é tão importante sobre ela.";
+						viewpoint 1,253,191,2,0xFFFF33;
+					break;
+					case 2:
+						show "[Egnigem]";
+						show "A casa de Utilidades? Aqui em Nifflheim, eles vendem alguns items sem igual";
+						show "que você não pode comprar em qualquer lugar.";
+						next;
+						show "[Egnigem]";
+						show "Você precisa ver suas";
+						show "mercadorias por si próprio. Eu farei";
+						show "um ^CE6300+^000000 em seu mini-mapa para";
+						show "marcar o local.";
+						viewpoint 1,217,196,3,0xFFCE63;
+					break;
+					case 3:
+						show "[Egnigem]";
+						show "Eu marquei o local da Casa de Armas com ^55FF33+^000000. Não há nada de muito especial lá, certo.";
+						viewpoint 1,216,171,4,0xFF55FF;
+					break;
+					case 4:
+						show "[Egnigem]";
+						show "A Taverna está no ^3355FF+^000000. Eles só vendem bebidas para os mortos, entendeu...";
+						viewpoint 1,189,207,5,0xFF3355;
+					break;
+					case 5:
+						show "[Egnigem]";
+						show "Escolher 'Remover marcações no mini-mapa' do meno para remover todas os locais das construções que eu fiz.";
+						close;
+					break;
+				}
+				close;
+			break;
+			case 2:
+				viewpoint 2,253,191,2,0xFF00FF;
+				viewpoint 2,217,196,3,0xFF00FF;
+				viewpoint 2,216,171,4,0xFF00FF;
+				viewpoint 2,189,207,5,0xFF00FF;
+				show "[Egnigem]";
+				show "Tudo bem, todas as marcações que eu fiz foram removidas do seu mini-mapa. Se você quer checar os locais em Nifflheim novamente, vá em frente e me pergunte.";
+				close;
+			break;
+			case 3:
+				show "[Egnigem]";
+				show "Você vai explorar esse lugar por si próprio? Muito valente, não é? Apenas tome cuidado: aqui em Nifflheim, a escuridão reina suprema.";
+				close;
+			break;
+		}
+	}
+		else
+	{
+		show "[Egnigem]";
+		show "eu realmente desejaria";
+		show "que Emma Searth possa";
+		show "lembrar de mim...";
+		next;
+		show "^3355FFOs olhos dele parecem";
+		show "umidecidos com a tristeza.";
+		show "É realmente possível que os";
+		show "mortos possam deramar lágrimas?^000000";
+		close;
+	}
+}
+	else
+{
+	show "[Egnigem]";
+	show "Você foi traído pelo destino, ou você simplesmente é um viajante que está perdido nesta terra de escuridão?";
+	next;
+	show "[Egnigem]";
+	show "Hum, os vivos não merece";
+	show "estar neste reino frio e triste. Mas eu só posso te ajudar a escapar falando";
+	show "o pouco que eu sei";
+	next;
+		switch( select( "Perguntar sobre as construções.", "Remover as marcações no mini-mapa.", "Cancelar." ) )
+	{
+		case 1:
+			show "[Egnigem]";
+			show "...Eu entendo. Agora, deixe me te apresentar todas as construções em Nifflheim!";
+			next;
+					switch( select( "Castelo da Bruxa", "Casa de Utilidades", "Casa de Armas", "Taverna", "Cancelar" ) )
+				{
+					case 1:
+						show "[Egnigem]";
+						show "A bruxa de Nifflheim...";
+						show "Você encontrar o castelo dela no ^FF3355+^000000 ponto que eu farei no seu mini-mapa.";
+						next;
+						show "[Egnigem]";
+						show "Hrrrm...";
+						show "Parece que os vivos que arejam em Nifflheim estão buscando a bruxa. Mas eu não entendo o que é tão importante sobre ela.";
+						viewpoint 1,253,191,2,0xFFFF33;
+					break;
+					case 2:
+						show "[Egnigem]";
+						show "A casa de Utilidades? Aqui em Nifflheim, eles vendem alguns items sem igual";
+						show "que você não pode comprar em qualquer lugar.";
+						next;
+						show "[Egnigem]";
+						show "Você precisa ver suas";
+						show "mercadorias por si próprio. Eu farei";
+						show "um ^CE6300+^000000 em seu mini-mapa para";
+						show "marcar o local.";
+						viewpoint 1,217,196,3,0xFFCE63;
+					break;
+					case 3:
+						show "[Egnigem]";
+						show "Eu marquei o local da Casa de Armas com ^55FF33+^000000. Não há nada de muito especial lá, certo.";
+						viewpoint 1,216,171,4,0xFF55FF;
+					break;
+					case 4:
+						show "[Egnigem]";
+						show "A Taverna está no ^3355FF+^000000. Eles só vendem bebidas para os mortos, entendeu...";
+						viewpoint 1,189,207,5,0xFF3355;
+					break;
+					case 5:
+						show "[Egnigem]";
+						show "Escolher 'Remover marcações no mini-mapa' do meno para remover todas os locais das construções que eu fiz.";
+						close;
+					break;
+				}
+				close;
+			break;
+			case 2:
+				viewpoint 2,253,191,6,0xFF00FF;
+				viewpoint 2,217,196,7,0xFF00FF;
+				viewpoint 2,216,171,8,0xFF00FF;
+				viewpoint 2,189,207,9,0xFF00FF;
+				show "[Egnigem]";
+				show "Tudo bem, todas as marcações que eu fiz foram removidas do seu mini-mapa. Se você quer checar os locais em Nifflheim novamente, vá em frente e me pergunte.";
+				close;
+		break;
+		case 3:
+			show "[Egnigem]";
+				show "Você vai explorar esse lugar por si próprio? Muito valente, não é? Apenas tome cuidado: aqui em Nifflheim, a escuridão reina suprema.";
+			close;
+		break;
+	}
+	close;
+}
+
+}

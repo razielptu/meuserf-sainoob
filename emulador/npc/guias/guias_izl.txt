@@ -1,0 +1,122 @@
+//===== Cronus Script ========================================
+//= Guias da Cidade de Izlude
+//===== Por: =================================================
+//= SoulBlaker
+//===== Versão Atual: ========================================
+//= 1.0
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Guias da Cidade de Izlude
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==============================
+//= 1.0 Iniciado o Npc. [SoulBlaker]
+//============================================================
+izlude,121,87,6	script	Guia#izlude	105,{
+	show "[Guia de Izlude]";
+	show "Bem-vindo a Izulde, a";
+	show "cidade-satelite de Prontera.";
+	show "Nós estamos aqui para ajudar os";
+	show "visitantes da cidade. Se você tem";
+	show "alguma dúvida, consulte-nos.";
+	next;
+	set .@loop1,1;
+	while(.@loop1) {
+		switch(select("Indicações:Limpar Indicações:Tutorial:Cancelar.")){
+			case 1:
+				show "[Guia de Izlude]";
+				show "Por favor, selecione uma das opções.";
+				if (.@compass_check == 0) {
+					show "Você gostaria que as indicações";
+					show "permaceçam no mini-mapa?";
+					next;
+					if(select("Sim.:Não.")==1) set .@compass_check,1;
+				}
+				next;
+				set .@loop2,2;
+				while(.@loop2) {
+					switch(select("^FF0000Associação dos Espadachins^000000:Sede dos Espadachins:Arena:Porto de Izlude:Loja de Armas:Loja de Ferramentas:Cancelar")){
+						case 1:
+							show "[Guia de Izlude]";
+							show "A Associação se encontra na ilhinha do extremo oeste.";
+							if (.@compass_check)
+								viewpoint 1,52,140,0,0xFF0000;
+							break;
+						case 2:
+							show "[Guia de Izlude]";
+							show "A Sede se encontra na ilinha do extremo leste.";
+							if (.@compass_check)
+								viewpoint 1,214,130,1,0x00FF00;
+							break;
+						case 3:
+							show "[Guia de Izlude]";
+							show "A Arena se encontra no extremo norte de Izlude.";
+							show "Porém ela ainda não está funcionando.";
+							if (.@compass_check)
+								viewpoint 1,128,225,2,0x00FF00;
+							break;
+						case 4:
+							show "[Guia de Izlude]";
+							show "Do Porto é possível ir até Alberta";
+							show "ou a ilha Byalan, nosso calabouço. Ela se localiza ao nordeste.";
+							if (.@compass_check)
+								viewpoint 1,200,180,3,0xFF0000;
+							break;
+						case 5:
+							show "[Guia de Izlude]";
+							show "A Loja de Armas se encontra ao noroeste do centro da cidade.";
+							if (.@compass_check)
+								viewpoint 1,111,149,4,0xFF00FF;
+							break;
+						case 6:
+							show "[Guia de Izlude]";
+							show "A Loja de Ferramentas se encontra ao nordeste do centro da cidade.";
+							if (.@compass_check)
+								viewpoint 1,148,148,5,0xFF00FF;
+							break;
+						case 7:
+							show "[Guia de Izlude]";
+							show "Se você deseja apagar as indicações";
+							show "do seu mini-mapa, por favor";
+							show "selecione 'Limpar indicações'.";
+							set .@loop2,0;
+							break;
+					}
+					next;
+				}
+				break;
+			case 2:
+				viewpoint 2,237,41,0,0x00FF00;
+				viewpoint 2,237,41,1,0x0000FF;
+				viewpoint 2,46,345,2,0x00FF00;
+				viewpoint 2,175,220,3,0xFF0000;
+				viewpoint 2,134,221,4,0xFF0000;
+				viewpoint 2,204,214,5,0xFF0000;
+				set .@compass_check,0;
+				next;
+				break;
+			case 3:
+				show "[Guia de Izlude]";
+				show "Nós fomos exaustivamente treinados";
+				show "para servi-lo da melhor maneira";
+				show "possivel e sem falhas.";
+				show "Assim você tem a garantia das";
+				show "melhores indicações possiveis.";
+				next;
+				show "[Guia de Izlude]";
+				show "As indicações que lhe daremos podem";
+				show "ser marcadas no seu mini-mapa.";
+				show "Paa visualizar o seu mini-mapa,";
+				show "aperte 'ctrl+tab', ou clique no";
+				show "botão 'mapa' no menu principal.";
+				show "Controle o seu 'zoom' no mini-mapa";
+				show "por meio dos símbolos '+' e '-'.";
+				next;
+				break;
+			case 4:
+				set .@loop1,0;
+				break;
+		}
+	}
+	close;
+}

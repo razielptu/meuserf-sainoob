@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/cronusemulator/!svn/ver/3163/Server/trunk/sql-files/upgrades
+END
+svn2623.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2623/Server/trunk/sql-files/upgrades/svn2623.sql
+END
+svn2164.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn2164.sql
+END
+svn1156.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn1156.sql
+END
+svn2462.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2462/Server/trunk/sql-files/upgrades/svn2462.sql
+END
+svn2742.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2742/Server/trunk/sql-files/upgrades/svn2742.sql
+END
+svn1735.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn1735.sql
+END
+svn2736.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2739/Server/trunk/sql-files/upgrades/svn2736.sql
+END
+svn1449.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn1449.sql
+END
+svn2809.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2809/Server/trunk/sql-files/upgrades/svn2809.sql
+END
+svn1757.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn1757.sql
+END
+svn2685.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2685/Server/trunk/sql-files/upgrades/svn2685.sql
+END
+svn1956.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/3150/Server/trunk/sql-files/upgrades/svn1956.sql
+END
+svn2775.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2776/Server/trunk/sql-files/upgrades/svn2775.sql
+END
+svn2794.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2794/Server/trunk/sql-files/upgrades/svn2794.sql
+END
+svn2876.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2876/Server/trunk/sql-files/upgrades/svn2876.sql
+END
+svn2415_inventory.sql
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn2415_inventory.sql
+END
+svn2181_mercenary_owner.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn2181_mercenary_owner.sql
+END
+svn815.sql
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn815.sql
+END
+svn914.sql
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn914.sql
+END
+svn2181_login.sql
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn2181_login.sql
+END
+svn1944Auction.sql
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn1944Auction.sql
+END
+svn948.sql
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn948.sql
+END
+svn2181_view.sql
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/cronusemulator/!svn/ver/2461/Server/trunk/sql-files/upgrades/svn2181_view.sql
+END
+svn3112.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/3163/Server/trunk/sql-files/upgrades/svn3112.sql
+END
+svn2600.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/cronusemulator/!svn/ver/2600/Server/trunk/sql-files/upgrades/svn2600.sql
+END
+svn2955_logs.sql
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/cronusemulator/!svn/ver/2955/Server/trunk/sql-files/upgrades/svn2955_logs.sql
+END

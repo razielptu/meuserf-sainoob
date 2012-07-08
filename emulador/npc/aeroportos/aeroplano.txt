@@ -1,0 +1,1334 @@
+//===== Cronus Script ========================================
+//= Script do Sistema do Aeroplano
+//===== Por: =================================================
+//= eAthena Dev Team
+//===== Versão Atual: ========================================
+//= 1.1g
+//===== Compatível com: ======================================
+//= Cronus SVN
+//===== Changelog: ===========================================
+//= 0.1 Added first version, it might be a little buggy [MasterOfMuppets]
+//= 0.1a Fixed the Airport Staff#Iz which was [MasterOfMuppets]
+//= 	 warping you to the same location as Airport Staff#Ein
+//= 0.2 Implemented some more airship NPCs, more are to come.
+//= 0.3 Implemented some more NPCs [MasterOfMuppets]
+//= 0.4 Implemented two mini games scripted by Dj-Yhn [MasterOfMuppets]
+//= 0.5 Removed Duplicates [Silent]
+//= 0.5a Fixed a typo [Evera] 
+//= 0.5b Fixed appledice bugs [Lupus]
+//= 0.6 Added Rachel to the international route [Playtester]
+//= 0.7 Implemented Few Missings NPCs like (Pilot, Aanos, etc...).
+//=	Corrected Dialogs from some NPCs.
+//=	Added sistem to work with the "How Does the Airship Work" Quest [Samuray22]
+//= 0.8 Moved Gambling NPC Kaci since it's part of a quest. [SinSloth]
+//= 0.8b Fixed a Little Bug with the "How Does the Airship Work" Quest. [Samuray22]
+//= 0.9 Fixed a incorrect variable changed form "mob_inv" to "mobinv". [Samuray22]
+//= 0.9b Fixed a typo and bad variable use in the Typing Challenge [ultramage]
+//= 1.0 Fixed bad NPC header data to comply with rev. 11603. [L0ne_W0lf]
+//= 1.1 Touch-ups, and changed references of "Yuno" to "Juno",  [L0ne_W0lf]
+//= 1.1a Small fix to comparison check. [Paradox924X]
+//= 1.1b Small fix to zeny check. [Kisuka]
+//= 1.1c Realizada tradução [Pudim]
+//= 1.1d Revisão e atualização do script [Faicciruz/ Asus]
+//= 1.1e Trocado efeitos numéricos por nomes. [Lord]
+//= 1.1f Otimizado [Reply.]
+//= 1.1g Pequena correção na checagem dos zenys [Asus]
+//============================================================
+
+//============================================================
+//= Sistema de Aeroporto (Juno -> Hugel -> Einbroch -> Lighthalzen -> repetir)
+//============================================================
+
+airplane,243,74,4	script	#AirshipWarp-1	45,2,2,{
+OnTouch:
+	if($@airplanelocation == 1)warp "einbroch",90,275;
+	if($@airplanelocation == 2)warp "yuno",85,265;
+	if($@airplanelocation == 3)warp "lighthalzen",302,75;
+	if($@airplanelocation == 4)warp "hugel",182,150;
+	end;
+
+OnHide:
+	misceffect EF_BASH;
+	end;
+OnUnhide:
+	misceffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane,243,29,4	script	#AirshipWarp-2	45,2,2,{
+OnTouch:
+	if($@airplanelocation == 1)warp "einbroch",90,275;
+	if($@airplanelocation == 2)warp "yuno",85,265;
+	if($@airplanelocation == 3)warp "lighthalzen",302,75;
+	if($@airplanelocation == 4)warp "hugel",182,150;
+	end;
+
+OnHide:
+	misceffect EF_BASH;
+	end;
+OnUnhide:
+	misceffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane,1,1,0	script	EinYuno_Airship	-1,{
+OnInit:
+while(1)
+{
+	initnpctimer;
+	setnpctimer 0;
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	disablenpc "#AirshipWarp-1";
+	disablenpc "#AirshipWarp-2";
+	mapannounce "airplane","O Aeroplano está levantando vôo. Nosso próximo destino é Hugel.",1,0xBA55D3;
+	end;
+OnTimer15000:
+	mapannounce "airplane","Nós estamos a caminho de Hugel.",1,0xBA55D3;
+	end;
+OnTimer30000:
+	mapannounce "airplane","Vamos chegar à Hugel em breve.",1,0xBA55D3;
+	end;
+OnTimer45000:
+	set $@airplanelocation,4;
+	enablenpc "#AirshipWarp-1";
+	enablenpc "#AirshipWarp-2";
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";	
+	mapannounce "airplane","Bem vindos à Hugel. Desejamos um bom passeio a todos",1,0xBA55D3;
+	end;
+OnTimer55000:
+	mapannounce "airplane","Estamos em Hugel atualmente. O aeroplano levantará vôo em alguns minutos",1,0xBA55D3;
+	end;
+OnTimer65000:
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	disablenpc "#AirshipWarp-1";
+	disablenpc "#AirshipWarp-2";
+	mapannounce "airplane","O Aeroplano está levantando vôo. Nosso próximo destino é Einbroch.",1,0x00FF00;
+	end;
+OnTimer80000:
+	mapannounce "airplane","Nós estamos a caminho de Einbroch.",1,0x00FF00;
+	end;
+OnTimer95000:
+	mapannounce "airplane","Vamos chegar à Einbroch em breve.",1,0x00FF00;
+	end;
+OnTimer110000:
+	set $@airplanelocation,1;
+	enablenpc "#AirshipWarp-1";
+	enablenpc "#AirshipWarp-2";
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem vindos à Einbroch. Desejamos um bom passeio a todos.",1,0x00FF00;
+	end;
+OnTimer120000:
+	mapannounce "airplane","Estamos em Einbroch atualmente. O aeroplano levantará vôo em alguns minutos",1,0x00FF00;
+	end;
+OnTimer130000:
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	disablenpc "#AirshipWarp-1";
+	disablenpc "#AirshipWarp-2";
+	mapannounce "airplane","O Aeroplano está levantando vôo. Nosso próximo destino é Lighthalzen",1,0xFF8600;
+	end;
+OnTimer145000:
+	mapannounce "airplane","Nós estamos a caminho de Lighthalzen.",1,0xFF8600;
+	end;
+OnTimer160000:
+	mapannounce "airplane","Vamos chegar à Lighthalzen em breve.",1,0xFF8600;
+	end;
+OnTimer175000:
+	set $@airplanelocation,3;
+	enablenpc "#AirshipWarp-1";
+	enablenpc "#AirshipWarp-2";
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem vindos à Lighthalzen. Desejamos um bom passeio a todos.",1,0xFF8600;
+	end;
+OnTimer185000:
+	mapannounce "airplane","Estamos em Lighthalzen atualmente. O avião levantará vôo em alguns minutos.",1,0xFF8600;
+	end;
+OnTimer195000:
+	set $@airplanelocation,0;
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	disablenpc "#AirshipWarp-1";
+	disablenpc "#AirshipWarp-2";
+	mapannounce "airplane","O Aeroplano está levantando vôo. Nosso próximo destino é Juno.",1,0x70DBDB;
+	end;
+OnTimer210000:
+	mapannounce "airplane","Nós estamos a caminho de Juno.",1,0x70DBDB;
+	end;
+OnTimer225000:
+	mapannounce "airplane","Vamos chegar à Juno em breve.",1,0x70DBDB;
+	end;
+OnTimer240000:
+	set $@airplanelocation,2;
+	enablenpc "#AirshipWarp-1";
+	enablenpc "#AirshipWarp-2";
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem vindos à Juno. Desejamos um bom passeio a todos.",1,0x70DBDB;
+	end;
+OnTimer250000:
+	mapannounce "airplane","Estamos em Juno atualmente. O avião levantará vôo em alguns minutos.",1,0x70DBDB;
+	end;
+OnTimer260000:
+	stopnpctimer;
+}
+}
+
+//============================================================ 
+//= Outros NPCS normais (Aeroplano)
+//============================================================ 
+
+airplane,240,64,5	script	Saída#01::Exit2	857,{
+	end;
+}
+
+airplane,247,64,5	duplicate(Exit2)	Saída#02	857
+
+airplane,240,39,1	duplicate(Exit2)	Saída#03	857
+
+airplane,247,39,1	duplicate(Exit2)	Saída#04	857
+
+airplane,100,69,2	script	Tripulação#01::Airship Crew	852,{
+	show "[Tripulação]";
+	show "Se você chegou ao seu";
+	show "destino e gostaria de";
+	show "descer do avião, por";
+	show "favor use as escadas";
+	show "bem ali. Obrigado pela";
+	show "preferência.";
+	close;
+}
+
+airplane,250,59,3	script	Equipe::AirshipInfo	67,{
+	show "[Tripulação do Aeroplano]";
+	show "Bem vindo";
+	show "ao Aeroplano";
+	show "Como posso ajudá-lo?";
+	next;
+	switch(select("Usando o Aeroplano","Cabine do Capitão","Facilidades","Cancelar"))
+	{
+		case 1:
+			show "[Tripulação do Aeroplano]";
+			show "Quando você ver uma mensagem";
+			show "anunciando que nós";
+			show "chegamos ao seu destino";
+			show "por favor, use uma das saidas";
+			show "localizadas ao Norte";
+			show "e ao Sul do aeroplano.";
+			next;
+			show "[Tripulação do Aeroplano]";
+			show "Não se preocupe se por";
+			show "caso você perder seu ponto.";
+			show "O aeroplano está constantemente";
+			show "em rota e você terá";
+			show "outra chance de descer";
+			show "de descer em seu destino";
+			break;
+
+		case 2:
+			show "[Tripulação do Aeroplano]";
+			show "A cabine do Capitão";
+			show "está localilzada na parte frontal";
+			show "do Aeroplano. Lá você";
+			show "pode conhecer o capitão e";
+			show "o piloto.";
+			break;
+
+		case 3:
+			show "[Tripulação do Aeroplano]";
+			show "O avião dispõe de";
+			show "vários Mini Jogos para";
+			show "entretenimento de todos";
+			show "os nossos passageiros. Nós convidamos";
+			show "você para tentar sua sorte e suas habilidades";
+			show "em nossos Mini Jogos~";
+			break;
+		
+		case 4:
+			show "[Tripulação do Aeroplano]";
+			show "Bem, espero que você";
+			show "aprecie voar";
+			show "em nossos Aeroplanos.";
+			show "Obrigado e tenha um bom dia.";
+			break;
+	}
+	close;
+}
+
+airplane,50,66,4	script	Meltz::AirshipApples	86,{
+
+	show "[Meltz]";
+	show "Bem vindo a Loja do Meltz";
+	show "Onde você pode";
+	show "comprar Maçãs ou espremê-las";
+	show "para fazer Suco de Maçã";
+	switch(select("Comprar Maçãs","Fazer Suco de Maçã","Cancelar."))
+	{
+		case 1:
+			while(1)
+			{
+				next;
+				show "[Meltz]";
+				show "Por favor entre com a quantidade";
+				show "de maçãs que você quer";
+				show "comprar. Cada maça custa ^0000ff15z^000000";
+				show "e você pode comprar no maximo";
+				show "500 maças por vez. Entre com";
+				show "\"0\"cancelar sua compra";
+				digit @tempapple;
+				if(!@tempapple)
+				{
+					next;
+					show "[Meltz]";
+					show "Obrigado por parar em";
+					show "minha loja. Boa viagem!";
+					show "Volte sempre que";
+					show "você desejar comer";
+					show "uma maçãzinha~";
+					close;
+				}
+				if((@tempapple < 0) || (@tempapple > 500))
+				{
+					next;
+					show "[Meltz]";
+					show "Quantia inválida.";
+					show "Tente novamente ou digite";
+					show "\"0\"para cancelar sua compra";
+					next;
+					continue;
+				}
+				else
+					break;
+			}
+			next;
+			show "[Meltz]";
+			show "Um total de ^FF0000"+ @tempapple +"^000000 Maçãs.";
+			show "vão te custar ^FF0000"+ (@tempapple * 15) +"^000000 zeny.";
+			show "Deseja continuar?";
+			if(select("Sim","Não") == 1)
+			{
+				next;
+				if(zeny < (@tempapple * 15))
+				{
+					show "[Meltz]";
+					show "Desculpe mas parece que";
+					show "você não tem Zeny suficiente.";
+					show "Volte sempre quando";
+					show "Você quiser";
+					show "comer uma maçãnzinha~";
+					close;
+				}
+				show "[Meltz]";
+				show "Obrigado por parar em";
+				show "minha loja. Espero que você";
+				show "aprecie o sabor das Maçãs~";
+				additem 512,@tempapple;
+				set zeny,zeny - (@tempapple * 15);
+				close;
+			}
+			else
+			{
+				next;
+				show "[Meltz]";
+				show "Obrigado por parar em";
+				show "minha loja. Boa viagem!";
+				show "Volte sempre que";
+				show "você desejar comer";
+				show "uma maçãzinha~";
+				close;
+			}
+
+		case 2:
+			next;
+			show "[Meltz]";
+			show "Ok, vou precisar de";
+			show "^FF00003 Maçãs e 1 Garrafa Vazia^000000";
+			show "para fazer um Suco de Maçã.";
+			show "Gostaria de continuar?";
+			if(select("Sim","Não") == 1)
+			{
+				if(countitem(512) < 3 || !countitem(713))
+				{
+					next;
+					show "[Meltz]";
+					show "Sinto muito, mas você não";
+					show "tem todos os itens necessários";
+					show "para fazer o Suco de Maçã.";
+					show "Lembre-se, eu preciso de 3 Maçãs";
+					show "e 1 Garrafa Vazia para cada suco.";
+					close;
+				}
+				next;
+				show "[Meltz]";
+				show "Obrigado,";
+				show "por favor aguarde";
+				show "um momento.";
+				next;
+				show "*Grind grind*";
+				show "*Grind grind*";
+				show "*Clang...!*";
+				next;
+				show "[Meltz]";
+				show "Aqui está~";
+				show "Espero que goste!";
+				show "Sinta-se a vontade para";
+				show "voltar sempre que quiser";
+				show "uma Maçã ou Suco de Maçãs,";
+				show "aventureiro~";
+				delitem 512,3;
+				delitem 713,1;
+				additem 531,1;
+				close;
+			}
+			else
+			{
+				next;
+				show "[Meltz]";
+				show "Obrigado por parar em";
+				show "minha loja. Boa viagem!";
+				show "Volte sempre que";
+				show "você desejar comer";
+				show "uma maçãzinha~";
+				close;
+			}
+
+		case 3:
+			next;
+			show "[Meltz]";
+			show "Obrigado por parar em";
+			show "minha loja. Boa viagem!";
+			show "Volte sempre que";
+			show "você desejar comer";
+			show "uma maçãzinha~";
+			close;
+	}
+}
+
+airplane,80,71,4	script	Zerta	834,{
+	show "[Zerta]";
+	show "Oh, olá Aventureiro.";
+	show "Estou atualmente em uma";
+	show "Jornada Santa, orando";
+	show "em propósito do continente";
+	show "de Rune-Midgard.";
+	close;
+}
+
+airplane,65,63,4	script	Maelin	714,{
+	show "[Maelin]";
+	show "Humm, este avião vai para";
+	show "Lutie, não? Estou";
+	show "esperando há muito tempo,";
+	show "mas até agora nada de";
+	show "anúncio sobre Lutie.";
+	close;
+}
+
+airplane,72,34,2	script	Aanos	702,{
+	show "[Aanos]";
+	show "Oh wooow~";
+	show "O céu tem uma aparência";
+	show "tão diferente e";
+	show "adorável, visto daqui de cima!";
+	close;
+}
+
+airplane,32,61,4	script	Nils::TypingContest	49,{
+	callfunc "F_ClearGarbage"; //Clear outdated, unused variables
+
+loopback:
+	show "[Nils]";
+	show "Bem vindo ao";
+	show "^FF0000Desafio Ragnarök de Digitação^000000.";
+	show "Gostaria de jogar um jogo";
+	show "de velocidade em digitação?";
+	next;
+	switch(select("Jogar o ^FF0000DRD^000000","Informações","Recordes","Cancelar"))
+	{	
+		case 1:
+			show "[Nils]";
+			show "Ok, temos um novo";
+			show "desafiante";
+			show "Digite o texto a seguir";
+			show "o mais rápido que você";
+			show "puder, sem nenhum erro!";
+			show "Vamos começar~!";
+			next;
+			//below arrays are for simplified entering of new lines ;P
+
+			//first lines array
+			setarray $@textstringsa$[0],
+			"^00FFFFthkelfkskeldmsiejdlsle^0000FFhfndkelsheidl",
+			"^993366hfjdkeldjsieldjs^663366hfjdjeiskdlefvbd",
+			"^00FFFFCoboman no chikara-yumei na",
+			"^993366belief love luck grimace sweat rush",
+			"^00FFFFcallipygian salacious lascivious",
+			"^663366uNflAPPaBLe LoVaBLe SeCreTs AnD",
+			"^00CCFFburrdingdingdilidingdingphoohudaamb",
+			"^FF33CCbarapaphurarlandreamduranbatuhi^990066wooi",
+			"^FF33CCLiGhTsPeEd RiGhT SPEed leFT TURn",
+			"^00CCFFI'm the King of all Weirdos! Now",
+			"^00CCFFBy the power of^000000",
+			"^00CCFF...silence. quiet benevolence...";
+
+			//second lines array
+			setarray $@textstringsb$[0],"skemd",
+			"",
+			"chikara-dalookii na chikara da ze!",
+			"folktale rodimus optimus bumblebee",
+			"licentious prurient concupiscent",
+			"BoWLiNg aGaINST tHe KarMA of YoUtH",
+			"andoora^0000FFbambarambambamburanbamding",
+			"kabamturubamdingding",
+			"RiGhT BuRn OrIGInAL GaNgSteR SmACk",
+			"you know of my true power. Obey~!",
+			"p-po-poi-po-poi-poin-poing",
+			"soul mate... wonder. enigma...";
+			//for the few 3-liners... =X
+
+			setarray $@textstringsc$[0],"",
+			"",
+			"COBO ON!",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"GOD-POING. I NEVER LOSE!",
+			"cloud.";
+
+			//comparisation strings
+			setarray $@compstring$[0],
+			"thkelfkskeldmsiejdlslehfndkelsheidlskemd",
+			"hfjdkeldjsieldjshfjdjeiskdlefvbd",
+			"Coboman no chikara-yumei na chikara-dalookii na chikara da ze! COBO ON",
+			"belief love luck grimace sweat rush folktale rodimus optimus bumblebee",
+			"callipygian salacious lascivious licentious prurient concupiscent",
+			"uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+			"burrdindingdilidingdingphoohudaambandoorabambarambambamburanbamding",
+			"barapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+			"LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk",
+			"I'm the King of all Weirdos! Now you know of my true power. Obey~!",
+			"By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE!",
+			"...silence. quiet benevolence... soul mate... wonder. enigma... cloud";
+
+			//lengths
+			setarray $@lengths[0],20,32,73,73,65,66,67,55,67,66,67,69;
+
+			//	initnpctimer;
+			// pick 2 distinct phrases and initialize related variables
+			set @index,rand(1,getarraysize($@textstringsa$))-1;
+			set @string1a$,$@textstringsa$[@index];
+			set @string1b$,$@textstringsb$[@index];
+			set @string1c$,$@textstringsc$[@index];
+			set @typingstring1$,$@compstring$[@index];
+
+			set @index2,rand(1,getarraysize($@textstringsa$))-1;
+			while (@index2 == @index)
+			{
+				set @index2,rand(1,getarraysize($@textstringsa$))-1;
+			}
+			set @string2a$,$@textstringsa$[@index2];
+			set @string2b$,$@textstringsb$[@index2];
+			set @string2c$,$@textstringsc$[@index2];
+			set @typingstring2$,$@compstring$[@index2];
+
+			set @typingkeys,$@lengths[@index]+$@lengths[@index2];
+			set @start,gettime(3)*60*60+gettime(2)*60+gettime(1);
+
+			show "[Nils]";
+			show @string1a$;
+			if(@string1b$ != "")show @string1b$;
+			if(@string1c$ != "")show @string1c$;
+			digit @comparisonvar$[1];
+			next;
+			show "^000000[Nils]";
+			show @string2a$;
+			if(@string2b$ != "")show @string2b$;
+			if(@string2c$ != "")show @string2c$;
+			digit @comparisonvar$[2];
+			next;
+			if(@comparisonvar$[1] != @typingstring1$ || @comparisonvar$[2] != @typingstring2$)
+			{
+				show "^000000[Nils]";
+				show "Sinto muito mas você não";
+				show "digitou tudo corretamente.";
+				show "Mas lembre-se, a prática";
+				show "leva à perfeição!";
+				close;
+			}
+			set @time,(gettime(3)*60*60+gettime(2)*60+gettime(1))-@start; //seconds taken
+			set @mypoints,(@typingkeys * 100) / @time;
+			show "[Nils]";
+			show "Você levou";
+			show "^FF0000" + @time + "segundos^000000";
+			show "e ua pontuação final é de";
+			show "^0000FF" + @mypoints + "^000000 points";
+			next;
+			if(@mypoints <= $TypingRecord) goto loopback;
+			show "[Nils]";
+			show "Meus Parabéns!";
+			show "Temos um novo recorde aqui.";
+			show "topo da lista dos";
+			show "recordes imediatamente.";
+			set $TypingRecord,@mypoints;
+			set $TypingRecord$,strcharinfo(0);
+			close;
+
+		case 2:
+			show "[Nils]";
+			show "O Desafio Ragnarök de Digitação";
+			show "é um jogo onde você precisa digitar";
+			show "o texto proposto no menor tempo que";
+			show "puder. O nome dos melhores jogadores";
+			show "ficará gravado para a posteridade.";
+			show "Quer fama? Eis sua chance!";
+			next;
+			show "[Nils]";
+			show "Gostaria de reforçar que";
+			show "você precisa digitar todo";
+			show "o texto que você ver em uma";
+			show "única linha. Portanto";
+			show "^ff0000não pressione ENTER^000000,";
+			show "apenas clique em 'OK'";
+			close;
+
+		case 3:
+			show "[Nils]";
+			show "^0000FF" + $TypingRecord$ + "^000000";
+			show "é o atualmente";
+			show "o recordista com";
+			show "um recorde de ^0000FF" + $TypingRecord + "^000000";
+			show "pontos.Tente superá-lo da";
+			show "próxima vez~";
+			close;
+		
+		case 4:
+			show "[Nils]";
+			show "Sinta-se a vontade para";
+			show "jogar a qualquer momento.";
+			show "Eu estarei por aqui~";
+			close;
+	}
+}
+
+airplane_01,221,158,6	script	Piloto#air-0::Pilot	852,{
+	set @pilot, rand(1,4);
+	if (@pilot == 1) {
+		show "[Piloto]";
+		show "Longitude, 131 graus leste.";
+		show "Latitude, 37 graus norte.";
+		show "Estamos no curso correto, capitão.";
+		close;
+	} else if(@aa == 2) {
+		show "[Piloto]";
+		show "Olhe como o dia está";
+		show "nublado. É sempre difícil";
+		show "navegar nos céus quando eles";
+		show "não estão limpos. Acredito que";
+		show "precisemos usar o radar.";
+		close;
+	} else if(@aa == 3) {
+		show "[Piloto]";
+		show "O capitão é um bom";
+		show "homem e eu não consigo pensar";
+		show "em uma pessoa melhor para comandar";
+		show "este Aeroplano. Além de ser rígido";
+		show "é um grande piloto.";
+		next;
+		show "[^ff0000Tarlock^000000]";
+		show "^ff0000Eii...!^000000";
+		show "^ff0000Menos conversa^000000";
+		show "^ff0000e mais pilotagem!^000000";
+		next;
+		show "[Piloto]";
+		show "Sim, senhor!";
+		show "(Vê o que eu significo?)";
+		close;
+	}
+	show "[Piloto]";
+	show "Este uniforme é";
+	show "realmente agradável, mas";
+	show "é grosso demais para";
+	show "usar em um Aeroplano.";
+	next;
+	show "[Piloto]";
+	show "...";
+	show "......";
+	show "Quase ninguém vem";
+	show "a esta sala.";
+	show "E o capitão é um troxa.";
+	show "Tenho vontade de socar ele.";
+	next;
+	//Emotion "Pilot#airplane_01" ET_HUK
+	show "[Piloto]";
+	show "Ah...! Olá, Veja!";
+	show "Está gostando do vôo?";
+	close;
+}
+
+//============================================================ 
+//= Sistema de Aeroporto (Izlude -> Juno -> Rachel -> Repetir)
+//============================================================ 
+
+airplane_01,243,74,4	script	#AirshipWarp-3	45,2,2,{
+OnTouch:
+	if($@airplanelocation2 == 1)warp "izlude",202,56;
+	if($@airplanelocation2 == 2)warp "yuno",20,265;
+	if($@airplanelocation2 == 3)warp "ra_fild12",292,204;
+	end;
+
+OnHide:
+	misceffect EF_BASH;
+	end;
+OnUnhide:
+	misceffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane_01,243,29,4	script	#AirshipWarp-4	45,2,2,{
+OnTouch:
+	if($@airplanelocation2 == 1)warp "izlude",202,56;
+	if($@airplanelocation2 == 2)warp "yuno",20,265;
+	if($@airplanelocation2 == 3)warp "ra_fild12",292,204;
+	end;
+
+OnHide:
+	misceffect EF_BASH;
+	end;
+OnUnhide:
+	misceffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane_01,1,1,0	script	YunoIzl_Airship	-1,{
+OnInit:
+while(1)
+{
+	disablenpc "Quest_Izl";
+	initnpctimer;
+	setnpctimer 0;
+	set $@airplanelocation2,0;
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	disablenpc "#AirshipWarp-3";
+	disablenpc "#AirshipWarp-4";
+	mapannounce "airplane_01","O Aeroplano está levantando vôo. Nosso próximo destino é Izlude.",1,0x00FF00;
+	end;
+OnTimer15000:
+	set $@mobinv, $@mobinv+1;
+	set $@mobrand, rand(1,3);
+	if($@mobinv >= 9 && $@mobrand == 3) {
+		stopnpctimer;
+		enablenpc "Quest_Izl";
+		donpcevent "Quest_Izl::OnInvasion";
+	}
+	mapannounce "airplane_01","Nós estamos a caminho de Izlude.",1,0x00FF00;
+	end;
+OnTimer30000:
+	mapannounce "airplane_01","Vamos chegar à Izlude em breve.",1,0x00FF00;
+	end;
+OnTimer45000:
+	set $@airplanelocation2,1;
+	enablenpc "#AirshipWarp-3";
+	enablenpc "#AirshipWarp-4";
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";	
+	mapannounce "airplane_01","Bem vindos à Izlude. Desejamos um bom passeio a todos.",1,0x00FF00;
+	end;
+OnTimer55000:
+	mapannounce "airplane_01","Estamos em Izlude atualmente. O avião levantará vôo em alguns minutos.",1,0x00FF00;
+	end;
+OnTimer65000:
+	set $@airplanelocation2,0;
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	disablenpc "#AirshipWarp-3";
+	disablenpc "#AirshipWarp-4";
+	mapannounce "airplane_01","O Aeroplano está levantando vôo. Nosso próximo destino é Juno.",1,0x70DBDB;
+	end;
+OnTimer80000:
+	mapannounce "airplane_01","Nós estamos a caminho de Juno.",1,0x70DBDB;
+	end;
+OnTimer95000:
+	mapannounce "airplane_01","Vamos chegar à Juno em breve.",1,0x70DBDB;
+	end;
+OnTimer110000:
+	set $@airplanelocation2,2;
+	enablenpc "#AirshipWarp-3";
+	enablenpc "#AirshipWarp-4";
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01","Bem vindos à Juno. Desejamos um bom passeio a todos.",1,0x70DBDB;
+	end;
+OnTimer120000:
+	mapannounce "airplane_01","Estamos em Juno atualmente. O avião levantará vôo em alguns minutos.",1,0x70DBDB;
+	end;
+OnTimer130000:
+	set $@airplanelocation2,0;
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	disablenpc "#AirshipWarp-3";
+	disablenpc "#AirshipWarp-4";
+	mapannounce "airplane_01","O Aeroplano está levantando vôo. Nosso próximo destino é Rachel.",1,0xFF8600;
+	end;
+OnTimer145000:
+	mapannounce "airplane_01","Nós estamos a caminho de Rachel.",1,0xFF8600;
+	end;
+OnTimer160000:
+	mapannounce "airplane_01","Vamos chegar à Rachel em breve.",1,0xFF8600;
+	end;
+OnTimer175000:
+	set $@airplanelocation2,3;
+	enablenpc "#AirshipWarp-3";
+	enablenpc "#AirshipWarp-4";
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01","Bem vindos à Rachel. Desejamos um bom passeio a todos.",1,0xFF8600;
+	end;
+OnTimer185000:
+	mapannounce "airplane_01","Estamos em Rachel atualmente. O avião levantará vôo em alguns minutos.",1,0xFF8600;
+	end;
+OnTimer195000:
+ 	stopnpctimer;
+}
+OnReturn:
+	killmonsterall "airplane_01";
+	set $@mobinv, 0;
+	mapannounce "airplane_01","Ameaça de monstros terminada. O Aeroplano está voltando a operar normalmente.",1,0x00FF00;
+	startnpctimer;
+	end;
+}
+
+//============================================================ 
+//= Outros NPCS normais (aeroplano_01)
+//============================================================ 
+
+airplane_01,240,64,5	duplicate(Exit2)	Saída#05	857
+
+airplane_01,247,64,5	duplicate(Exit2)	Saída#06	857
+
+airplane_01,240,39,1	duplicate(Exit2)	Saída#07	857
+
+airplane_01,247,39,1	duplicate(Exit2)	Saída#08	857
+
+airplane_01,100,69,2	duplicate(Airship Crew)	Tripulação#02	852
+
+airplane_01,250,59,3	duplicate(AirshipInfo)	Tripulação#info	67
+
+airplane_01,50,66,4	duplicate(AirshipApples)	Meltz	86
+
+airplane_01,32,61,4	duplicate(TypingContest)	Nils	49	
+
+airplane_01,221,158,6	duplicate(Pilot)	Piloto#air-1	852
+
+
+airplane_01,83,61,2	script	Dianne	72,{
+	show "[Dianne]";
+	show "É tão estranho!";
+	show "Eu fui visitar o";
+	show "Capitão do Avião e";
+	show "tudo que vi foi essa";
+	show "rena estranha. Oh!";
+	show "Você acha que...";
+	close;
+OnTouch:
+	Emotion 28, "Dianne";
+	end;
+}
+
+airplane_01,69,63,2	script	Velho Homem#06	55,{
+	show "[Mendel]";
+	show "Como eu imaginava, as";
+	show "refeições servidas no";
+	show "vôo são apenas 3 estrelas.";
+	show "^111111*Harrrumph*^000000 Eu devia";
+	show "ter trazido meu 'chef' para";
+	show "poder comer comida de verdade.";
+	close;
+}
+
+airplane_01,33,68,4	script	Clarice	74,{
+	show "[Clarice]";
+	show "Oi, Eu sou a Clarice~";
+	show "Você gostaria de";
+	show "apostar algumas maçãs";
+	show "no jogo dos Dados?";
+	next;
+	callfunc "applegamble","Clarice";
+	end;
+}
+
+airplane_01,71,31,6	script	Espadachim Shimizu	106,{
+	show "[Espadachim Shimizu]";
+	show "Finalmente, após cinco";
+	show "cinco anos depois...";
+	show "Eu posso ter minha vingança!";
+	next;
+	show "[Espadachim Shimizu]";
+	show "Eu neste momento...";
+	show "Tenho certeza de que";
+	show "já não posso mais parar.";
+	show "Mas em breve, muito em breve,";
+	show "terei minha vingança!";
+	close;
+}
+
+//============================================================ 
+//= Tripulação do Aeroplano de Izlude 
+//============================================================
+
+izlude,201,54,3	script	Tripulação#izl	91,{
+	show "[Tripulação do Aeroplano]";
+	show "Bem vindo ao Aeroporto Internacional de Izlude";
+	show "Em que posso ajudá-lo?";
+	next;
+	if (select("Embarcar no Aeroplano:Cancelar") == 1) {
+		show "[Tripulação do Aeroplano]";
+		show "A passagem para embarcar no Aeroplano";
+		show "custa 1,200 zeny, mas se você";
+		show "tiver um Bilhete para Aeroplano,"; 
+		show "essa taxa não será cobrada.";
+		show "Deseja embarcar agora?";
+		next;
+		if (select("Sim:Não") == 1) {
+			if(countitem(7311) > 0) {
+				delitem 7311,1;
+				warp "airplane_01",224,64;
+				close;
+			}
+			if(Zeny >= 1200) {
+				set Zeny, Zeny - 1200;
+				warp "airplane_01",224,64;
+				close;
+			}
+			show "[Tripulação do Aeroplano]";
+			show "Você não tem Zeny suficiente.";
+			close;
+		}
+	}
+	show "[Tripulação do Aeroplano]";
+	show "Obrigado e";
+	show "tenha um bom dia.";
+	close;
+}
+
+//============================================================ 
+//= Tripulação do Aeroplano de Hugel
+//============================================================
+
+hugel,182,150,3	script	Tripulação#hu	91,{
+	show "[Tripulação do Aeroplano]";
+	show "Bem vindo à Republica de Schwarzwald.";
+	show "Em que posso ajudá-lo?";
+	next;
+	if (select("Embarcar no Aeroplano:Cancelar") == 1) {
+		show "[Tripulação do Aeroplano]";
+		show "A passagem para embarcar no Aeroplano";
+		show "custa 1,200 zeny, mas se você";
+		show "tiver um Bilhete para Aeroplano,"; 
+		show "essa taxa não será cobrada.";
+		show "Deseja embarcar agora?";
+		next;
+		if (select("Sim:Não") == 1) {
+			if(countitem(7311) > 0) {
+				delitem 7311,1;
+				warp "airplane",224,64;
+				close;
+			}
+			if(Zeny >= 1200) {
+				set Zeny, Zeny - 1200;
+				warp "airplane",224,64;
+				close;
+			}
+			show "[Tripulação do Aeroplano]";
+			show "Você não tem Zeny suficiente.";
+			close;
+		}
+	}
+	show "[Tripulação do Aeroplano]";
+	show "Obrigado e";
+	show "tenha um bom dia.";
+	close;
+}
+
+//============================================================ 
+//= Tripulação do Aeroplano de Rachel
+//============================================================
+
+ra_fild12,295,208,3	script	Tripulação#ra	45,1,1,{
+OnTouch:
+	show "Para usar o Aeroplano, você precisa";
+	show "pagar 1,200 zeny ou um";
+	show "Bilhete para Aeroplano. Você gostaria de usar o serviço do Aeroplano?";
+	next;
+	if (select("Sim:Não") == 1) {
+		if (countitem(7311) > 0) {
+			delitem 7311,1;
+			warp "airplane_01",224,64;
+			close;
+		}
+		if (Zeny >= 1200) {
+			set Zeny, Zeny - 1200;
+			warp "airplane_01",224,64;
+			close;
+		}
+		show "Você não tem Zeny suficiente.";
+		close;
+	}
+	show "Obrigado e Volte quando precisar.";
+	close;
+}
+
+//============================================================ 
+//= NPCS do Aeroporto de Juno
+//============================================================
+
+y_airport,144,63,4	script	Equipe#Ein	91,{
+	show "[Tripulação do Aeroplano]";
+	show "Bom dia!";
+	show "Você gostaria de ir";
+	show "para ^FF0000Einbroch^000000,^FF0000Hugel^000000 ou";
+	show "^FF0000Lighthalzen^000000?";
+	next;
+	if (select("Sim.:Não.") == 1) {
+		show "[Tripulação do Aeroplano]";
+		show "Obrigado e";
+		show "tenha um bom dia.";
+		close2;
+		warp "yuno",57,240;
+		end;
+	}
+	show "[Tripulação do Aeroplano]";
+	show "Obrigado e";
+	show "tenha um bom dia.";
+	close;
+}
+	
+y_airport,141,63,4	script	Equipe#Izl	91,{
+	show "[Tripulação do Aeroplano]";
+	show "Bom dia!";
+	show "Você gostaria de ir";
+	show "para ^FF0000Izlude^000000 ou ^FF0000Rachel^000000?";
+	next;
+	if (select("Sim.:Não.") == 1) {
+		show "[Tripulação do Aeroplano]";
+		show "Obrigado e";
+		show "tenha um bom dia";
+		close2;
+		warp "yuno",50,240;
+		end;
+	}
+	show "[Tripulação do Aeroplano]";
+	show "Obrigado e";
+	show "tenha um bom dia.";
+	close;
+}
+
+yuno,14,262,3	script	Tripulação#yuno01::Airship Staff	91,{
+	show "[Tripulação do Aeroplano]";
+	show "Bem-vindo ao Aeroporto de Juno.";
+	show "Por favor use esta porta para";
+	show "mbarcar no Aeroplano que estará";
+	show "sempre voando para Izlude";
+	show "no Reino de Rune-Midgard.";
+	next;
+	show "[Tripulação do Aeroplano]";
+	show "Mas, se Juno for";
+	show "seu destino,";
+	show "por favor desça as escadas";
+	show "e fale com a Equipe de Funcionários";
+	show "para lhe conduzirem ao terminal principal.";
+	show "Obrigado e tenha uma boa viagem.";
+	close;
+}
+
+yuno,88,263,5	duplicate(Airship Staff)	Tripulação#yuno02	91
+
+//============================================================ 
+//= Apple Gambling Function
+//============================================================
+
+function	script	applegamble	{
+
+	switch(select("Jogar Jogo de Dados:Regras do Jogo:Cancelar")){
+	case 3:
+		show "["+getarg(0)+"]";
+		show "Estarei pronto para";
+		show "um joguinho de dados";
+		show "sempre que quiser. Me";
+		show "procure se estiver";
+		show "interessado, ok?";
+		close;
+	case 2:
+		show "["+getarg(0)+"]";
+		show "As regras para o jogo de dados";
+		show "são muito simples. Primeiro você";
+		show "aposta algumas Maçãs.";
+		show "Você pode apostar no máximo 50";
+		show "maçãs por vez. Para que as coisas fiquem";
+		show "dentro da lei. Eu apenas aceito Maçãs como aposta.";
+		next;
+		show "["+getarg(0)+"]";
+		show "Mas hei, se você tem tanto de zeny";
+		show "que está caindo pelos bolsos";
+		show "afora, vá até o Fruitz";
+		show "e compre quantas";
+		show "maçãs você quiser~";
+		next;
+		show "["+getarg(0)+"]";
+		show "Agora, começamos comigo";
+		show "jogando dois dados de 6 lados.";
+		show "Quando for sua vez você também";
+		show "jogará dois dados de 6 lados. Depois";
+		show "disso nós dois teremos a";
+		show "chance de jogar um terceiro dado.";
+		next;
+		show "["+getarg(0)+"]";
+		show "Agora uma coisa importante:";
+		show "Se você fizer mais que 12";
+		show "pontos, você já era, ou seja,";
+		show "você perdeu. Caso contrário.";
+		show "quem fizer mais pontos é o";
+		show "vencedor. Entendeu?";
+		next;
+		show "["+getarg(0)+"]";
+		show "Agora, você será o primeiro";
+		show "a decidir se joga ou não o";
+		show "terceiro dado. Então,";
+		show "dependendo do seu resultado, eu";
+		show "jogo meu terceiro dado... Ou não...";
+		next;
+		show "["+getarg(0)+"]";
+		show "Quando você ganha,";
+		show "recebe o dobro de";
+		show "Maçãs que você apostou";
+		show "Se por acaso acontecer empatarmos,";
+		show "você recebe de volta todas as";
+		show "Maçãs apostadas. Justo, não?";
+		close;
+	case 1:
+		break;
+	}
+	show "["+getarg(0)+"]";
+	show "Ooh, então você vai jogar";
+	show "comigo? Ótimo! Quantas";
+	show "Maçãs você quer apostar?";
+	show "Lembre-se, você pode apostar";
+	show "até 50 Maçãs. Se quiser cancelar,";
+	show "por favor entre com '0' na quantidade.";
+	next;
+L_Input:
+	digit @amount;
+	if(@amount == 0) {
+		show "["+getarg(0)+"]";
+		show "Mudou de idéia?";
+		show "Eu entendo. Bem, espero";
+		show "que possamos jogar outra hora.";
+		close;
+	}
+	if(@amount > 50) set @amount,50;
+	show "["+getarg(0)+"]";
+	show "Então você quer";
+	show "apostar ^FF0000"+@amount+"^000000 Maçãs..";
+	show "Certo?";
+	next;
+	if(select("Sim:Não")==2){
+		show "["+getarg(0)+"]";
+		show "Hmm, se enganou?";
+		show "Tudo bem, por favor entre";
+		show "novamente com o número de";
+		show "Maçãs que você quer apostar.";
+		next;
+		goto L_Input;
+	}
+	if(countitem(512)<@amount){
+		//more apples then in inventory
+		//-Improvised-
+		show "["+getarg(0)+"]";
+		show "Ooh...";
+		show "Você não tem tantas";
+		show "Maçãs com você.";
+		show "agora não é mesmo?";
+		close;
+	}
+	delitem 512,@amount;
+	show "["+getarg(0)+"]";
+	show "Muito bem!";
+	show "Agora podemos iniciar";
+	show "o jogo! Eu vou jogar primeiro~";
+	next;
+	show "^0000FFRolando e balançando*";
+	set @table1,rand(1,6);
+	set @table2,rand(1,6);
+	set @tablesub,@table1+@table2;
+	next;
+	show "Eu tirei um "+@table1+"e um "+@table2+",";
+	show "dando um total de"+@tablesub+".";
+	show "Agora é a sua vez,";
+	show strcharinfo(0)+".";
+	next;
+	menu "Rodar Dados.",-;
+
+	show "^0000FF*Rolando e balançando*";
+	set @player1,rand(1,6);
+	set @player2,rand(1,6);
+	set @playersub,@player1+@player2;
+	next;
+	show "["+getarg(0)+"]";
+	show strcharinfo(0)+",";
+	show "você tirou um "+@player1+"e um "+@player2+",";
+	show "dando um total de ^FF0000"+@playersub+"^000000.";
+	next;
+	show "["+getarg(0)+"]";
+	if(@playersub == @tablesub) {
+		show "Bem, Bem, Bem.";
+		show "Nós dois tivemos um total";
+		show "de "+@playersub+", Bem, a bola";
+		show "está com você.";
+		show "Você vai jogar o terceiro dado";
+		show strcharinfo(0)+"?";
+	} else if(@playersub > @tablesub) {
+		show "Como eu fiz apenas ^0000FF"+@tablesub+"^000000,";
+		show "você está em vantagem com";
+		show "seus ^FF0000"+@playersub+"^000000. Você";
+		show "quer jogar mais uma vez?";
+		show "Lembre-se, você perde se fizer";
+		show "mais que 12 pontos em suas jogadas.";
+	} else if(@tablesub > @playersub) {
+		show "Como eu tenho ^0000FF"+@tablesub+"^000000,";
+		show "estou em vantagem no momento,";
+		show "porque você tem apenas ^FF0000 ^FF0000"+@playersub+"^000000. Você";
+		show "quer jogar mais uma vez?";
+		show "Lembre-se, você perde se fizer";
+		show "mais que 12 pontos em suas jogadas.";
+	}
+	next;
+	if(select("Jogar mais uma vez.:Não jogar.")==2){
+		show "["+getarg(0)+"]";
+		show "Não vai jogar, hein?";
+		if(@tablesub == @playersub) {
+			show "Torça para que eu tire";
+			show "um número muito alto e perca,";
+			show "ou eu vou fazer mais pontos que você.";
+			show "Certeza! Lá vai...";
+			next;
+			goto L_Table3;
+		} else if(@tablesub < @playersub) {
+			next;
+			show "["+getarg(0)+"]";
+			show "Muito bem, vejo que você";
+			show "não quer arriscar passar";
+			show "dos 12 pontos e perder.";
+			show "Eu vou jogar então.";
+			next;
+			goto L_Table3;
+		} else if(@tablesub > @playersub) {
+		//you have a lower sub total then table, and do not roll 3th -Improvised-
+			show "["+getarg(0)+"]";
+			show "Não vai jogar, hein?";
+			show "Bem, eu não vou";
+			show "jogar também.";
+			next;
+			show "["+getarg(0)+"]";
+			show "Isso significa que eu";
+			show "tenho um total de ^0000FF"+@tablesub+"^000000";
+			show "que é mais que os seus ^FF0000"+@playersub+"^000000.";
+			show "Sinto muito, mas você perdeu";
+			show "este jogo, "+strcharinfo(0)+". Mais";
+			show "sorte da proxima vez.";
+		}
+		close;
+	}
+	show "^0000FF*Rolando e balançando*";
+	set @player3,rand(1,6);
+	set @playersub,@playersub+@player3;
+	if(@playersub > 12) {
+	//player bust --Improvised--
+		next;
+		show "["+getarg(0)+"]";
+		show "Oh Meu... Você conseguiu um ^FF000"+@player3+"^000000,";
+		show "dando um total de ^FF0000"+@playersub+"^000000.";
+		show "Isto é mais que 12, o que significa que você estourou o limite.";
+		show "Desculpe, mas você perdeu este";
+		show "jogo, "+strcharinfo(0)+".";
+		close;
+	}
+	next;
+	show "["+getarg(0)+"]";
+	show "Oh! Você tirou";
+	if(@playersub >= @tablesub) {
+		show "um ^FF0000"+@player3+"^000000, dando um total";
+		show "de ^FF0000"+@playersub+"^000000. Agora, se eu não";
+		show "jogar eu perco!";
+		show "Então lá vai...";
+		next;
+		goto L_Table3;
+	} else if(@playersub < @tablesub) {
+		//player's sub together with 3th die is still too low
+		//--Improvised--
+		show "um ^FF0000"+@player3+"^000000, dando";
+		show "um total de ^FF0000"+@playersub+"^000000.";
+		show "Isto não é suficiente";
+		show "pata bater meus ^0000FF"+@tablesub+"^000000.";
+		show "Desculpe, mas você perdeu este";
+		show "jogo, "+strcharinfo(0)+"Vamos";
+		show "dar uma pausa, eu suponho...";
+		close;
+	}
+L_Table3:
+	show "^0000FF*Rolando e balançando*";
+	set @table3,rand(1,6);
+	set @tablesub,@tablesub+@table3;
+	next;
+	if(@tablesub > 12) {
+		show "["+getarg(0)+"]";
+		show "Hã? Eu tirei um ^0000FF"+@table3+"^000000, dando";
+		show "um total de ^0000FF"+@tablesub+"^000000. Detesto dizer isso";
+		show "dizer isso, mas eu perdi.";
+		show "Pegue seu prêmio antes";
+		show "que eu chore,"+strcharinfo(0)+"~!";
+		close2;
+		additem 512,@amount*2;
+		end;
+	}
+	show "["+getarg(0)+"]";
+	if(@tablesub < @playersub) {
+		show "Eu tirei um "+@table3+", que me";
+		show "dá um total de ^0000FF"+@tablesub+"^000000.";
+		show "Mas... Isto não é suficiente";
+		show "para bater seus ^FF0000"+@playersub+"^000000. Parece que";
+		show "eu não posso competir com";
+		show "você"+strcharinfo(0)+"...";
+		close2;
+		additem 512,@amount*2;
+		end;
+	} else if(@tablesub > @playersub) {
+	show "Eu tirei um ^0000FF"+@table3+"^000000";
+	show "totalizando ^0000FF"+@tablesub+"^000000 o que não";
+	show "não batem os seus ^FF0000"+@playersub+"^000000.";
+	show "Desculpe, mas você perdeu este";
+	show "jogo, "+strcharinfo(0)+"Vamos";
+	show "dar uma pausa, eu suponho...";
+	close;
+	} else if(@tablesub == @playersub) {
+		//Result = tie, --Improvised--
+		show "Eu tirei um ^0000FF"+@table3+"^000000, o que";
+		show "totaliza ^0000FF"+@tablesub+"^000000";
+		show "é exatamente o número de pontos que você tem.";
+		show "Bem, este jogo não teve";
+		show "ganhador nem perdedor, "+strcharinfo(0)+".";
+		close2;
+		additem 512,@amount;
+		end;
+	}
+}

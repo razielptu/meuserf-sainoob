@@ -1,0 +1,279 @@
+pay_fild01.gat,0,0,0,0	monster	Poring	1002,75,0,0,0
+pay_fild01.gat,0,0,0,0	monster	Fabre	1007,45,0,0,0
+pay_fild01.gat,0,0,0,0	monster	Pupa	1008,25,0,0,0
+pay_fild01.gat,0,0,0,0	monster	Salgueiro	1010,45,0,0,0
+pay_fild01.gat,0,0,0,0	monster	Lunático	1063,10,0,0,0
+pay_fild01.gat,0,0,0,0	monster	Planta Verde	1080,5,180000,90000,1
+pay_fild01.gat,129,288,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,215,323,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,225,310,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,231,258,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,336,116,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,340,89,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,340,89,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,57,85,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,64,113,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,64,190,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,70,246,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,75,269,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,80,226,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,89,177,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+pay_fild01.gat,95,85,0,0	monster	Cogumelo Negro	1084,1,180000,90000,1
+
+pay_fild02.gat,0,0,0,0	monster	Poring	1002,40,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Fabre	1007,40,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Pupa	1008,15,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Salgueiro	1010,45,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Lobo	1013,60,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Jibóia	1025,10,150000,75000,1
+pay_fild02.gat,0,0,0,0	monster	Larva de Besouro-Ladrão	1051,15,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Lunático	1063,10,0,0,0
+pay_fild02.gat,0,0,0,0	monster	Lobo Errante	1092,1,1800000,200000,1
+pay_fild02.gat,105,256,10,10	monster	Planta Verde	1080,4,360000,180000,1
+pay_fild02.gat,105,256,10,10	monster	Cogumelo Vermelo	1085,4,360000,180000,1
+
+pay_fild03.gat,0,0,0,0	monster	Poring	1002,70,0,0,0
+pay_fild03.gat,0,0,0,0	monster	Fabre	1007,55,0,0,0
+pay_fild03.gat,0,0,0,0	monster	Pupa	1008,20,0,0,0
+pay_fild03.gat,0,0,0,0	monster	Salgueiro	1010,30,0,0,0
+pay_fild03.gat,0,0,0,0	monster	Rabo de Verme	1024,5,300000,150000,1
+pay_fild03.gat,0,0,0,0	monster	Lunático	1063,15,0,0,0
+pay_fild03.gat,153,216,10,10	monster	Cogumelo Vermelo	1085,6,900000,450000,1
+pay_fild03.gat,372,64,15,15	monster	Planta Verde	1080,4,180000,90000,1
+
+pay_fild04.gat,0,0,0,0	monster	Poring	1002,35,0,0,0
+pay_fild04.gat,0,0,0,0	monster	Poporing	1031,35,0,0,0
+pay_fild04.gat,0,0,0,0	monster	Angeling	1096,1,1800000,0,1
+pay_fild04.gat,0,0,0,0	monster	Drops	1113,35,0,0,0
+pay_fild04.gat,0,0,0,0	monster	Ghostring	1120,1,1800000,0,1
+pay_fild04.gat,254,193,10,10	monster	Planta Verde	1080,5,360000,180000,1
+pay_fild04.gat,346,335,5,5	monster	Planta Brilhante	1083,1,1800000,900000,1
+
+pay_fild05.gat,0,0,0,0	monster	Esporo	1014,65,0,0,0
+pay_fild05.gat,0,0,0,0	monster	Jibóia	1025,10,0,0,0
+pay_fild05.gat,0,0,0,0	monster	Poporing	1031,30,0,0,0
+pay_fild05.gat,0,0,0,0	monster	Esporo Venenoso	1077,15,0,0,0
+pay_fild05.gat,86,90,5,5	monster	Planta Verde	1080,4,900000,450000,1
+pay_fild05.gat,95,147,5,5	monster	Planta Verde	1080,4,900000,450000,1
+
+pay_fild06.gat,0,0,0,0	monster	Poring	1002,30,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Fabre	1007,20,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Pupa	1008,10,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Salgueiro	1010,45,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Sapo de Rodda	1012,55,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Esporo	1014,40,0,0,0
+pay_fild06.gat,0,0,0,0	monster	Lunático	1063,15,0,0,0
+pay_fild06.gat,211,191,2,10	monster	Cogumelo Vermelo	1085,8,180000,90000,1
+pay_fild06.gat,268,155,20,20	monster	Planta Verde	1080,10,360000,180000,1
+pay_fild06.gat,268,155,20,20	monster	Planta Brilhante	1083,1,1800000,900000,1
+
+pay_fild07.gat,0,0,0,0	monster	Poporing	1031,10,0,0,0
+pay_fild07.gat,0,0,0,0	monster	Pé-Grande	1060,15,0,0,0
+pay_fild07.gat,0,0,0,0	monster	Esporo Venenoso	1077,20,0,0,0
+pay_fild07.gat,0,0,0,0	monster	Caramelo	1103,10,0,0,0
+pay_fild07.gat,0,0,0,0	monster	Dokebi	1110,40,60000,30000,0
+pay_fild07.gat,0,0,0,0	monster	Eggyra	1116,40,0,0,0
+pay_fild07.gat,171,331,20,20	monster	Planta Verde	1080,8,900000,450000,1
+
+pay_fild08.gat,0,0,0,0	monster	Poporing	1031,15,0,0,0
+pay_fild08.gat,0,0,0,0	monster	Salgueiro Ancião	1033,30,0,0,0
+pay_fild08.gat,0,0,0,0	monster	Fumacento	1056,40,0,0,0
+pay_fild08.gat,0,0,0,0	monster	Pé-Grande	1060,5,60000,30000,0
+pay_fild08.gat,0,0,0,0	monster	Planta Verde	1080,10,60000,30000,1
+pay_fild08.gat,143,156,40,40	monster	Planta Brilhante	1083,1,3600000,1800000,1
+
+pay_fild09.gat,0,0,0,0	monster	Poporing	1031,10,0,0,0
+pay_fild09.gat,0,0,0,0	monster	Salgueiro Ancião	1033,20,0,0,0
+pay_fild09.gat,0,0,0,0	monster	Pé-Grande	1060,15,0,0,0
+pay_fild09.gat,0,0,0,0	monster	Eggyra	1116,20,0,0,0
+pay_fild09.gat,0,0,0,0	monster	Sohee	1170,8,60000,30000,0
+pay_fild09.gat,0,0,0,0	monster	Andarilho	1208,1,7200000,3600000,1
+pay_fild09.gat,0,0,0,0	monster	Guardião da Floresta	1277,3,0,0,1
+pay_fild09.gat,0,0,0,0	monster	Guardião da Floresta	1277,3,0,0,1
+pay_fild09.gat,198,217,30,30	monster	Planta Verde	1080,10,360000,180000,0
+pay_fild09.gat,198,217,30,30	monster	Planta Brilhante	1083,1,1800000,900000,1
+
+pay_fild10.gat,0,0,0,0	monster	Munak	1026,5,300000,150000,1
+pay_fild10.gat,0,0,0,0	monster	Pé-Grande	1060,10,0,0,0
+pay_fild10.gat,0,0,0,0	monster	Esporo Venenoso	1077,20,0,0,0
+pay_fild10.gat,0,0,0,0	monster	Eddga	1115,1,3600000,0,0
+pay_fild10.gat,0,0,0,0	monster	Eggyra	1116,20,0,0,0
+pay_fild10.gat,0,0,0,0	monster	Horong	1129,30,0,0,0
+pay_fild10.gat,213,157,10,10	monster	Planta Azul	1079,1,360000,180000,1
+pay_fild10.gat,213,157,10,10	monster	Planta Verde	1080,5,360000,180000,1
+pay_fild10.gat,281,307,10,10	monster	Planta Azul	1079,1,360000,180000,1
+pay_fild10.gat,281,307,10,10	monster	Planta Verde	1080,5,360000,180000,1
+pay_fild10.gat,66,332,10,10	monster	Planta Azul	1079,1,360000,180000,1
+pay_fild10.gat,66,332,10,10	monster	Planta Verde	1080,5,360000,180000,1
+
+pay_fild11.gat,0,0,0,0	monster	Fabre	1007,20,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Pupa	1008,10,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Rabo de Verme	1024,65,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Poeira	1114,10,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Besouro-Chifre	1128,15,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Percevejo	1174,25,0,0,0
+pay_fild11.gat,0,0,0,0	monster	Escaravelho	1211,1,2400000,1200000,1
+pay_fild11.gat,0,0,0,0	monster	Talo de Verme	1215,1,1800000,900000,1
+pay_fild11.gat,241,162,5,5	monster	Cogumelo Vermelo	1085,3,360000,180000,1
+pay_fild11.gat,66,293,5,5	monster	Cogumelo Vermelo	1085,3,360000,180000,1
+
+pay_dun00.gat,0,0,0,0	monster	Familiar	1005,15,0,0,0
+pay_dun00.gat,0,0,0,0	monster	Esporo	1014,20,0,0,0
+pay_dun00.gat,0,0,0,0	monster	Zumbi	1015,20,0,0,0
+pay_dun00.gat,0,0,0,0	monster	Jibóia	1025,5,0,0,0
+pay_dun00.gat,140,140,5,5	monster	Cogumelo Negro	1084,3,360000,180000,1
+
+pay_dun01.gat,0,0,0,0	monster	Familiar	1005,10,0,0,0
+pay_dun01.gat,0,0,0,0	monster	Munak	1026,1,400000,200000,1
+pay_dun01.gat,0,0,0,0	monster	Esqueleto Soldado	1028,2,300000,150000,1
+pay_dun01.gat,0,0,0,0	monster	Fumacento	1056,25,0,0,0
+pay_dun01.gat,0,0,0,0	monster	Eggyra	1116,15,0,0,0
+pay_dun01.gat,0,0,0,0	monster	Magnólia	1138,10,0,0,0
+pay_dun01.gat,0,0,0,0	monster	Martin	1145,15,0,0,0
+pay_dun01.gat,0,0,0,0	monster	Bongun	1188,1,400000,200000,1
+pay_dun01.gat,235,54,10,10	monster	Cogumelo Negro	1084,7,900000,450000,1
+
+pay_dun02.gat,0,0,0,0	monster	Esqueleto Arquiero	1016,2,180000,90000,1
+pay_dun02.gat,0,0,0,0	monster	Munak	1026,40,0,0,0
+pay_dun02.gat,0,0,0,0	monster	Esqueleto Soldado	1028,5,180000,90000,1
+pay_dun02.gat,0,0,0,0	monster	Magnólia	1138,15,0,0,0
+pay_dun02.gat,0,0,0,0	monster	Bongun	1188,30,0,0,0
+pay_dun02.gat,107,190,0,0	monster	Hidra	1068,1,320000,100000,1
+pay_dun02.gat,108,191,0,0	monster	Hidra	1068,1,332000,100000,1
+pay_dun02.gat,109,192,0,0	monster	Hidra	1068,1,374000,100000,1
+pay_dun02.gat,109,193,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,110,190,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,110,194,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,111,191,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,111,199,10,10	monster	Cogumelo Negro	1084,7,900000,450000,1
+pay_dun02.gat,112,192,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,113,193,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,113,194,0,0	monster	Hidra	1068,1,319000,100000,1
+pay_dun02.gat,116,190,0,0	monster	Hidra	1068,1,326000,100000,1
+pay_dun02.gat,116,196,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,116,199,0,0	monster	Hidra	1068,1,306000,100000,1
+pay_dun02.gat,116,205,0,0	monster	Hidra	1068,1,345000,100000,1
+pay_dun02.gat,117,191,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,117,197,0,0	monster	Hidra	1068,1,314000,100000,1
+pay_dun02.gat,117,200,0,0	monster	Hidra	1068,1,275000,100000,1
+pay_dun02.gat,117,206,0,0	monster	Hidra	1068,1,302000,100000,1
+pay_dun02.gat,118,192,0,0	monster	Hidra	1068,1,285000,100000,1
+pay_dun02.gat,118,198,0,0	monster	Hidra	1068,1,312000,100000,1
+pay_dun02.gat,118,201,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,118,207,0,0	monster	Hidra	1068,1,332000,100000,1
+pay_dun02.gat,119,196,0,0	monster	Hidra	1068,1,315000,100000,1
+pay_dun02.gat,119,199,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,119,205,0,0	monster	Hidra	1068,1,324000,100000,1
+pay_dun02.gat,120,194,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,120,200,0,0	monster	Hidra	1068,1,303000,100000,1
+pay_dun02.gat,120,203,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,121,200,0,0	monster	Hidra	1068,1,333000,100000,1
+pay_dun02.gat,122,197,0,0	monster	Hidra	1068,1,321000,100000,1
+pay_dun02.gat,122,200,0,0	monster	Hidra	1068,1,300000,100000,1
+pay_dun02.gat,214,266,0,0	monster	Planta Vermelha	1078,1,600000,300000,1
+pay_dun02.gat,227,184,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun02.gat,227,185,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun02.gat,229,183,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun02.gat,37,243,0,0	monster	Cogumelo Negro	1084,1,600000,300000,1
+
+pay_dun03.gat,0,0,0,0	monster	Esqueleto Arquiero	1016,5,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Munak	1026,5,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Esqueleto Soldado	1028,10,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Magnólia	1138,5,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Sohee	1170,45,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Bongun	1188,5,0,0,0
+pay_dun03.gat,0,0,0,0	monster	Guardião da Floresta	1277,3,0,0,0
+pay_dun03.gat,115,190,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,120,186,0,0	monster	Planta Verde	1080,1,600000,300000,1
+pay_dun03.gat,126,131,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,126,132,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,126,133,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,126,134,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,126,135,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,138,42,0,0	monster	Planta Azul	1079,1,600000,300000,1
+pay_dun03.gat,154,112,0,0	monster	Sussurro	1179,1,1800000,0,1
+pay_dun03.gat,161,117,0,0	monster	Sussurro	1179,1,1800000,0,1
+pay_dun03.gat,179,130,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,179,131,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,179,132,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,179,133,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,179,134,0,0	monster	Mandrágora	1020,1,300000,100000,1
+pay_dun03.gat,219,185,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,219,244,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,228,185,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,228,61,0,0	monster	Planta Vermelha	1078,1,600000,300000,1
+pay_dun03.gat,230,244,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,240,244,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,243,220,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,57,65,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,58,69,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,59,64,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,60,68,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,62,67,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,63,70,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,64,66,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,66,63,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,66,65,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,66,73,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,67,69,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,67,71,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,68,64,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,68,72,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,69,68,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,71,243,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,71,64,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,71,67,0,0	monster	Hidra	1068,1,600000,300000,1
+pay_dun03.gat,81,61,0,0	monster	Sussurro	1179,1,1800000,0,1
+pay_dun03.gat,84,63,0,0	monster	Sussurro	1179,1,1800000,0,1
+pay_dun03.gat,85,178,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,86,248,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun03.gat,88,35,0,0	monster	Planta Amarela	1081,1,600000,300000,1
+pay_dun03.gat,89,147,0,0	monster	Cochico	1186,1,14400000,0,1
+
+pay_dun04.gat,0,0,0,0	monster	Esqueleto Arquiero	1016,20,0,0,0
+pay_dun04.gat,0,0,0,0	monster	Esqueleto Soldado	1028,30,0,0,0
+pay_dun04.gat,0,0,0,0	monster	Horong	1129,40,0,0,0
+pay_dun04.gat,0,0,0,0	monster	Sohee	1170,10,0,0,0
+pay_dun04.gat,0,0,0,0	monster	Guardião da Floresta	1277,5,0,0,0
+pay_dun04.gat,100,133,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,103,110,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,106,139,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,109,103,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,112,144,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,113,99,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,116,144,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,119,99,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,120,115,0,0	monster	Flor do Luar	1150,1,3600000,0,0
+pay_dun04.gat,120,120,10,10	monster	Planta Brilhante	1083,3,1800000,900000,1
+pay_dun04.gat,120,144,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,121,99,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,123,99,0,0	monster	Guardião da Floresta	1277,1,3600000,7200000,1
+pay_dun04.gat,124,144,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,125,99,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,129,140,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,131,106,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,135,134,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,136,111,0,0	monster	Sohee	1170,2,300000,100000,1
+pay_dun04.gat,140,114,0,0	monster	Guardião da Floresta	1277,1,3600000,7200000,1
+pay_dun04.gat,140,118,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,140,122,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,140,126,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,140,130,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,151,74,0,0	monster	Mandrágora	1020,1,600000,300000,1
+pay_dun04.gat,152,163,0,0	monster	Mandrágora	1020,1,600000,300000,1
+pay_dun04.gat,154,75,0,0	monster	Guardião da Floresta	1277,1,600000,300000,1
+pay_dun04.gat,156,77,0,0	monster	Mandrágora	1020,1,600000,300000,1
+pay_dun04.gat,77,163,0,0	monster	Guardião da Floresta	1277,1,600000,300000,1
+pay_dun04.gat,77,78,0,0	monster	Mandrágora	1020,1,600000,300000,1
+pay_dun04.gat,81,167,0,0	monster	Mandrágora	1020,1,600000,300000,1
+pay_dun04.gat,97,115,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,97,121,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,97,123,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+pay_dun04.gat,97,125,0,0	monster	Mandrágora	1020,1,3600000,7200000,1
+
+gld_dun01.gat,0,0,0,0	monster	Lobo Errante	1092,1,14400000,7200000,1
+gld_dun01.gat,0,0,0,0	monster	Eddga	1115,1,28800000,7200000,1
+gld_dun01.gat,0,0,0,0	monster	Esqueleto General	1290,10,0,0,0
+gld_dun01.gat,0,0,0,0	monster	Am Mut	1301,10,0,0,0
+gld_dun01.gat,0,0,0,0	monster	Gato de Nove Caudas	1307,3,1200000,0,0
+gld_dun01.gat,0,0,0,0	monster	Gajomart	1309,10,0,0,0

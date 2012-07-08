@@ -1,0 +1,88 @@
+//===== Cronus Script ========================================
+//= Quest de Classe - Arquimago
+//===== Por: =================================================
+//= Nana
+//= finished, optimized and tested by Lupus
+//===== Versão Atual: ========================================
+//= 1.3b
+//===== Compatibilidade: =====================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Fazer um Mago T. se tornar um Arquimago
+//===== Comentários Adicionais: ==============================
+//= 1.1 Made all into functions, additional checks, etc. [Lupus]
+//= 1.2 Made numbers into constants. [Vicious]
+//= 1.3 Now saves/restores all the quest skills [Lupus]
+//= 1.3a Traduzido. [.zuport]
+//= 1.3b Revisado. [Heaven]
+//============================================================
+
+valkyrie,44,47,5	script	Arquimago#Valkyrie	735,{
+	if (ADVJOB == 0 ||  Upper != 1) {
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			show "[Arquimago]";
+			show "Parabéns.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		show "[Arquimago]";
+		show "Nós Arquimagos temos";
+		show "a responsabilidade de";
+		show "usar nossa mágica destrutiva";
+		show "para os propósitos corretos.";
+		next;
+		show "[Arquimago]";
+		show "Uma vida de treinos";
+		show "é necessária antes de se tornar";
+		show "um Arquimago. Você pode imaginar";
+		show "o que pode acontecer se nosso poder";
+		show "for colocado nas mãos erradas?!";
+		close;
+	}
+	else if (ADVJOB == Job_High_Wizard && Class == Job_Mage_High && JobLevel > 39) {
+		show "[Arquimago]";
+		show "Essa é a hora.";
+		show "E Rune-Midgard";
+		show "precisa daqueles que podem";
+		show "exercer a mais forte das mágicas...";
+		next;
+		show "[Arquimago]";
+		show "Você gostaria de se";
+		show "tornar um Arquimago?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			show "[Arquimago]";
+			show "Quando estiver pronto,";
+			show "sinta-se livre para voltar.";
+			show "Honra aos guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			show "[Arquimago]";
+			show "Ainda é possível para você aprender mais algumas habilidades. Por favor";
+			show "use todos seus pontos de habilidade restantes antes de voltar aqui.";
+			close;
+		}
+		setjob Job_High_Wizard;
+		set ADVJOB,0;
+		show "[Arquimago]";
+		show "Parabéns.";
+		show "Como Arquimago,";
+		show "Eu espero que você use";
+		show "seus poderes para trazer";
+		show "paz aos oprimidos.";
+		close;
+	}
+	show "[Arquimago]";
+	show "Bem-vindo";
+	show "a Valhalla,";
+	show "o Salão de Honra.";
+	next;
+	show "[Arquimago]";
+	show "Por favor sinta-se";
+	show "confortável enquanto";
+	show "estiver aqui.";
+	show "Honra aos guerreiros!";
+	close;
+}

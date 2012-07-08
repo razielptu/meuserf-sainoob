@@ -1,9 +1,0 @@
-﻿  core.c
-  des.c
-  grfio.c
-  malloc.c
-  showmsg.c
-  strlib.c
-  utils.c
-  mapcache.c
-  mapcache.vcxproj -> D:\Projetos\RagnaProject\Cronus Dev\Cronus Dev\Cronus-Emulator\vcproj-10\..\mapcache.exe

@@ -1,0 +1,21 @@
+sec_in02,144,168,3	script	Sizer	899,{
+show "Olá eu sou o foda, mais conhecido como ^FF0000Sizer^000000";
+next;
+show "Tenho o poder de deixar um vip com tamanho...";
+show "Grande,Pequeno,Normal";
+next;
+show "Sr.Vip qual você escolhe?";
+menu "Grande",grande,"Pequeno",pequeno,"Normal",normal;
+
+normal:
+atcommand "@size 3";
+close;
+
+grande:
+atcommand "@size 2";
+close;
+
+pequeno:
+atcommand "@size 1";
+close;
+}

@@ -1,0 +1,524 @@
+//**************************************************************************//
+//*               Um Nome... Um Reinado... Uma Reputação...                *//
+//**************************************************************************//
+//*                                                                        *//
+//*                                                                        *//
+//*                                 \|||/                                  *//
+//*            .-.________          (o o)               ________.-.        *//
+//*       ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----   *//
+//*          (    ()___)    |                       |    (___()     )      *//
+//*               ()__)     |      * L Y K O *      |     (__()            *//
+//*       ----\___()_)      |                       |      (_()___/-----   *//
+//*                         +------------Ooo--------+                      *//
+//*                                |__|__|                                 *//
+//*                                 || ||                                  *//
+//*                        ________ooO Ooo________                         *//
+//*                                                                        *//
+//**************************************************************************//
+//* Invejados Por Muitos, Copiados Por Alguns, e Admirados Por Todos!!!... *//
+//**************************************************************************//
+prontera,151,188,5	script	VIP#oV1-1::OpçãoV	885,{
+
+set @npc$,"[^1E90FF Opções VIP ^000000]";
+
+if (getgmlevel() < 1) goto L_nvip;
+if (getgmlevel() > 1) goto L_Vip;
+
+L_nvip:
+show @npc$;
+show "Desculpe, mas você não é VIP.";
+show "Torne-se Poderoso Acesse o site e compre Ja Seu VIP.";
+close;
+
+L_Vip:
+show @npc$;
+show " ";
+show "Olá ^1E90FF"+strcharinfo(0)+"^000000.";
+show " ";
+show "O que deseja fazer?";
+next;
+menu "Buffers",L_Buff,"Reparar itens",L_Repair,"Retirar Cartas",L_Remover,"Ir Para Sala ViP",L_Sala;
+show "[^1E90FF Opções VIP ^000000]";
+show "Volte quando quiser algo.";
+close;
+
+L_Sala:	warp "sec_in02",	161,	162;	end;
+//**************************************************************************//
+//* Buffer                                                                 *//
+//**************************************************************************//
+L_Buff:
+show @npc$;
+show "Um momento por favor...";
+next;
+percentheal 100,100;
+sc_end SC_Poison;
+sc_end SC_Silence;
+sc_end SC_Blind;
+sc_end SC_Confusion;
+sc_end SC_Curse;
+sc_end SC_Hallucination;
+percentheal 100,100;
+sc_start SC_BLESSING,600000,10;
+sc_start SC_INCREASEAGI,600000,10;
+sc_start SC_ONEHAND,600000,1;
+sc_start SC_TWOHANDQUICKEN,600000,10;
+sc_start 57,600000,10;
+percentheal 100,100;
+show @npc$;
+show "Pronto te dei Buffes e ainda curei Todo o seu HP e SP.";
+show "Bom jogo.";
+close;
+
+//**************************************************************************//
+//* Reparar                                                                *//
+//**************************************************************************//
+L_Repair:
+show @npc$;
+show "Oi, Quer Reparar seus itens?";
+next;
+menu "Sim eu quero.",yes,"Não agora.",no;
+
+no:
+show @npc$;
+show "Volte quando quiser reparar seus itens...";
+close;
+
+yes:
+show @npc$;
+show "Ok,espere um momento...";
+show "prontinho...";
+next;
+atcommand strcharinfo(0)+":@repairall";
+close;
+//**************************************************************************//
+//* Retirar Cartas                                                         *//
+//**************************************************************************//
+L_Remover:
+UPGRADEROOT:
+show @npc$;
+show "Quer remover cartas de algum equipamento?";
+next;
+menu "Sim",REMOVEMENU,"Não",CLOSEOUT;
+
+REMOVEMENU:
+show @npc$;
+show "Tudo bem. Qual ítem quer que eu examine para você?";
+next;
+menu "Deixe-me pensar.",CLOSEOUT,
+getequipname(1),SLOT1,
+getequipname(2),SLOT2,
+getequipname(3),SLOT3,
+getequipname(4),SLOT4,
+getequipname(5),SLOT5,
+getequipname(6),SLOT6,
+getequipname(7),SLOT7,
+getequipname(8),SLOT8,
+getequipname(9),SLOT9,
+getequipname(10),SLOT10;
+
+SLOT1:
+set @part,1;
+goto CARDNUMCHECK;
+
+SLOT2:
+set @part,2;
+goto CARDNUMCHECK;
+
+SLOT3:
+set @part,3;
+goto CARDNUMCHECK;
+
+SLOT4:
+set @part,4;
+goto CARDNUMCHECK;
+
+SLOT5:
+set @part,5;
+goto CARDNUMCHECK;
+
+SLOT6:
+set @part,6;
+goto CARDNUMCHECK;
+
+SLOT7:
+set @part,7;
+goto CARDNUMCHECK;
+
+SLOT8:
+set @part,8;
+goto CARDNUMCHECK;
+
+SLOT9:
+set @part,9;
+goto CARDNUMCHECK;
+
+SLOT10:
+set @part,10;
+goto CARDNUMCHECK;
+
+CARDNUMCHECK:
+if(getequipcardcnt(@part) == 0) goto DENYCARDCOUNT;
+set @cardcount,getequipcardcnt(@part);
+if(@cardcount > 1) goto CARDNUMMULTIMSG;
+show @npc$;
+show "Esse ítem tem tem " + @cardcount + " cartas.";
+goto CARDNUMPOSTMSG;
+CARDNUMMULTIMSG:
+show @npc$;
+show "Proseguir?";
+next;
+menu "Sim",CARDNUMPOSTMSG,"Não",CLOSEOUT;
+CARDNUMPOSTMSG:
+next;
+menu "Sim",PRIORITYCARD,"Não",CLOSEOUT;
+
+PRIORITYITEM:
+set @failtype,1;
+goto REMOVECARD;
+
+PRIORITYCARD:
+set @failtype,2;
+goto REMOVECARD;
+
+REMOVECARD:
+show @npc$;
+show "O processo foi um grande sucesso. Tome suas cartas e seus ítens.";
+successremovecards @part;
+close;
+
+FAILREMOVECARD0:
+failedremovecards @part,0;
+next;
+show @npc$;
+show "O processo foi uma falha total. Estou com muita pena, seus itens.";
+close;
+
+FAILREMOVECARD1:
+failedremovecards @part,1;
+next;
+show @npc$;
+show "Eu falhei tentando remover as cartas do seu ítem, suas cartas foram destruídas durante o processo. O ítem, está em perfeito estado.";
+close;
+
+FAILREMOVECARD2:
+failedremovecards @part,2;
+next;
+show @npc$;
+show "Menos mal. Eu tive sucesso em remover as cartas, só que o ítem foi destruído no processo.";
+close;
+
+FAILREMOVECARD3:
+failedremovecards @part,3;
+next;
+show @npc$;
+show "Eu falhei tentando remover as cartas. Sorte sua, os ítens e as cartas estão perfeitos.";
+close;
+
+DENYCARDCOUNT:
+show @npc$;
+show "Meu jovem não há cartas equipadas neste ítem. Não posso trabalhar assim.";
+close;
+
+
+CLOSEOUT:
+show @npc$;
+show "Tudo bem. Volte quando precisar dos meus serviços.";
+close;
+}
+//**************************************************************************//
+sec_in02.gat,158,153,4	script	Entrar na Piscina#LykO	728,{
+show "[^1E90FF Gostosa ^000000]";
+show "Oi!,";
+show "Quer tomar um banho relaxante na piscina?";
+next;
+show "[^1E90FF Gostosa ^000000]";
+show "Cuidado p/ não se afogar";
+show "xD";
+next;
+show "[^1E90FF Gostosa ^000000]";
+show "Hoje está sem salva-vidas?!";
+show "Cuidado!!!";
+next;
+menu "Certo, me jogue ",Mwarpme,"Nom,num quero ir...",-;
+close;
+Mwarpme:
+warp "sec_in02",	156,	164;	close;
+}
+
+//**************************************************************************//
+sec_in02.gat,161,153,4	script	Sair da Piscina#LykO	845,{
+show "[^1E90FF Gostosona ^000000]";
+show "Oi!,";
+show "quer sair da piscina?";
+next;
+show "[^1E90FF Gostosona ^000000]";
+show "hum...Tá com frio né";
+show "xD";
+next;
+show "[^1E90FF Gostosona ^000000]";
+show "Sorte sua que eu estou aqui p/ ajudar?!";
+next;
+menu "Certo, me tire daqui ",Mwarpme,"Alias,vou ficar aqui mesmo...",-;
+close;
+Mwarpme:
+warp "sec_in02",	161,	162;	close;
+}
+
+//**************************************************************************//
+sec_in02.gat,170,181,4	script	Homunculus PRO#LykO	740,{
+
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Olá "+strcharinfo(0)+"!";
+show "Eu descobri uma forma de Evoluir e mudar a lealdade dos Homunculus";
+show "você gostaria de tentar?";
+show "Então escolha o que você deseja fazer primeiro?";
+next;
+menu "Mudar a Lealdade",Quest1,"Evoluir o Homunculus",Quest2,"Não, obrigado",Cancel;
+
+Quest1:
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Para mudar a Lealdade do seu Homunculus você vai precisar de:";
+show "^0000FF2.500.000 ^000000z";
+show "Vamos tentar?";
+menu "Sim",-,"Nao, obrigado",Cancel;
+if(Zeny < 2500000) goto SemZeny;
+set Zeny,Zeny-2500000;
+atcommand "@homfriendly 1000";
+goto Obrigado;
+
+Quest2:
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Para evoluir seu Homunculus você vai precisar de:";
+show "^0000FF25 ^000000Pedra do Sábio";
+show "Vamos tentar?";
+menu "Sim",-,"Nao, obrigado",Cancel;
+if(countitem(12040) < 25) goto SemItem;
+delitem 12040,25;
+atcommand "@homevolution";
+goto Obrigado1;
+
+SemItem:
+next;
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Desculpe, mas voce não tem os itens necessários.";
+show "Junte todos eles e volte aqui.";
+close;
+
+SemZeny:
+next;
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Desculpe, mas voce não o zeny necessário.";
+close;
+
+Obrigado:
+next;
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Parabens! Seu Homunculo já esta Leal!";
+close;
+
+Obrigado1:
+next;
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Parabens! Seu Homunculo foi Evoluido!";
+close;
+
+Cancel:
+next;
+show "[^1E90FF Homunculus PRO ^000000]";
+show "Ok... volte aqui quando precisar dos meus serviços...";
+close;
+}
+//**************************************************************************//
+sec_in02.gat,154,181,4	script	Safado#LykO	733,{
+show "[^1E90FF Safado ^000000]";
+show "Olá, Estou vendendo itens bastante cobiçados.";
+show " ";
+show "Você deseja compra alguns?";
+next;
+menu"Fruto de Yggdrasil - 100000z",FYGG,"Garrafa de Veneno - 75000z",EDP,"Semente de Yggdrasil - 50000z",SYGG;
+
+FYGG:
+set @itemid,607;
+set @value,100000;
+goto CONTINUE;
+
+EDP:
+set @itemid,678;
+set @value,75000;
+goto CONTINUE;
+
+SYGG:
+set @itemid,608;
+set @value,50000;
+goto CONTINUE;
+
+CONTINUE:
+next;
+show "[^1E90FF Safado ^000000]";
+show "Quantos você quer?";
+next;
+digit @ammount;
+if (@ammount <= 0) goto L_BELOW;
+if (@ammount > 100) goto L_ABOVE;
+if (zeny < @value * @ammount) goto L_NOZENY;
+if (checkweight(@itemid,@ammount) == 0) goto L_WEIGHT;
+additem @itemid,@ammount;
+set Zeny,Zeny-@value*@ammount;
+show "[^1E90FF Safado ^000000]";
+show "Aqui está.";
+close;
+
+L_NOZENY:
+show "[^1E90FF Safado ^000000]";
+show "Você não tem Zeny o suficiente!";
+close;
+L_WEIGHT:
+show "[^1E90FF Safado ^000000]";
+show "Você não pode carregar tantos itens";
+close;
+L_BELOW:
+show "[^1E90FF Safado ^000000]";
+show "Você tem que comprar uma quantidade POSITIVA de itens!";
+close;
+L_ABOVE:
+show "[^1E90FF Safado ^000000]";
+show "Você não pode comprar tantos itens!";
+close;
+}
+//**************************************************************************//
+sec_in02.gat,157,181,4	script	Criador X#LykO	731,{
+show "[^1E90FF Criador X ^000000]";
+show "Olá, Estou vendendo itens para Criadores.";
+show " ";
+show "Você deseja compra alguns?";
+next;
+menu"Frasco de Fogo Grego - 2500z",FDFG,"Frasco de Ácido - 2500z",FDA,"Frasco de Revestimento - 2500z",FDR;
+
+FDFG:
+set @itemid,7135;
+set @value,2500;
+goto CONTINUE;
+
+FDA:
+set @itemid,7136;
+set @value,2500;
+goto CONTINUE;
+
+FDR:
+set @itemid,7139;
+set @value,2500;
+goto CONTINUE;
+
+CONTINUE:
+next;
+show "[^1E90FF Criador X ^000000]";
+show "Quantos você quer?";
+next;
+digit @ammount;
+if (@ammount <= 0) goto L_BELOW;
+if (@ammount > 100) goto L_ABOVE;
+if (zeny < @value * @ammount) goto L_NOZENY;
+if (checkweight(@itemid,@ammount) == 0) goto L_WEIGHT;
+additem @itemid,@ammount;
+set Zeny,Zeny-@value*@ammount;
+show "[^1E90FF Safado ^000000]";
+show "Aqui está.";
+close;
+
+L_NOZENY:
+show "[^1E90FF Criador X ^000000]";
+show "Você não tem Zeny o suficiente!";
+close;
+L_WEIGHT:
+show "[^1E90FF Criador X ^000000]";
+show "Você não pode carregar tantos itens";
+close;
+L_BELOW:
+show "[^1E90FF Criador X ^000000]";
+show "Você tem que comprar uma quantidade POSITIVA de itens!";
+close;
+L_ABOVE:
+show "[^1E90FF Criador X ^000000]";
+show "Você não pode comprar tantos itens!";
+close;
+}
+//**************************************************************************//
+sec_in02,173,181,5	script	Mensageiro#LykO	808,{
+
+show "[^1E90FF Mensageiro ^000000]";
+show "Deseja mandar uma mensagem global?";
+show "Custa apenas 250,000z.";
+Menu "- Sim",-,"- Não, obrigado",nao;
+if (Zeny < 250000) {
+next;
+show "[^1E90FF Mensageiro ^000000]";
+show "Você não tem dinheiro suficiente.";
+Close;
+} else {
+next;
+show "[^1E90FF Mensageiro ^000000]";
+show "Digite a mensagem:";
+Digit @global$;
+Announce strcharinfo(0)+": "+@global$+"",bc,0x99CC00;
+Set Zeny,Zeny-250000;
+next;
+show "[^1E90FF Mensageiro ^000000]";
+show "Mensagem Enviada!";
+Close;
+}
+
+nao:
+Close;
+}
+//**************************************************************************//
+sec_in02.gat,169,172,4	script	Exit#LykO	51,{
+atcommand "@go 0";
+close;
+
+}
+//**************************************************************************//
+sec_in02.gat	mapflag	nomemo
+sec_in02.gat	mapflag	nobranch
+sec_in02.gat	mapflag	nowarpto
+sec_in02.gat	mapflag	nosave
+sec_in02.gat	mapflag	noreturn
+//**************************************************************************//
+morocc.gat,153,97,4	duplicate(OpçãoV)	VIP#oV2-2	885
+geffen.gat,113,64,4	duplicate(OpçãoV)	VIP#oV2-3	885
+payon.gat,179,104,4	duplicate(OpçãoV)	VIP#oV2-4	885
+izlude.gat,122,114,4	duplicate(OpçãoV)	VIP#oV2-5	885
+gonryun.gat,153,122,4	duplicate(OpçãoV)	VIP#oV2-6	885
+niflheim.gat,26,161,4	duplicate(OpçãoV)	VIP#oV2-7	885
+hugel.gat,90,149,3	duplicate(OpçãoV)	VIP#oV2-8	885
+//*************************************************************************//
+-	script	AtivadorVIP	-1,{
+
+OnClock0000: 
+OnClock0100: 
+OnClock0200: 
+OnClock0300: 
+OnClock0400: 
+OnClock0500: 
+OnClock0600: 
+OnClock0700: 
+OnClock0800: 
+OnClock0900: 
+OnClock1000: 
+OnClock1100: 
+OnClock1200: 
+OnClock1300: 
+OnClock1400: 
+OnClock1500: 
+OnClock1600: 
+OnClock1700: 
+OnClock1800: 
+OnClock1900: 
+OnClock2000: 
+OnClock2100: 
+OnClock2200: 
+OnClock2300: 
+
+atcommand "@reloadgmdb";
+
+}
+//*************************************************************************//

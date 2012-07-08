@@ -1,0 +1,229 @@
+//===== Cronus Script =========================================
+//= Funções dos Items de ROPs
+//===== Por: ================================================== 
+//= L0ne_W0lf[1.0]; SoulBlaker[1.1]
+//===== Current Version: ======================================
+//= 1.1
+//===== Compatible With: ======================================
+//= Cronus SVN
+//===== Description: ==========================================
+//= Funções para que os seguintes items de ROPs Funcionem:
+//= - Cartão Kafra
+//= - Asas de Mosca Gigantes
+//= - Neuralizador
+//= - Pergaminho de Teleporte para Calabouço
+//- - Pergaminhos de Teleporte para Cidades
+//===== Comentários Adicionais: ===============================
+//= 1.0 First version. [L0ne_W0lf]
+//=	F_CashPartyCall Optimized by Trancid.
+//=     Traduzido e Adaptado para o Cronus[Reploid]
+//= 1.1 Adicionado Pergaminhos de Teleporte para Feudos. [SoulBlaker]
+//=============================================================
+
+// Cartão Kafra
+//=============================================================
+// - Abre o Armazem dos Players.
+function	script	F_CashStore	{
+	cutin "kafra_01",2;
+	show "[Funcionária Kafra]";
+	show "Bem-Vindo a Corporação Kafra.";
+	show "Deixe-me abrir seu Armazém Para Você.";
+	close2;
+	openstorage;
+	cutin "",255;
+	return;
+}
+
+
+// Asa de Mosca Gigante
+//====================================================================================== 
+// - Teleporta o Lider do Grupo e seus integrantes para algum lugar aleatório no Mapa.
+function	script	F_CashPartyCall	{
+	warp "Random",0,0;
+	if(getpartyleader(getcharid(1),2) == getcharid(0)) {
+		getmapxy .@mapl$, .@xl, .@yl, 0;
+		getpartymember getcharid(1);
+		set .@partymembercount, $@partymembercount;
+		copyarray .@partymembername$[0], $@partymembername$[0], .@partymembercount;
+		for(set .@i, 0; .@i < .@partymembercount; set .@i, .@i + 1)
+		if(!(getmapxy(.@mapm$, .@xm, .@ym, 0, .@partymembername$[.@i])) && (.@mapm$ == .@mapl$))
+		warpchar .@mapl$, .@xl, .@yl, getcharid(0, .@partymembername$[.@i]);
+	}
+	return;
+}
+
+// Neuralizador
+//============================================================================================================ 
+// - Reseta os Pontos de Habilidade.Mas para isto você não pode estar com items ou Carrinho/Falcão/Peco-Peco.
+function	script	F_CashReset	{
+	if (Class != Job_Novice) {
+		if (Weight < 1) { 
+			if (checkriding() || checkfalcon() || checkcart()) return;
+			else {
+				resetskill;
+				sc_end SC_ALL;
+			}
+		}
+	}
+	return;
+}
+
+// Pergaminho_de_Teleporte_para_Calabouço
+//======================================================================= 
+// - Teleporta o jogador para um lugar aleatorio no Calabouço Escolhido
+function	script	F_CashDungeon	{
+	switch(select("Calabouço de Magma:Monte Mjolnir (02):Loja de Carpintaria:Calabouço da Mina:Caverna de Payon (0):Depósito da Fábrica de Brinquedos:Prisão Subterrânea de Glast Heim (0):A Tumba Real:Tabuleiro de Go:Túnel Submarino (0):Calabouço da Ilha da Tartaruga:Torre do Relógio (s3):Torre do Relógio (1)")) {
+	case 1: warp "mag_dun01",0,0; end;
+	case 2: warp "mjolnir_02",0,0; end;
+	case 3: warp "um_dun01",0,0; end;
+	case 4: warp "ein_dun01",0,0; end;
+	case 5: warp "pay_dun00",0,0; end;
+	case 6: warp "xmas_dun01",0,0; end;
+	case 7: warp "gl_prison",0,0; end;
+	case 8: warp "lou_dun01",0,0; end;
+	case 9: warp "gon_dun02",0,0; end;
+	case 10: warp "iz_dun00",0,0; end;
+	case 11: warp "tur_dun02",0,0; end;
+	case 12: warp "alde_dun03",0,0; end;
+	case 13: warp "c_tower1",0,0; end;
+	}
+	return;
+}
+
+// Pergaminho_de_Teleporte_para_Cidade
+//================================================================= 
+// - Teleporta o Player para uma cidade dependendo do Pergaminho
+function	script	F_CashCity	{
+	switch(getarg(0))
+	{
+		// Yellow
+		case 1: switch(select("Prontera:Geffen:Payon:Morroc:Aldebaran:Alberta")) {
+			case 1: warp "prontera",0,0; end;
+			case 2: warp "geffen",0,0; end;
+			case 3: warp "payon",0,0; end;
+			case 4: warp "morocc",0,0; end;
+			case 5: warp "aldebaran",0,0; end;
+			case 6: warp "alberta",0,0; end;
+			}
+		break;
+		// Green
+		case 2: switch(select("Juno:Lighthalzen:Einbroch:Hugel")) {
+			case 1: warp "yuno",0,0; end;
+			case 2: warp "lighthalzen",0,0; end;
+			case 3: warp "einbroch",0,0; end;
+			case 4: warp "hugel",0,0; end;
+			}
+		break;
+		// Red
+		case 3: switch(select("Rachel:Veins")) {
+			case 1: warp "rachel",0,0; end;
+			case 2: warp "veins",0,0; end;
+			}
+		break;
+		// Blue
+		case 4: switch(select("Ayothaya:Amatsu:Louyang:Kunlun")) {
+			case 1: warp "ayothaya",0,0; end;
+			case 2: warp "amatsu",0,0; end;
+			case 3: warp "louyang",0,0; end;
+			case 4: warp "gonryun",0,0; end;
+			}
+		break;
+	}
+	return;
+}
+
+// Pergaminhos de Teleporte
+//============================================================ 
+// - Teleporta o Jogador para o Ponto de Retorno ou para uma
+// - cidade de acordo com o Pergaminho.
+// - Arg(0) = tipo do Pergaminho.
+function	script	F_CashTele	{
+	switch(getarg(0)) {
+	case 1:
+		switch(select("Ponto de Retorno:Prontera:Geffen:Aldebaran:Izlude")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "prontera",167,68; end;
+		case 3: warp "geffen",121,147; end;
+		case 4: warp "aldebaran",168,112; end;
+		case 5: warp "izlude",128,105; end;
+		}
+	case 2:
+		switch(select("Ponto de Retorno:Payon:Alberta:Morroc:Comodo")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "payon",172,101; end;
+		case 3: warp "alberta",117,56; end;
+		case 4: warp "morocc",165,255; end;
+		case 5: warp "comodo",193,148; end;
+		}
+	case 3:
+		switch(select("Ponto de Retorno:Louyang:Amatsu:Kunlun:Ayothaya")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "louyang",216,40; end;
+		case 3: warp "amatsu",197,83; end;
+		case 4: warp "gon_fild01",258,82; end;
+		case 5:warp "ayothaya",149,71; end;
+		}
+	case 4:
+		switch(select("Ponto de Retorno:Lutie:Umbala:Niflheim")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "xmas_fild01",78,68; end;
+		case 3: warp "umbala",100,154; end;
+		case 4: warp "niflheim",49,146; end;
+		}
+	case 5:
+		switch(select("Ponto de Retorno:Juno:Einbroch:Lighthalzen:Hugel")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "yuno",158,39; end;
+		case 3: warp "einbroch",240,200; end;
+		case 4: warp "lighthalzen",214,311; end;
+		case 5: warp "hugel",95,43; end;
+		}
+	case 6:
+		switch(select("Ponto de Retorno:Rachel:Veins")) {
+		case 1: warp "SavePoint",0,0; end;
+		case 2: warp "rachel",115,125; end;
+		case 3: warp "veins",205,102; end;
+		}
+	}
+	return;
+}
+
+
+// Pergaminhos de Teleporte para Feudos
+//============================================================ 
+// - Teleporta o jogador para o feudo escolido, ele tem 1 minuto para escolher
+// - Arg(0) = Minutos definido no item_db.txt
+function	script	ScroolFeudos	{
+
+	set .@time, gettime(2)+getarg(0);
+	mes "Para qual feudo deseja";
+	mes "teletransportar?";
+	mes "Você tem 1 minuto para escolher o Feudo!";
+	switch(select("Sirius:Astrum:Canopus:Rigel:Acrux:Arsulf:Trapesac:Ruaden:Saffran:Arima:Palácio do Sol:Palácio do Lago Sagrado:Palácio das Sombras:Palácio Escarlate:Palácio da Colina:Kriemhild:Hrist:Brynhildr:Skoelgul:Gondul")){
+		case 1: set .@map$,"aldeg_cas01"; break;
+		case 2: set .@map$,"aldeg_cas02"; break;
+		case 3: set .@map$,"aldeg_cas03"; break;
+		case 4: set .@map$,"aldeg_cas04"; break;
+		case 5: set .@map$,"aldeg_cas05"; break;
+		case 6: set .@map$,"gefg_cas01";  break;
+		case 7: set .@map$,"gefg_cas02";  break;
+		case 8: set .@map$,"gefg_cas03";  break;
+		case 9: set .@map$,"gefg_cas04";  break;
+		case 10: set .@map$,"gefg_cas05"; break;
+		case 11: set .@map$,"payg_cas01"; break;
+		case 12: set .@map$,"payg_cas02"; break;
+		case 13: set .@map$,"payg_cas03"; break;
+		case 14: set .@map$,"payg_cas04"; break;
+		case 15: set .@map$,"payg_cas05"; break;
+		case 16: set .@map$,"prtg_cas01"; break;
+		case 17: set .@map$,"prtg_cas02"; break;
+		case 18: set .@map$,"prtg_cas03"; break;
+		case 19: set .@map$,"prtg_cas04"; break;
+		case 20: set .@map$,"prtg_cas05"; break;
+	}
+	if(.@time == gettime(2)){
+		mes "Me desculpe, mas o tempo acabou.";
+		close;
+	}
+	warp .@map$,0,0; end;
+}

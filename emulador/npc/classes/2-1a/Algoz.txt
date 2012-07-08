@@ -1,0 +1,102 @@
+//===== Cronus Script ========================================
+//= Quest de Classe - Algoz
+//===== Por: =================================================
+//= Nana
+//= finished, optimized and tested by Lupus
+//===== Versão Atual: ========================================
+//= 1.3b
+//===== Compatibilidade: =====================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Fazer um Gatuno T. se tornar um Algoz
+//===== Comentários Adicionais: ==============================
+//= 1.1 Made all into functions, additional checks, etc. [Lupus]
+//= 1.2 Made numbers into constants. [Vicious]
+//= 1.3 Now saves/restores all the quest skills [Lupus]
+//= 1.3a Traduzido. [.zuport]
+//= 1.3b Revisado. [Heaven]
+//============================================================
+
+valkyrie,44,58,5	script	Algoz#Valkyrie	725,{
+	if (ADVJOB == 0 || Upper != 1) {
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			show "[Algoz]";
+			show "Parabéns...";
+			next;
+			show "[Algoz]";
+			show "...";
+			next;
+			show "[Algoz]";
+			show "...";
+			show "......";
+			next;
+			show "[Algoz]";
+			show "...";
+			show "......";
+			show "Honra aos";
+			show "guerreiros.";
+			close;
+		}
+		show "[Algoz]";
+		show "Nós somos os guerreiros";
+		show "do deserto. Ninguém";
+		show "olha para baixo sobre nós.";
+		show "Ninguém...";
+		close;
+	}
+	else if (ADVJOB == Job_Assassin_Cross && Class == Job_Thief_High && JobLevel > 39) {
+		show "[Algoz]";
+		show "O tempo chegou.";
+		show "O mundo precisa de você...";
+		show "Mais do que nunca.";
+		next;
+		show "[Algoz]";
+		show "Peço que você continue a viver nas sombras, mas como um Mercenário ainda melhor e com uma nova aparência.";
+		next;
+		show "[Algoz]";
+		show "Vai tornar-se";
+		show "um Algoz?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			show "[Algoz]";
+			show "Quando você estiver";
+			show "pronto, volte aqui.";
+			next;
+			show "[Algoz]";
+			show "Honra aos";
+			show "guerreiros.";
+			close;
+		}
+		if (SkillPoint) {
+			show "[Algoz]";
+			show "Você continua sem";
+			show "ter aprendido tudo";
+			show "que você poderia.";
+			next;
+			show "[Algoz]";
+			show "Use todos seus";
+			show "Pontos de Habilidade";
+			show "e então volte aqui.";
+			close;
+		}
+		setjob Job_Assassin_Cross;
+		set ADVJOB,0;
+		show "[Algoz]";
+		show "Parabéns.";
+		show "Como um Algoz,";
+		show "Eu espero que você lute por um futuro mais brilhante na escuridão.";
+		close;
+	}
+	show "[Algoz]";
+	show "Bem-vindo";
+	show "a Valhalla,";
+	show "o Salão de Honra.";
+	next;
+	show "[Algoz]";
+	show "Por favor sinta-se";
+	show "confortável enquanto";
+	show "estiver aqui.";
+	show "Honra aos guerreiros.";
+	close;
+}

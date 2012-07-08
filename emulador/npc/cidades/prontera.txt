@@ -1,0 +1,907 @@
+//===== Cronus Script ========================================
+//= Cidade de Prontera
+//===== Por: =================================================
+//= kobra_k88
+//===== Versão Atual: ========================================
+//= 2.0a
+//===== Compatível Com: ======================================
+//= Cronus SVN
+//===== Changelog: ===========================================
+//= 1.4 Optimized. Novices > 20 BaseJob can go to Culvert, too [Lupus]
+//= 1.5a Added a Jawaii related npc [MasterOfMuppets]
+//= 1.6 Replaced sewer_prt with (MISC_QUEST & 8) [Lupus]
+//= 1.7 Removed Duplicates [Silent]
+//= 1.8 Moved Culvert to quests/quests_prontera.txt
+//= 1.9 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
+//= 2.0 Removed "Hans Solo", as he is a Jawaii NPC. [L0ne_W0lf]
+//= 2.0a Removido NPC's que não estavam no eA, Corrigido, Otimizado
+//=     e adicionado NPC's e partes faltantes. [RoM]
+//============================================================
+
+prontera,51,344,5	script	Soldado#prt01::prtsoldado	105,{
+	show "[Guarda de Prontera]";
+	show "Bem vindo à Prontera.";
+	close;
+}
+
+prontera,47,339,5	duplicate(prtsoldado)	Soldado#prt02	105
+prontera,223,99,1	duplicate(prtsoldado)	Soldado#prt03	105
+prontera,229,104,5	duplicate(prtsoldado)	Soldado#prt04	105
+
+prontera,101,288,3	script	Homem#prt01	98,{
+	show "[Homem]";
+	show "Existe um monstro rosado chamado Poring nos arredores da cidade que é um dos mais comuns em Midgard.";
+	show "Ele é bem bonitinho e inofensivo. Nada de muito especial a respeito, certo? Porém, ao que parece, ele gosta de engolir itens que são deixados no chão.";
+	next;
+	show "[Homem]";
+	show "As pessoas costumam ficar enfezadas com isso. Não que seja muito preocupante, pois os Porings são muitos fracos...";
+	show "Já os ^000077Poporings^000000, que são Porings verdes, são mais fortes e resistentes. Tome cuidado ao provocá-los, porque comparados à Porings normais eles são surpreendentemente fortes.";
+	close;
+}
+
+prontera,54,240,6	script	Teodoro#prt01	97,{
+	show "[Teodoro]";
+	show "Você sabia que o Fabre é a larva dos Creamys?";
+	show "Quando o Fabre amadurece, ele se fecha num Casulo.";
+	show "Após permanecer no Casulo por algum tempo, ele torna-se um Creamy, uma espécie de borboleta, bem mais forte do que um Fabre comum.";
+	next;
+	show "[Teodoro]";
+	show "Sabe os Pecopecos?";
+	show "Os Pickys são os filhotes de Pecopeco.";
+	show "Eles são bem diferentes entre si.";
+	show "Heheheheh. Os Pickys são bem mais bonitinhos, não acha?";
+	close;
+}
+
+prontera,106,116,4	script	Mulher#prt01	91,{
+	show "[Mulher]";
+	show "Uma vez eu fui fazer um piquenique com minha família e encontrei uma das coisas mais estranhas que já vi,";
+	show "um gande enxame de abelhas!";
+	next;
+	show "[Mulher]";
+	show "Claro que não era um enxame qualquer, né? Senão não teria nada de estranho... O mais estranho é que tinha uma Abelha Rainha que controlava as outras.";
+	show "Estranho, não é? Eu acho, pelo menos. Quer dizer, imagine controlar seres humanos como aquela Rainha controlava as outras abelhas...";
+	close;
+}
+
+prontera,160,133,2	script	Yuni#pront	102,{
+	show "[Yuni]";
+	show "Entre monstros da mesma forma, existem alguns mais ferozes que outros. Um exemplo são Porings e Poporings, que tem a mesma forma mas forças diferentes.";
+	show "É bom tomar cuidado ao atacar algum deles, pois você pode se dar mal.";
+	next;
+	show "[Yuni]";
+	show "Normalmente, você pode determinar qual é qual pela difereça de cores.";
+	show "Como eu disse, tomar cuidado é sempre bom, então cheque os nomes dos inimigos antes de atacar.";
+	close;
+}
+
+prontera,149,202,2	script	Gabiroba#prt01	700,{
+	show "[Gabiroba]";
+	show "Odin é o mais poderoso dos Deuses,";
+	show "o todo-poderoso, o lorde do Aesir.";
+	show "Ele é um Deus guerreiro e muito sábio.";
+	show "Para conseguir sua sabedoria";
+	show "sem-limites, Odin bebeu da água do";
+	show "poço Imir, e para isso teve de";
+	show "perder um de seus olhos. Isso";
+	show "mostra sua incrível coragem e";
+	show "determinação! Aquela estátua no";
+	show "centro da fonte é de Odin.";
+	next;
+	show "[Gabiroba]";
+	show "Mas eu estou decepcionado com esse";
+	show "escultor! Seja quem for, ele";
+	show "poderia ter feito um trabalho";
+	show "melhor que esse!";
+	show "A estátua está diferente do";
+	show "verdadeiro Deus Odin! Provavelmente";
+	show "o escultor é um metido a";
+	show "moderninho, e quis invetar um novo";
+	show "visual para nosso Deus!";
+	next;
+	show "[Gabiroba]";
+	show "Olhe! Ele não está usando seu";
+	show "capacete de águia, não tem barba, e";
+	show "nem está montado em Sleipnir, seu";
+	show "poderoso cavalo de oito patas! Isso";
+	show "é um utraje! Eu não sei como o Rei";
+	show "aprovou essa estátua como o";
+	show "principal monumento de nossa cidade!";
+	close;
+}
+
+prontera,216,70,2	script	George#prt01	48,{
+	if (Class == Job_Novice) {
+		if (event_prt_nov_dreamtalk == 0) {
+			show "[George]";
+			show "Whew!";
+			show "Eu serei um ótimo cavaleiro!";
+			next;
+			show "[George]";
+			show "Eu sei, eu sei...";
+			show "Primeiro, eu preciso me tornar um Espadachim. Mas se eu continuar treinando, eu posso me tornar um ótimo Espadachim. E então, depois disso...";
+			next;
+			show "[George]";
+			show "Eu serei o melhor Cavaleiro";
+			show "de todo o mundo!";
+			show "Isto é... Isto é o meu maior sonho.";
+			next;
+			show "[George]";
+			show "IMPACTO EXPLOSIVO!";
+			next;
+			if (select("Eu quero ser forte também!:Hm... Dê o seu melhor.") == 1) {
+				set event_prt_nov_dreamtalk,1;
+				show "[George]";
+				show "Wow...!";
+				show "Isto é ótimo!";
+				show "Nós compartilhamos";
+				show "do mesmo sonho!";
+				next;
+				show "[George]";
+				show "Hey, se você quer se tornar um Espadachim, você deve ir para Izlude. Lá, você pode continuar e fazer o teste para se tornar um Espadachim. Na primeira vez, eu, é..., falhei. Mas eu não irei falhar novamente!";
+				next;
+				show "[George]";
+				show "Treinar! Treinar! Devo continuar treinando! Você precisa ser forte também! Já que nós dois temos que sermos fortes, nós iremos nos encontrar de novo!";
+				close;
+			}
+			show "[George]";
+			show "Heh heh! Eu irei com certeza!";
+		}else{
+			show "[George]";
+			show "Lutar...!";
+			show "Lutar Lutar LUTAR!";
+		}
+		close;
+	} else if (Class != Job_Novice) {
+		if (event_prt_nov_dreamtalk == 1) {
+			show "[George]";
+			show "Hey...!";
+			show "Você parece diferente agora. *glup* Você se tornou... ^993333mais forte^000000. Wow, isto é tããão legal!";
+			next;
+			show "[George]";
+			show "Estou tão invejoso!";
+			show "Eu acho que isso significa";
+			show "que eu devo treinar mais";
+			show "duro ainda!";
+			next;
+			set event_prt_nov_dreamtalk,2;
+			additem 2501,1; //Capa
+			show "[George]";
+			show "Isto é, bem, para te ajudar a ficar cada vez mais forte. Eu acho que devo lhe agradecer por ser um bom exemplo.";
+			close;
+		}
+		else if (event_prt_nov_dreamtalk == 2) {
+			show "[George]";
+			show "Lutar! Lutar!";
+			close;
+		}
+		show "[George]";
+		show "Um dia eu serei um grande";
+		show "Cavaleiro. É para isso que eu treino";
+		show "sem parar!";
+		show "O quê, você não acredita? Não me";
+		show "subestime, eu sei que vou";
+		show "conseguir!";
+		next;
+		show "[George]";
+		show "Eu sei, eu sei... Eu nem sou um";
+		show "Espadachim ainda... Mas eu vou ser!";
+		show "Eu sei como é difícil, mas com";
+		show "muita força de vontade eu vou chegar lá!";
+		next;
+		show "[George]";
+		show "Eu gosto de ficar aqui e ver os";
+		show "Espadachins promovidos à";
+		show "Cavaleiros. Me deixa feliz e me";
+		show "motiva a não ficar para trás!";
+		show "Por isso, eu fico aqui e treino pra valer!";
+		next;
+		if(select("Continue treinando!","Ah, desista, moleque.")==1){
+			show "[George]";
+			show "É claro que sim! Eu não vou";
+			show "desistir, porque eu sei que vou ser";
+			show "forte como você algum dia!";
+			show "Olha lá, hein, se a gente se";
+			show "encontrar depois, não vá me";
+			show "esnobar! Lembre de dizer um 'olá'!";
+			close;
+		}
+		show "[George]";
+		show "Ha-há! Nem pensar! Você vai ver!";
+		show "Aposto que eu ainda vou ser mais";
+		show "forte que você!";
+		close;
+	}
+}
+
+prontera,78,150,3	script	Darlene#prt_01	90,{
+	show "[Darlene]";
+	show "Como a cidade está cheia hoje!";
+	show "É isso que eu adoro em Prontera,";
+	show "você pode ver pessoas do mundo inteiro!";
+	show "E claro, também ouvir novidades de toda Midgard!";
+	next;
+	if(select("Conversar:Cancelar")==1) {
+		show "[Darlene]";
+		show "Eu não sei se você se interessa por";
+		show "vestidos... Hihihihi....Mas eu ouvi";
+		show "uma coisa maravilhosa hoje.";
+		show "Era sobre vestidos tingidos!";
+		show "Roupas, assim como a sua, só que de";
+		show "uma cor completamente nova!";
+		next;
+		show "[Darlene]";
+		show "Parece que se faz usando aquelas";
+		show "tinturas de Morroc... Mas ela são tão caras...";
+		show "E do mesmo jeito, acho que vai";
+		show "demorar muito até aparecer alguém";
+		show "que saiba como tingir as roupas.";
+		close;
+	}
+	show "[Darlene]";
+	show "Foi você que clicou em mim, fofura.";
+	show "Tem certeza de que não quer ouvir umas fofocas?";
+	close;
+}
+
+prt_in,178,92,0	script	Bibliotecário#pront	57,{
+	show "[Guiss]";
+	show "Aqui, no canto Oeste da Biblioteca de Prontera,";
+	show "nós mantemos gravações de monstros achados em vários calabouços em torno do Reino de Rune-Midgard.";
+	next;
+	show "[Guiss]";
+	show "Você achará estas Enciclopédias de Monstros de muita conveniência,";
+	show "já que as criaturas são organizadas pelo calabouço em que elas vivem.";
+	next;
+	show "[Guiss]";
+	show "Eu devo dizer, esta é a referência mais útil para os aventureiros. Quando lidando com feras, é bom estar informado e entender o que você está enfrentando.";
+	show "Se você deseja ver os monstros organizados pelas suas propriedades, visite o canto Leste da biblioteca.";
+	close;
+}
+
+prt_in,175,50,0	script	Bibliotecária#pront	71,{
+	show "[Ellen]";
+	show "Aqui, no canto Leste da Biblioteca de Prontera, nos disponibilizamos Enciclopédias de Monstros em que as criaturas são organizadas por suas propriedades. Nós também temos livros de habilidades de Mercadores e Ferreiros.";
+	show "Ooh~! O outro canto da biblioteca também tem coisas muito interessantes para serem lidas! Então, se você tiver chance, deveria nos visitar.";
+	close;
+}
+
+prt_in,47,141,0	script	Tio#prt01	56,{
+	show "[Tio]";
+	show "As pessoas não entram nestes";
+	show "esgotos há muito tempo... Um";
+	show "aventureiro me controu que o lugar";
+	show "está infestado de ^00008BBaratas^000000.";
+	next;
+	show "[Tio]";
+	show "Elas se reproduzem muito rápido e";
+	show "ninguém as têm impedido de se";
+	show "espalhar... Imagine quantas não";
+	show "devem existir lá embaixo agora!";
+	close;
+}
+
+prt_in,26,31,0	script	Tio#prt2	54,{
+	show "[Tio]";
+	show "Você pode não acreditar em mim, mas";
+	show "eu vi uma coisa incrível nos";
+	show "^000077Esgotos de Prontera^000000.";
+	show "Eu já fui lá muitas vezes, pois sou";
+	show "um dos encarregados da manutenção";
+	show "das tubulação de lá... Conheço";
+	show "tudo como a palma de minha mão!";
+	show "Eu vi a tal coisa do Quarto";
+	show "Subsolo... Era um ^000077Besouro Ladrão^000000";
+	show "brilhante! Era dourado e reluzia no";
+	show "escuro! Foi muito estranho!";
+	next;
+	show "[Tio]";
+	show "Um Besouro Dourado, imagine só! Ela";
+	show "tinha uma luz mágia, acho que até";
+	show "Sagrada e era muito, muito forte!";
+	show "Como pode um bicho tão repulsivo e";
+	show "sujo ter uma luz dessas?";
+	close;
+}
+
+prt_in,180,70,2	script	Atendente do Bar#pront	61,{
+	show "[Atendente do Bar]";
+	show "Cada vez mais tem pessoas vindo para Prontera,";
+	show "e cada dia mais meu negócio melhora. Mas...";
+	show "Bem, estou tendo um trabalhão para manter um bom estoque de ingredientes.";
+	next;
+	show "[Atendente do Bar]";
+	show "Como você vê, o número de monstros fora da cidade aumentou muito e causou um problema com a entrega de suprimentos no tempo certo.";
+	show "Eu não posso fazer um ótimo cardápio com ingredientes comuns porque eles são muito especiais!";
+	next;
+	show "[Atendente do Bar]";
+	show "Então eu estive contratando caçadores para pegarem engredientes frescos.";
+	show "Mas a demanda excedeu o suprimento estes dias.";
+	next;
+	show "[Atendente do Bar]";
+	show "Eu não posso continuar meu negócio sem meu cardápio especial de 'Azedo Crocante' e 'Yum Yum Saboroso'...*suspira*";
+	next;
+	while(1){
+		switch(select("'Azedo Crocante'?:'Yum Yum Saboroso'?:Cancelar")) {
+		case 1:
+			show "[Atendente do Bar]";
+			show "Os ingredientes básicos do meu Azedo Crocante são as formigas circulando dentro do Formigueiro Infernal no Deserto.";
+			show "Há rumores que o número de formigas cresceu muito e elas se tornaram mais violentas, então ninguém quer entrar naquele lugar.";
+			next;
+			show "[Atendente do Bar]";
+			show "*suspira*... Tenho medo que meu negócio esteja com os dias contados.";
+			next;
+			break;
+		case 2:
+			show "[Atendente do Bar]";
+			show "Os ingredientes básicos do Yum Yum Saboroso são os gafanhotos pulando em um lugar na floresta ao oeste. Sim, é o prato mais vendido de todos.";
+			show "Há rumores que eles se tornaram muito violentos e que abelhas construiram seu habitat lá, então ninguém quer ir lá.";
+			next;
+			show "[Atendente do Bar]";
+			show "*suspira*... Tenho medo que meu negócio esteja com os dias contados.";
+			next;
+			break;
+		case 3:
+			show "[Atendente do Bar]";
+			show "Cuide-se~.";
+			close;
+		}
+	}
+}
+
+prt_in,173,24,2	script	Hubite#prt01	85,{
+	show "[Hubite]";
+	show "Ei, colega! Chegue aqui e tome um";
+	show "drinque comigo! Eu tenho umas";
+	show "histórias boas pra te contar.";
+	show "Sabe, eu já andei por todos os";
+	show "arredores de Prontera!";
+	show "Lugares cheios de monstros, lugares";
+	show "cheio de itens, ótimos para treinar!";
+	next;
+	if(select("E como você foi pra tantos lugares?","É? E daí?")==1){
+		show "[Hubite]";
+		show "Ora, eu sou um cara muito";
+		show "talentoso! Eu já fiz de tudo!";
+		show "Eu já viajei bastante por aí";
+		show "fazendo serviços para os";
+		show "aventureiros e para a cidade...";
+		show "Fazendo o quê? Bem...hã...";
+		show "entregando coisas.";
+		show "É... Eu sei que às vezes é um";
+		show "trabalho meio chato e sem graça,";
+		show "esse de fazer entregas.";
+		next;
+		show "[Hubite]";
+		show "Mas assim eu tenho a oportunidade";
+		show "de viajar bastante e conhecer novos";
+		show "lugares! É muito divertido!";
+		show "Mas não pense que eu faço isso por";
+		show "diversão... Eu sou um cara muito";
+		show "dedicado, viu? Se você precisa";
+		show "entregar alguma coisa, eu sou seu";
+		show "homem!";
+		next;
+		show "[Hubite]";
+		show "Viajando por aí eu já achei alguns";
+		show "lugares bem estranhos e também";
+		show "fascinantes...";
+		show "(É muito legal, porque eu sei que";
+		show "quase ninguém aqui sabe deles...Hehehe.)";
+		show "Por exemplo, uma certa caverna que";
+		show "eu conheço... E também aquela";
+		show "floresta perigosíssima...";
+		next;
+		switch(select("Que caverna?:Floresta perigosa? Hmmm.:Bem, eu preciso ir...")){
+		case 1:
+			show "[Hubite]";
+			show "Hmm... A caverna... Ela fica ao";
+			show "Norte daqui. Eu acompanhei alguns";
+			show "caçadores até lá uma vez.";
+			next;
+			show "[Hubite]";
+			show "Embora existam muitos monstros por";
+			show "lá, ouvi dizer que há ótimos";
+			show "tesouros também.";
+			show "Quando eu estive lá, mesmo estando";
+			show "com aventureiros experientes, era";
+			show "difícil não se perder.";
+			next;
+			show "[Hubite]";
+			show "Chegou uma hora em que todos os";
+			show "caminhos pareciam dar no mesmo";
+			show "lugar. Estávamos sem muitas opções";
+			show "e ficando sem suprimentos.";
+			show "Então, acabamos voltando... De mãos";
+			show "abanando, claro. Mas... Quem sabe";
+			show "eu volto lá algum dia.";
+			next;
+			if(select("Como eu faço para chegar lá?:Bom, a gente se vê por aí.")==1){
+				show "[Hubite]";
+				show "O quê? Mas é aqui do lado! Você";
+				show "deveria conhecer...";
+				show "É só sair da cidade pelo portão";
+				show "Norte. A caverna fica na parte de";
+				show "cima da floresta...";
+				close;
+			}
+			show "[Hubite]";
+			show "Tudo bem... Tome cuidado por aí.";
+			close;
+		case 2:
+			show "[Hubite]";
+			show "Essa floresta fica à nordeste";
+			show "daqui. Existem algumas ruínas bem";
+			show "bonitas ali perto... Eu fui";
+			show "entregar um pacote para um";
+			show "sacerdote que mora lá uma vez.";
+			show "Antes dessas ruínas, você vai ver a";
+			show "tal floresta. Ela é cheia de";
+			show "texugos e macacos.";
+			next;
+			show "[Hubite]";
+			show "É bom tomar cuidado lá... Se você";
+			show "deixar cair algum item no chão, os";
+			show "Yoyos saem correndo para pegá-lo. E";
+			show "o pior é que se você atacar um";
+			show "deles, eles vão se juntar contra você.";
+			next;
+			if(select("Como se chega lá?:Ah, cansei dessa conversa...")==1){
+				show "[Hubite]";
+				show "O caminho é um pouquinho";
+				show "complicado, mas se você seguir para";
+				show "o Norte e depois Leste, não tem";
+				show "como errar.";
+				show "Só cuidado com algumas plantas que";
+				show "tem pelo caminho... Elas atacam";
+				show "qualquer um que chegar muito perto.";
+				close;
+			}
+			show "[Hubite]";
+			show "Tudo bem, então!... Lembre sempre";
+			show "de tomar cuidado quando viajar por aí.";
+			close;
+		case 3:
+			show "[Hubite]";
+			show "Tudo bem... Tome cuidado por aí.";
+			close;
+		
+		}
+	}
+	show "[Hubite]";
+	show "Bem, se tiver alguma dúvida, venha falar comigo.";
+	close;
+}
+
+prt_in,177,20,2	script	Tanhu#prt01	97,{
+	switch(rand(3)) {
+	case 1:
+		show "[Tanhu]";
+		show "Então, você está cansado de só matar monstros?";
+		next;
+		show "[Tanhu]";
+		show "No PvP você pode enfrentar outras pessoas em replicas perfeitas de nossas cidades.";
+		show "Já me disseram que PVP significa 'Player versus Players', mas como eu não sei ingles, continuei na mesma.";
+		show "De qualquer maneira, eu te garanto que é muito divertido!";
+		next;
+		show "[Tanhu]";
+		show "Você devia ao menos experimentar...";
+		close;
+	case 2:
+		show "[Tanhu]";
+		show "Uma vez eu fui andando para Al de Baran, ao invés de pegar um Portal. Foi muito perigoso com todos aqueles monstros lá!";
+		next;
+		show "[Tanhu]";
+		show "Eu quase morri! Alguns dos monstros ficaram me seguindo e tentando me matar, mesmo eu não fazendo nada com eles! Aquilo foi muito louco.";
+		next;
+		show "[Tanhu]";
+		show "Bem, eu acho que pegar a estrada foi a pior coisa.";
+		next;
+		show "[Tanhu]";
+		show "Mesmo a cidade de Al de Baran sendo uma explêndida vista para os olhos, com sua arquitetura elegante e o romântico canal.";
+		next;
+		show "[Tanhu]";
+		show "A base da Corporação Kafra também é localizada em Al de Baran. Você deveria ir lá.";
+		close;
+	Default:
+		show "[Tanhu]";
+		show "O reino de";
+		show "Rune-Midgard é liderado";
+		show "pelo gentil e benevolente";
+		show "Rei Tristam III.";
+		next;
+		show "[Tanhu]";
+		show "Nós realmente devemos a prosperidade de Rune-Midgard à ele. Ele é capaz de convencer as pessoas de outros lugares a virem para Prontera, estabilizando a economia com ilhas estrangeiras, como Amatsu e Kunlun.";
+		next;
+		show "[Tanhu]";
+		show "Mas as vezes...";
+		show "É difícil de acreditar que ele é um líder tão brilhante e capaz.";
+		next;
+		show "[Tanhu]";
+		show "Mesmo assim, as únicas vezes que eu vejo ele é quando ele está realizando casamentos. Mesmo quando não há casamentos, ele continua lodeando por perto da Igreja de Prontera!";
+		close;
+	}
+}
+
+prt_in,177,18,2	script	Marin#prt	80,{
+	show "[Marin]";
+	show "A maioria das habilidades são";
+	show "maximizadas no nível 10, e isso são";
+	show "muitos pontos...";
+	next;
+	show "[Marin]";
+	show "Ao decidir que habilidades você vai";
+	show "usar, seja muito cuidadoso.";
+	show "Pesquise a respeito delas, por que";
+	show "nem todas valem a pena ser maximizadas.";
+	next;
+	show "[Marin]";
+	show "Muitas vezes, abrimos mãos de";
+	show "certas habilidades por não termos";
+	show "pontos o bastante...";
+	show "Por isso em certas classes é";
+	show "importante ir até o nível 50 de classe.";
+	next;
+	show "[Marin]";
+	show "Claro que versatilidade é algo";
+	show "importante, mas é sempre bom pensar";
+	show "com que tipo de pessoas você vai";
+	show "estar acompanhado.";
+	show "Minha dica é sempre a mesma:";
+	show "Estude, estude, estude! Você não";
+	show "vai querer se arrepender depois...";
+	close;
+}
+
+//prt_in,284,168,3	script	Ginedin Rephere#prt_01	55,{
+	show "[Ginedin Rephere]";
+	show "Hmmm... Espero que caiba todos os meus convidados aqui...";
+	show "Oh! Perdão, eu mal percebi que você estava aqui!";
+	next;
+	switch(select("Conversar:Tingir Roupas:Cancelar")) {
+	case 1:
+		show "[Ginedin Rephere]";
+		show "As pessoas ficam cada vez mais";
+		show "ricas, e podem gastar dinheiro com mais coisas.";
+		show "Eu acho isso maravilhoso, porque";
+		show "assim as pessoas podem deixar de";
+		show "usar farrapos e investirem em lindas roupas!";
+		show "Eu não acho que roupas bonitas";
+		show "sejam algo supérfluo, como muitos";
+		show "acham, mas é claro que antes você";
+		show "deve se preocupar em pôr comida na mesa!";
+		next;
+		show "[Ginedin Rephere]";
+		show "Uma roupa bem escolhida faz com que";
+		show "você se sinta melhor consigo mesmo,";
+		show "e seja mais feliz.";
+		show "E eu adoro trabalhar com isso...";
+		show "Fazer roupas que deixem as pessoas";
+		show "mais felizes, que expressem as suas personalizadades..";
+		show "Pode ser um trabalho muito dificil,";
+		show "mas é imensamente recompensador.";
+		close;
+	case 2:
+		show "[Ginedin Rephere]";
+		show "Ah... Você veio aqui tingir suas roupas?";
+		show "Eu sinto muito, mas estou";
+		show "ocupadissimo no momento, nao posso mais tingir roupas.";
+		show "Volte mais tarde, e quem sabe eu";
+		show "tenha um tempinho pra você?";
+		close;
+	case 3:
+		show "[Ginedin Rephere]";
+		show "Por favor, sinta-se em casa.";
+		show "Perdoe-me por não poder lhe dar";
+		show "atenção, tenho que organizar a minha festa.";
+		close;
+	}
+}
+
+prt_church,103,76,0	script	Hemera#prt_church	67,{
+	show "[Hemera]";
+	show "Olá! Sou Hemera, pode me chamar";
+	show "de Hemy... Mas então. Você gostaria";
+	show "de fazer o bem para os outros? As";
+	show "habilidades dos Sacerdotes são feita para isso!";
+	show "Se você se interessa por esta";
+	show "vocação, de ajudar e dedicar sua";
+	show "vida ao bem estar alheio, você pode ser um de nós!";
+	next;
+	show "[Hemera]";
+	show "Com os poderes divinos, podemos";
+	show "restaurar o corpo mais cansado ou";
+	show "acordar a força total de um aventureiro!";
+	show "Fique à vontade, me pergunte o que";
+	show "quiser, viu? Meu conhecimento está";
+	show "à sua disposição. Sobre qual";
+	show "habilidade você quer saber mais?";
+	next;
+	while(1) {
+		switch(select("Sobre 'Curar'.:Sobre 'Medicar'.:Sobre 'Aumentar Agilidade'.:Sobre 'Angelus'.:Sobre 'Benção'.:Sobre 'Portal'.:Não me interesso muito por sacerdotes...")){
+		case 1:
+			show "[Hemera]";
+			show "'Curar' é uma habilidade que";
+			show "restaura o HP do alvo.";
+			show "É uma das habilidades mais valiosas";
+			show "de um sacerdote, e vital para";
+			show "proteger e ajudar ao próximo.";
+			show "Os Sacerdotes têm uma evolução";
+			show "desta habilidade de nome";
+			show "'Santuário', que possibilita curar";
+			show "mais de uma pessoa ao mesmo tempo.";
+			next;
+			show "[Hemera]";
+			show "Mas deixe eu te contar um";
+			show "segredo... Se usada em monstros";
+			show "Malditos, como os mortos-vivos... Ela causa dano!";
+			show "Isso porque estes monstros são";
+			show "especialmente fracos contra poderes";
+			show "Sagrados. Só não se esqueça de";
+			show "apertar a tecla 'shift' ao 'curá-los'.";
+			next;
+			break;
+		case 2:
+			show "[Hemera]";
+			show "'Medicar' é uma habilidade que pode";
+			show "retirar de um jogador algum estado";
+			show "especial, como Tontura ou Maldição.";
+			show "Para aprendê-la é nescessário obter";
+			show "primeiro 'Curar' nível 2.";
+			next;
+			break;
+		case 3:
+			show "[Hemera]";
+			show "Esta habilidade aumenta o número de";
+			show "pontos de Agilidade do jogador alvo";
+			show "beneficiando a velocidade dos";
+			show "ataques e a esquiva, além de fazer";
+			show "com que ele ande mais rápido.";
+			show "Ela favorece especialmente os";
+			show "Gatunos e Arqueiros, que costumam";
+			show "depender bastante de Agilidade nas batalhas.";
+			show "Para aprendê-la, é nescessário";
+			show "primeiro ter 'Curar' em nível 3.";
+			next;
+			break;
+		case 4:
+			show "[Hemera]";
+			show "Angelus é uma habilidade que";
+			show "aumenta a Defesa de um Grupo todo";
+			show "ao mesmo tempo, fazendo com que";
+			show "todos resistam melhor à ataques inimigos.";
+			show "Mas, lembre-se que ela aumentará a";
+			show "defesa proporcionalmente à";
+			show "Vitalidade de cada jogador, então";
+			show "os efeitos serão diferentes pra cada um.";
+			next;
+			show "[Hemera]";
+			show "Para obter esta habilidade, o nível";
+			show "de Proteção Divina, uma habilidade";
+			show "que aumenta a Defesa do Sacerdote";
+			show "contra monstros Malditos, deve ser pelo menos 3.";
+			show "Tendo aprendido Angelus, você";
+			show "poderá obter uma habilidade muito";
+			show "valiosa quando se tornar um Sacerdote...";
+			show "Esta habilidade chama-se Kyrie";
+			show "Eleison, e protege o jogador alvo";
+			show "de qualquer dano por um determinado";
+			show "número de ataques.";
+			next;
+			break;
+		case 5:
+			show "[Hemera]";
+			show "'Benção' aumenta temporariamente os";
+			show "pontos do jogador alvo em Força,";
+			show "Destreza e Inteligência.";
+			show "É uma das habilidades mais valiosas";
+			show "tanto para você quanto para seus companheiros!";
+			next;
+			show "[Hemera]";
+			show "Assim como 'Angelus', para aprender";
+			show "'Benção' é nescessário ter algum";
+			show "nível em Proteção Divina (só que nível 5 e não 3).";
+			show "Não se esqueça, 'Benção' pode ser";
+			show "muito útil para o próprio";
+			show "Sacerdote, já que com mais";
+			show "Inteligência, habilidades como";
+			show "'Curar' serão mais poderosos...";
+			next;
+			break;
+		case 6:
+			show "[Hemera]";
+			show "Para aprender a abrir um 'Portal',";
+			show "você precisa primeiro aprender 'Teleporte'.";
+			show "Para aprender 'Teleporte' é";
+			show "necessário obter antes 'Revelação',";
+			show "que permite detectar monstros";
+			show "escondidos e tem apenas um nível de habilidade.";
+			show "'Portal' é uma habilidade muito";
+			show "útil. Vou te explicar melhor como funciona.";
+			next;
+			show "[Hemera]";
+			show "Abrir um 'Portal' faz com que você";
+			show "possa se transportar entre locais";
+			show "muito, muito distantes num piscar de olhos.";
+			show "Você pode escolher até 4 lugares";
+			show "(no nível 4 da habilidade) para";
+			show "aonde abrir um portal. Um destes";
+			show "lugares será obrigatoriamente aonde";
+			show "você salvou seu Ponto de Início.";
+			next;
+			show "[Hemera]";
+			show "Como se faz para 'marcar' um lugar";
+			show "como destino de um portal? É só";
+			show "digitar /memo no local que você";
+			show "desejar e ele será marcado.";
+			show "Lembre-se que não é possível marcar";
+			show "um portal dentro de um calabouço.";
+			show "E cuidado, pois esta habilidade";
+			show "gasta muito SP e dependendo da";
+			show "situação, isso pode te deixar em maus lençóis!";
+			next;
+			show "[Hemera]";
+			show "Ah! E o mais importante! É";
+			show "nescessário usar a energia de uma";
+			show "Gema Azul para abrir um portal.";
+			show "Se você não tiver uma Gema Azul";
+			show "para 'gastar', o portal simplesmente não abre!";
+			next;
+			break;
+		case 7:
+			show "[Hemera]";
+			show "Independente do seu interesse,";
+			show "sempre estaremos aqui para ajuda-lo.";
+			close;
+		}
+	}
+	end;
+}
+
+prt_church,103,71,0	script	Kostario#prt_church01	120,{
+	show "[Kostario]";
+	show "É muito bom poder ajudar ao próximo...";
+	show "No entanto, não é só disso que vive";
+	show "um servo do Senhor. Nossa missão";
+	show "também é a de proteger o mundo dos";
+	show "amaldiçoados e dos demônios.";
+	show "Os Sacerdotes devem ser capazes de";
+	show "lutar contra as legiões Malditas em";
+	show "nome do Senhor! Por isso, temos";
+	show "habilidade que nos favorecem";
+	show "contra os servos do Mal. Quer saber";
+	show "mais sobre alguma delas?";
+	next;
+	while(1) {
+		switch(select("Sobre 'Proteção Divina'.:Sobre 'Flagelo do Mal'.:Sobre 'Diminuir Agilidade'.:Sobre 'Signum Crusis'.:Sobre 'Escudo Sagrado'.:Sobre 'Revelação'.:Sobre 'Teleporte'.:Na verdade, não.")){
+		case 1:
+			show "[Kostario]";
+			show "Para aumentar sua resistência aos";
+			show "ataques Malditos e de Dêmonios você";
+			show "precisa desta habilidade.";
+			show "Esta é uma habilidade passiva, e";
+			show "portanto sem limite de tempo ou";
+			show "gasto de SP.";
+			next;
+			show "[Kostario]";
+			show "Subindo o nível da habilidade até";
+			show "3, você pode aprender 'Flagelo do";
+			show "Mal', que aumenta o ataque contra";
+			show "os monstros Malditos e Dêmonios.";
+			show "'Angelus' também pode ser usada";
+			show "para aumentar a defesa e 'Benção'";
+			show "para aumentar a sua Força, Destreza e";
+			show "Inteligência temporariamente. Como";
+			show "você pode ver, temos muitas armas";
+			show "contra o mal...Hehehe.";
+			next;
+			break;
+		case 2:
+			show "[Kostario]";
+			show "'Flagelo do Mal' aumenta o dano de";
+			show "ataques contra os monstros Malditos e Dêmonios.";
+			show "Ele requer 'Proteção Divina' nível";
+			show "3, e assim como esta, é uma";
+			show "habilidade passiva e sem gasto de SP.";
+			next;
+			show "[Kostario]";
+			show "Com nível 3 em 'Flagelo do Mal'";
+			show "você pode aprender 'Signum Crusis',";
+			show "que diminui a defesa destes monstros.";
+			next;
+			break;
+		case 3:
+			show "[Kostario]";
+			show "Esta habilidade diminui a Agilidade";
+			show "dos inimigos, e com isso, diminui";
+			show "também a velocidade de ataque e esquiva deles.";
+			show "Para aprendê-la é nescessário pelo";
+			show "menos um ponto de habilidade em 'Aumentar Agilidade'.";
+			next;
+			break;
+		case 4:
+			show "[Kostario]";
+			show "Esta habilidade diminui a Defesa de";
+			show "monstros de propriedade Maldita ou";
+			show "de Escuridão... Ela funciona numa";
+			show "área de alcance bem grande, quase";
+			show "todo o espaço dela!";
+			show "Porém, a chance de sucesso dela é";
+			show "pequena e costuma falhar bastante.";
+			show "Lembre-se disso!";
+			next;
+			show "[Kostario]";
+			show "Para usar esta habilidade, é";
+			show "necessário ter 'Flagelo do Mal' em nível 3.";
+			next;
+			break;
+		case 5:
+			show "[Kostario]";
+			show "Tendo maximizado 'Portal', você";
+			show "poderá aprender essa habilidade.";
+			show "Ela permite que você crie um escudo";
+			show "protetor contra ataques de";
+			show "projéteis como flechas, pedras ou balas.";
+			next;
+			break;
+		case 6:
+			show "[Kostario]";
+			show "Esta habilidade permite detectar";
+			show "monstros (e jogadores) escondidos.";
+			show "Quando revelados, eles sofrerão um";
+			show "ataque de propriedade Sagrada.";
+			show "Este ataque varia em poder de";
+			show "acordo com a Inteligência do Padre.";
+			show "É um pré-requisito para aprender";
+			show "'Teleporte' e 'Portal'.";
+			next;
+			break;
+		case 7:
+			show "[Kostario]";
+			show "'Teleporte' é aprendida após";
+			show "obter-se 1 nível em 'Revelação'.";
+			show "Em nível 1 ela permite que você se";
+			show "teleporte para um lugar qualquer";
+			show "dentro do mapa em que você se encontra.";
+			show "Cuidado para não cair em algum";
+			show "lugar perigoso! No nível 2,";
+			show "'Teleporte' permite mandar o";
+			show "personagem de volta ao Ponto de";
+			show "Início, onde ele salvou.";
+			next;
+			show "[Kostario]";
+			show "Depois de 'Teleporte', você pode";
+			show "aprender 'Portal' que permite";
+			show "teleportar outros personagens";
+			show "também, para áreas à sua escolha.";
+			next;
+			break;
+		case 8:
+			show "[Kostario]";
+			show "Eu sempre estarei disposto a ajudá-lo.";
+			close2;
+			end;
+		}
+	}
+}
+
+prt_maze02,100,69,0	script	Soldado#pront	105,{
+	show "[Soldado]";
+	show "H-hei!";
+	show "o quê";
+	show "você está fazendo aqui?!";
+	next;
+	show "[Soldado]";
+	show "Não sabe que tem um demônio na floresta?! Não posso garantir sua segurança";
+	show "Não entre lá!";
+	close;
+}
+
+prt_maze02,110,69,0	script	Soldado#2pront	105,{
+	show "[Soldado]";
+	show "*Suspiro...* O ultimo homem que entrou ali nunca mais voltou. Ele foi pegar ervas quando de repente...";
+	next;
+	show "[Soldado]";
+	show "Que cara estúpido. Para que arriscar a vida para coletar ervas inúteis?";
+	close;
+}

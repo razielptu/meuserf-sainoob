@@ -1,0 +1,3161 @@
+//===== Cronus Script ========================================
+//= NPCs para quebrar o selo de Mjolnir.
+//===== Por: =================================================
+//= SinSloth
+//===== Versão Atual: ========================================
+//= 1.4/1.1a
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Queste para quebrar o selo de Mjolnir.
+//===== Comentários Adicionais: ==============================
+//= 1.0 First version. Thanks to SinSloth for scripting it. [MasterOfMuppets]
+//= 1.1 Fixed wrong label names [Luups]
+//= 1.1a Corrected a a typo error ";;". [Samuray22]
+//= 1.3 Script traduzido com base no eAthena [Chronnus & Sensei]
+//= 1.4 Trocado efeitos numéricos por nomes. [Lord]
+//============================================================
+
+prontera,124,297,3	script	Tialfi	706,{
+
+	if ($God3 < 50)
+{
+	show "[Tialfi]";
+	show "Hmmm...";
+	show "Eu posso sentir uma estranha";
+	show "força crescendo poderosa e";
+	show "forte, em algum lugar em Rune-Midgard.";
+	next;
+	show "[Tialfi]";
+	show "Você pode sentir?";
+	show "Alguma coisa deve";
+	show "estar vindo!";
+	close;
+}
+	else
+{
+		if(god_mjo_0 == 11)
+	{
+		show "[Tialfi]";
+		show "Eu estou esperando pelo";
+		show "o dia de quando eu verei";
+		show "o trovão de thor finalmente.";
+		show "Eu acredito que um desses dias,";
+		show "meu sonho se tonará realidade.";
+		close;
+	}
+		else if(god_mjo_1 == 2 && god_mjo_2 == 2 && god_mjo_3 == 2 && god_mjo_4 == 2)
+	{
+			if (god_mjo_0 == 10)
+		{
+				if (countitem(756) > 49 && countitem(757) > 49)
+			{
+				if (Class == Job_Knight || Class == Job_Lord_Knight) set @gift,1;
+				if (Class == Job_Priest || Class == Job_High_Priest) set @gift,2;
+				if (Class == Job_Wizard || Class == Job_High_Wizard) set @gift,3;
+				if (Class == Job_Blacksmith || Class == Job_Whitesmith) set @gift,4;
+				if (Class == Job_Hunter || Class == Job_Sniper) set @gift,5;
+				if (Class == Job_Assassin || Class == Job_Assassin_Cross) set @gift,6;
+				if (Class == Job_Crusader || Class == Job_Paladin) set @gift,7;
+				if (Class == Job_Monk || Class == Job_Champion) set @gift,8;
+				if (Class == Job_Sage || Class == Job_Professor) set @gift,9;
+				if (Class == Job_Alchemist || Class == Job_Creator) set @gift,10;
+				if (Class == Job_Rogue || Class == Job_Stalker) set @gift,11;
+				if (Class == Job_Bard || Class == Job_Clown) set @gift,12;
+				if (Class == Job_Dancer || Class == Job_Gypsy) set @gift,13;
+				show "[Tialfi]";
+				show "Você voltou.";
+				show "Em troca dos minérios que";
+				show "você me trouxe, eu darei";
+				show "a você um dos meus tesouros";
+				show "familiar.";
+				next;
+				show "[Tialfi]";
+				show "Meus antepassados estarão";
+				show "alegre que o seu tesouro";
+				show "será usado para um propósito bom.";
+				next;
+				show "[Tialfi]";
+				show "Você tem duas opção em escolher";
+				show "um tesouro. Você pode ter um";
+				show "tesouro que será muito útil";
+				show "para você mesmo, ou algo que";
+				show "pode satisfazer um de seus amigos.";
+				next;
+				show "[Tialfi]";
+				show "Então de qual tesouro";
+				show "você gostaria de obter?";
+				next;
+				menu "Um item que posso usar.",-,"Um item que meu amigo possa usar.",L_Friend;
+						show "[Tialfi]";
+						show "Eu sei. me dê momento";
+						show "pra encontrar um item";
+						show "satisfatório para você.";
+						next;
+						goto L_Gift;
+					
+					L_Friend:
+						show "[Tialfi]";
+						show "Eu sei. me dê momento";
+						show "pra encontrar um item";
+						show "satisfatório para seu amigo.";
+						set @gift,rand(1,13);
+						next;
+			L_Gift:
+				show "[Tialfi]";
+				show "Certo, vamos ver...";
+				show "Pareço recordar que coloquei";
+				show "em algum lugar por aqui... Hmm.";
+				show "Deve ser por aqui--Ah!";
+				show "Aqui está~";
+				next;
+				delitem 756,50;
+				delitem 757,50;
+				set god_mjo_0,11;
+				if (@gift == 1) getitem 1471,1;
+				if (@gift == 2) getitem 1526,1;
+				if (@gift == 3) getitem 1231,1;
+				if (@gift == 4) getitem 1367,1;
+				if (@gift == 5) getitem 1722,1;
+				if (@gift == 6) getitem 1230,1;
+				if (@gift == 7) getitem 1141,1;
+				if (@gift == 8) getitem 1813,1;
+				if (@gift == 9) getitem 1557,1;
+				if (@gift == 10) getitem 1235,1;
+				if (@gift == 11) getitem 1227,1;
+				if (@gift == 12) getitem 1913,1;
+				if (@gift == 13) getitem 1963,1;
+				show "[Tialfi]";
+				show "Uma vez mais, agradeço por";
+				show "pelo aborrecimento que você";
+				show "teve pelo meu interesse.";
+				next;
+				show "[Tialfi]";
+				show "Eu não tenho certeza de este";
+				show "tesouro funciona, mas eu espero";
+				show "que seja útil pra você. Do que";
+				show "eu sei, acredito que este é";
+				show "um item raro.";
+				next;
+				show "[Tialfi]";
+				show "Eu estou esperando pelo";
+				show "o dia de quando eu verei";
+				show "o trovão de thor finalmente.";
+				show "Eu acredito que um desses dias,";
+				show "meu sonho se tonará realidade.";
+				close;
+			}
+				else
+			{
+				show "[Tialfi]";
+				show "Eu preciso";
+				show "50 Minério de Oridecon";
+				show "e 50 Minério de Elunium.";
+				next;
+				show "[Tialfi]";
+				show "Eu não tenho muito tempo,";
+				show "então vá em frente e continue";
+				show "sua jornada se você não puder";
+				show "trazer esses items pra mim.";
+				close;
+			}
+		}
+			else
+		{
+				if ($God4 > 99)
+			{
+				show "[Tialfi]";
+				show "Eu sinto uma estranha energia";
+				show "crescendo mais poderosa";
+				show "em algum lugar neste continente...";
+				next;
+				show "[Tialfi]";
+				show "Você pode sentir?";
+				show "Algo deve estar vindo!";
+				next;
+				show "[Tialfi]";
+				show "Eu acho melhor nós esperar e";
+				show "ver o que está acontecendo.";
+				show "Alguém entregará as notícias a";
+				show "nós. Embora, Eu esteja incerto";
+				show "se será boas ou não...";
+				close;
+			}
+				else
+			{
+				set $God4,$God4 +1;
+					if($God4 == 50)
+				{
+					announce "O quarto selo de [Mjolnir] apareceu.",bc_all;
+				}
+				else if($God4 == 100 && $God2 == 100 && $God3 == 100 && $God1 == 100)
+				{
+					announce "Todos os quatro selos foram quebrados.",bc_all;
+				}
+				else if($God4 == 100)
+				{
+					announce "O selo [Mjolnir] foi quebrado.",bc_all;
+				}
+				set god_mjo_0,10;
+				show "[Tialfi]";
+				show "Você encontrou os quatro Anões";
+				show "Ferreiros. Eu ouvi que eles";
+				show "raramente falará com humanos.";
+				show "Então você deve ser especial";
+				show "se você pode falar com eles.";
+				next;
+				show "[Tialfi]";
+				show "Você acha que meu sonho se";
+				show "tornará realidade? Você";
+				show "acredita que Mjolnir de Thor";
+				show "aparecerá diante dos olhos";
+				show "humano? Eu acho que uma grande mudança virá a este mundo";
+				next;
+				show "[Tialfi]";
+				show "Agradeço por ter passado por";
+				show "tanto problemas em meu interesse.";
+				show "Eu desejo lhe dar um de meus";
+				show "tesouros familiares como forma";
+				show "de minha gratidão.";
+				next;
+				show "[Tialfi]";
+				show "Porém, eu espero que você";
+				show "entenda que minha família";
+				show "suspeitará se um dos tesouros";
+				show "foi apenas perdido.";
+				next;
+				show "[Tialfi]";
+				show "Hmm, porém, eu não acho que";
+				show "eles reclamarão se eu trocar";
+				show "um dos tesouros por qualquer";
+				show "coisa. Deice-me pensar...";
+				next;
+				show "[Tialfi]";
+				show "Eu devo ser capaz de lhe dar uma";
+				show "de nossa herança familiar se você";
+				show "puder trazer 50 Minérios de Oridecons";
+				show "e 50 Minérios de Eluniums.";
+				next;
+				show "[Tialfi]";
+				show "Você não tem que fazer isso se";
+				show "não quiser fazer. Mas parece";
+				show "nossa herança familiar será";
+				show "mais útil a um aventureiro";
+				show "como você mesmo...";
+				close;
+			}
+		}
+	}
+		else if(god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+	{
+		show "[Tialfi]";
+		show "Hmm...";
+		show "Os Anões Ferreiros devem estar";
+		show "chateado com você por alguma razão.";
+		next;
+		show "[Tialfi]";
+		show "Lembre-se da sugestão da irmã";
+		show "e fale com eles com grande";
+		show "gentileza. Escolha as palavras";
+		show "de respeito cuidadosamente";
+		show "para que não eles sejam insultados.";
+		next;
+		set god_mjo_1,0;
+		set god_mjo_2,0;
+		set god_mjo_3,0;
+		set god_mjo_4,0;
+		show "[Tialfi]";
+		show "Você deve estar certo agora.";
+		show "Dessa vez, eles provavelmente";
+		show "esqueceram do insulto. Mas tenha";
+		show "certeza de falar com minha irmã";
+		show "primeiro pelos os seus conselho.";
+		close;
+	}
+		else if(god_mjo_0 == 2 || god_mjo_0 == 1)
+	{
+		show "[Tialfi]";
+		show "Desculpe pelos os problemas.";
+		show "Eu desejo boa sorte.";
+		close;
+	}
+		else if(god_mjo_0 == 0)
+	{
+			if($God4 > 99)
+		{
+			show "[Tialfi]";
+			show "Ouça... Eu posso sentir energia";
+			show "desconhecida surgindo de algum";
+			show "lugar dentro desse continente.";
+			show "Você pode sentir? Deve";
+			show "ter alguma coisa vindo...!";
+			next;
+			show "[Tialfi]";
+			show "Eu acho melhor nós esperar e";
+			show "ver o que está acontecendo.";
+			show "Alguém entregará as notícias a";
+			show "nós. Embora, Eu esteja incerto";
+			show "se será boas ou não...";
+			close;
+		}
+			else if(BaseLevel < 70)
+		{
+			show "[Tialfi]";
+			show "Um dos meus ancertrais supostamente";
+			show "foi um servente de Thor. Ainda,";
+			show "eu encontro dificuldades para acreditar.";
+			next;
+			show "[Tialfi]";
+			show "Se os deuses tem toda essas";
+			show "forças, como pode um mero";
+			show "humano ser de alguma ajuda?";
+			close;
+		}
+		show "[Tialfi]";
+		show "Aventureiro, eu tenho uma história";
+		show "interessante para lhe contar. Última";
+		show "noite, Eu tive um sonho muito";
+		show "surpreendente onde eu era o criado";
+		show "de Thor, deus do trovão.";
+		next;
+		show "[Tialfi]";
+		show "Neste sonho, eu viajava com thor";
+		show "para Jotunnheim, terra dos gigantes.";
+		show "Durante nossa jornada, ele me contou";
+		show "muitas história interessante sobre";
+		show "deuses e hérois.";
+		next;
+		show "[Tialfi]";
+		show "Claro, eu não posso me lembrar";
+		show "de muitas coisas claramente, mas";
+		show "foi verdadeiramente fantástico.";
+		next;
+		show "[Tialfi]";
+		show "Por alguma razão, Eu posso";
+		show "vividamente recordar que Thor";
+		show "me contou sobre sua arma, Mjolnir.";
+		show "Mjolnir é uma obra-prima de um anão.";
+		next;
+		show "[Tialfi]";
+		show "Thor me contou que os anões são";
+		show "artesão extremamente talentosos,";
+		show "e seus trabalhos são supremo. Para";
+		show "mim estava pensando em meu sonho,";
+		show "eu me lembrei...";
+		next;
+		show "[Tialfi]";
+		show "Há uma montanha que tem o mesmo";
+		show "nome da arma de Thor. Certamente,";
+		show "os dois têm alguma relação um";
+		show "ao outro.";
+		next;
+		show "[Tialfi]";
+		show "Eu também ouvi recentemente um";
+		show "rumor que os Anões Ferreiros";
+		show "também residem no Monte Mjolnir.";
+		next;
+		show "[Tialfi]";
+		show "Eu entendo que a montanha é";
+		show "perigosa, e que eu não estou em";
+		show "posição de pedir alguma coisa...";
+		next;
+		show "[Tialfi]";
+		show "Eu não posso ajudar querendo";
+		show "conhecer isso por mim se é ou";
+		show "não verdade o meu sonho. É";
+		show "possível Mjolnir realizar?";
+		next;
+		show "[Tialfi]";
+		show "Se você não se encomoda, eu gostaria";
+		show "de lhe pedir para explorar esta";
+		show "montanha e procurar estes Anões Ferreiros.";
+		next;
+		menu "Não.",-,"Certo.",L_Ok;
+			show "[Tialfi]";
+			show "Eu entendo. Mas eu ainda";
+			show "aprecio esse tempo que";
+			show "você levou para me escutar.";
+			next;
+			show "[Tialfi]";
+			show "Esperançosamente em algum dia";
+			show "eu aprenderei a verdade sobre";
+			show "meus sonhos e sobre o próprio Mjolnir.";
+			close;
+		
+		L_Ok:
+			show "[Tialfi]";
+			show "Obrigado, nuito obrigado!";
+			show "Embora não seja fácil,";
+			show "eu tenho fé que se os Anões";
+			show "ferreiros exista, você será";
+			show "capaz de encontraa-los.";
+			next;
+			show "[Tialfi]";
+			show "Oh, e por favor fale com";
+			show "minha irmã Roskva primeiro.";
+			show "Ela está fora da entrada";
+			show "ao Norte de Prontera.";
+			next;
+			show "[Tialfi]";
+			show "Tenho certeza que ela pode";
+			show "lhe dar informação útil se";
+			show "você tiver sorte o bastante";
+			show "para encontrar os Anões.";
+			next;
+			set god_mjo_0,rand(1,2);
+			show "[Tialfi]";
+			show "Eu verdadeiramente tenho sorte ";
+			show "em conhecer um  aventureiro";
+			show "como você. Eu desejo a melhor sorte.";
+			close;
+		
+	}
+		else
+	{
+		show "[Tialfi]";
+		show "Eu acredito em você.";
+		show "Apenas seja corajoso.";
+		close;
+	}
+	
+}
+
+}
+
+prt_fild01,196,47,3	script	Roskva	703,{
+
+
+	if(god_mjo_0 == 1)
+{
+	show "[Roskva]";
+	show "Você deve saber que os anões";
+	show "Ferreiros são extremamente";
+	show "ofendido se você não falar";
+	show "com eles com extremo respeito.";
+	next;
+	show "[Roskva]";
+	show "Então é realmente";
+	show "importante que você";
+	show "fale com os Anões com";
+	show "cortesia o quanto puder.";
+	show "O primeiro anão que você";
+	show "deve pode estar a leste.";
+	next;
+	show "[Roskva]";
+	show "Viaje em direção do sábio relógio";
+	show "nos arredores de Rune-Midgard e procure";
+	show "pelos outros anões na ordem.";
+	show "Sua destinação final será";
+	show "para o Norte.";
+	next;
+	show "[Roskva]";
+	show "Se acontecer de você falar com eles";
+	show "na ordem errada, por favor vá";
+	show "falar com meu irmão Tialfi novamente.";
+	close;
+}
+	else if(god_mjo_0 == 2)
+{
+	show "[Roskva]";
+	show "Você deve saber que os anões";
+	show "Ferreiros são extremamente";
+	show "ofendido se você não falar";
+	show "com eles com extremo respeito.";
+	next;
+	show "[Roskva]";
+	show "Assim é realmente";
+	show "importante que você";
+	show "fale com os anões";
+	show "o mais gentil possível.";
+	show "O primeiro Anão que você deve visitar";
+	show "pode ser encontrado ao Norte.";
+	next;
+        show "[Roskva]";
+	show "Viaje na direção contrária o sábio relógio";
+	show "nos arredores de Rune-Midgard";
+	show "e procure pelos outros Anões";
+	show "na ordem. Sua destinação final";
+	show "será para o Oeste.";
+	next;
+	show "[Roskva]";
+	show "Se acontecer de você falar com eles";
+	show "na ordem errada, por favor vá";
+	show "falar com meu irmão Tialfi novamente.";
+	close;
+}
+	else
+{
+	show "[Roskva]";
+	show "Há muito tempo atrás, muitas";
+	show "pessoas costumavam frenquêntar essa";
+	show "área. Amigos e familiares";
+	show "viviam aqui, compartilhando";
+	show "felicidades e tristezas.";
+	next;
+	show "[Roskva]";
+	show "Mas eles todos se foram agora.";
+	show "Meus familiares e amigos";
+	show "foram para um lugar";
+	show "cujo nome eu não sei.";
+	next;
+	show "[Roskva]";
+	show "Eu não posso ajudar";
+	show "mas me sinto solitário...";
+	close;
+}
+
+}
+
+mjolnir_11,149,247,5	script	Anão Ferreiro#oeste	826,{
+
+	if ($God3 < 50)
+{
+	show "[Austri]";
+	show "Algo está acontecendo";
+	show "em algum lugar nesse continente.";
+	show "Você pode não acreditar em mim,";
+	show "mas mantenho as visões do";
+	show "Lobo de Fenrir.";
+	close;
+}
+	else
+{
+		if($God4 > 99)
+	{
+		show "[Austri]";
+		show "Algo está acontecendo";
+		show "em algum lugar nesse continente.";
+		show "Você pode não acreditar em mim,";
+		show "mas mantenho as visões do";
+		show "Lobo de Fenrir.";
+		close;
+	}
+		else if(god_mjo_0 == 11)
+	{
+		show "[Austri]";
+		show "Um dia, quando meu povo";
+		show "recobrou suas memoriasd do";
+		show "passado, nós fomos capaz de";
+		show "garantir o poder dos deuses";
+		show "para os humanos.";
+		next;
+		show "[Austri]";
+		show "Eu acredito que";
+		show "hora está chegando...";
+		close;
+	}
+		else if(god_mjo_0 == 10)
+	{
+		show "[Austri]";
+		show "Ho~ você pode estar perguntando";
+		show "algo da criança humana.";
+		show "Se eu fosse você, eu faria o favor para";
+		show "a criança agora mesmo. Mesmo assim";
+		show "ele está relatando para nós com algum sentido.";
+		close;
+	}
+		else if(god_mjo_0 == 1)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Austri]";
+			show "O que é isso?! Eu me recuso a";
+			show "falar com um humano tão rude";
+			show "e mau educado como você!";
+			show "Saia!";
+			close;
+		}
+			else if(god_mjo_1 == 2)
+		{
+			show "[Austri]";
+			show "O que? Eu não tenho nada para";
+			show "falar com você.";
+			close;
+		}
+			else if (god_mjo_2 != 0 || god_mjo_3 != 0 || god_mjo_4 != 0)
+		{
+			show "[Austri]";
+			show "Hum...?";
+			show "Por que você veio";
+			show "até mim, humano?";
+			next;
+			menu "Nada.",-,"Ei, 'sup!",L_Sup;
+					show "[Austri]";
+					show "...";
+					close;
+				
+				L_Sup:
+					set god_mjo_1,3;
+					show "[Austri]";
+					show "O que...?!";
+					show "Não cumprimente os";
+					show "Anões rapidamente,";
+					show "mortal!";
+					close;
+		}
+			else if(god_mjo_1 == 1)
+		{
+			show "[Austri]";
+			show "O que fez você vim até mim?";
+			next;
+			menu "Nothing.",-,"Excuse me, sir.",L_Excuse;
+					show "[Austri]";
+					show "...";
+					close;
+
+				L_Excuse:
+						if(countitem(1005) > 0)
+					{
+						show "[Austri]";
+						show "Ah, Eu vejo que entre a raça humana";
+						show "não tem só pessoas ruins.";
+						show "diferente do seu jeito,";
+						show "eu vejo que você respeita seus";
+						show "anciões.";
+						next;
+						set @mjo_east,0;
+					L_EastTalk:
+							switch(@mjo_east)
+						{
+							case 0:
+								show "[Austri]";
+								show "Então o que touxe";
+								show "você at´´e mim?";
+								show "responda mim?";
+								next;
+								menu "...",-,"Sobre Mjolnir.",L_Speak;
+								goto L_Listen;
+								
+							case 1:
+								show "[Austri]";
+								show "Mjolnir...?";
+								show "A lendária arma de Thor?";
+								show "O martelo que pode tremer a terra";
+								show "e fazer o céu derramar lágrimas?";
+								show "De todas as lendárias armas,";
+								show "Mjolnir é talvêz a mais poderosa.";
+								next;
+								show "[Austri]";
+								show "Assim como de fato importante, ele foi forjado";
+								show "pelo meu ancestral. Mjolnir foi a";
+								show "arma perfeita, exceto por uma";
+								show "pequena falha.";
+								next;
+								show "[Austri]";
+								show "O cabo da Mjolnir foi forjado";
+								show "menor do que o normal. Você ainda está";
+								show "me ouvindo?";
+								next;
+								menu "...",-,"Sim, senhor!",L_Speak,"Huh?",-;
+								goto L_Listen;
+								
+							case 2:
+								show "[Austri]";
+								show "Um dia, Loki veio em nosso";
+								show "vilarejo e mostrou seus";
+								show "tesouros. Ele ostentou que nós";
+								show "não seriamos capaz de criar algo";
+								show "que ultrapassasse sua qualidade.";
+								next;
+								show "[Austri]";
+								show "Francamente os tesouros dele foram feito";
+								show "por outro Anão de outra tribo, mas nós";
+								show "não poderiamos tolera os insultos dele. Então";
+								show "meus ancestrais criaram três";
+								show "tesouros próprios.";
+								next;
+								menu "...",-,"Sim, Senhor!",L_Speak,"Sim?",-;
+								goto L_Listen;
+								
+							case 3:
+								show "[Austri]";
+								show "Dos três tesouros que meus ancestrais";
+								show "criaram, Mjolnir era";
+								show "o último e o mais poderoso.";
+								next;
+								show "[Austri]";
+								show "Porém, enquanto ele foi criado,";
+								show "uma estranha mosca picou meu ancestral";
+								show "na mão. Por causa dessa";
+								show "interrupição, O Cabo da Mjolnir";
+								show "foi feito com uma pequena falha.";
+								next;
+								show "[Austri]";
+								show "É muito triste. Porém a Mjolnir";
+								show "é a maior arma que existe, ele";
+								show "estava muito próximo de ser o";
+								show "epítome de habilidade.";
+								next;
+								menu "...",-,"Epíto--O que?",-,"Sim senhor, eu entendo.",L_Speak;
+								goto L_Listen;
+								
+							case 4:
+								show "[Austri]";
+								show "tirando essa pequena falha,";
+								show "A Mjolnir ainda é considerada";
+								show "a mais poderosa das armas lendárias.";
+								next;
+								show "[Austri]";
+								show "A Mjolnir era uma arma confiável";
+								show "Thor brandiu no campo de batalha";
+								show "e todos os titãs temiam seu poder.";
+								next;
+								show "[Austri]";
+								show "Eu poderia dizer, Um Ferreiro com";
+								show "grande orgulho veio quando ele";
+								show "criaou a arma e armadura";
+								show "que podem ser considerados";
+								show "o trabalho de toda a sua vida.";
+								next;
+								menu "...",-,"Eu entendo, senhor!",L_Speak,"HUm, yeah.",-;
+								goto L_Listen;
+								
+							case 5:
+								show "[Austri]";
+								show "A razão pelo qual essa montanha é";
+								show "chamada de Monte Mjolnir é por causa";
+								show "que ela foi realmente criada pelo";
+								show "martelo.";
+								next;
+								show "[Austri]";
+								show "Em uma batalha contra demonios a";
+								show "milhões de anos atrás, Thor golpeou";
+								show "a terra com Mjolnir. O impacto";
+								show "causado pelo levantar das areias,";
+								show "criaram essa montanha.";
+								next;
+								show "[Austri]";
+								show "Você pode imagina apenas como";
+								show "é tão poderoso o Mjolnir.";
+								show "Porém, humanos podem nunca ter esperança";
+								show "de ver ou de usar o Mjolnir. Só";
+								show "um deus pode usar aquela força toda.";
+								next;
+								menu "...",-,"Wah wah wah~!",-,"Ah, eu entendi senhor!",L_Speak;
+								goto L_Listen;
+								
+							case 6:
+								show "[Austri]";
+								show "Hum... Mas talvéz um anão ambicioso";
+								show "pode forjar algo similar";
+								show "a Mjolnir que assim podem ser atualmente";
+								show "usados por humanos. Ele terá menos";
+								show "poder, mas pode ser perfeitamente criado.";
+								next;
+								show "[Austri]";
+								show "Sim, é possível criar uma";
+								show "Mjolnir usada para humanos. Ainda,";
+								show "não será fácil de fazer.";
+								next;
+								menu "...",-,"Sim, senhor!",L_Speak,"Yeah, tudo que desejar.",-;
+								goto L_Listen;
+								
+							case 7:
+								show "[Austri]";
+								show "Bem, acho que falei demais";
+								show "da conta. Mas espero que você";
+								show "aprenda o que você deseja saber";
+								show "sobre a Mjolnir.";
+								next;
+								show "[Austri]";
+								show "Eu sinto que a grande chance está chegando.";
+								show "Eu não sei o quanto efeito";
+								show "disso em nosso mundo,";
+								show "mas algo importante acontecerá...";
+								next;
+								show "[Austri]";
+								show "Talvéz apenas os deuses podem ter certeza";
+								show "o que o futuro nos trás.";
+								show "Nesse caso, nós devemos nos preparar";
+								show "para quando isso acontecer.";
+								next;
+								menu "...",-,"Sim?",-,"Sim, senhor!",L_Speak;
+								goto L_Listen;
+								
+							case 8:
+								set god_mjo_1,2;
+								show "[Austri]";
+								show "Tudo bem então...";
+								show "Se você deseja aprender mais, você deve";
+								show "falar com meus irmãos. Se cuide, humano.";
+								close;
+						}
+						L_Listen:
+								set god_mjo_1,3;
+								show "[Austri]";
+								show "...você não está me ouvindo, né?";
+								show "Por que você me fez gastar meu tempo? Saia!";
+								show "Isso é o porque não quero me associar a";
+								show "com os humanos. Eles sempre prestão";
+								show "pouca atenção a minha conversa.";
+								close;
+					}
+						else
+					{
+						show "[Austri]";
+						show "Parece que você não entendeu.";
+						show "Se você deseja me provar que";
+						show "você entendeu sobre os ferreiros, você";
+						show "deve trazer algo que eu relatei";
+						show "para meu trabalho!";
+						close;
+					}
+		}
+			else if(god_mjo_1 == 0)
+		{
+			show "[Austri]";
+			show "O que fez você vim até mim?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse2;
+					show "[Austri]";
+					show "...";
+					close;
+				
+				L_Excuse2:
+					show "[Austri]";
+					show "Um respeitável ferreiro aprecia";
+					show "suas ferramentas e artes com deligência";
+					show "e cuidado.";
+					next;
+					show "[Austri]";
+					show "Quando ele chega aos humanos, eu acredito";
+					show "que um deles possa apreciar minha linha de";
+					show "trabalho que são umas das";
+					show "melhores que falo.";
+					next;
+					set god_mjo_1,1;
+					show "[Austri]";
+					show "Todo bom fereiro sabe o";
+					show "valor de um bom martelo. Se você puder";
+					show "entender isso, eu me considero para";
+					show "falar com você.";
+					next;
+					show "[Austri]";
+					show "Agora vá, humano.";
+					show "eu desejo que você";
+					show "fique bem em suas viagens.";
+					close;
+		}
+			else
+		{
+			show "[Austri]";
+			show "Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 2)
+	{
+			if(god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Austri]";
+			show "O que é isso! Eu não tenho nada";
+			show "para um humano tão rude como você!";
+			show "Volte para onde você veio!";
+			close;
+		}
+			else if(god_mjo_4 == 2)
+		{
+			show "[Austri]";
+			show "O que? Eu não tenho nada";
+			show "para falar com você.";
+			close;
+		}
+			else if(god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_2 == 0 || god_mjo_2 == 1 || god_mjo_3 == 0 || god_mjo_3 == 1)
+		{
+			show "[Austri]";
+			show "O que fez você vim até mim?";
+			next;
+			menu "Nothing.",-,"Hey, sup!",L_Sup2;
+					show "[Austri]";
+					show "...";
+					close;
+				L_Sup2:
+					set god_mjo_4,3;
+					show "[Austri]";
+					show "O que?!";
+					show "Saia imediatamente e vá estudar";
+					show "seu português apropriadamente!";
+					close;
+		}
+			else if(god_mjo_4 == 1)
+		{
+			show "[Austri]";
+			show "O que fez você vim até mim?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse3;
+					show "[Austri]";
+					show "...";
+					close;
+				L_Excuse3:
+						if(countitem(1005) > 0)
+					{
+						show "[Austri]";
+						show "Hum, eu gostei das suas boas maneiras.";
+						show "Certo, estou pronto para falar com você.";
+						show "Então me pergunte se você tiver alguma pergunta.";
+						next;
+						set @mjo_east,0;
+					L_EastTalk2:
+							switch(@mjo_east)
+						{
+							case 0:
+								show "[Austri]";
+								show "Então, o que você gostaria de me perguntar?";
+								next;
+								menu "...",-,"Sobre Mjolnir.",L_Speak2;
+									goto L_Listen2;
+							case 1:
+								show "[Austri]";
+								show "Mjolnir...você quis dizer a arma lendária de Thor?";
+								show "Há um rumor de que a Mjolnir bateu no céu";
+								show "e atordoo a terra com apenas um golpe.";
+								show "Essa é uma poderosa arma na lenda.";
+								next;
+								show "[Austri]";
+								show "Como nos fatos, foi forjado por meu antepassado.";
+								show "Você sabe a razão do porque do cabo da Mjolnir";
+								show "foi forjada curto...?";
+								show "Você está me ouvindo?";
+								next;
+								menu "...",-,"Sim?",-,"Sim, senhor!",L_Speak2;
+									goto L_Listen2;
+							case 2:
+								show "[Austri]";
+								show "Um dia, Loki veio na cidade dos anões";
+								show "e mostrou três dos seus tesouros.";
+								show "Ele nos provocou dizendo que";
+								show "ninguém podia fazer coisas melhores do que";
+								show "os tesouros dele.";
+								next;
+								show "[Austri]";
+								show "Francamente os tesouros dele foram feito por outro anão de outra tribo...";
+								show "Mas de qualquer forma, nós não podiamos aturar o insulto dele.";
+								show "Então meu antepassado fez três tesouros próprios...";
+								show "Você está me ouvindo?";
+								next;
+								menu "...",-,"Sim, senhor!",L_Speak2,"Sim?",-;
+									goto L_Listen2;
+							case 3:
+								show "[Austri]";
+								show "Mjolnir foi o último dos três tesouros.";
+								show "Enquanto assoando os foles,";
+								show "meu antepassado foi picado por um estranho inseto em sua mão.";
+								show "Então ele não pode mais continuar o trabalho.";
+								show "É por isso que o cabo da Mjolnir se tornou pequeno.";
+								show "Ah, que história triste!";
+								next;
+								menu "...",-,"Eu entendo, senhor!",L_Speak2,"sim?",-;
+									goto L_Listen2;
+							case 4:
+								show "[Austri]";
+								show "Apesar desse triste incidente,";
+								show "meu antepassador criou uma poderosa arma";
+								show "na lenda. Mjolnir se tornou de Thor a mais confiável arma dele";
+								show "no campo de batalha. Todos os titãs em Utgard temiam";
+								show "o poder da arma divina.";
+								next;
+								show "[Austri]";
+								show "Porémr, desde que a arma tem um cabo curto anormal,";
+								show "Thor tinha que usar luvas de ferro para compensar a fraqueza.";
+								show "Eu devo dizer, ferreiros se sentem mais orgulhosos quando eles";
+								show "conseguiam criar melhores armas e armaduras na sua vida.";
+								next;
+								menu "...",-,"Sim?",-,"Eu entendo, senhor!",L_Speak2;
+									goto L_Listen2;
+							case 5:
+								show "[Austri]";
+								show "E vou contar a você";
+								show "a razão do porque a Montanha ser chamada assim";
+								show "Como Montanha Mjolnir... durante a batalha contra demonios";
+								show "ocorreu a milhões de anos atrás, ele martelou a terra";
+								show "usando a Mjolnir. Por causa do impacto,";
+								show "a terra levantou e ficou bem alta";
+								show "e formou a montanha.";
+								next;
+								show "[Austri]";
+								show "Você pode imagina como tão poderosa a Mjolnir era.";
+								show "Fez uma nova montanha apenas com uma martelada.";
+								show "Infelizmente, você nunca será capaz de ver";
+								show "a arma em sua vida. De alguma forma ela pertence a Deus.";
+								next;
+								menu "...",-,"Eu posso entender, senhor!",L_Speak2,"Sim?",-;
+									goto L_Listen2;
+							case 6:
+								show "[Austri]";
+								show "Talvéz um anão ambicioso poderia forja";
+								show "um tesouro similar a Mjolnir.";
+								show "Mas isso não poderia acontecer de ser a mesma que a Mjolnir original.";
+								show "A original não pode ser segurada por humanos";
+								show "devido ao imenso poder que ela possuí.";
+								next;
+								show "[Austri]";
+								show "Vamos dizer, uma Mjolnir modificada que possa ser usada com o poder dos humanos";
+								show "pode ser possívelmente feita...? Mas ainda, não será";
+								show "fácil de fazer.";
+								show "Apenas, não importa.";
+								next;
+								menu "...",-,"Sim, senhor!",L_Speak2,"Sim?",-;
+									goto L_Listen2;
+							case 7:
+								show "[Austri]";
+								show "Aconteceu que eu falei demais do planejado.";
+								show "Mas é isso. Espero que você tenha entendido bem";
+								show "sobre a Mjolnir aparti de agora.";
+								show "E obviamente algo vai acontecer";
+								show "neste mundo...eu posso sentir isso.";
+								next;
+								show "[Austri]";
+								show "Eu não sei dizer se isso trará um bom efeito ou um mal para";
+								show "o continente...";
+								show "Talvéz os Deuses saibam.";
+								show "Nós precisamos nos preparar para sobreviver se for necessário.";
+								next;
+								menu "...",-,"Sim, senhor!",L_Speak2,"Sim?",-;
+									goto L_Listen2;
+							case 8:
+								set god_mjo_4,2;
+								show "[Austri]";
+								show "Certo, você deve me deixar e ir visita meus irmãos agora.";
+								show "Se cuide.";
+								close;
+						}
+							L_Listen2:
+								set god_mjo_4,3;
+								show "[Austri]";
+								show "...você não está me ouvindo, né?";
+								show "Por que você me fez perde meu tempo? Saia!";
+								show "É por isso do porque eu não quero me associar com humanos desde o inicio.";
+								show "Eles sempre prestão pouca atenção na minha conversa.";
+								close;
+
+					}
+						else
+					{
+						show "[Austri]";
+						show "Parece que você não entendeu.....";
+						show "Se você quer me prova que entendeu como os ferreiros se sentem,";
+						show "traga me algo relatado dos ferreiros!";
+						close;
+					}
+		}
+			else if(god_mjo_4 == 0)
+		{
+			show "[Austri]";
+			show "O que fez você vim até mim?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse4;
+					show "[Austri]";
+					show "...";
+					close;
+				
+				L_Excuse4:
+					show "[Austri]";
+					show "Um ferreiro respeitável zela seu martelo e bigorna.";
+					show "Se você deseja continuar uma conversa comigo,";
+					show "você deve entender os ferreiros.";
+					show "Todo ferreiro sabe que o martelo é ótimo para eles.";
+					next;
+					set god_mjo_4,1;
+					show "[Austri]";
+					show "Se você entender o que quero dizer,";
+					show "eu considerarei digno de conversa com você na próxima vez.";
+					show "Tenha uma boa viagem.";
+					close;
+		}
+			else
+		{
+			show "[Austri]";
+			show "Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 0)
+	{
+		show "[Austri]";
+		show "Ah...";
+		show "Parece que hoje vai ser um grande dia.";
+		next;
+		show "[Austri]";
+		show "Um sol quente, ar fresco da floresta, e meu martelo e bigorna estão prontos. É um ótimo dia para forjas!";
+		close;
+	}
+		else
+	{
+		show "[Austri]";
+		show "Zzzz Zzzz...";
+		close;
+	}
+}
+
+L_Speak:
+	set @mjo_east,@mjo_east +1;
+	goto L_EastTalk;
+
+L_Speak2:
+	set @mjo_east,@mjo_east +1;
+	goto L_EastTalk2;
+
+}
+
+mjolnir_09,209,341,3	script	Dwarf Blacksmith#south	826,{
+
+	if ($God3 < 50)
+{
+	show "[Sudri]";
+	show "Eu quero competir";
+	show "e lutar com fortes";
+	show "e fortes oponentes!";
+	next;
+	show "[Sudri]";
+	show "Um dia, eu voltarei para";
+	show "Svartalfaheimr e derrotarei";
+	show "Ivaldi! Mwahahaha!";
+	close;
+}
+	else
+{
+		if ($God4 > 99)
+	{
+		show "[Sudri]";
+		show "Espere, este não é a hora";
+		show "certa para lutar...";
+		next;
+		show "[Sudri]";
+		show "Algo que foi escondido";
+		show "é sobre ser nascido de uma";
+		show "doce determinação e";
+		show "lágrimas de sacrificio. Nós devemos";
+		show "esperar até então.";
+		close;
+	}
+		else if(god_mjo_0 == 11)
+	{
+		show "[Sudri]";
+		show "Eu quero competir com um muito forte!";
+		show "Eu serei forte e forte,";
+		show "e um dia voltarei para Svartalfaheimr";
+		show "E derrotarei Ivaldi!";
+		show "Muhahahaha...!";
+		close;
+	}
+		else if(god_mjo_10 == 10)
+	{
+		show "[Sudri]";
+		show "Eu devo admitir que você é realmente um";
+		show "humano forte. Vamos";
+		show "lutar novamente quando nós tivermos uma chance.";
+		show "N próxima vez, você não terá";
+		show "tanta sorte!";
+		close;
+	}
+		else if(god_mjo_0 == 1)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Sudri]";
+			show "Volte para onde você pertence";
+			show "antes que eu bata em você até a morte!";
+			next;
+			show "[Sudri]";
+			show "Tudo que você pode ganhar aqui são";
+			show "algumas ervas.";
+			close;
+		}
+			else if(god_mjo_2 == 2)
+		{
+			show "[Sudri]";
+			show "Aquela foi uma grande luta!";
+			show "Mwahahaha! Estou satisfeito com";
+			show "os resultados. Eu devo ter perdido,";
+			show "mas nós lutamos honrávelmente com";
+			show "tudo que nós temos.";
+			close;
+		}
+			else if(god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_3 != 0 || god_mjo_4 != 0)
+		{
+			show "[Sudri]";
+			show "Então...";
+			show "O que trouxe";
+			show "você aqui?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse;
+					show "[Sudri]";
+					show "Você tem muito tempo em";
+					show "suas mãos. Por que você não sai";
+					show "e vai andar com seus amigos,";
+					show "entendido?";
+					close;
+				
+				L_Excuse:
+					set god_mjo_2,3;
+					show "[Sudri]";
+					show "Por que eu deveria";
+					show "te dá licensa?";
+					next;
+					show "[Sudri]";
+					show "Se há algo que eu odeio,";
+					show "É infidelidade e sarcasmo.";
+					show "O que, você quer lutar?!";
+					close;
+		}
+			else if(god_mjo_2 == 1)
+		{
+			set @sudri_vit,200;
+			set @player_vit,100;
+			set @sudri_def,0;
+			set @player_def,0;
+			set @sudri_atk,0;
+			set @player_atk,0;
+			set @counter,0;
+			set @damage,0;
+			show "[Sudri]";
+			show "Ótimo, vamos lutar!";
+			show "Regras antigas da escola!";
+			next;
+			
+			L_Fight:
+				show "Sudri : HP " + @sudri_vit + " resta.";
+				show "" + strcharinfo(0) + " : HP " + @player_vit + " resta.";
+				show "--------------------";
+				show "" + strcharinfo(0) + " iniciou o ataque!";
+				next;
+				menu "...?!",case1,"Ataque a cabeça!",case2,"Ataque o Tórax!",case3,"Ataque as pernas!",case4,"Descansar um pouco.",case5;
+					case1:
+						set @player_atk,0;
+						goto L_DefSudri;
+					case2:
+						set @player_atk,1;
+						goto L_DefSudri;
+					case3:
+						set @player_atk,2;
+						goto L_DefSudri;
+					case4:
+						set @player_atk,3;
+						goto L_DefSudri;
+					case5:
+						set @player_atk,4;
+						goto L_DefSudri;
+				L_DefSudri:
+				set @sudri_def,rand(1,3);
+				set @damage,rand(15,25);
+				if(@player_atk == 1) show "" + strcharinfo(0) + " ataca a cabeça de Sudri!";
+				else if(@player_atk == 2) show "" + strcharinfo(0) + " ataca o toráx de Sudri!";
+				else if(@player_atk == 3) show "" + strcharinfo(0) + " bate nas pernas de Sudri!";
+				else if(@player_atk == 4) show "" + strcharinfo(0) + " requer um tempo!";
+				else show "" + strcharinfo(0) + " está com ponto fraco revelado!";
+					if(@player_atk == @sudri_def)
+				{
+					specialeffect EF_GUARD;
+						if(@sudri_def == 1)
+					{
+						show "--------------------";
+						show "Sudri facilmente esquiva";
+						show "dos seus ataques";
+						show "virando seu pequeno, ainda comprimido, corpo.";
+						show "--------------------";
+						show "" + strcharinfo(0) + " errou!";
+					}
+						else if(@sudri_def == 2)
+					{
+						show "--------------------";
+						show "Sudri bloqueou seus";
+						show "ataques cruzando";
+						show "seus braços robustos.";
+						show "--------------------";
+						show "O ataque de " + strcharinfo(0) + " foi bloqueado!";
+					}
+						else if(@sudri_def == 3)
+					{
+						show "--------------------";
+						show "Sudri esquivou de seus";
+						show "ataques com uma graça";
+						show "de saltos divinos.";
+						show "--------------------";
+						show "" + strcharinfo(0) + " errou!";
+					}
+				}
+					else if(@player_atk == 4)
+				{
+					skilleffect 28,10;
+					set @player_vit,@player_vit + 10;
+					show "--------------------";
+					show "" + strcharinfo(0) + " ganhou 10 de HP!";
+				}
+					else if(@player_atk == 1)
+				{
+					specialeffect EF_HIT6;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acertou um golpe na";
+					show "cabeça de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 2)
+				{
+					specialeffect EF_HIT3;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acerto um golpe no";
+					show "toráx de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 3)
+				{
+					specialeffect EF_HIT4;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acertou um golpe nas";
+					show "pernas de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 0)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - 10;
+					show "--------------------";
+					show "Você foi acertado por";
+					show "um golpe de contra ataque de Sudri!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu  10 de HP!";
+						if(@player_vit < 1)
+					{
+						show "Derrotado...";
+						next;
+						goto L_Lost;
+					}
+				}
+					else
+				{
+					show "--------------------";
+					show "Algo aconteceu e a luta teve que parar!";
+					close;
+				}
+					if(@sudri_vit < 1)
+				{
+					show "" + strcharinfo(0) + " venceu!";
+					next;
+					goto L_Win;
+				}
+				next;
+				show "Sudri : HP " + @sudri_vit + " resta.";
+				show "" + strcharinfo(0) + " : HP " + @player_vit + " resta.";
+				show "--------------------";
+				show "Sudri attacks...!";
+				next;
+				menu "...?!",case11,"Esquiva!",case12,"Bloquear!",case13,"Pular!",case14,"Ir para trás!",case15;
+					case11:
+						set @player_def,0;
+						goto L_DefPlayer;
+					case12:
+						set @player_def,1;
+						goto L_DefPlayer;
+					case13:
+						set @player_def,2;
+						goto L_DefPlayer;
+					case14:
+						set @player_def,3;
+						goto L_DefPlayer;
+					case15:
+						set @player_def,4;
+						goto L_DefPlayer;
+				L_DefPlayer:
+				set @sudri_atk,rand(1,3);
+				set @damage,rand(20,25);
+				if(@sudri_atk == 1) show "Sudri ataca a cabeça!";
+				else if(@sudri_atk == 2) show "Sudri ataca o toráx!";
+				else show "Sudri ataca as pernas!";
+					if(@sudri_atk == @player_def)
+				{
+					specialeffect2 EF_GUARD;
+						if(@player_def == 1)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " rapidamente esquiva,";
+						show "os braços de Sudri são curtos demais para alcançar você.";
+						show "--------------------";
+						show "Sudri falhou no ataca.";
+					}
+						else if(@player_def == 2)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " apenas bloqueia";
+						show "o ataque de Sudri.";
+						show "--------------------";
+						show "Sudri falhou no ataque.";
+					}
+						else if(@player_def == 3)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " pulou,";
+						show "esquivou fácil do ataque de Sudri.";
+						show "--------------------";
+						show "Sudri falhou no ataque.";
+					}
+				}
+					else if(@player_def == 4)
+				{
+					set @counter,rand(1,4);
+					show "--------------------";
+					show "" + strcharinfo(0) + " foi para trás!";
+						if(@counter == 1)
+					{
+						specialeffect2 EF_AUTOCOUNTER;
+						specialeffect EF_MAGNUMBREAK;
+						set @sudri_vit,@sudri_vit - 20;
+						show "Você conseguiu ir para trás!";
+						show "--------------------";
+						show "Sudri perdeu 20 de HP!";
+							if(@sudri_vit < 1)
+						{
+							show "" + strcharinfo(0) + " venceu!";
+							next;
+							goto L_Win;
+						}
+					}
+						else
+					{
+						specialeffect2 EF_HIT2;
+						set @player_vit,@player_vit - 30;
+						show "Você tomou um grande dano em seu ponto fraco!";
+						show "--------------------";
+						show "" + strcharinfo(0) + " perdeu 30 de HP!";
+					}
+				}
+					else if(@sudri_atk == 1)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "na cabeça de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 2)
+				{
+					specialeffect2 EF_HIT4;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "no toráx de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 3)
+				{
+					specialeffect2 EF_HIT5;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "nas pernas de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 0)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou uns golpes";
+					show "em "+ strcharinfo(0) +"";
+					show "durante um momento de";
+					show "distração!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else
+				{
+					show "--------------------";
+					show "Algo aconteceu e a luta teve que parar!";
+					close;
+				}
+					if(@player_vit < 1)
+				{
+					show "Sudri venceu!";
+					next;
+					goto L_Lost;
+				}
+				next;
+				goto L_Fight;
+
+			L_Lost:
+				show "[Sudri]";
+				show "Muhahahaha!";
+				show "Você não é forte o bastante";
+				show "para me derrotar! Eu quero alguém";
+				show "que possa me oferecer um desafio!";
+				next;
+				show "[Sudri]";
+				show "Vá, treine e fique";
+				show "forte antes de você";
+				show "pensar em voltar!";
+				close;
+			
+			L_Win:
+				set god_mjo_2,2;
+				show "[Sudri]";
+				show "Você é mais forte do que eu.";
+				show "Eu nunca pensei que ia encontrar";
+				show "um humano tão forte como você.";
+				next;
+				show "[Sudri]";
+				show "Estou impressionado. Tudo bem,";
+				show "eu contarei a meus amigos boas";
+				show "coisas sobre você. Esperadamente,";
+				show "meus irmãos vão dá a você";
+				show "a ajuda que você está procurando.";
+				next;
+				show "[Sudri]";
+				show "Certo então,";
+				show "fique bem em";
+				show "suas viagens!";
+				close;
+		}
+			else if(god_mjo_2 == 0)
+		{
+			show "[Sudri]";
+			show "Então...";
+			show "O que trouxe";
+			show "você aqui, humano?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse2;
+					show "[Sudri]";
+					show "Você tem muito tempo em";
+					show "suas mãos. Por que você não sai";
+					show "e vai andar com seus amigos,";
+					show "entendido?";
+					close;
+
+				L_Excuse2:
+					show "[Sudri]";
+					show "Hum. Você é diferente dos outros humanos.";
+					show "Mas ainda, confiar em você";
+					show "porque você sabe como falar";
+					show "não é muito esperto.";
+					next;
+					show "[Sudri]";
+					show "Se há algo que eu amo,";
+					show "é uma soqueira para lutar,";
+					show "no velho estilo da escola.";
+					next;
+					show "[Sudri]";
+					show "Palavras podem ser enganadoras,";
+					show "mas se você conseguir me derrotar em";
+					show "uma luta, eu acho que eu posso apenas";
+					show "falar com você. O que acha disso?";
+					next;
+					menu ".....",-,"Sim, Eu aceito seu desafio.",L_Accept,"Não, estou com medo!",L_Scared;
+							set god_mjo_2,3;
+							show "[Sudri]";
+							show "Você não me respondeu!";
+							show "Tudo bem, como queira.";
+							close;
+						
+						L_Accept:
+							set god_mjo_2,1;
+							show "[Sudri]";
+							show "Ah, eu já gostei de você, humano!";
+							show "Agora por que você não vai fazer alguns";
+							show "aquecimentos, e nós lutaremos quando";
+							show "você estiver pronto?";
+							close;
+						
+						L_Scared:
+							set god_mjo_2,1;
+							show "[Sudri]";
+							show "Eh...?";
+							show "Por que você está sendo um covarde?";
+							show "Você está com medo deste";
+							show "velho e magro anão?";
+							next;
+							show "[Sudri]";
+							show "Venha, eu deixarei você";
+							show "dá o primeiro golpe. Venha até";
+							show "mim quando você estiver pronto para lutar!";
+							close;
+		}					
+			else
+		{
+			show "[Sudri]";
+			show "Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 2)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Sudri]";
+			show "Volte antes que eu bata em você até a morte.";
+			show "Tudo que você pode ganhar aqui são algumas ervas.";
+			close;
+		}
+			else if(god_mjo_3 == 2)
+		{
+			show "[Sudri]";
+			show "Aquela foi uma grande luta....hahahaha...";
+			show "Eu não me arrependo do resultado.";
+			show "Eu perdi mas mantive minha dignidade.";
+			close;
+		}
+			else if (god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_2 == 0 || god_mjo_2 == 1 || god_mjo_4 != 0)
+		{
+			show "[Sudri]";
+			show "O que trouxe você até mim?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse3;
+					show "[Sudri]";
+					show "Você tem muito tempo em";
+					show "suas mãos. Por que você não sai";
+					show "e vai andar com seus amigos,";
+					show "entendido?";
+					close;
+				
+				L_Excuse3:
+					set god_mjo_3,3;
+					show "[Sudri]";
+					show "Por que eu deveria te dá licensa?";
+					show "O que, você está me desafiando agora?";
+					show "Você quer lutarcomigo?";
+					close;
+		}
+			else if(god_mjo_3 == 1)
+		{
+			set @sudri_vit,200;
+			set @player_vit,100;
+			set @sudri_def,0;
+			set @player_def,0;
+			set @sudri_atk,0;
+			set @player_atk,0;
+			set @counter,0;
+			set @damage,0;
+			show "[Sudri]";
+			show "Tudo bem, Vamos lutar!";
+			show "Regras antiga da escola!";
+			next;
+			
+			L_Fight2:
+				show "Sudri : HP " + @sudri_vit + " resta.";
+				show "" + strcharinfo(0) + " : HP " + @player_vit + " resta.";
+				show "--------------------";
+				show "" + strcharinfo(0) + " iniciou o ataque!";
+				next;
+				menu "...?!",case21,"Ataque a cabeça!",case22,"Ataque o Tórax!",case23,"Ataque as pernas!",case24,"Descansar um pouco.",case25;
+					case21:
+						set @player_atk,0;
+						goto L_DefSudri2;
+					case22:
+						set @player_atk,1;
+						goto L_DefSudri2;
+					case23:
+						set @player_atk,2;
+						goto L_DefSudri2;
+					case24:
+						set @player_atk,3;
+						goto L_DefSudri2;
+					case25:
+						set @player_atk,4;
+						goto L_DefSudri2;
+				L_DefSudri2:
+				set @sudri_def,rand(1,3);
+				set @damage,rand(15,25);
+				if(@player_atk == 1) show "" + strcharinfo(0) + " ataca a cabeça de Sudri!";
+				else if(@player_atk == 2) show "" + strcharinfo(0) + " ataca o toráx de Sudri!";
+				else if(@player_atk == 3) show "" + strcharinfo(0) + " bate nas pernas de Sudri!";
+				else if(@player_atk == 4) show "" + strcharinfo(0) + " requer um tempo!";
+				else show "" + strcharinfo(0) + " está com ponto fraco revelado!";
+					if(@player_atk == @sudri_def)
+				{
+					specialeffect EF_GUARD;
+						if(@sudri_def == 1)
+					{
+						show "--------------------";
+						show "Sudri facilmente esquiva";
+						show "dos seus ataques";
+						show "virando seu pequeno, ainda comprimido, corpo.";
+						show "--------------------";
+						show "" + strcharinfo(0) + " errou!";
+					}
+						else if(@sudri_def == 2)
+					{
+						show "--------------------";
+						show "Sudri bloqueou seus";
+						show "ataques cruzando";
+						show "seus braços robustos.";
+						show "--------------------";
+						show "O ataque de " + strcharinfo(0) + " foi bloqueado!";
+					}
+						else if(@sudri_def == 3)
+					{
+						show "--------------------";
+						show "Sudri esquivou de seus";
+						show "ataques com uma graça";
+						show "de saltos divinos.";
+						show "--------------------";
+						show "" + strcharinfo(0) + " errou!";
+					}
+				}
+					else if(@player_atk == 4)
+				{
+					skilleffect 28,10;
+					set @player_vit,@player_vit + 10;
+					show "--------------------";
+					show "" + strcharinfo(0) + " ganhou 10 de HP!";
+				}
+					else if(@player_atk == 1)
+				{
+					specialeffect EF_HIT6;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acertou um golpe na";
+					show "cabeça de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 2)
+				{
+					specialeffect EF_HIT3;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acerto um golpe no";
+					show "toráx de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 3)
+				{
+					specialeffect EF_HIT4;
+					set @sudri_vit,@sudri_vit - @damage;
+					show "--------------------";
+					show "Você acertou um golpe nas";
+					show "pernas de Sudri!";
+					show "--------------------";
+					show "Sudri perdeu " + @damage + " de HP!";
+				}
+					else if(@player_atk == 0)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - 10;
+					show "--------------------";
+					show "Você foi acertado por";
+					show "um golpe de contra ataque de Sudri!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu  10 de HP!";
+						if(@player_vit < 1)
+					{
+					        show "" + strcharinfo(0) + " venceu!";
+					        next;
+						goto L_Lost2;
+					}
+				}
+					else
+				{
+					show "--------------------";
+					show "Algo aconteceu e a luta teve que parar!";
+					close;
+				}
+					if(@sudri_vit < 1)
+				{
+					show "" + strcharinfo(0) + " venceu!";
+					next;
+					goto L_Win2;
+				}
+				next;
+				show "Sudri : HP " + @sudri_vit + " resta.";
+				show "" + strcharinfo(0) + " : HP " + @player_vit + " resta.";
+				show "--------------------";
+				show "Sudri attacks...!";
+				next;
+				menu "...?!",case31,"Esquiva!",case32,"Bloquear!",case33,"Pular!",case34,"Ir para trás!",case35;
+					case31:
+						set @player_def,0;
+						goto L_DefPlayer;
+					case32:
+						set @player_def,1;
+						goto L_DefPlayer;
+					case33:
+						set @player_def,2;
+						goto L_DefPlayer;
+					case34:
+						set @player_def,3;
+						goto L_DefPlayer;
+					case35:
+						set @player_def,4;
+						goto L_DefPlayer;
+				L_DefPlayer2:
+				set @sudri_atk,rand(1,3);
+				set @damage,rand(20,25);
+				if(@sudri_atk == 1) show "Sudri ataca a cabeça!";
+				else if(@sudri_atk == 2) show "Sudri ataca o toráx!";
+				else show "Sudri ataca as pernas!";
+					if(@sudri_atk == @player_def)
+				{
+					specialeffect2 EF_GUARD;
+						if(@player_def == 1)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " rapidamente esquiva,";
+						show "os braços de Sudri são curtos demais para alcançar você.";
+						show "--------------------";
+						show "Sudri falhou no ataca.";
+					}
+						else if(@player_def == 2)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " apenas bloqueia";
+						show "o ataque de Sudri.";
+						show "--------------------";
+						show "Sudri falhou no ataque.";
+					}
+						else if(@player_def == 3)
+					{
+						show "--------------------";
+						show "" + strcharinfo(0) + " pulou,";
+						show "esquivou fácil do ataque de Sudri.";
+						show "--------------------";
+						show "Sudri falhou no ataque.";
+					}
+				}
+					else if(@player_def == 4)
+				{
+					set @counter,rand(1,4);
+					show "--------------------";
+					show "" + strcharinfo(0) + " foi para trás!";
+						if(@counter == 1)
+					{
+						specialeffect2 EF_AUTOCOUNTER;
+						specialeffect EF_MAGNUMBREAK;
+						set @sudri_vit,@sudri_vit - 20;
+						show "Você conseguiu ir para trás!";
+						show "--------------------";
+						show "Sudri perdeu 20 de HP!";
+							if(@sudri_vit < 1)
+						{
+							show "" + strcharinfo(0) + " venceu!";
+							next;
+							goto L_Win2;
+						}
+					}
+						else
+					{
+						specialeffect2 EF_HIT2;
+						set @player_vit,@player_vit - 30;
+						show "Você tomou um grande dano em seu ponto fraco!";
+						show "--------------------";
+						show "" + strcharinfo(0) + " perdeu 30 de HP!";
+					}
+				}
+					else if(@sudri_atk == 1)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "na cabeça de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 2)
+				{
+					specialeffect2 EF_HIT4;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "no toráx de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 3)
+				{
+					specialeffect2 EF_HIT5;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou um golpe";
+					show "nas pernas de";
+					show "" + strcharinfo(0) + "!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else if(@sudri_atk == 0)
+				{
+					specialeffect2 EF_HIT6;
+					set @player_vit,@player_vit - @damage;
+					show "--------------------";
+					show "Sudri acertou uns golpes";
+					show "em "+ strcharinfo(0) +"";
+					show "durante um momento de";
+					show "distração!";
+					show "--------------------";
+					show "" + strcharinfo(0) + " perdeu " + @damage + " de HP!";
+				}
+					else
+				{
+					show "--------------------";
+					show "Algo aconteceu e a luta teve que parar!";
+					close;
+				}
+					if(@player_vit < 1)
+				{
+					show "Sudri venceu!";
+					next;
+					goto L_Lost2;
+				}
+				next;
+				goto L_Fight2;
+
+			L_Lost2:
+				show "[Sudri]";
+				show "Muhahahaha, você não é forte";
+				show "o bastante para me derrotar! Eu quero alguém";
+				show "que possa fazer um duelo sério!";
+				show "Vá treinar mais e volte!";
+				close;
+			
+			L_Win2:
+				set god_mjo_3,2;
+				show "[Sudri]";
+				show "Ah...você é mais forte que eu...eu nunca pensei";
+				show "que haveria um humano tão forte assim como você...estou impressionado.";
+				show "Ótimo, ótimo.";
+				show "Certo, eu irei contar coisas boas de você para meus amigos.";
+				show "Mas não se esqueça da ordem para visitar meus amigos e irmãos.";
+				next;
+				show "[Sudri]";
+				show "Certo então, tenha uma boa viagem!";
+				close;
+		}
+			else if(god_mjo_3 == 0)
+		{
+			show "[Sudri]";
+			show "O que trouxe você até mim?";
+			next;
+			menu "Nada.",-,"Com licensa, senhor.",L_Excuse4;
+						show "[Sudri]";
+					        show "Você tem muito tempo em";
+					        show "suas mãos. Por que você não sai";
+					        show "e vai andar com seus amigos,";
+					        show "entendido?";
+						close;
+					
+				L_Excuse4:
+					show "[Sudri]";
+					show "Você tem olhos afiados.";
+					show "Eu posso dizer que você é diferente dos outros humanos.";
+					show "Você quer algo de mim?";
+					show "Eu não falo com humanos.";
+					next;
+					show "[Sudri]";
+					show "Eu amo minhas mãos lutadoras!";
+					show "Eu acredito que a ação vem antes das palavras!";
+					show "Então, Que tal lutar comigo, hum?";
+					next;
+					menu ".....",-,"Com certeza, please teach me well.",L_Accept2,"Não, estou com medo.",L_Scared2;
+							set god_mjo_3,3;
+							show "[Sudri]";
+							show "Você não me respondeu!";
+							show "Tuo bem, como desejar.";
+							close;
+
+						L_Accept2:
+							set god_mjo_3,1;
+							show "[Sudri]";
+							show "Que resposta rápida! Eu já gostei de você, humano!";
+							show "Por que você não vai fazer alguns aquecimentos?";
+							show "Vamos começa a lutar quando você estiver pronto!";
+							close;
+						
+						L_Scared2:
+							set god_mjo_3,1;
+							show "[Sudri]";
+							show "Bah, você é um sangue novo jovem homem!";
+							show "Por que você é tão covarde?";
+							show "Você teme esse velhor e magro anão rapaz?";
+							show "Eu não me importo, eu deixarei você dá o primeiro golpe.";
+							show "Volte quando estiver pronto.";
+							close;
+		}
+			else
+		{
+			show "[Sudri]";
+			show "Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 0)
+	{
+		show "[Sudri]";
+		show "Em uma luta um-a-um,";
+		show "você coloca tudo na linha";
+		show "para mostrar sua força";
+		show "para seu oponente.";
+		next;
+		show "[Sudri]";
+		show "Você tem sentido";
+		show "o mesmo que eu, humano? Vencer";
+		show "ou perder, apenas dê o seu";
+		show "melhor em tudo é estará satisfeito e realizado.";
+		close;
+	}
+		else
+	{
+		show "[Sudri]";
+		show "Zzzz Zzzz...";
+		close;
+	}
+}
+
+}
+
+mjolnir_01,35,136,7	script	Dwarf Blacksmith#west	826,{
+
+	if($God3 < 50)
+{
+	show "[Vestri]";
+	show "Se você quer algo,";
+	show "você deveria aprender isso";
+	show "com seu próprio esforço.";
+	next;
+	show "[Vestri]";
+	show "Não importa o que outras pessoas digam,";
+	show "Se você é confiante e não";
+	show "vacilar, você sempre";
+	show "estará satisfeito com os resultados.";
+	next;
+	show "[Vestri]";
+	show "O que você estar pensando?";
+	show "A mocidade desses dias...";
+	close;
+}
+	else
+{
+
+		if($God4 > 99)
+	{
+		show "[Vestri]";
+		show "Eu não sinto como se fizesse algo hoje.";
+		next;
+		show "[Vestri]";
+		show "Alguém deve ter forjado algo";
+		show "realmente mosntruoso, por outro lado eu";
+		show "não me sintiria assim tão inútil!";
+		next;
+		show "[Vestri]";
+		show "Yeah, eu acho que preciso de um descanso!";
+		show "Você não acha que eu preciso de um descanso,";
+		show "humano?";
+		close;
+	}
+		else if(god_mjo_0 == 11)
+	{
+		show "[Vestri]";
+		show "Há que adoro tomar";
+		show "um descanso bem relaxante após colocar";
+		show "seu coração dentro do seu trabalho.";
+		next;
+		show "[Vestri]";
+		show "O que você acha, humano?";
+		show "Não é uma vida tão simples";
+		show "assim de prazeres?";
+		close;
+	}
+		else if(god_mjo_0 == 10)
+	{
+		show "[Vestri]";
+		show "Se você precisa de algo, você deve conseguir";
+		show "por conta própria...não importa o que as pessoas digam";
+		show "se você é confiante sobre sua conduta,";
+		show "já estará bem satisfeito com os resultados de suas ações.";
+		show "O que você acha?";
+		show "Geração jovem desses dias....";
+		close;
+	}
+		else if(god_mjo_0 == 1)
+	{
+			if(god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Vestri]";
+			show "Eu realmente espero encontrar um decente";
+			show "humano dá próxima vez. Tão distante,";
+			show "eu não tenho encontrado um humano assim.";
+			close;
+		}
+			else if(god_mjo_3 == 2)
+		{
+			show "[Vestri]";
+			show "Preparação perfeita nem sempre";
+			show "resulta em sucesso.";
+			show "Há um ponto que quando você deve";
+			show "sair e fazer-lo.";
+			next;
+			show "[Vestri]";
+			show "Eu não sei o quanto longe";
+			show "você vai, mas coloque toda a sua força";
+			show "nisso de qualquer forma~";
+			close;
+		}
+			else if(god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_2 == 0 || god_mjo_2 == 1 || god_mjo_4 != 0)
+		{
+			show "[Vestri]";
+			show "O que você quer?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse;
+					show "[Vestri]";
+					show "Se você precisa de algo, tente";
+					show "conseguir por conta própria!";
+					show "Ninguém é responsável por você";
+					show "apenas você mesmo!";
+					close;
+				
+				L_Excuse:
+					set god_mjo_3,3;
+					show "[Vestri]";
+					show "Você não me respondeu a pergunta!";
+					show "Agora, você provávelmente encontrou";
+					show "o Anão errado aqui.";
+					next;
+					show "[Vestri]";
+					show "Saia daqui, e vá para o seus";
+					show "Ferreiros humanos se você quer";
+					show "equipamentos com melhorias!";
+					close;
+		}
+			else if(god_mjo_3 == 1)
+		{
+			disable_items;
+			show "[Vestri]";
+			show "Ótimo! Qual deveria";
+			show "melhor primeiro, hum? Meu coração";
+			show "está pulando de ansiedade...";
+			next;
+		M_Menu:
+				menu getequipname(1),PART1,getequipname(2),PART2,getequipname(3),PART3,getequipname(4),PART4,getequipname(5),PART5,
+	     			getequipname(6),PART6,getequipname(7),PART7,getequipname(8),PART8,getequipname(9),PART9,getequipname(10),PART10;
+
+				PART1:
+					set @vestripart,1;
+					if (getequipisequiped(1)) goto L_Check11;
+					goto M_Menu;
+				PART2:
+					set @vestripart,2;
+					if (getequipisequiped(2)) goto L_Check11;
+					goto M_Menu;
+				
+				PART3:
+					set @vestripart,3;
+					if (getequipisequiped(3)) goto L_Check11;
+					goto M_Menu;
+				
+				PART4:
+					set @vestripart,4;
+					if (getequipisequiped(4)) goto L_Check11;
+					goto M_Menu;
+				PART5:
+					set @vestripart,5;
+					if (getequipisequiped(5)) goto L_Check11;
+					goto M_Menu;
+				
+				PART6:
+					set @vestripart,6;
+					if (getequipisequiped(6)) goto L_Check11;
+					goto M_Menu;
+				
+				PART7:
+					set @vestripart,7;
+					if (getequipisequiped(7)) goto L_Check11;
+					goto M_Menu;
+				
+				PART8:
+					set @vestripart,8;
+					if (getequipisequiped(8)) goto L_Check11;
+					goto M_Menu;
+				
+				PART9:
+					set @vestripart,9;
+					if (getequipisequiped(9)) goto L_Check11;
+					goto M_Menu;
+				
+				PART10:
+					set @vestripart,10;
+					if (getequipisequiped(10)) goto L_Check11;
+					goto M_Menu;
+			
+			L_Check11:
+			if(getequipisenableref(@vestripart)) goto L_Check12;
+				show "[Vestri]";
+				show "O que, não é um item identificado!";
+				show "O que realmente você quer";
+				show "que faça com isso?";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check12:
+				if(getequipisidentify(@vestripart)) goto L_Check13;
+				show "[Vestri]";
+				show "É melhor você identificar esse item";
+				show "primeiro. Se nós não sabemos o que";
+				show "é, como é que vou aprimorar ele?";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check13:
+				if(getequiprefinerycnt(@vestripart) < 10) goto L_Check14;
+				show "[Vestri]";
+				show "Oh, isso é excelente!";
+				show "Este pedaço aqui foi";
+				show "perfeitamente bem refinado!";
+				next;
+				show "[Vestri]";
+				show "Mas isso não é o que eu quero.";
+				show "Eu não posso fazer nenhum trabalho com isso.";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check14:
+				if (getequippercentrefinery(@vestripart) != 100) goto L_Check15;
+				show "[Vestri]";
+				show "Este item não é um desafio";
+				show "para aprimorar. Você pode conseguir dos humanos";
+				show "para fazer este tipo de tabalho iniciante.";
+				next;
+				show "[Vestri]";
+				show "Vamos...";
+				show "Me traga algo que apresente";
+				show "um elemento de risco!";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check15:
+				if (getequipweaponlv(@vestripart) == 1 || getequipweaponlv(@vestripart) == 2 || getequipweaponlv(@vestripart) == 3)
+			{
+				show "[Vestri]";
+				show "Ei...";
+				show "Não me insulte por esperar que eu";
+				show "trabalhe em nada menos do que";
+				show "uma arma de nível 4.";
+				next;
+				show "[Vestri]";
+				show "Me traga uma arma de nível 4 para";
+				show "mim trabalhar da próxima vez, entendeu?";
+				close2;
+				enable_items;
+				end;
+			}
+			
+				if(getequipweaponlv(@vestripart) == 0)
+			{
+				show "[Vestri]";
+				show "Armadura?!";
+				show "Eu não disse que só trabalho";
+				show "com armas de nível 4?";
+				next;
+				show "[Vestri]";
+				show "Você pode pedir para um ferreiro humano";
+				show "trabalhar nesse tipo de coisa! Agora,";
+				show "um Anão como eu precisa de algo que";
+				show "seja mais do que um desafio!";
+				close2;
+				enable_items;
+				end;
+			}
+
+			show "[Vestri]";
+			show "Certo, deixe me dar a você um aviso";
+			show "obrigatório. Se sua arma pode acontecer de";
+			show "ser destruida no processo de";
+			show "melhoria, você nunca verá";
+			show "a arma novamente.";
+			next;
+			show "[Vestri]";
+			show "Isso também significa que a arma será";
+			show "destroida, algumas ^FF0000Cartas^000000";
+			show "inseridas dentro da arma também";
+			show "serão destroidas.";
+			next;
+			show "[Vestri]";
+			show "Se você entendeu,";
+			show "então vamos tentar isso!";
+			next;
+			menu "Com certeza, vamos fazer isso!",L_Go,"Não, mudei de idéia!",-;
+					show "[Vestri]";
+					show "Bah! Como você pode viver nesse mundo";
+					show "com tanta covardisse assim?!";
+					next;
+					show "[Vestri]";
+					show "Oh, esqueça isso.";
+					show "Eu sei que você apenas estar tomando cuidado.";
+					show "Droga, eu estava tão impolgado";
+					show "para fazer o trabalho!";
+					close2;
+					enable_items;
+					end;
+			
+			L_Go:
+				if(countitem(984) > 0) delitem 984,1;
+				else
+			{
+				show "[Vestri]";
+				show "Hum...";
+				show "Você esqueçeu";
+				show "de trazer um Oridecon.";
+				show "Corra e consiga um.";
+				close;
+			}
+			
+				if (getequippercentrefinery(@vestripart) > rand(100))
+			{
+				show "^3355FF*Clang Clang!*^000000";
+				successrefitem @vestripart;
+				next;
+				emotion e_no1;
+				show "[Vestri]";
+				show "Mwahahaha~";
+				show "Eu consegui!";
+				show "Então você não está feliz com";
+				show "uma arma mais poderosa?";
+				next;
+			}
+				else
+			{
+				show "[Vestri]";
+				show "^3355FF*Clang Clang!*^000000";
+				failedrefitem @vestripart;
+				next;
+				emotion e_omg;
+				show "[Vestri]";
+				show "Waaahhhhh!";
+				show "querido Deus, não!";
+				next;
+				show "[Vestri]";
+				show "Está tudo bem.";
+				show "Coisas ruins acontecem algumas vezes.";
+				show "Vamos apenas pensar que nós dois";
+				show "tivemos um péssimo dia.";
+				show "Sim, sem arrependimentos!";
+				next;
+			}
+			set god_mjo_3,2;
+			enable_items;
+			show "[Vestri]";
+			show "Bem, meu amigo,";
+			show "Se você visitar meus irmãos,";
+			show "por favor dê a eles minhas lembranças.";
+			show "Se cuide.";
+			close;
+		}
+			else if(god_mjo_3 == 0)
+		{
+			show "[Vestri]";
+			show "O que você quer?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse2;
+					show "[Vestri]";
+					show "Se você precisa de algo, tente";
+					show "conseguir por você mesmo!";
+					show "Ninguém é responsável por você";
+					show "apenas você mesmo!";
+					close;
+				
+				L_Excuse2:
+					show "[Vestri]";
+					show "Hum, não tenho certeza se há coisas";
+					show "que eu possa ajudar você.";
+					show "Como você ver, sou um ferreiro.";
+					next;
+					show "[Vestri]";
+					show "Eu prefiro aprimorar armas mais do que quaquer coisa!";
+					show "Especialmente armas que foram forjadas";
+					show "muitas vezes já ou de alto nível.";
+					show "Porque elas são desafios!";
+					next;
+					show "[Vestri]";
+					show "Você não gosta da idéia de um desafio";
+					show "como limite? Para mim, aprimorar items me faz me sintir como";
+					show "se estivesse escalando o topo de uma montanha que nunca foi tocada por nenhum anões!";
+					next;
+					show "[Vestri]";
+					show "Certo, eu acho que isso não significa que náo nos encontraremos hoje.";
+					show "Por isso, eu vou aprimorar uma arma";
+					show "com uma taxa grátis";
+					show "se você me trouxer uma arma e um material de forja.";
+					show "não é uma grande oferta?";
+					next;
+					set god_mjo_3,1;
+					show "[Vestri]";
+					show "Mas há uma condição.";
+					show "Você deve me trazer uma arma de nível 4.";
+					show "Apenas como eu disse, eu quero algo que seja desafiador.";
+					show "Oh, não esqueça um oridecon, também!";
+					close;
+		}
+			else
+		{
+			show "[Vestri]";
+			show "Zzzz Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 2)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Vestri]";
+			show "Eu realmente espero um humano decente";
+			show "dá próxima vez";
+			show "...então nunca haverá";
+			show "um humano assim como você.";
+			close;
+		}
+			else if(god_mjo_2 == 2)
+		{
+			show "[Vestri]";
+			show "Preparação preferencial nem sempre";
+			show "resulta em sucesso.";
+			show "Eu não tenho certeza o quanto longe você pode ir,";
+			show "mas coloque sua força em tudo de qualquer maneira.";
+			close;
+		}
+			else if (god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_3 != 0 || god_mjo_4 != 0)
+		{
+			show "[Vestri]";
+			show "O que você quer?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse3;
+					show "[Vestri]";
+					show "Se você precisa de algo, tente";
+					show "conseguir por você mesmo!";
+					show "Ninguém é responsável por você";
+					show "apenas você mesmo!";
+					close;
+				
+				L_Excuse3:
+					set god_mjo_2,3;
+					show "[Vestri]";
+					show "Você não me ouviu e não sabe quem eu sou.";
+					show "Não estou acusando você!";
+					show "Você falou com o Anão errado. Volte.";
+					show "Pergunte para seus humanos ferreiros para aprimorar items!";
+					close;
+		}
+			else if(god_mjo_2 == 1)
+		{
+			disable_items;
+			show "[Vestri]";
+			show "Ótimo! Qual deveria";
+			show "aprimorar primeiro, hum?";
+			show "Meu coração está pulando";
+			show "com tanta exitação...";
+			next;
+			M_Menu2:
+			menu getequipname(1),PART11,getequipname(2),PART12,getequipname(3),PART13,getequipname(4),PART14,getequipname(5),PART15,
+			     getequipname(6),PART16,getequipname(7),PART17,getequipname(8),PART18,getequipname(9),PART19,getequipname(10),PART20;
+
+				PART11:
+					set @vestripart,1;
+					if (getequipisequiped(1)) goto L_Check21;
+					goto M_Menu2;
+				PART12:
+					set @vestripart,2;
+					if (getequipisequiped(2)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART13:
+					set @vestripart,3;
+					if (getequipisequiped(3)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART14:
+					set @vestripart,4;
+					if (getequipisequiped(4)) goto L_Check21;
+					goto M_Menu2;
+				PART15:
+					set @vestripart,5;
+					if (getequipisequiped(5)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART16:
+					set @vestripart,6;
+					if (getequipisequiped(6)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART17:
+					set @vestripart,7;
+					if (getequipisequiped(7)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART18:
+					set @vestripart,8;
+					if (getequipisequiped(8)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART19:
+					set @vestripart,9;
+					if (getequipisequiped(9)) goto L_Check21;
+					goto M_Menu2;
+				
+				PART20:
+					set @vestripart,10;
+					if (getequipisequiped(10)) goto L_Check21;
+					goto M_Menu2;
+			
+			L_Check21:
+			if(getequipisenableref(@vestripart)) goto L_Check22;
+				show "[Vestri]";
+				show "O que, esse não é aprimorável!";
+				show "O que você quer que eu faça";
+				show "com isso?";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check22:
+				if(getequipisidentify(@vestripart)) goto L_Check23;
+				show "[Vestri]";
+				show "É melhor você identificar esse item";
+				show "primeiro. Se nós não sabemos o que";
+				show "é, como é que vou aprimorar ele?";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check23:
+				if(getequiprefinerycnt(@vestripart) < 10) goto L_Check24;
+				show "[Vestri]";
+				show "Oh, isso é excelente!";
+				show "Este pedaço aqui foi";
+				show "perfeitamente bem refinado!";
+				next;
+				show "[Vestri]";
+				show "Mas isso é o que eu quero.";
+				show "Eu não posso fazer nenhum trabalho com isso.";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check24:
+				if (getequippercentrefinery(@vestripart) != 100) goto L_Check25;
+				show "[Vestri]";
+				show "Este item não é um desafio";
+				show "para aprimorar. Você pode conseguir";
+				show "dos humanos esse tipo de aprimoramento já que é de iniciante.";
+				next;
+				show "[Vestri]";
+				show "Vamos...";
+				show "Traga me algo que apresente";
+				show "algum elemento de risco!";
+				close2;
+				enable_items;
+				end;
+			
+			L_Check25:
+				if (getequipweaponlv(@vestripart) == 1 || getequipweaponlv(@vestripart) == 2 || getequipweaponlv(@vestripart) == 3)
+			{
+				show "[Vestri]";
+				show "Ei...";
+				show "Não me insulta esperando que eu";
+				show "faça um trablho menor do que";
+				show "uma arma de nível 4.";
+				next;
+				show "[Vestri]";
+				show "Traga me uma arma de nível 4 para";
+				show "eu fazer no próximo trabalho, entendeu?";
+				close2;
+				enable_items;
+				end;
+			}
+			
+				if(getequipweaponlv(@vestripart) == 0)
+			{
+				show "[Vestri]";
+				show "Armadura?!";
+				show "Eu não disse que só trabalho";
+				show "com armas de nível 4?";
+				next;
+				show "[Vestri]";
+				show "Você pode pedir para um ferreiro humano";
+				show "trabalhar nesse tipo de coisa! Agora,";
+				show "um Anão como eu precisa de algo que";
+				show "seja mais do que um desafio!";
+				close2;
+				enable_items;
+				end;
+			}
+
+			show "[Vestri]";
+			show "Certo, vamos verificar isso antes de começar.";
+			show "se acontecer de sua arma ser destoída enquanto aprimoramos,";
+			show "você nunca mais verá sua arma novamente. Você sabe disso, não é?";
+			show "E todo item inserido na arma tipo como";
+			show "^ff0000uma carta de monstro^000000!";
+			show "^ff0000Sua arma será destroida junto^000000, você entendeu?";
+			show "Se sim, vamos continuar!";
+			next;
+			menu "Com certeza, vamos fazer isso!",L_Go2,"...Não, estou fora disso.",-;
+					show "[Vestri]";
+					show "Bah, como você consegui viver neste mundo";
+					show "com essa atitude tímida?";
+					show "Sim, sim, sim, esqueça isso.";
+					show "Esqueça isso!";
+					close;
+					enable_items;
+					end;
+
+			L_Go2:
+				if(countitem(984) > 0) delitem 984,1;
+				else
+			{
+				show "[Vestri]";
+				show "Humm, sim você esqueçeu de mim trazer algo...";
+				show "Falta um oridecon.";
+				show "Agora vá e traga um.";
+				close;
+			}
+
+				if (getequippercentrefinery(@vestripart) > rand(100))
+			{
+				show "[Vestri]";
+				show "Clang! Clang! Clang!";
+				successrefitem @vestripart;
+				next;
+				emotion e_no1;
+				show "[Vestri]";
+				show "Muhahaha, Ainda estou ótimo!";
+				show "Então, você não está feliz em ter uma arma mais poderosa?";
+				next;
+			}
+				else
+			{
+				show "[Vestri]";
+				show "Clang! Clang! Clang!";
+				failedrefitem @vestripart;
+				next;
+				emotion e_omg;
+				show "[Vestri]";
+				show "Waaahhhhhhhhhhhhhh!";
+				next;
+				show "[Vestri]";
+				show "HUmm, está bem. Coisas ruins acontecem.";
+				show "Vamos pensar que nós tivemos um dia ruim.";
+				show "Sim, não tenho arrependimentos!";
+				next;
+			}
+			set god_mjo_2,2;
+			enable_items;
+			show "[Vestri]";
+			show "É isso, meu amigo.";
+			show "Se você tiver uma chance de encontrar meus irmãos,";
+			show "por favor manda minhas lembranças para eles.";
+			show "Tome cuidado.";
+			close;
+		}
+			else if(god_mjo_2 == 0)
+		{
+			show "[Vestri]";
+			show "O que você quer?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse4;
+					show "[Vestri]";
+					show "Se você precisa de algo, tente conseguir por conta própria!";
+					show "Ninguém é responsável por você apenas você mesmo!";
+					close;
+				
+				L_Excuse4:
+					show "[Vestri]";
+					show "Hum, não tenho certeza se há coisas";
+					show "que eu possa ajudar você.";
+					show "Como você ver, sou um ferreiro.";
+					next;
+					show "[Vestri]";
+					show "Eu prefiro aprimorar armas mais do que quaquer coisa!";
+					show "Especialmente armas que foram forjadas";
+					show "muitas vezes já ou de alto nível.";
+					show "Porque elas são desafios!";
+					next;
+					show "[Vestri]";
+					show "Você não gosta da idéia de um desafio";
+					show "como limite? Para mim, aprimorar items me faz me sintir como";
+					show "se estivesse escalando o topo de uma montanha que nunca foi tocada por nenhum anões!";
+					next;
+					show "[Vestri]";
+					show "Certo, eu acho que isso não significa que náo nos encontraremos hoje.";
+					show "Por isso, eu vou aprimorar uma arma";
+					show "com uma taxa grátis";
+					show "se você me trouxer uma arma e um material de forja.";
+					show "não é uma grande oferta?";
+					next;
+					set god_mjo_3,1;
+					show "[Vestri]";
+					show "Mas há uma condição.";
+					show "Você deve me trazer uma arma de nível 4.";
+					show "Apenas como eu disse, eu quero algo que seja desafiador.";
+					show "Oh, não esqueça um oridecon, também!";
+					close;
+		}
+			else
+		{
+			show "[Vestri]";
+			show "Zzzz Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 0)
+	{
+		show "[Vestri]";
+		show "É sempre prazeroso quando me";
+		show "empenho em um trabalho duro, especialmente";
+		show "forjas.";
+		next;
+		show "[Vestri]";
+		show "Aprimoramentos é sempre agradáveis!";
+		show "Não tenho nenhum arrependimento quando falho,";
+		show "e eu sempre sinto prazer quando";
+		show "obtenho sucesso. Eu aprimoro todo dia";
+		show "e faço melhor que posso em toda minha vida~";
+		close;
+	}
+		else
+	{
+		show "[Vestri]";
+		show "Zzzz Zzzz Zzzz...";
+		close;
+	}
+}
+
+}
+
+mjolnir_12,18,18,7	script	Ferreiro Anão#north	826,{
+
+	if ($God3 < 50)
+{
+	show "[Nordri]";
+	show "O que, eu não tenho nenhum Eluniums";
+	show "ou Oridecons!";
+	next;
+	show "[Nordri]";
+	show "Vestri os levou tudo. ^333333*Sigh*^000000";
+	show "Esses eram meus tesouros, você sabe...";
+	close;
+}
+	else
+{
+		if($God4 > 99)
+	{
+		show "[Nordri]";
+		show "O que está acontecendo?";
+		show "Eu sinto algo diferente do";
+		show "vento... Eu não posso dizer o que é.";
+		show "Eu deveria entrar em uma escavação para";
+		show " entender isto...? Hmmm.... Isto é estranho.";
+		close;
+	}
+		else if(god_mjo_0 == 11)
+	{
+		show "[Nordri]";
+		show "Hahahahah, até os deuses sabe que nós anões";
+		show "somos os artesãos mais talentosos entre todas as raças";
+		show "existentes. Talvez nós não procuremos essa direção agora,";
+		show "um dia nós começaremos nossos negócios novamente.";
+		close;
+	}
+		else if(god_mjo_0 == 10)
+	{
+		show "[Nordri]";
+		show "O que, eu não tenho nenhum";
+		show "Eluniums ou Oridecons!";
+		show "Vestri os levou todos eles...";
+		show "Você entende";
+		close;
+	}
+		else if(god_mjo_0 == 1)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Nordri]";
+			show "La la la la~ La la la la~";
+			show "É muito bom estar na floresta de Mjolnir~";
+			show "Eu etsou rodeado por um ar calmo e quieto~ La la la~";
+			show "Eu não me preocupo com nada~ La la la~";
+			close;
+		}
+			else if(god_mjo_4 == 2)
+		{
+			show "[Nordri]";
+			show "Não é suposto que você esteja voltando";
+			show "agora...? Heh, Oh bem, nada de negócios.";
+			show "Se você tiver alguma reserva de Zeny, temos alguma banana no caminho...";
+			show "Uma abóbora não é o melhor gosto entretanto?";
+			close;
+		}
+			else if (god_mjo_1 == 0 || god_mjo_1 == 1 || god_mjo_2 == 0 || god_mjo_2 == 1 || god_mjo_3 == 0 || god_mjo_3 == 1)
+		{
+			show "[Nordri]";
+			show "Que tipo de negócios";
+			show "você quer ter comigo?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse;
+					show "[Nordri]";
+					show "Você é cômico, deixe-me só.";
+					close;
+				
+				L_Excuse:
+					set god_mjo_4,3;
+					show "[Nordri]";
+					show "O que? Sinto muito, não posso";
+					show "ouvir você nesse momento.";
+					show "Quero canta uma canção realmente alta!";
+					show "La la la~ La la la~";
+					close;
+		}
+			else if(god_mjo_4 == 1)
+		{
+				if(countitem(501) > 0)
+			{
+				delitem 501,1;
+				show "[Nordri]";
+				show "Heheh, obrigado. Desde que você me deu";
+				show "sua preciosa poção vermelha, Eu devo";
+				show "contar uma velha história";
+				show "em troca. Você gostará.";
+				next;
+				set @mjo_north,0;
+			L_NorthTalk:
+					switch(@mjo_north)
+				{
+					case 0:
+						show "[Nordri]";
+						show "Uma lenda diz que Thor foi em uma aventura";
+						show "para Utgard, a terra dos gigantes.";
+						show "Ele fez uma aposta com o Reis dos gigantes.";
+						next;
+						show "[Nordri]";
+						show "A primeira parte da aposta foi ver quem comia mais comida que o outro.";
+						show "Thor comeu todas as carnes sobre a mesa";
+						show "Utgardaloki, o rei não só comeu as carnes mas também ums ossos e ums pratos também.";
+						next;
+						show "[Nordri]";
+						show "A verdade foi que Thor estava alucinado por uma magia na ocasião,";
+						show "assim ele não pode perceber que o rei não era de fato o rei mas uma criatura...";
+						show "era uma coisa que podia comer tudo no mundo...";
+						show "Eu não lembro o que eras... você sabe?";
+						next;
+						menu "Ganância",-,"Mar",-,"Chama",L_Speak,"Porco",-;
+							goto L_Listen;
+					
+					case 1:
+						show "[Nordri]";
+						show "Sim, eu lembro agora, foi a 'Chama'.";
+						show "Depois que, havia outra competição pra ver quem corria mais rapidamente que o outro.";
+						show "Para a competição, Thor deixou seu ajudante Tialfi competir com";
+						show "o ajudante do rei Hugi.";
+						next;
+						show "[Nordri]";
+						show "Porém, não importa quantas partidas eles fizeram,";
+						show "Hugi vencia todas. Thor foi mais uma vez halucinado por";
+						show "uma magia assim ele não pode perceber que Hugi era de fato";
+						show "o.... Você sabe o que ele era realmente?";
+						next;
+						menu "Língua",-,"Opnião",L_Speak,"Vento",-,"Lobo",-;
+							goto L_Listen;
+
+					case 2:
+						show "[Nordri]";
+						show "Sim, você está certo! ele era a 'Opnião'!";
+						show "Aqueles gigantes desafiantes deram uma ordem a Thor lutar com a";
+						show "formidável mãe deles. Thor estava contente por isso, ele finalmente";
+						show "ganharia dessa vez derrotando uma mulher velha... mas ele não pode.";
+						show "Não importa como arduamente ele tentasse, ele não pôde ganhar da mulher velha.";
+						next;
+						show "[Nordri]";
+						show "Thor foi novamente halucinado por magia";
+						show "assim ele não pôde perceber que a mulher velha era de fato";
+						show "a.... Você sabe o que ele era realmente?";
+						next;
+						menu "Maldição",-,"Terra",-,"Coração",-,"Idade",L_Speak;
+							goto L_Listen;
+
+					case 3:
+						show "[Nordri]";
+						show "Sim, era a 'Idade'! Ninguém pode parar o tempo!";
+						show "Depois que Thor perdeu todas as competições, o rei lhe";
+						show "falou a verdade sobre o que apostava. E Thor ficou furioso.";
+						show "Mas isso não funcionava, pelo o que o rei e os outros";
+						show "gigantes tiveram todos feito até então...";
+						next;
+						show "[Nordri]";
+						show "Há duas coisas que nós tomamos de lição.";
+						show "Primeira, não acredite nas coisas como você vê.";
+						show "Segunda, não esteja tão seguro de seu poder,";
+						show "há homens que são mais forte que você. Assim você";
+						show "deve fazer o seu melhor e ser humilde. Você entendeu?";
+						next;
+						show "[Nordri]";
+						show "Viver corretamente será a coisa mais importante.";
+						show "Você não pode ter tudo o que você quer.";
+						show "Além, quando você estiver obssessivo sobre algo,";
+						show "você não pode pensar racionalmente sobre o objeto.";
+						next;
+						set god_mjo_4,2;
+						show "[Nordri]";
+						show "Obrigado por ouvir minha longa história. Se você";
+						show "encontrar alguém sonhando algo que não pode ser";
+						show "verdade, por favor divida essa história com ele ou ela.";
+						show "A história sobre Thor que ele lutou contra alucinação criado pelo rei gigante.";
+						close;
+						
+				}
+					L_Listen:
+						show "[Nordri]";
+						show "...umm? Eu não acho que era...hmm.";
+						show "Me deixe pensar nisto mais. Talvez ";
+						show "eu posso me lembrar disso depois...";
+						show "falaremos novamente bebendo uma poção vermelha?";
+						show "Hahahahaha.";
+						close;
+			}
+				else
+			{
+				show "[Nordri]";
+				show "Woah, Eu estou sedento. Eu não lhe pedi que me desse uma poção vermelha!?";
+				show "Não contarei ao menos que me traga uma.";
+				close;
+			}
+		}
+			else if(god_mjo_4 == 0)
+		{
+			show "[Nordri]";
+			show "Que tipo de negócios";
+			show "você quer ter comigo?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse2;
+					show "[Nordri]";
+					show "Você é Cômico, deixe-me só.";
+					close;
+
+				L_Excuse2:
+					show "[Nordri]";
+					show "Isto é estranho. Recentemente, está tendo";
+					show "muitos humanos interessado em anões.";
+					show "Haha, é claro, Eu estou tendo bom momento com eles.";
+					next;
+					set god_mjo_4,1;
+					show "[Nordri]";
+					show "Eu estou sedento.";
+					show "Traga-me uma poção vermelha, você vai?";
+					show "Se você fazer, eu contarei uma história importante a você.";
+					show "Heheheheh.";
+					close;
+		}
+			else
+		{
+			show "[Nordri]";
+			show "Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 2)
+	{
+			if (god_mjo_1 == 3 || god_mjo_2 == 3 || god_mjo_3 == 3 || god_mjo_4 == 3)
+		{
+			show "[Nordri]";
+			show "La la la la~ La la la la~";
+			show "É muito bom estar na floresta de Mjolnir~";
+			show "Eu etsou rodeado por um ar calmo e quieto~ La la la~";
+			show "Eu não me preocupo com nada~ La la la~";
+			close;
+		}
+			else if(god_mjo_1 == 2)
+		{
+			show "[Nordri]";
+			show "Não é suposto que você esteja voltando";
+			show "agora...? Heh, Oh bem, nada de negócios.";
+			show "Se você tiver alguma reserva de Zeny, temos alguma banana no caminho...";
+			show "Uma abóbora não é o melhor gosto entretanto?";
+			close;
+		}
+			else if (god_mjo_2 != 0 || god_mjo_3 != 0 || god_mjo_4 != 0)
+		{
+			show "[Nordri]";
+			show "Que tipo de negócios você quer ter comigo?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse3;
+					show "[Nordri]";
+					show "Você é Cômico, deixe-me só.";
+					close;
+
+				L_Excuse3:
+					set god_mjo_1,3;
+					show "[Nordri]";
+					show "O que? Sinto muito, não posso ouvir você nesse momento.";
+					show "Quero canta uma canção realmente alta!";
+					show "La la la~ La la la~";
+					close;
+		}
+			else if(god_mjo_1 == 1)
+		{
+				if(countitem(501) > 0)
+			{
+				delitem 501,1;
+				show "[Nordri]";
+				show "Heheh, obrigado. Desde que você me deu";
+				show "sua preciosa poção vermelha, Eu devo";
+				show "contar uma velha história em troca. Você gostará.";
+				next;
+				set @mjo_north,0;
+			L_NorthTalk2:
+					switch(@mjo_north)
+				{
+					case 0:
+						show "[Nordri]";
+						show "Uma lenda diz que havia um bravo e sábio";
+						show "anão chamado Alvis tempo atrás.";
+						show "Ele possuia grande conhecimento como";
+						show "uma livraria e era bravo como Siegfried.";
+						next;
+						show "[Nordri]";
+						show "Infelizmente ele também era ambicioso. Ele estava ";
+						show "apaixonado por Thrud que era à primeira vista a filha";
+						show "de Thor. Assim ele propôs a Thor casar com Thrud.";
+						show "Como você esperava, Thor recusou sua proposta.";
+						show "Alvis deveria ter parado po ai mas ele não fez.";
+						next;
+						show "[Nordri]";
+						show "Assim Thor lhe perguntou alugumas questões para testa-lo.";
+						show "O que foi a primeira pergunta.... havia uma pergunta assim...";
+						show "Qual foi o nome do chão no termo de um humano?";
+						next;
+						menu "Corpo de Ymir",-,"Terra",L_Speak2,"Pista",-,"Universo",-;
+							goto L_Listen2;
+
+					case 1:
+						show "[Nordri]";
+						show "Sim, é a 'Terra'. assim Thor lhe deu outra questão.";
+						show "O que é o termo para um gigante de uma grande concha que cobre a terra?";
+						next;
+						menu "Cabeça de Ymir",-,"Céu",-,"Fabrica de Nuvem",-,"Casa Alta",L_Speak2;
+							goto L_Listen2;
+
+					case 2:
+						show "[Nordri]";
+						show "Isso é, 'Casa Alta'... desde que eles são gigantes,";
+						show "isto poderia olhar aquele caminho.";
+						show "Assim Thor lhe deu outra pergunta.";
+						show "O que é o termo dos deuses para uma bola que surge à noite?";
+						next;
+						menu "Roda circular",-,"Lua",-,"Sol Falso",L_Speak2,"Fosrasteiro Rápido",-;
+							goto L_Listen2;
+
+					case 3:
+						show "[Nordri]";
+						show "Sim! Os deuses chamam a lua de 'Sol Falso'.";
+						show "Alvis soube toda resposta mas ele era muito desafiante";
+						show "assim ele não notou que o sol estava surgindo.";
+						show "Então ele foi se transformando em uma estátua de pedra.";
+						next;
+						show "[Nordri]";
+						show "Há duas coisas que nós aprendemos dessa história.";
+						show "Primeiro, não deseje algo que não pode ser verdade.";
+						show "Segundo, não seja tão orgulhoso de você...";
+						show "Você não pode ter tudo no mundo.";
+						next;
+						show "[Nordri]";
+						show "Viver apropriadamente é a coisa mais importante.";
+						show "Até mesmo se você deseja algo pra ser seu,";
+						show "isso não acontece toda vez, você sabe.";
+						show "Linha do destino, claro que é longa, mas pode ser cortado qualquer hora.";
+						next;
+						set god_mjo_1,2;
+						show "[Nordri]";
+						show "Obrigado por ouvir minha longa história.";
+						show "Se você encontrar alguém sonhando algo";
+						show "que não pode ser verdade, por favor divida";
+						show "essa história com ele ou ela. homem";
+						show "valente que era ao mesmo tempo muito desafiante.";
+				}
+					L_Listen2:
+						show "[Nordri]";
+						show "...umm? Eu não acho que era...hmm.";
+						show "Me deixe pensar nisto mais. Talvez ";
+						show "eu posso me lembrar disso depois...";
+						show "falaremos novamente bebendo uma poção vermelha?";
+						show "Hahahahaha.";
+						close;
+			}
+				else
+			{
+				show "[Nordri]";
+				show "Woah, Eu estou sedento. Eu não lhe pedi que me desse uma poção vermelha!?";
+				show "Não contarei ao menos que me traga uma.";
+				close;
+			}
+		}
+			else if(god_mjo_1 == 0)
+		{
+			show "[Nordri]";
+			show "Que tipo de negócios você quer ter comigo?";
+			next;
+			menu "Nada.",-,"Com licensa.",L_Excuse4;
+					show "[Nordri]";
+					show "Você é cômico, me deixe só.";
+					close;
+
+				L_Excuse4:
+					show "[Nordri]";
+					show "Isto é estranho. Recentemente, está tendo";
+					show "muitos humanos interessado em anões.";
+					show "Haha, é claro, Eu estou tendo bom momento com eles.";
+					next;
+					set god_mjo_1,1;
+					show "[Nordri]";
+					show "Eu estou sedento.";
+					show "Traga-me uma poção vermelha, você vai?";
+					show "Se você fazer, eu contarei uma história importante a você.";
+					show "Heheheheh.";
+					close;
+		}
+			else
+		{
+			show "[Nordri]";
+			show "Zzzz Zzzz Zzzz...";
+			close;
+		}
+	}
+		else if(god_mjo_0 == 0)
+	{
+		show "[Nordri]";
+		show "Eu sou Nordri o anão ferreiro.";
+		show "Eu tomo conta da parte norte do Monte Mjolnir.";
+		show "Se você quer passar por mim, você deve pedir";
+		show "uma aprovação a mim mesmo.";
+		next;
+		show "[Nordri]";
+		show "Acalme-se, isso foi uma brincadeira. Hahahahaha!";
+		close;
+	}
+		else
+	{
+		show "[Nordri]";
+		show "Zzzz Zzzz Zzzz...";
+		close;
+	}
+
+L_Speak:
+	set @mjo_north,@mjo_north +1;
+	goto L_NorthTalk;
+
+L_Speak2:
+	set @mjo_north,@mjo_north +1;
+	goto L_NorthTalk2;
+}
+
+}

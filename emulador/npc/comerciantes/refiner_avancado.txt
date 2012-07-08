@@ -1,0 +1,225 @@
+//===== Cronus Script ========================================
+//= Refinador Avançado
+//===== Por: =================================================
+//= L0ne_W0lf; SoulBlaker;
+//===== Versão Atual: ========================================
+//= 1.0
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Refinador que utiliza minérios enriquecidos para melhoramentos
+//= do processo.
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==============================
+//= 1.0 Traduzido conforme o bRO. [SoulBlaker]
+//============================================================
+
+payon,174,138,4	script	Suhnbi#cash::RefinerAdvanced	85,{
+	show "[Suhnbi]";
+	show "Eu sou o ferreiro responsável por";
+	show "refinar armas e equipamentos";
+	show "utilizando pedras especiais, como o";
+	show "Elunium e Oridecon Enriquecidos.";
+	show "O que você deseja refinar?";
+	next;
+	set .@strRetPart1$,getequipname(1,"Cabeça - [não equipado]");
+	set .@strRetPart2$,getequipname(2,"Corpo - [não equipado]");
+	set .@strRetPart3$,getequipname(3,"Mão Esquerda - [não equipado]");
+	set .@strRetPart4$,getequipname(4,"Mão Direita - [não equipado]");
+	set .@strRetPart5$,getequipname(5,"Capa - [não equipado]");
+	set .@strRetPart6$,getequipname(6,"Calçado - [não equipado]");
+	set .@strRetPart7$,getequipname(7,"Acessório 1 - [não equipado]");
+	set .@strRetPart8$,getequipname(8,"Acessório 2 - [não equipado]");
+	set .@strRetPart9$,getequipname(9,"Cabeça 2 - [não equipado]");
+	set .@strRetPart10$,getequipname(10,"Cabeça 3 - [não equipado]");
+
+	set .@menu$,.@strRetPart1$+":"+.@strRetPart2$+":"+.@strRetPart3$+":"+.@strRetPart4$+":"+.@strRetPart5$+":"+.@strRetPart6$+":"+.@strRetPart7$+":"+.@strRetPart8$+":"+.@strRetPart9$+":"+.@strRetPart10$;
+
+	switch(select(.@menu$)) {
+	case 1:
+		set .@part,1;
+		if (getequipisequiped(1) == 0) {
+			show "[Suhnbi]";
+			show "Você quer que eu refine esta sua cabeça oca?";
+			close;
+		}
+		break;
+	case 2:
+		set .@part,2;
+		if (getequipisequiped(2) == 0) {
+			show "[Suhnbi]";
+			show "Não posso refinar seu corpo. Tente fazer exercícios...";
+			close;
+		}
+		break;
+	case 3:
+		set .@part,3;
+		if (getequipisequiped(3) == 0) {
+			show "[Suhnbi]";
+			show "Sinto muito, não temos tecnologia para adicionar foguetes à sua mão esquerda...";
+			close;
+		}
+		break;
+	case 4:
+		set .@part,4;
+		if (getequipisequiped(4) == 0) {
+			show "[Suhnbi]";
+			show "Sinto muito, não temos tecnologia para adicionar foguetes à sua mão direita...";
+			close;
+		}
+		break;
+	case 5:
+		set .@part,5;
+		if (getequipisequiped(5) == 0) {
+			show "[Suhnbi]";
+			show "Você não está nem usando uma Capa!";
+			close;
+		}
+		break;
+	case 6:
+		set .@part,6;
+		if (getequipisequiped(6) == 0) {
+			show "[Suhnbi]";
+			show "Não posso refinar seus pés se você não está calçando nada!";
+			close;
+		}
+		break;
+	case 7:
+		set .@part,7;
+		if (getequipisequiped(7) == 0) {
+			show "[Suhnbi]";
+			show "Hum, você não está utilizando um acessório.";
+			close;
+		}
+		break;
+	case 8:
+		set .@part,8;
+		if (getequipisequiped(8) == 0) {
+			show "[Suhnbi]";
+			show "Acessório? Você não está utilizando um.";
+			close;
+		}
+		break;
+	case 9:
+		set .@part,9;
+		if (getequipisequiped(9) == 0) {
+			show "[Suhnbi]";
+			show "Eu refino equipamentos, não faço cortes de cabelo.";
+			close;
+		}
+		break;
+	case 10:
+		set .@part,10;
+		if (getequipisequiped(10) == 0) {
+			show "[Suhnbi]";
+			show "Eu refino equipamentos, não faço cortes de cabelo.";
+			close2;
+		}
+		break;
+	}
+
+	if (getequipisenableref(.@part) == 0) {
+		show "[Suhnbi]";
+		show "Eu não acredito que todos esses itens pode ser refinado.";
+		close;
+	}
+	if (getequipisidentify(.@part) == 0) {
+		show "[Suhnbi]";
+		show "É, isto não foi identificado. Portanto, não pode ser refinado...";
+		close;
+	}
+	if (getequiprefinerycnt(.@part) >= 10) {
+		show "[Suhnbi]";
+		show "Este item não pode ser refinado, pois já atingiu o seu nível máximo...";
+		close;
+	}
+	// Make sure you have the neccessary items and Zeny to refine your items
+	// Determines chance of failure and verifies that you want to continue.
+	switch(getequipweaponlv(.@part)) {
+	case 1: callsub S_RefineValidate,1,7620,50,.@part; break;
+	case 2: callsub S_RefineValidate,2,7620,200,.@part; break;
+	case 3: callsub S_RefineValidate,3,7620,5000,.@part; break;
+	case 4: callsub S_RefineValidate,4,7620,20000,.@part; break;
+	default: callsub S_RefineValidate,0,7619,2000,.@part; break;
+	}
+
+	if (getequippercentrefinery(.@part) > rand(100) || getequippercentrefinery(.@part) > rand(100)) {
+		show "[Suhnbi]";
+		show "Clink! Clank! Clunk!";
+		SuccessRefItem .@part;
+		next;
+		Emotion e_no1;
+		show "[Suhnbi]";
+		show "Aqui está! Está feito.";
+		show "Foi um tempo desses que eu fiz uma arma tão fina. Você deve estar feliz porque se tornou mais forte!";
+		close;
+	}
+	else {
+		show "[Suhnbi]";
+		show "Clink! Clank! Clunk!";
+		FailedRefItem .@part;
+		next;
+		if (rand(5) == 1)
+			Emotion e_cash;
+		else 
+			Emotion e_omg;
+		show "[Suhnbi]";
+		show "Tosse!!!!";
+		next;
+		show "[Suhnbi]";
+		show "Tosse...Tosse..";
+		show "Que vergonha...";
+		show "Seu equipamento quebrou durante o processo de refinação. Eu havia dito anteriormente que isto poderia acontecer!";
+		close;
+	}
+
+S_RefineValidate:
+	show "[Suhnbi]";
+	if (getarg(0))
+		show "A arma nível "+getarg(0)+"...";
+	show "Para refinar este item eu preciso de 1 ^ff9999"+getitemname(getarg(1))+"^000000 e "+getarg(2)+"z pelaxa taxa de serviço.";
+	show "Você realmente deseja continuar?";
+	next;
+	if (select("Sim:Não") == 1) {
+		if (getequippercentrefinery(getarg(3)) < 100) {
+			show "[Suhnbi]";
+			show "Uau!!";
+			show "Este item possivelmente foi";
+			show "refinado muitas vezes.";
+			show "Ele pode se quebrar se você";
+			show "tentar refiná-lo mais uma vez.";
+			next;
+			show "Se ela quebrar,";
+			show "toda as cartas";
+			show "^ff0000serão perdidas";
+			show "e o item desaparecerá!^000000";
+			show "Você realmente deseja continuar?";
+			next;
+			if (select("Sim:Não") == 2) {
+				show "[Suhnbi]";
+				show "Concord inteiramente...";
+				show "Eu poderia ser um grande refinador, mas ainda cometo alguns erros.";
+				close;
+			}
+		}
+		if (countitem(getarg(1)) > 0 && Zeny > getarg(2)) {
+			delitem getarg(1),1;
+			set zeny,zeny-getarg(2);
+			return;
+		}
+		else {
+			show "[Suhnbi]";
+			show "Você não parece ter zenys ou "+getitemname(getarg(1))+" suficientes...";
+			show "Consiga o material. Eu estarei aqui o dia todo.";
+			close;
+		}
+	}
+	else {
+		show "[Suhnbi]";
+		show "Sem problema. Vá sem pressa.";
+		close;
+	}
+}
+
+// Duplicações oficial do bRO
+prontera,169,228,4	duplicate(RefinerAdvanced)	Suhnbi#cash_02	85

@@ -1,0 +1,412 @@
+//===== Cronus Script ========================================
+//= Cidade de Izlude
+//===== Por: =================================================
+//= SoulBlaker
+//===== Versão Atual: ========================================
+//= 1.0
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Npcs da Cidade de Izlude.
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==============================
+//= 1.0 Iniciado o NPC. [SoulBlaker]
+//============================================================
+
+// Cidade de Izlude
+//---------------------------------------------------
+izlude,55,74,0	script	Paula#izlude	90,{
+
+	show "[Paula]";
+	show "Bem-vindo. Izlude lhes dás as boas-vindas.";
+	show "Izlude é uma cidade satélite de";
+	show "Prontera, capital do Reino de";
+	show "Rune-Midgard, muito importante não";
+	show "somente porque a Associação dos";
+	show "Espadachins fica aqui em Izlude.";
+	show "Nós também guardamos e monitoramos nosso litoral.";
+	next;
+	show "[Paula]";
+	show "Esta ponte pode parecer fraca, mas";
+	show "na verdade é uma obra-prima, ela";
+	show "foi construida com o meterial mais";
+	show "sofisticado e com a melhor teconologia do planeta.";
+	show "Não importa a força das";
+	show "tempestades, ou quantas pessoas";
+	show "ficarem em cima dela, esta ponte";
+	show "NUUUNCA irá cair. Se quiser, pode testá-la.";
+	show "Fiquem a vontade e apreciem sua visuta em Izlude.";
+	close;
+}
+
+izlude,135,78,2	script	Charfri#izlude	91,{
+
+	show "[Charfri]";
+	switch(rand(2)){
+		case 1:
+			show "Algumas pessoas tiram sarro de";
+			show "nossa cidade por ser apenas uma";
+			show "cidade satélite de Prontera, mas";
+			show "Izlude é uma excelente cidade,";
+			show "perto do mar com lindas ilhas como a Ilha Byalan.";
+			next;
+			show "[Charfri]";
+			show "Você terá de pegar um barco no";
+			show "porto para ir a Ilha Byalan,";
+			show "existem perigosas cavernas na ilha,";
+			show "portanto não se enfie em qualquer lugar.";
+			close;
+		default:
+			show "Apesar de sua beleza, a Ilha Byalan";
+			show "tem uma caverna misteriosa que se";
+			show "extende profundamente debaixo do oceano.";
+			next;
+			show "[Charfri]";
+			show "Pessoas que realmente estiveram lá";
+			show "contam que, se você descer o";
+			show "suficiente, a caverna fica submersa.";
+			show "Mas supreendentemente as pessoas";
+			show "podem respirar como os peixes.";
+			show "Talvez uma força sobrenatural faça esse efeito.";
+			next;
+			show "[Charfri]";
+			show "Ah... as pessoas que viram a";
+			show "paisagem debaixo d'água disseram";
+			show "que é simplesmente fantástica e que";
+			show "sonham com ela desde então.";
+			show "Mas infelizmente, os monstros são";
+			show "muitos fortes para as pessoas comuns";
+			show "vistarem o lugar.";
+			show "Eu espero poder ver a paisagem uma";
+			show "vez na vida, mas eu somente espero.";
+			close;
+	}
+}
+
+izlude,119,94,0	script	Zé Bento#izlude	84,{
+
+	show "[Zé Bento]";
+	show "-suspiro- Aah! Que belo dia hoje, hein!?";
+	show "Um dia de inverno perfeito para se sentar";
+	show "ao lado de uma fogueira, cantar músicas ou";
+	show "ouvir uma boa história.";
+	next;
+	show "[Zé Bento]";
+	show "Se meu primo Tião Pedro estivesse por aqui";
+	show "ele nos contaria uma belissima história! Pode apostar!";
+	next;
+	show "[Zé Bento]";
+	show "Mas... Onde será que ele se meteu?";
+	close;
+}
+
+izlude,119,121,2	script	Cuskoal#izlude	124,{
+
+	show "[Cuskoal]";
+	switch(rand(2)){
+		case 1:
+			show "Esta Arena é o lugar perfeito para";
+			show "pessoas jovens de todas as partes";
+			show "do Reino de Rune-Midgard desafiarem";
+			show "e testarem suas habilidades.";
+			show "Você pode lutar com monstros de";
+			show "níveis diferentes. Então, por";
+			show "quantos estágios você irá";
+			show "sobreviver, a sua força que irá dizer.";
+			next;
+			show "[Cuskoal]";
+			show "Então, o que me diz?";
+			close;
+		default:
+			show "Os bares em Prontera estão sempre";
+			show "cheios de pessoas, pessoas locais e";
+			show "visitantes. Muito exaltadas. Há";
+			show "muita informação e rumores, pois";
+			show "muitas pessoas entram e saem.";
+			show "Se você escutar cuidadosamente,";
+			show "você pde dar sorte e descobrir";
+			show "informações muito úteis.";
+			close;
+	}
+}
+
+izlude,150,118,2	script	Dega#izlude	84,{
+
+	show "[Dega]";
+	show "Mt.Mjornir localizado ao norde de";
+	show "Prontera é alto e cheio de precipícios.";
+	show "Sem precisar falar dos desafios da";
+	show "montanha, lá vivem insetos";
+	show "extremamente perigosos também.";
+	next;
+	show "[Dega]";
+	show "Eu quero dizer, alguns deles atacam";
+	show "sem nem mesmo serem provocados.";
+	show "Se algum dia quiser visitar um";
+	show "lugar além de Mt.Mjornir, então";
+	show "prepare-se para um grande desafio.";
+	show "Do contrário, contorne-o.";
+	close;
+}
+
+izlude,150,143,2	script	Kylick#izlude	97,{
+
+	show "[Kylick]";
+	show "Você não acha binóculos o maior";
+	show "LEGAL?! Sabe, poder ver aqui e lá...";
+	show "...Aham! Nós de Izlude, somos";
+	show "responsável por manter a paz não";
+	show "somente na terra como no mar...";
+	next;
+	show "[Kylick]";
+	show "Para isso temos aqueles enormes";
+	show "binóculos para observar o mar e";
+	show "previnir quaisquer problemas, e";
+	show "além do que, estar preparado é";
+	show "melhor do que estar atrasado.";
+	close;
+}
+
+izlude,58,126,2	script	Rami#izlude::izlude_mes1	98,{
+
+	show "[Dan]";
+	show "A única habilidade que um";
+	show "espadachim precisa é 'Golpe";
+	show "Fulminante'! 'Golpe Fulminante'!";
+	show "'Golpe Fulminante'! SOMENTE 'Golpe Fulminante'!";
+	show "Não há necessidade de gastar tempo";
+	show "e esforço com habilidades menores,";
+	show "todo o resto é para covardes, frangotes!";
+	next;
+	show "[Rami]";
+	show "Do que você está falando!? Não";
+	show "preciso nem dizer que, o melhor do";
+	show "espadachim é quando ele está";
+	show "cercado por todos aqueles inimigos";
+	show "e com um só golpe acaba com eles! E";
+	show "o nome deste golpe é 'Impacto Explosivo'!!!";
+	show "Bem... ele causa dano a outros";
+	show "inimigos que estejam por perto... E";
+	show "todos eles acabam vindo atrás de";
+	show "você MAs este é um risco que todo";
+	show "espadachim deve tomar, entende?!";
+	next;
+	show "[Dan]";
+	show "É exatamente por isso que você é";
+	show "burro! O melhor do espadachim?!";
+	show "Ainda me lembro da última vez que";
+	show "você usou 'Impacto Explosivo'.";
+	show "Você acabou tendo que correr de";
+	show "todos aqueles porings que você";
+	show "acertou com sua porcaria de";
+	show "habilidade! Seu fracote! Você";
+	show "acertou todos aqueles Porings ao";
+	show "seu redor e eles todos vieram te atacar.";
+	next;
+	show "[Rami]";
+	show "Aham..Hm..Hm.. Vo-você sempre fica";
+	show "remoendo estes eventos em sua";
+	show "cabeça. E-eu estou te dizendo";
+	show "'Impacto Explosivo' é a melhor";
+	show "habilidade de um espadachim!!";
+	show "Algo como 'Golpe Fulminante' é só";
+	show "um passo em direção de 'Impacto Explosivo'.";
+	next;
+	show "[Dan]";
+	show "Oh... meu... Ei, eu sei que você";
+	show "escutou tudo. É..você mesmo... O";
+	show "que você acha? Qual você acha que é melhor?";
+	show "Uma habilidade de um único ataque";
+	show "poderoso, 'Golpe Fulminante' ou";
+	show "dano por área, 'Impacto Explosivo'!";
+	next;
+	if(select("Golpe Fulminante:Impacto Explosivo")==1){
+		show "[Dan]";
+		if(BaseClass != Job_Swordman){
+			show "Hahahaha!! Viu só!? Alguém de outra";
+			show "classe concorda comigo! Você é um";
+			show "grande cara! Hahaha!! Sem dúvida";
+			show "'Golpe Fulminante' combina com um espadachim.";
+			show "Diga isso àquele cabeça oca ali!!";
+			show "Hahaha.";
+			close;
+		}
+		show "Hahahaha!! Eu sabia que você via";
+		show "as coisa do meu jeito! Você é um";
+		show "grande cara! Sem dúvida,";
+		show "'Golpe Fulminante' combina com um espadachim.";
+		show "Diga isso àquele cabeça oca ali!!";
+		show "Hahaha.";
+		close;
+	}
+	show "[Rami]";
+	show "Não é?! 'Impacto Explosivo é A";
+	show "MELHOR!!! Você sabe o que fala! Não";
+	show "sei porque esse cabeça oca é tão teimoso.";
+	close;
+}
+
+izlude,56,126,2	duplicate(izlude_mes1)	Dan#izlude	85
+
+izlude,201,181,2	script	Marinheiro#izlude	100,{
+
+	show "[Marinheiro]";
+	show "Ei galera! Atenção! O navio super";
+	show "rápido e sem seguro está pronto";
+	show "Para zarpar!! Vamos! Apressem-se!";
+	next;
+	switch(select("Ilha Byalan -> 150 Zeny.:Marinha de Alberta -> 500 Zeny.:Cancelar.")){
+		case 1:
+			if(Zeny < 150){
+				show "[Marinheiro]";
+				show "Apenas 150 zeny o percurso!";
+				close;
+			}
+			set Zeny,Zeny-150;
+			warp "izlu2dun",107,50;
+			end;
+		case 2:
+			if(Zeny < 500){
+				show "[Marinheiro]";
+				show "Apenas 500 zeny o percurso!";
+				close;
+			}
+			set Zeny,Zeny-150;
+			warp "alberta",188,169;
+			end;
+		case 3:
+			close;
+	}
+}
+
+izlude,124,178,2	script	Soldado#izlude	105,{
+
+	show "[Soldado]";
+	show "HeHeHeHe.. HaHaHaHa";
+	show "Como? Por que estou tão feliz?";
+	show "quer saber?";
+	next;
+	if(select("Claro, porque?:Na verdade não, não me importo.")==1){
+		show "[Soldado]";
+		show "Ah... Há muito para fazermos nos";
+		show "dias de hoje. Mercadores compram os";
+		show "itens que os monstros deixa cair,";
+		show "você sabia disso certo?";
+		next;
+		if(select("É claro:É mesmo?")==2){
+			show "[Soldado]";
+			show "O que? como assim você não sabia?!";
+			show "Hm.. bem.. bem.. Você sabe, dá pra";
+			show "conseguir itens matando monstros.";
+			show "Você pode fazer dinheiro fazendo";
+			show "isso e vendendo para um Mercador.";
+			show "De qualquer maneira!";
+			next;
+		}
+		show "[Soldado]";
+		show "HaHa Na vardade, esta era nossa tarefa.";
+		show "Mas há muitos caçadores que vêm";
+		show "para serem pagos. Então era muito para tomar conta.";
+		next;
+		show "[Soldado]";
+		show "Nós tinhamos que fazer hora extra";
+		show "todo dia. Ah... era um pesadelo...";
+		show "Bom, o governo fez bem em inventar";
+		show "o sistema de registro. O Escritório";
+		show "de Prêmio de Compensação só paga";
+		show "àqueles que estão registrados.";
+		next;
+		show "[Soldado]";
+		show "As exigências para o registro são";
+		show "que o Mercador tenha fundos o";
+		show "suficiente e que fique em um só";
+		show "lugar o tempo todo. O Escritório";
+		show "libera o registro para qualquer";
+		show "Mercador que atenda a essas exigências.";
+		next;
+		show "[Soldado]";
+		show "Então não há muita gente que nos";
+		show "procura mais. Digo, ainda estamos";
+		show "ocupados, mas não é nada parecido";
+		show "como era antes...";
+		show "Pessoas que já sofreram sabem";
+		show "apreciar o menor conforto.";
+		show "HaHaHaHaHa!";
+		close;
+	}
+	show "[Soldado]";
+	show "OK, Até Logo...";
+	close;
+}
+
+// Interior de Izlude
+//---------------------------------------------------
+izlude_in,125,164,2	script	Aaron#izlude	65,{
+
+	show "[Aaron]";
+	show "Hum? Um espadachim? Você não acha";
+	show "que VIT forte e um método de";
+	show "respiração bem treinado que permite";
+	show "uma recuperação de HP rápida, são";
+	show "as maiores vantagens de um espadachim?";
+	next;
+	show "[Aaron]";
+	show "Se você treinar suas habilidades";
+	show "bastante, você pode até perceber";
+	show "seu HP se recuperar. E a quantidade";
+	show "depende da VIT, então se você";
+	show "investir mais em VIT, a quantidade";
+	show "recuperada aumenta de acordo.";
+	next;
+	show "[Aaron]";
+	show "Mas é claro que seria ótimo ter um";
+	show "ataque forte, não é? Você pode ou";
+	show "comprar uma arma boa ou aumentar";
+	show "sua FOR para melhorar seu ataque.";
+	show "Vocês sabe que precisará de força";
+	show "de qualquer maneira para pode manejar";
+	show "boas armas fácilmente.";
+	next;
+	show "[Aaron]";
+	show "Outra coisa importante é a precisão";
+	show "com que pode acertar seus";
+	show "oponentes. DES é a chave para isso.";
+	show "Se você treinar DEX, o intervalo";
+	show "entre dano mínimo e dano máximo diminuirá.";
+	next;
+	show "[Aaron]";
+	show "Hum... Você está entediado? Quer que eu continue?";
+	next;
+	if(select("Diga-me mais, por favor.:Fim de conversa.")==1){
+		show "[Aaron]";
+		show "Hum.. nesse caso, Te explicarei";
+		show "sobre outros atributos brevemente.";
+		show "Para atacar e desviar rápidamente,";
+		show "você tem que prestar atenção em AGI.";
+		next;
+		show "[Aaron]";
+		show "Caso queira fazer mais ataques";
+		show "certeiros, é boa idéia investir em SOR.";
+		show "INT aumenta seu máximo de SP,";
+		show "necessário para usar habilidades...";
+		show "mas é você quem decide.";
+		close;
+	}
+	show "[Aaron]";
+	show "Ok, continue treinando...";
+	close;
+}
+
+// Calabouço de Izlude
+//---------------------------------------------------
+izlu2dun,108,27,0	script	Marinheiro#2izlude	100,{
+
+	show "[Marinheiro]";
+	show "Deseja retornar?";
+	next;
+	if(select("Sim, estou morto de cansaço:Não, eu adoro este lugar!")==1){
+		warp "izlude",176,182;
+		end;
+	}
+	close;
+}

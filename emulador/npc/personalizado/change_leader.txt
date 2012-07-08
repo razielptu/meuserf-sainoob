@@ -1,0 +1,89 @@
+//**************************************************************************//
+//*               Um Nome... Um Reinado... Uma Reputação...                *//
+//**************************************************************************//
+//*                                                                        *//
+//*                                                                        *//
+//*                                 \|||/                                  *//
+//*            .-.________          (o o)               ________.-.        *//
+//*       ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----   *//
+//*          (    ()___)    |                       |    (___()     )      *//
+//*               ()__)     |      * L Y K O *      |     (__()            *//
+//*       ----\___()_)      |                       |      (_()___/-----   *//
+//*                         +------------Ooo--------+                      *//
+//*                                |__|__|                                 *//
+//*                                 || ||                                  *//
+//*                        ________ooO Ooo________                         *//
+//*                                                                        *//
+//**************************************************************************//
+//* Invejados Por Muitos, Copiados Por Alguns, e Admirados Por Todos!!!... *//
+//**************************************************************************//
+prontera,181,215,3	script	Changer Leaders	899,{
+
+set @npc$,"[^1E90FF Sir. Thumbler ^000000]";
+// Valor da troca
+set @zennyguild,250000;
+// Cobrar pela troca, 0 = Não, 1 = Sim
+set @cobrar,0;
+
+
+mes @npc$;
+mes "Olá ^FF0000"+strcharinfo(0)+"^000000";
+mes "por meu prestígio e renome com o Rei posso lhe oferecer alguns favores";
+mes "Mas claro, custará alguns ^FF0000Zenys^000000";
+next;
+menu "Trocar Leader da Guild",L_GUILD,"Não quero nada seu!",-;
+mes @npc$;
+mes "Azar o seu, meus serviços são de primeira qualidade";
+mes "somente eu posso oferece-los";
+close;
+
+L_GUILD:
+
+if(!getcharid(2)){
+mes @npc$;
+mes "Você não está em nenhuma guild,";
+mes "por favor não me faça perder meu tempo";
+close;
+}
+if(strcharinfo(0) != getguildmaster(getcharid(2))) {
+mes @npc$;
+mes "Somente o Líder pode mudar a liderança do clã";
+close;
+}
+mes @npc$;
+mes "Para quem deseja dar a liderança do clã ^FF0000"+getguildname((getcharid(2)))+"^000000";
+input @newguild$;
+next;
+mes "Confirma o requerimento por favor";
+mes "Clã :^FF0000"+getguildname((getcharid(2)))+"^000000";
+mes "Novo Líder : ^FF0000"+@newguild$+"^000000";
+switch(SELECT("Correto","Mudar dados","Não quero nada")){
+case 1:
+if(Zenny < @zennyguild && @cobrar == 1) goto L_ZENNY;
+if(@cobrar == 1) set Zenny, Zenny - @zennyguild;
+set @n,guildchangegm(getcharid(2),@newguild$);
+if(@n == 0) {
+mes "Houve algum problema com seu requerimento";
+mes "Verifique se o char está OnLine e se o nome foi digitado corretamente";
+close;
+}
+mes @npc$;
+mes "Troca realizada com sucesso";
+close;
+		
+case 2:
+goto L_GUILD;
+end;
+		
+case 3:
+mes @npc$;
+mes "Você não está interessado ?";
+mes "por favor não me faça perder meu tempo";
+close;
+}
+		
+L_ZENNY:
+mes @npc$;
+mes "Você não tem Zenys suficientes";
+close;
+}

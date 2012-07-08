@@ -1,0 +1,153 @@
+//===== Cronus Script ======================================= 
+//= Gym Pass Cash Item NPC
+//===== Por: ================================================== 
+//= Kisuka
+//===== Versão Atual: ===================================== 
+//= 1.1/1.3
+//===== Compatível Com: ===================================== 
+//= Cronus SVN
+//===== Descrição: ========================================= 
+//= Exchange Gym Passes to learn "Enlarge Weight Limit"
+//= iRO NPC situated in Payon beside Kafra Shop.
+//===== Comentários Adicionais: ================================= 
+//= 1.0 First version [L0ne_W0lf]
+//= 1.1 Fixed the NPC saying you "00" [L0ne_W0lf]
+//= 1.2 Traduzido script com base no eAthena [Reploid]
+//= 1.3 Trocado efeitos numéricos por nomes. [Lord]
+//============================================================ 
+
+payon,173,141,4	script	Mister Peso#GymPass	899,{
+	show "[Mister Peso]";
+	show "Olá! Como vai?";
+	show "Eu sou o Mister Peso, vim de";
+	show "um planeta distante, chamado";
+	show "Plumaria.";
+	next;
+	show "[Mister Peso]";
+	show "Sou um viajante muito curioso e um";
+	show "dia decidi conhecer Rune-Midgard,";
+	show "mas me deparei com algo";
+	show "surpreendente!";
+	show "Tudo aqui é pesado demais!";
+	next;
+	show "[Mister Peso]";
+	show "Quase não consegui carregar minha";
+	show "bagagem por aí! Isso foi um";
+	show "problemão!";
+	show "Foi assim que tive uma brilhante";
+	show "idéia: ''Com a magia de meu planeta";
+	show "posso";
+	show "me enfeitiçar para deixar meus";
+	show "pertences mais leves!''";
+	next;
+	show "[Mister Peso]";
+	show "Foi assim que eu criei o";
+	show "^FF0000Passe Anti-Gravitacional^000000,";
+	show "um feitiço que aumenta";
+	show "sua capacidade de carga em";
+	show "200 pontos!";
+	show "Com ele posso até enfeitiçar os";
+	show "habitantes deste planeta!";
+	next;
+	show "[Mister Peso]";
+	show "Mas, receio que a constituição de";
+	show "vocês não seja a mais adequada";
+	show "para receber esse feitiço...";
+	show "Então não posso encantá-los mais";
+	show "que";
+	show "^FF000010 vezes^000000.";
+	next;
+	show "[Mister Peso]";
+	show "Me diga, você gostaria de";
+	show "receber o feitiço?";
+	next;
+	switch(select("Sim:Não:O feitiço acabou!")) {
+	case 1:
+		if (countitem(7776) == 0) {
+			show "[Mister Peso]";
+			show "Hm, você precisa me dar";
+			show "um ^FF0000Passe Anti-Gravitacional^000000.";
+			show "Só assim eu consigo conjurar o";
+			show "feitiço.";
+			close;
+		}
+		else if (getskilllv("ALL_INCCARRY") >= 10) {
+			show "[Mister Peso]";
+			show "Cara, não acho que eu possa";
+			show "aumentar a sua capacidade de";
+			show "carga mais do que isso.";
+			show "É muito perigoso para o seu";
+			show "corpo sem termos tentado!";
+			show "Eu lhe avisei sobre os limites.";
+			close;
+		}
+		else {
+			show "[Mister Peso]";
+			show "Ah, ótimo, vejo que você";
+			show "trouxe o seu ^FF0000Passe Anti-Gravitacional^000000.";
+			show "Certo, Lançarei o feitiço,";
+			show "em você.";
+			show "Pronto? Lá vai!";
+			next;
+			specialeffect2 EF_EARTHSPIKE;
+			next;
+			specialeffect2 EF_DEVIL;
+			next;
+			specialeffect2 EF_COIN;
+			next;
+			specialeffect2 EF_SIGHTRASHER;
+			next;
+			skill "ALL_INCCARRY",getskilllv("ALL_INCCARRY")+1,0;
+			delitem 7776,1;
+			set gympassmemory,gympassmemory+1;
+			show "[Mister Peso]";
+			show "Bem, agora você deve ser capaz";
+			show "de carregar mais coisas com você.";
+			show "Vejamos, eu posso aumentar a";
+			show "sua capacidade de carga por apenas mais";
+			show "^FF00000" + (10-getskilllv(681)) + "^000000 vezes.";
+			close;
+		}
+	case 2:
+		show "[Mister Peso]";
+		show "Ah, que pena.";
+		show "Bem, volte novamente se";
+		show "mudar de idéia. Diga a";
+		show "seus amigos sobre mim:";
+		show "se eles estiverem precisando do";
+		show "feitiço terei prazer em ajudá-los.";
+		close;
+	case 3:
+		if (getskilllv("ALL_INCCARRY") == 0) {
+			show "[Mister Peso]";
+			show "Epa! Mas, você nunca foi";
+			show "encantado!";
+			show "Como é que eu poderia refazer";
+			show "algo que nunca foi feito antes?";
+			close;
+		}
+		else {
+			show "[Mister Peso]";
+			show "O que aconteçeu?";
+			show "O Feitiço acabou?";
+			show "Bem vou lançá-lo novamente";
+			show "em você.";
+			next;
+			specialeffect2 EF_EARTHSPIKE;
+			next;
+			specialeffect2 EF_DEVIL;
+			next;
+			specialeffect2 EF_COIN;
+			next;
+			specialeffect2 EF_SIGHTRASHER;
+			next;
+			skill 681,gympassmemory,0;
+			show "[Mister Peso]";
+			show "O que acha disso?";
+			show "Sua capacidade de carga";
+			show "aumentou novamente,";
+			show "igualmente como era antes!";
+			close;
+		}
+	}
+}

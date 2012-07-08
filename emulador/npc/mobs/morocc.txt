@@ -1,0 +1,383 @@
+moc_fild01.gat,0,0,0,0	monster	Condor	1009,20,0,0,0
+moc_fild01.gat,0,0,0,0	monster	PecoPeco	1019,25,0,0,0
+moc_fild01.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,20,0,0,0
+moc_fild01.gat,0,0,0,0	monster	Picky	1049,45,0,0,0
+moc_fild01.gat,0,0,0,0	monster	Picky com casca	1050,45,0,0,0
+moc_fild01.gat,0,0,0,0	monster	Drops	1113,30,0,0,0
+moc_fild01.gat,194,51,10,10	monster	Planta Amarela	1081,10,900000,450000,1
+
+moc_fild02.gat,0,0,0,0	monster	Condor	1009,25,0,0,0
+moc_fild02.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,15,0,0,0
+moc_fild02.gat,0,0,0,0	monster	Picky	1049,50,0,0,0
+moc_fild02.gat,0,0,0,0	monster	Picky com casca	1050,50,0,0,0
+moc_fild02.gat,0,0,0,0	monster	Bebe Selvagem	1167,20,0,0,0
+moc_fild02.gat,132,307,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,139,222,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,194,294,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,230,62,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,275,241,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,299,61,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,313,149,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,337,35,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,342,267,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,353,103,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,359,215,0,0	monster	Planta Verde	1080,1,180000,90000,1
+moc_fild02.gat,89,315,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,94,195,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild02.gat,99,261,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+moc_fild03.gat,0,0,0,0	monster	Poring	1002,70,0,0,0
+moc_fild03.gat,0,0,0,0	monster	Salgueiro	1010,15,0,0,0
+moc_fild03.gat,0,0,0,0	monster	Sapo de Rodda	1012,20,0,0,0
+moc_fild03.gat,0,0,0,0	monster	Jibóia	1025,25,0,0,0
+moc_fild03.gat,0,0,0,0	monster	Lunático	1063,15,0,0,0
+moc_fild03.gat,108,199,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,200,263,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,213,201,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,216,69,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,261,161,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,77,311,5,5	monster	Planta Verde	1080,2,180000,90000,1
+moc_fild03.gat,96,65,5,5	monster	Planta Verde	1080,2,180000,90000,1
+
+moc_fild04.gat,0,0,0,0	monster	Condor	1009,35,0,0,0
+moc_fild04.gat,0,0,0,0	monster	ChonChon	1011,20,0,0,0
+moc_fild04.gat,0,0,0,0	monster	Lobo	1013,20,0,0,0
+moc_fild04.gat,0,0,0,0	monster	PecoPeco	1019,75,0,0,0
+moc_fild04.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild04.gat,0,0,0,0	monster	Picky	1049,15,0,0,0
+moc_fild04.gat,0,0,0,0	monster	Picky com casca	1050,15,0,0,0
+moc_fild04.gat,0,0,0,0	monster	Drops	1113,10,0,0,0
+moc_fild04.gat,313,84,10,10	monster	Planta Amarela	1081,10,900000,450000,1
+
+moc_fild05.gat,0,0,0,0	monster	Condor	1009,35,0,0,0
+moc_fild05.gat,0,0,0,0	monster	ChonChon	1011,20,0,0,0
+moc_fild05.gat,0,0,0,0	monster	Lobo	1013,45,0,0,0
+moc_fild05.gat,0,0,0,0	monster	ChonChon de Aço	1042,70,0,0,0
+moc_fild05.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild05.gat,0,0,0,0	monster	Picky	1049,15,0,0,0
+moc_fild05.gat,0,0,0,0	monster	Picky com casca	1050,15,0,0,0
+moc_fild05.gat,0,0,0,0	monster	Drops	1113,20,0,0,0
+moc_fild05.gat,208,233,10,10	monster	Planta Amarela	1081,5,360000,180000,1
+
+moc_fild06.gat,0,0,0,0	monster	Condor	1009,30,0,0,0
+moc_fild06.gat,0,0,0,0	monster	ChonChon	1011,45,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Picky	1049,30,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Picky com casca	1050,30,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Muka	1055,35,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Libélula	1091,1,1800000,200000,0
+moc_fild06.gat,0,0,0,0	monster	Filhote de Lobo do Deserto	1107,45,0,0,0
+moc_fild06.gat,0,0,0,0	monster	Drops	1113,25,0,0,0
+moc_fild06.gat,193,203,10,10	monster	Planta Amarela	1081,10,900000,450000,1
+
+moc_fild07.gat,0,0,0,0	monster	ChonChon	1011,30,0,0,0
+moc_fild07.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,35,0,0,0
+moc_fild07.gat,0,0,0,0	monster	Picky	1049,60,0,0,0
+moc_fild07.gat,0,0,0,0	monster	Picky com casca	1050,60,0,0,0
+moc_fild07.gat,0,0,0,0	monster	Drops	1113,60,0,0,0
+moc_fild07.gat,162,333,12,12	monster	Planta Amarela	1081,5,360000,180000,1
+
+moc_fild08.gat,0,0,0,0	monster	Escorpião	1001,20,0,0,0
+moc_fild08.gat,0,0,0,0	monster	Golem	1040,40,0,0,0
+moc_fild08.gat,0,0,0,0	monster	Metaller	1058,30,0,0,0
+moc_fild08.gat,0,0,0,0	monster	Filhote de Lobo do Deserto	1107,15,0,0,0
+
+moc_fild09.gat,0,0,0,0	monster	Condor	1009,15,0,0,0
+moc_fild09.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild09.gat,0,0,0,0	monster	Picky	1049,20,0,0,0
+moc_fild09.gat,0,0,0,0	monster	Picky com casca	1050,20,0,0,0
+moc_fild09.gat,0,0,0,0	monster	Muka	1055,35,0,0,0
+moc_fild09.gat,0,0,0,0	monster	Filhote de Lobo do Deserto	1107,50,0,0,0
+moc_fild09.gat,240,313,5,5	monster	Planta Amarela	1081,2,180000,90000,1
+moc_fild09.gat,305,62,5,5	monster	Planta Amarela	1081,2,180000,90000,1
+moc_fild09.gat,332,341,5,5	monster	Planta Amarela	1081,2,180000,90000,1
+moc_fild09.gat,54,325,5,5	monster	Planta Amarela	1081,2,180000,90000,1
+moc_fild09.gat,64,78,5,5	monster	Planta Amarela	1081,2,180000,90000,1
+
+moc_fild10.gat,0,0,0,0	monster	Condor	1009,30,0,0,0
+moc_fild10.gat,0,0,0,0	monster	PecoPeco	1019,35,0,0,0
+moc_fild10.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild10.gat,0,0,0,0	monster	Picky	1049,45,0,0,0
+moc_fild10.gat,0,0,0,0	monster	Picky com casca	1050,45,0,0,0
+moc_fild10.gat,198,150,40,30	monster	Planta Verde	1080,5,180000,90000,1
+moc_fild10.gat,198,150,40,30	monster	Planta Amarela	1081,10,180000,90000,1
+
+moc_fild11.gat,0,0,0,0	monster	ChonChon	1011,15,0,0,0
+moc_fild11.gat,0,0,0,0	monster	Picky	1049,10,0,0,0
+moc_fild11.gat,0,0,0,0	monster	Picky com casca	1050,10,0,0,0
+moc_fild11.gat,0,0,0,0	monster	Andre	1095,5,60000,30000,0
+moc_fild11.gat,0,0,0,0	monster	Ovo de Andre	1097,40,0,0,0
+moc_fild11.gat,0,0,0,0	monster	Deniro	1105,5,60000,30000,0
+moc_fild11.gat,0,0,0,0	monster	Drops	1113,75,0,0,0
+moc_fild11.gat,0,0,0,0	monster	Piere	1160,5,60000,30000,0
+moc_fild11.gat,197,216,0,0	monster	Planta Brilhante	1083,1,1800000,900000,1
+
+moc_fild12.gat,0,0,0,0	monster	ChonChon	1011,20,0,0,0
+moc_fild12.gat,0,0,0,0	monster	Picky	1049,45,0,0,0
+moc_fild12.gat,0,0,0,0	monster	Picky com casca	1050,45,0,0,0
+moc_fild12.gat,0,0,0,0	monster	Ovo de Andre	1097,25,0,0,0
+moc_fild12.gat,0,0,0,0	monster	Drops	1113,40,0,0,0
+moc_fild12.gat,181,336,40,20	monster	Planta Amarela	1081,10,180000,90000,1
+
+moc_fild13.gat,0,0,0,0	monster	Condor	1009,20,0,0,0
+moc_fild13.gat,0,0,0,0	monster	PecoPeco	1019,40,0,0,0
+moc_fild13.gat,0,0,0,0	monster	Jibóia	1025,65,0,0,0
+moc_fild13.gat,0,0,0,0	monster	Ovo de PecoPeco	1047,10,0,0,0
+moc_fild13.gat,0,0,0,0	monster	Picky	1049,35,0,0,0
+moc_fild13.gat,0,0,0,0	monster	Picky com casca	1050,35,0,0,0
+moc_fild13.gat,101,185,5,5	monster	Planta Amarela	1081,3,180000,90000,1
+moc_fild13.gat,101,297,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild13.gat,106,258,5,5	monster	Planta Amarela	1081,3,180000,90000,1
+moc_fild13.gat,108,150,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild13.gat,109,168,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild13.gat,161,273,5,5	monster	Planta Amarela	1081,3,180000,90000,1
+moc_fild13.gat,264,136,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,264,64,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,265,197,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,266,289,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,280,99,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,281,333,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,282,155,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,284,227,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,295,358,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,304,244,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,304,333,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,305,91,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,307,307,0,0	monster	Cogumelo Vermelo	1085,1,180000,90000,1
+moc_fild13.gat,84,329,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild13.gat,89,92,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild13.gat,93,301,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+moc_fild14.gat,0,0,0,0	monster	Escorpião	1001,30,0,0,0
+moc_fild14.gat,0,0,0,0	monster	Metaller	1058,20,0,0,0
+moc_fild14.gat,0,0,0,0	monster	Lobo do Deserto	1106,48,0,0,0
+moc_fild14.gat,0,0,0,0	monster	Filhote de Lobo do Deserto	1107,25,0,0,0
+moc_fild14.gat,0,0,0,0	monster	Hode	1127,15,0,0,0
+moc_fild14.gat,124,93,5,5	monster	Planta Brilhante	1083,1,1800000,900000,1
+moc_fild14.gat,149,333,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild14.gat,160,366,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild14.gat,165,282,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild14.gat,64,342,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild14.gat,85,271,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+moc_fild15.gat,0,0,0,0	monster	Escorpião	1001,35,0,0,0
+moc_fild15.gat,0,0,0,0	monster	Andre	1095,25,0,0,0
+moc_fild15.gat,0,0,0,0	monster	Ovo de Andre	1097,20,0,0,0
+moc_fild15.gat,0,0,0,0	monster	Deniro	1105,25,0,0,0
+moc_fild15.gat,0,0,0,0	monster	Piere	1160,25,0,0,0
+moc_fild15.gat,104,347,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,158,144,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,195,373,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,232,126,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,294,74,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,341,164,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,341,365,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,353,230,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,370,85,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,40,126,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,46,250,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild15.gat,57,39,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+moc_fild16.gat,0,0,0,0	monster	Muka	1055,25,0,0,0
+moc_fild16.gat,0,0,0,0	monster	Metaller	1058,15,0,0,0
+moc_fild16.gat,0,0,0,0	monster	Hode	1127,40,0,0,0
+moc_fild16.gat,0,0,0,0	monster	Arenoso		1165,40,0,0,0
+
+moc_fild17.gat,0,0,0,0	monster	Metaller	1058,20,0,0,0
+moc_fild17.gat,0,0,0,0	monster	Andre	1095,30,0,0,0
+moc_fild17.gat,0,0,0,0	monster	Drops	1113,25,0,0,0
+moc_fild17.gat,0,0,0,0	monster	Frilldora	1119,5,60000,30000,0
+moc_fild17.gat,0,0,0,0	monster	Hode	1127,35,0,0,0
+moc_fild17.gat,0,0,0,0	monster	Piere	1160,30,0,0,0
+moc_fild17.gat,0,0,0,0	monster	Arenoso	1165,15,0,0,0
+moc_fild17.gat,144,151,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild17.gat,243,138,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild17.gat,270,106,0,0	monster	Planta Azul	1079,1,180000,90000,1
+moc_fild17.gat,335,191,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild17.gat,347,224,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild17.gat,359,258,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild17.gat,40,258,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+moc_fild18.gat,0,0,0,0	monster	ChonChon	1011,15,0,0,0
+moc_fild18.gat,0,0,0,0	monster	Anaconda	1030,35,0,0,0
+moc_fild18.gat,0,0,0,0	monster	ChonChon de Aço	1042,25,0,0,0
+moc_fild18.gat,0,0,0,0	monster	Drops	1113,20,0,0,0
+moc_fild18.gat,0,0,0,0	monster	Hode	1127,55,0,0,0
+moc_fild18.gat,119,285,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,135,119,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,143,352,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,230,144,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,325,207,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,325,272,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,71,210,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+moc_fild18.gat,72,333,0,0	monster	Planta Amarela	1081,1,180000,90000,1
+
+anthell01.gat,0,0,0,0	monster	Familiar	1005,20,0,0,0
+anthell01.gat,0,0,0,0	monster	Andre	1095,35,0,0,0
+anthell01.gat,0,0,0,0	monster	Deniro	1105,35,0,0,0
+anthell01.gat,0,0,0,0	monster	Giearth	1121,8,60000,30000,0
+anthell01.gat,0,0,0,0	monster	Freeoni	1159,1,3600000,0,0
+anthell01.gat,0,0,0,0	monster	Piere	1160,35,0,0,0
+anthell01.gat,0,0,0,0	monster	Vitata	1176,20,0,0,0
+anthell01.gat,100,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,101,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,102,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,102,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,103,120,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,103,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,104,120,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,104,122,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,104,123,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,105,124,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,28,262,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,28,263,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,28,264,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,28,265,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,28,266,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,262,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,263,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,264,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,265,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,29,266,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,187,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,190,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,195,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,198,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,261,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,262,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,263,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,264,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,30,265,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,190,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,194,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,195,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,198,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,262,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,263,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,31,264,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,187,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,189,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,196,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,197,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,198,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,32,263,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,33,195,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,33,196,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,35,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,36,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,36,187,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,37,183,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,37,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,38,183,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,38,184,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,38,186,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,168,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,265,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,266,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,267,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,268,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,269,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,40,270,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,165,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,168,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,265,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,266,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,267,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,268,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,41,269,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,42,165,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,42,166,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,42,167,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,42,168,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,43,165,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,43,166,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,44,165,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,44,166,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,45,165,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,97,123,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,97,124,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,97,125,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,97,126,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,97,127,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,98,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,98,127,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,99,121,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+anthell01.gat,99,127,0,0	monster	Ovo de Andre	1097,1,60000,30000,0
+
+anthell02.gat,0,0,0,0	monster	Familiar	1005,20,0,0,0
+anthell02.gat,0,0,0,0	monster	Andre	1095,35,0,0,0
+anthell02.gat,0,0,0,0	monster	Ovo de Andre	1097,15,0,0,0
+anthell02.gat,0,0,0,0	monster	Deniro	1105,35,0,0,0
+anthell02.gat,0,0,0,0	monster	Giearth	1121,10,60000,30000,0
+anthell02.gat,0,0,0,0	monster	Martin	1145,10,120000,60000,0
+anthell02.gat,0,0,0,0	monster	Maya	1147,1,3600000,0,0
+anthell02.gat,0,0,0,0	monster	Piere	1160,35,0,0,0
+anthell02.gat,0,0,0,0	monster	Vitata	1176,20,0,0,0
+
+moc_pryd01.gat,0,0,0,0	monster	Familiar	1005,20,0,0,0
+moc_pryd01.gat,0,0,0,0	monster	Esporo	1014,30,0,0,0
+moc_pryd01.gat,0,0,0,0	monster	Poporing	1031,20,0,0,0
+
+moc_pryd02.gat,0,0,0,0	monster	Esqueleto Arqueiro	1016,35,0,0,0
+moc_pryd02.gat,0,0,0,0	monster	Esqueleto Soldado	1028,50,0,0,0
+moc_pryd02.gat,0,0,0,0	monster	Poporing	1031,20,0,0,0
+moc_pryd02.gat,0,0,0,0	monster	Drainliar	1111,30,0,0,0
+
+moc_pryd03.gat,0,0,0,0	monster	Esqueleto Arqueiro	1016,15,0,0,0
+moc_pryd03.gat,0,0,0,0	monster	Esqueleto Soldado	1028,5,0,0,0
+moc_pryd03.gat,0,0,0,0	monster	Múmia	1041,45,0,0,0
+moc_pryd03.gat,0,0,0,0	monster	Drainliar	1111,15,0,0,0
+moc_pryd03.gat,0,0,0,0	monster	Mimico	1191,2,600000,300000,1
+
+moc_pryd04.gat,0,0,0,0	monster	Isis	1029,30,150000,75000,0
+moc_pryd04.gat,0,0,0,0	monster	Carniçal	1036,20,0,0,0
+moc_pryd04.gat,0,0,0,0	monster	Osiris	1038,1,3600000,0,0
+moc_pryd04.gat,0,0,0,0	monster	Múmia	1041,45,0,0,0
+moc_pryd04.gat,0,0,0,0	monster	Matyr	1146,20,0,0,0
+moc_pryd04.gat,0,0,0,0	monster	Mimico	1191,5,600000,300000,1
+
+moc_pryd05.gat,0,0,0,0	monster	Verit	1032,30,0,0,0
+moc_pryd05.gat,0,0,0,0	monster	Carniçal	1036,5,300000,150000,1
+moc_pryd05.gat,0,0,0,0	monster	Múmia	1041,25,0,0,0
+moc_pryd05.gat,0,0,0,0	monster	Minorous	1149,60,0,0,0
+
+moc_pryd06.gat,0,0,0,0	monster	Isis	1029,10,0,0,0
+moc_pryd06.gat,0,0,0,0	monster	Verit	1032,10,0,0,0
+moc_pryd06.gat,0,0,0,0	monster	Múmia	1041,20,0,0,0
+moc_pryd06.gat,100,90,80,50	monster	Mimico	1191,20,0,0,0
+moc_pryd06.gat,100,90,80,50	monster	Múmia Anciã	1297,10,0,0,0
+
+in_sphinx1.gat,0,0,0,0	monster	Anaconda	1030,35,0,0,0
+in_sphinx1.gat,0,0,0,0	monster	Drainliar	1111,20,0,0,0
+in_sphinx1.gat,0,0,0,0	monster	Réquiem	1164,5,0,0,0
+in_sphinx1.gat,0,0,0,0	monster	Zerom	1178,65,0,0,0
+
+in_sphinx2.gat,0,0,0,0	monster	Drainliar	1111,25,0,0,0
+in_sphinx2.gat,0,0,0,0	monster	Matyr	1146,45,0,0,0
+in_sphinx2.gat,0,0,0,0	monster	Réquiem	1164,15,0,0,0
+in_sphinx2.gat,0,0,0,0	monster	Zerom	1178,20,0,0,0
+in_sphinx2.gat,0,0,0,0	monster	Sussurro	1179,15,0,0,0
+
+in_sphinx3.gat,0,0,0,0	monster	Drainliar	1111,20,0,0,0
+in_sphinx3.gat,0,0,0,0	monster	Marduk	1140,5,0,0,0
+in_sphinx3.gat,0,0,0,0	monster	Matyr	1146,20,0,0,0
+in_sphinx3.gat,0,0,0,0	monster	Réquiem	1164,55,0,0,0
+in_sphinx3.gat,0,0,0,0	monster	Sussurro	1179,10,0,0,0
+in_sphinx3.gat,0,0,0,0	monster	Mimico	1191,2,600000,300000,1
+
+in_sphinx4.gat,0,0,0,0	monster	Sorrateiro	1037,15,0,0,0
+in_sphinx4.gat,0,0,0,0	monster	Druida Malígno	1117,1,600000,300000,1
+in_sphinx4.gat,0,0,0,0	monster	Marduk	1140,25,0,0,0
+in_sphinx4.gat,0,0,0,0	monster	Minorous	1149,45,0,0,0
+in_sphinx4.gat,0,0,0,0	monster	Mimico	1191,4,600000,300000,1
+
+in_sphinx5.gat,0,0,0,0	monster	Sorrateiro	1037,10,0,0,0
+in_sphinx5.gat,0,0,0,0	monster	Marduk	1140,30,0,0,0
+in_sphinx5.gat,0,0,0,0	monster	Matyr	1146,10,0,0,0
+in_sphinx5.gat,0,0,0,0	monster	Réquiem	1164,25,0,0,0
+in_sphinx5.gat,0,0,0,0	monster	Sussurro	1179,10,0,0,0
+in_sphinx5.gat,0,0,0,0	monster	Mimico	1191,7,600000,300000,1
+in_sphinx5.gat,0,0,0,0	monster	Alma Penada	1192,1,3600000,1800000,1

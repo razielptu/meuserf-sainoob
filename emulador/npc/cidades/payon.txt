@@ -1,0 +1,1401 @@
+//===== Cronus Script ================================================= 
+//= Payon Npcs
+//===== Por: ==========================================================
+//= Kamper
+//===== Versão Atual: ================================================= 
+//= 1.7
+//===== Descrição: ==================================================== 
+//= Npcs da cidade de Payon
+//===== Changelog: ==================================================== 
+//= 1.1 Iniciado o Npc [Kamper]
+//= 1.2 Fixado o bug o { [Kamper]
+//= 1.3 Fixado o bug do unequip [Kamper]
+//= 1.4 Traduzido o Chefe [Kamper]
+//= 1.5 Adicionado Guarda de fora do Palácio [Pudim]
+//= 1.6 Corrigido o Chefe (sem rand, ele fala com todos nv31+) [Pudim]
+//= 1.7 Corrigido a direção do Guarda [Kamper]
+//= 1.8 Traduzido o Marxhansen [Kamper]
+//=====================================================================
+pay_arche.gat,77,131,8	script	Guilhermino	59,{
+	mes "[Guilhermino]";
+	mes "Payon! Mas que cidade maravilhosa!";
+	mes "Arcos íncríveis! Arqueiros habilidosos!";
+	mes "Ei, você! Conhece a fama da nossa cidade?";
+	next;
+	menu "Claro que sim!",L0,"Que fama?",L1,"......",L2;
+
+	L0:
+		mes "[Guilhermino]";
+		mes "Rá! Então você é um dos meus!";
+		mes "Arqueiros de Payon! Cuidado com a gente, cara!";
+		mes "Nós nunca erramos um alvo! Podemos acertar um fio de cabelo com nossas flechas! E temos estilo!";
+		next;
+		menu "Você gosta mesmo aqui, hein?",L00,"Haha...",L01;
+
+		L00:
+			mes "[Guilhermino]";
+			mes "SIM! Eu amo esta cidade! É por isso que eu sei tudo sobre ela!";
+			mes "Se você tiver qualquer pergunta pra me fazer, vá em frente, pergunte!!";
+			next;
+			menu "O pessoal daqui usa umas roupas bem estranhas.",L00a,"Que construção estranha é aquela no meio da cidade?",L00b,"Quem é aquele cara bebendo no bar lá da cidade?",L00c," Agente se fala depois.",L00d;
+
+			L00a:
+				mes "[Guilhermino]";
+				mes "Sim, é verdade!";
+				mes "Você deve saber que até algum tempo atrás, Payon era completamente isolada do resto do reino de Midgard. Por isso as pessoas daqui criaram um cultura própria, diferente das de outras cidades.";
+				mes "Por isso essas roupas estranhas, elas são um costume local! Aliás se quiser experimentar, vá em frente, são muito confortáveis!";
+				close;
+			L00b:
+				mes "[Guilhermino]";
+				mes "É o palácio de Payon. Estrangeiros não são muito bem-vindos por lá. Eu mesmo nunca entrei lá.";
+				mes "Dizem que a Realeza local, seus amigos e empregados moram lá dentro.";
+				mes "Eu gostaria de visitar o palácio algum dia. Parece um lugar muito misterioso e interessante.";
+				close;
+			L00c:
+				mes "[Guilhermino]";
+				mes "Ah! O Bêbado? Ele é famoso na cidade! Não lhe pague bebidas pra não jogar seu dinheiro fora!";
+				close;
+			L00d:
+				mes "[Guilhermino]";
+				mes "Ok! Te vejo por aí! Até mais!";
+				close;
+		L01:
+			close;
+	L1:
+		mes "[Guilhermino]";
+		mes "Não é possível que você não saiba nada dos Arqueiros de Payon!";
+		mes "Quando você aprender alguma coisa sobre Payon, venha falar comigo.Eu adoro falar sobre essa cidade.";
+		mes "Payon é o máximo!";
+		close;
+	L2:
+		mes "[Guilhermino]";
+		mes "Que foi? Gato comeu sua língua?";
+		mes "Ei, não precisa ter vergonha de mim! Eu sou o Guilhermino, todo o mundo me conhece por aqui!";
+		close;
+}
+
+
+
+pa2_in01.gat,69,90,4	script	Chefe da Guarda	105,{
+	OnTouch:
+	mes "[Chefe da Guarda]";
+	mes "O que traz aqui?";
+	next;
+	mes "[Chefe da Guarda]";
+	mes "Seu lugar não é aqui. Sugiro que comporte-se com respeito dentro do palácio.";
+	next;
+	mes "[Chefe da Guarda]";
+	mes "Você será desarmado agora em nome da segurança deste lugar. Por favor, coopere.";
+	nude;
+	close;
+}
+
+payo2.gat,93,162,4	script	Guarda	105,{
+	OnTouch:
+	mes "[Guarda]";
+	mes "Este é o Palácio de Payon.";
+	mes "Mesmo sendo este um lugar aberto à visitas do público, exigimos que os visitantes sejam respeitosos e não causem transtornos.";
+	next;
+	mes "[Guarda]";
+	mes "Portanto é necessário que você, ao entrar no palácio, desarme-se de seus equipamentos. Obrigado por sua cooperação";
+	nude;
+	close;
+}
+
+pa2_in01.gat,95,179,5	script	Vikram, o Arqueiro	88,{
+	mes "[Vikram, o Arqueiro]";
+	mes "Cara, vou te dizer. Eu tenho um amigo que só sabe falar besteira.";
+	mes "Quer dizer, ele é um expert em Arqueiros e tudo mais, mas eu me encho do falatório dele...";
+	mes "Até nosso Chefe já se encheu dele, o cara é mesmo um mala!";
+	next;
+	menu "Hã... quem é esse cara?",M0,"Que Chefe é esse?",M1,"Como assim 'fala besteira'?",M2;
+
+	M0:
+		mes "[Vikram, o Arqueiro]";
+		mes "Ah, claro, que besteira a minha. É um sujeito que mora no andar superior desse bar, ele tem a mesma roupa que eu.";
+		mes "Ele ensina Arqueiros novatos os conceitos básicos da nossa classe.";
+		mes "Bem... Se tiver interesse, vá falar com ele.";
+		close;
+	M1:
+		mes "[Vikram, o Arqueiro]";
+		mes "O Chefe da Cidade vive no Palácio de Payon, lá no centro. Ele é o líder espiritual daqui.";
+		mes "Ele costumava a caçar pela floresta com seu arco lendário, a Gakkung.";
+		mes "Eu me lembro de vê-lo em ação quando era criança. Nunca vi flechas disparadas com tamanha rapidez.";
+		mes "Ele pode parecer apenas um velho agora... Mas está nos seus olhos...";
+		mes "São olhos capazes de mirar um pássaro em movimento... Realmente, ele foi o melhor Arqueiro desta cidade.";
+		next;
+		mes "[Vikram, o Arqueiro]";
+		mes "Eu admiro como o herói que ele é e sempre será.";
+		close;
+	M2:
+		mes "[Vikram, o Arqueiro]";
+		mes "Fala besteira, oras! Sabe daquelas pessoas que não param de falar e acham que sabem tudo?";
+		mes "Ele é uma delas. Tem vezes que, eu admito, mesmo sendo amigo dele dá vontade de mandar ele calar a boca.";
+		mes "Ele é famoso na cidade por falar tanto. Cara, ele pode ser muito irritante às vezes... Achando que sabe tudo e bancando o genial...";
+		mes "Mas certamente, pelo menos em matéria de falação, ele é o número um.";
+		next;
+		mes "[Vikram, o Arqueiro]";
+		mes "Payon é uma cidade muito quieta, então gente como ele não é muito comum por aqui.";
+		mes "A maioria das pessoas por aqui fala pouco, sabe? Ninguém acha que falar resolve nada. Somos pessoas de ação.";
+		mes "Pelo jeito, você deve ter amigos assim, não é? Eu acho que a verdadeira bravura está nas ações, concorda?";
+		mes "Pessoas de poucas palavras...";
+		next;
+		mes "[Vikram, o Arqueiro]";
+		mes "Enfim, meu amigo Markiv? Como eu disse, ele mora no segundo andar da estalagem, é só subir as escadas no outro quarto.";
+		mes "Acho que ele deve estar por lá, agora. Por que você não vai visitá-lo pra ver do que eu estou falando? O cara é um chato.";
+		close;
+}
+
+pa2_in01.gat,95,181,1	script	Bêbado	120,{
+	mes "[Bêbado]";
+	if(class ==Job_Archer) mes "Ei, um arqueiro... Anda matando muito monstro?! Haha... Você não deve nem matar uma barata... Quáquáquá!";
+	if(class !=Job_Archer) mes "Ei!... Ei! Sabe nu quiqueeu tava pensando? Se um desses Arqueiros idiotas consegue mirar depois de beber uma cachaça!? Quáquáquá!";
+	mes "Ei... Hã... Você pode me pagar uma rodada?";	
+		next;
+		menu "Só se você não beber demais.",M0," Não obrigado, amigão.",M1,"Nem pensar, cara!",M2;
+
+	M0:
+		set Zeny,zeny-100;
+		mes "[Bêbado]";
+		mes "Opa! valeu, amigão! O Pessoal daqui já não é mais legal assim comigo ...sniff... Esses arqueirinhos aí, tudo mão de vaca, sacumé?!";
+		mes "Quáquáquá! ...Olha, eu não era assim na minha época, não!";
+		mes "Ra-paz! Eu era o terros das menininhas! Tem uma vovó daqui da cidade que era uma gatona, meu irmão! Eu e ela, ó! A gente era assim, assim! Quáquáquá!";
+		mes "Ela ainda acha que é novinha e tudo mais... Fica passando produto de pele e num sei que lá na cara, sabe? Essa gente que não sabe envelhecer com dignidade!";
+		next;
+		mes "[Bêbado]";
+		mes "Glug, Glug... Rapaz! Essa bebida tá Ótchima! Valeu, culega! Brigadão, hein? Quáquáquá!";
+		close;
+	M1:
+		mes "[Bêbado]";
+		mes "BÁ! Essa mulecada não tem respeito pelos mais velhos!";
+		mes "Então tá, cara! Não vou ficar implorando também, tá legal?!...";
+		mes "(Droga).";
+		close;
+	M2:
+		mes "[Bêbado]";
+		mes "Hmmm, Tchudo bem, então. Eu não queria mesmo...";
+		close;
+}
+
+pa2_in01.gat,104,182,2	script	Garçonete	90,{
+	mes "[Moça do bar]";
+	mes "As pessoas por aqui estão sempre indo e vindo. Tornam-se Arqueiros, saem pelo mundo... E eu continuo aqui nesse barzinho sem graça...";
+	mes "Não consigo deixar de me sentir solitária... ou mesmo deprimida às vezes.";
+ 	next;
+	mes "[Moça do bar]";
+	mes "Todo santo dia, fazendo a mesma sopa de macarrão nojenta... E o cheiro disso não sai, fica impregnado no cabelo, nas roupas.";
+	mes "Entre isso e todo o serviço de limpeza e arrumação que eu tenho que fazer, pode apostar que eu já estou farta desse trabalho...";
+	next;
+	mes "[Moça do bar]";
+	mes "Onde, meu Deus? Onde está um homem bonitão e rico pra me levar embora desse lugar?";
+	mes "(pisca um olho)";
+	next;
+	mes "[Moça do bar]";
+	mes "Minha avó, que é uma cartomante, me disse que eu me daria muito bem na vida, que eu ia ter uma sorte incrível!";
+	mes "Mas olhe pra mim, qual é o problema comigo afinal? Viver essa vidinha medíocre não vai me levar a lugar nenhum...";
+	mes "Ah droga... Que pessoa mas sem graça que eu sou.";
+	next;
+	mes "[Moça do bar]";
+	mes "Mas, me desculpe, eu não devia ficar te incomodando com isso. Não vai resolver nada ficar reclamando.";
+	mes "Acho que eu só precisava desabafar um pouco, não é?";
+	next;
+	mes "[Moça do bar]";
+	mes "Mas então, o que eu posso fazer por você?";
+	menu "Você já ouviu falar de zumbis?",L0,"Eu gostaria que sua vó lesse minha sorte.",L1,"Queo uma cerveja!",LEnd;
+
+	L0:
+		mes "[Moça do bar]";
+		mes "Bem, Zumbis são os mortos-vivos, criaturas Malditas que não fizeram a passagem para o outro mundo. Ouvi dizer que existem alguns aqui em Payon, na parte norte da Vila.";
+		mes "Ao que parece, que eles temem ataques Sagrados como magias dos Padres e flechas de prata. Portanto é bom lembrar disso se você tiver de enfrentar mortos-vivos.";
+		next;
+		mes "[Moça do bar]";
+		mes "Uma lenda diz que o líder da aldeia matou seus próprios filhos com flechas de prata após terem se transforados em zumbis. Assim ele salvou suas almas e deixou que descansassem em paz.";
+		mes "É uma história forte eu sei... Mas é justo que os mortos-vivos possam descnsar afinal... Mesmo que seja dessa maneira.";
+		next;
+		mes "[Moça do bar]";
+		mes "As nossas tradições sempre rezaram pelo respeito aos mortos... A falta de cuidado que tivemos por nossos cerimoniais mortuários no passado causou tudo isso...";
+		next;
+		mes "[Moça do bar]";
+		mes "Os Zumbis pagam o preço pela negligência que tivemos com nossas tradições, fadados a caminhar nessa semi-morte... É muito triste...";
+		goto qMes;
+	L1:
+		mes "[Moça do bar]";
+		mes "Ah! A vovó é mesmo uma pessoa extraordinária! Ela ia gostar de te conhecer. Infelizmente, ela não tem andado muito por aqui...";
+		next;
+		mes "[Moça do bar]";
+		mes "Antes ela ficava por aqui e lia a sorte dos visitantes e clientes. Só que depois que o chefe da cidade reconheceu o talento dela pra previsões ela fica no palácio no centro da cidade.";
+		mes "Se quiser, procure ela por lá.";
+		goto qMes;
+	L2:
+		mes "[Moça do bar]";
+		mes "Hehehehe. Me desculpe mas não temos mais cerveja, e ultimamente está difícil fazer bebidas alcóolicas por aqui.";
+		mes "Estamos com escassez de ingredientes deviado aos monstros agressivos em volta da cidade.";
+		next;
+		mes "[Moça do bar]";
+		mes "Então passe aqui um outro dia e quem sabe estaremos melhor estabelecidos.";
+		next;
+		mes "[Moça do bar]";
+		mes "Desculpe pelo incoveniente.";
+		goto qMes;
+
+		qMes:
+			next;
+			mes "[Moça do bar]";
+			mes "Tenha um bom dia.";
+			mes "... Aah... Eu preciso mudar de vida...";
+			close;
+}
+
+pa2_in01.gat,129,140,4	script	Guarda	105,{
+	if(baselevel>30) goto Lvl30;
+	mes "[Guarda]";
+	mes "Eieieiei! Você não pode entrar!";
+	mes "Já pra fora";
+	close;
+	
+	Lvl30:
+		mes "[Guarda]";
+		mes "Desculpe, mas sua entrada não é permitida.";
+		mes "Por favor, vá embora.";
+		close;
+}
+
+pa2_in01.gat,136,147,2	script	Chefe	120,{
+	OnTouch:
+	if(baselevel>30) goto OkLvl;
+	mes "[Guarda]";
+	mes "Eieieiei! Mostre seu respeito ao Chefe!";
+	close;
+
+
+		OkLvl:
+			mes "[Guarda]";
+			mes " Ei! Eu disse...";
+			next;
+			mes "[Chefe]";
+			mes "Tudo bem, não precisa fazer alarde guarda. Faz muito tempo desde que eu não converso com um desses jovens. Está tudo bem.";
+			next;
+			menu "Por favor, conte-me sobre Payon.",Payon,"De onde vêm estes guardas?",Guards,"Por favor, conte-me sobre a caverna.",Cave,"Gostaria de saber mais sobre os Arqueiros.",Archer,"Gostaria de saber mais sobre os Caçadores.",Hunter;
+		
+			Payon:
+				mes "[Chefe]";
+				mes "Payon é a cidade dos Arqueiros, e pela bravura e determinação de nosso povo, somos auto-suficientes e independentes de outras cidades.";
+				mes "Embora nossos ancestrais não levassem o intercâmbio cultural com outras cidades tão a sério, e nem aproveitassem os benefícios que isso poderia trazer, eles aprenderam a viver em independência econômica.";
+				mes "A força de nosso povo nos ensionou a viver com uma relação direta com a natureza, tirando dela apenas o necessário para viver e criar nossos filhos.";
+				mes "Nós somos um povo de homens e mulheres que aprenderam a caçar por necessidade. Os Arqueiros são a força dessa cidade, pois são a personificação dessa luta e vontade de sobreviver.";
+				next;
+				mes "[Chefe]";
+				mes "Eu ouço jovens como você dizer que temem os campos ao redor da aldeia, ou as cavernas, por causa dos monstros que habitam esses lugares.";
+				mes "Para nós, combater essas criaturas é parte de nossas vidas e o que nos faz um povo unido e forte.";
+				mes "Penso que o nosso papel no reino de Midgard seja passar estes ensinamentos aos outros povos daqui. Ajudar a treinar fileiras de lutadores contra as criaturas que ameaçam nossa existência.";
+				mes "Nosso espírito de perseverança é algo que todos os homens deveriam entender e compartilhar.";
+				next;
+				goto Cansa;
+			Guard:
+				mes "[Chefe]";
+				mes "Nos meus tempos de juventude, Prontera começou a mandar para cá diferentes oficiais e funcionários do reino de forma a estreitar as relações entre nós e o resto de Midgard";
+				mes "Tropas reais, moças da companhia Kafra, Guardas e oficiais... De início houve controvérsias e desentedimentos devido aos costumes diferentes e às exigências da metrópole.";
+				mes "No entando, é inegável que esse relacionamento ajudou muito no comércio com outras cidades e estimulou um grande crescimento em Payon. A vila tornou-se uma cidade de verdade.";
+				next;
+				mes "[Chefe]";
+				mes "E agora vemos jovens vindos de fora encontrar seu lar aqui em Payon e abraçar nossos costumes e tradições... Nunca imaginei que isso pudesse acontecer. Hehe...";
+				mes "É algo que me deixa muito feliz...";
+				mes "Que pessoas de fora possam amar nossa pequena cidade assim como nós.";
+				next;
+				goto Cansa;
+			Cave:
+				mes "[Chefe]";
+				mes "A caverna ao Norte foi um dos lugares onde passei minha juventude. Eu passava semanas lá dentro, treinando e treinando, disposto a me fortalecer e me tornar um grande herói.";
+				mes "Era um lugar mais ameaçador antigamente, na verdade. As criaturas eram mais ferozes e atacavam sem descanso.";
+				mes "Os monstros hoje são... diferentes daqueles de antigamente.";
+				next;
+				mes "[Chefe]";
+				mes "Você já ouviu? Lamentos de rancor saindo de dentro da caverna... dos mortos em batalha... pessoas que entraram lá pra proteger a cidade e não saíram.";
+				next;
+				mes "[Chefe]";
+				mes "Os mortos-vivos ainda fazem vítimas lá dentro... Mesmo crianças como você... ah... Estou velho demais para suportar essa dor... Velho demais...";
+				next;
+				mes "[Chefe]";
+				mes "Eu jurei que faria de tudo para deter os mortos... Tudo...";
+				next;
+				goto Cansa;
+			Archer:
+				mes "[Chefe]";
+				mes "Das florestas em torno da cidade, podemos extrair bastante madeira.";
+				mes "Evidentemente, é um benefício natural à nossa classe de Arqueiros, tanto na fabricação de armas quanto no treinamento deles.";
+				next;
+				mes "[Chefe]";
+				mes "A floresta ajuda o arqueiro a se esconder e se camuflar, e a atacar o alvo sem ser visto e sem se aproximar dele.";
+				mes "Os Arqueiros são fortes em Destreza, de forma a atacar seus inimigos incautos de uma longa distância e com força total.";
+				next;
+				mes "[Chefe]";
+				mes "Aém disso, existe um benefício de caçar estes monstros da floresta... a maioria deles costuma deixar cair flechas quando mortos, que usamos contra eles próprios. Quando jovem, isso me salvou muitas vezes!";
+				mes "Hahahahaha!";
+				next;
+				goto Cansa;
+			Hunter:
+				mes "[Chefe]";
+				mes "Com a abertura de Payon, para as outras culturas, nosso estilo de batalha sofreu algumas mudanças.";
+				mes "Certas tecnologias, como explosivos e outros mecanismos, foram introduzidas e adaptadas pelos mais jovens às técnicas de arco e flecha tradicionais, tornando-as mais letais e estratégicas.";
+				next;
+				mes "[Chefe]";
+				mes "Armadilhas e outras habilidades, como o treinamento de falcões de ataque, facilitavam muito a caça dos monstros. Por isso, o antigo Chefe determinou a criação de uma nova classe para quem as utilizasse: os Caçadores.";
+				mes "Por serem habilidades difíceis de serem aprendidas e também perigosas, espera-se que os jovens alcancem um certo n;ivel de habilidade antes de tornarem-se Caçadores.";
+				next;
+				mes "[Chefe]";
+				mes "A classe dos Caçadores é a nata de nossos guerreiros e exigimos muito dos que desejam tornar-se um deles.";
+				next;
+				goto Cansa;
+			Cansa:
+				mes "[Chefe]";
+				mes "Me desculpe... Estou cansado... É melhor que eu descanse um pouco.";
+				mes "Desejo o melhor para você.";
+				close;
+}
+
+pa2_in01.gat,164,165,2	script	Lucien	98,{
+	mes "[Lucien]";
+	mes "Prazer em conhecê-lo, eu me chamo Lucien e sou o Organizador de Pesquisas de Monstros de Midgard.";
+	mes "Você gostaria de alguma informação?";
+	next;
+	menu "Sobre Payon.",L0,"Sobre Monstros Malditos.",L1,"Sobre Pesquisas de Monstros.",L2;
+
+	L0:
+		mes "[Lucien]";
+		mes "Payon se encontra circundada por florestas, fazendo com que se torne isolada do mundo exterior.";
+		mes "Isso pode dificultar muito a chegada da ajuda externa, no caso de um ataque a cidade.";
+		next;
+		mes "[Lucien]";
+		mes "Mas a cidade tem uma própria ameaça interna, que é a sua ao norte.";
+		mes "Nesta caverna existem vários tipos de monstros, todos muito interessantes para nós pesquisadores.";
+		close;
+	L1:
+		mes "[Lucien]";
+		mes "Os monstros do tipo Maldito são extremamente interessantes.";
+		mes "A maior parte dos que se encontram nesta cidade já foram algum dia habitantes da mesma.";
+		mes "De alguma maneira trágica, eles perderam suas vidas, e não conseguem encontrar o caminho para o Além.";
+		next;
+		mes "[Lucien]";
+		mes "Exatamente por terem sido pessoas vivas eles despertam tanto interesse em nosso Rei.";
+		mes "Não é incrível que ele tenha um cuidado até mesmo com os súditos mortos?";
+		mes "Mas esse é o nosso Rei, sempre preocupado com o seu povo.";
+		next;
+		mes "[Lucien]";
+		mes "É claro que estamos tentando descobrir como 'eliminar' estes mortos-vivos.";
+		mes "E poe 'eliminar' eu quero dizer, ajudá-los e encontrar o caminho para o Além.";
+		next;
+		mes "[Lucien]";
+		mes "Eu espero algum dia descobrir como...";
+		close;
+	L2:
+		mes "[Lucien]";
+		mes "A Organização de Pesquisa de Monstros foi formada para descobrir um meio de nós livrarmos deles.";
+		mes "Mentes brilhantes de todo o reino foram reunidas para este fim.";
+		next;
+		mes "[Lucien]";
+		mes "Não é tão fácil quanto parece, apesar de dedicarmos nossas vidas aos estudos, ainda não achamos uma solução.";
+		next;
+		mes "[Lucien]";
+		mes "Mas nunca nós damos por vencidos, pessoas demais já morreram por  causa desses monstros.";
+		mes "Não podemos permitir que isso continue!";
+		next;
+		mes "[Lucien";
+		mes "Oh, desculpe se levantei a minha voz...";
+		mes "Este assunto me emociona muito, me deixo levar facilmente.";
+		mes "Todos nós precisamos fazer algo pelo bem de nosso mundo.";
+		close;
+}
+
+pa2_in01.gat,174,113,2	script	Marxhansen	86,{
+	if(mother_marienu==2) goto FJL0;
+	mes "[Marxhansen, o Mercador]";
+	mes "bem-vindo.";
+	next;
+	menu "Conversar.",L0,"Cancelar.",L1;
+		
+	L0:
+		mes "[Marxhansen, o Mercador]";
+		mes "Quando os humanos ainda eram nômades, eles dependiam das frutas que achavam.";
+		mes "E com o tempo eles aprenderam a fazer sucos com elas, para mante-las por mais tempo.";
+		next;
+		mes "[Marxhansen, o Mercador]";
+		mes "Agora, temos garndes hortas, e podemos ter todas as frutas que gostaríamos.";
+		mes "Mas os sucos continuam a ser muito importantes, por conterem apenas o que é bom da fruta.";
+		mes "Nos sucos, você pode aproveitar um sabor muito mais concentrado.";
+		close;
+	L1:
+		mes "[Marxhansen, o Mercador]";
+		mes "Você veio até aqui por nada?";
+		close;
+
+	FJL0:
+		mes "[Marxhansen, o Mercador]";
+		mes "Bem vindo à minha loja. Você veio aqui preparar suco de frutas?";
+		next;
+		menu "Sim.",FJL00,"Por favor, diga-me os requerimentos.",FJL01,"Não, eu não.",FJL02;
+		
+		FJL00:
+			mes "[Marxhansen, o Mercador]";
+			mes "Qual tipo de suco de fruta deseja preparar?";
+			next;
+			menu "Suco de Maçã",L00,"Suco de Banana",L01,"Suco de Cenoura",L02,"Suco de Uva",L03,"Nenhum, obrigado.",LEnd;
+
+			L00:
+				set @fruit,512;
+				set @juice,531;
+				goto L00z;
+			L01:
+				set @fruit,513;
+				set @juice,532;
+				goto L00z;
+			L02:
+				set @fruit,515;
+				set @juice,534;
+				goto L00z;
+			L03:
+				set @fruit,514;
+				set @juice,533;
+				goto L00z;
+
+			L00z:
+				if((countitem(@fruit)>0) || (countitem(713)>0) || (Zeny>2)) goto L000z;
+					if (@fruit == 512) goto noL00;
+					if (@fruit == 513) goto noL01;
+					if (@fruit == 514) goto noL03;
+					if (@fruit == 515) goto noL02;
+					close;
+
+							noL00:
+								mes "[Marxhansen, o Mercador]";
+								mes "Ahh, como póde?! Você não tem todos os itens necessários...";
+								mes "Para fazer um Suco de Maçã você precisa de 1 Maçã e 1 Garrafa Vazia!";
+								mes "Não esqueça dos meus 3 zeny, o preço para um copo de Suco de Maçã.";
+								mes "Quando você tiver os ingredientes necessários, irei atende-lo melhor.";
+								close;
+							noL01:
+								mes "[Marxhansen, o Mercador]";
+								mes "Ahh, como póde?! Você não tem todos os itens necessários...";
+								mes "Para fazer um Suco de Banana você precisa de 1 Banana e 1 Garrafa Vazia!";
+								mes "Não esqueça dos meus 3 zeny, o preço para um copo de Suco de Banana.";
+								mes "Quando você tiver os ingredientes necessários, irei atende-lo melhor.";
+								close;
+							noL02:
+								mes "[Marxhansen, o Mercador]";
+								mes "Ahh, como póde?! Você não tem todos os itens necessários...";
+								mes "Para fazer um Suco de Cenoura você precisa de 1 Cenoura e 1 Garrafa Vazia!";
+								mes "Não esqueça dos meus 3 zeny, o preço para um copo de Suco de Cenoura.";
+								mes "Quando você tiver os ingredientes necessários, irei atende-lo melhor.";
+								close;
+							noL03:
+								mes "[Marxhansen, o Mercador]";
+								mes "Ahh, como póde?! Você não tem todos os itens necessários...";
+								mes "Para fazer um Suco de Uva você precisa de 1 Uva e 1 Garrafa Vazia!";
+								mes "Não esqueça dos meus 3 zeny, o preço para um copo de Suco de Uva.";
+								mes "Quando você tiver os ingredientes necessários, irei atende-lo melhor.";
+								close;
+				L000z:
+				mes "[Marxhansen, o Mercador]";
+				mes "Quantos? Você precisa...";
+				next;
+				menu "Hmm, deixe-me colocar a quantidade",Lget,"Argh, esqueça!",L00c;
+				Lget:
+					input @input;
+					if(@input > 0) goto Linp;
+					mes "[Marxhansen, o Mercador]";
+					mes "Deal canceled.";
+					close;
+
+					Linp:
+						if((countitem(@fruit)<@input) || (countitem(713)<@input) || (Zeny<3*@input)) goto Ltomuch;
+						delitem @fruit,@input;
+						delitem 713,@input;
+						set Zeny,zeny-3*@input;
+						getitem @juice,@input;
+						goto GotMsg;
+						
+
+						Ltomuch:
+							mes "[Marxhansen, o Mercador]";
+							mes "Você não tem as garrafas necessárias ou as frutas para fazer o suco.";
+							close;
+						GotMsg:
+							mes "[Marxhansen, o Mercador]";
+							mes "Prontinho, hehehe.";
+							mes "Tome isto!";
+							close;
+				L00c:
+					close;
+			LEnd:
+				mes "[Marxhansen, o Mercador]";
+				mes "Ohh! Mas porque isso rapaz?";
+				mes "Sucos são ótimos! Fazem um bem danado.";
+				mes "Mas não vou obrigá-lo a tomar, vejo você quando tiver juízo...";
+				close;
+		FJL01:
+			mes "[Marxhansen, o Mercador]";
+			mes "Quando os humanos ainda eram nômades, eles dependiam das frutas que achavam.";
+			mes "E com o tempo eles aprenderam a fazer sucos com elas, para mante-las por mais tempo.";
+			next;
+			mes "[Marxhansen, o Mercador]";
+			mes "Agora, temos garndes hortas, e podemos ter todas as frutas que gostaríamos.";
+			mes "Mas os sucos continuam a ser muito importantes, por conterem apenas o que é bom da fruta.";
+			mes "Nos sucos, você pode aproveitar um sabor muito mais concentrado.";
+			next;
+			mes "# Informações para fazer um Suco de Fruta #";
+			mes "Suco de Maçã - Maçã x 1, Garrafa Vazia x 1, 3 zeny.";
+			mes "Suco de Banana - Banana x 1, Garrafa Vazia x 1, 3 zeny.";
+			mes "Suco de Cenoura - Cenoura x 1, Garrafa Vazia x 1, 3 zeny.";
+			mes "Suco de Uva - Uva x 1, Garrafa Vazia x 1, 3 zeny.";
+			close;
+		FJL02:
+			close;
+}
+
+pa2_in01.gat,176,176,2	script	Markiv, o Arqueiro	88,{
+	mes "[Markiv, o Arqueiro]";
+	mes "Um Arqueiro deve sempre praticar, praticar e praticar! É a única maneira de se tornar um campeão!";
+	mes "Você é novo por aqui? Olá!";
+	next;
+	mes "[Markiv, o Arqueiro]";
+	mes "Eu sou Markiv, o Arqueiro. Pode me chamar só de Markiv.";
+	mes "Eu sei que é uma pergunta meio nada a ver, mas você é preguiçoso?";
+	next;
+	menu "Claro que não.",L0,"Acho que sim.",L1;
+
+	L0:
+		mes "[Markiv, o Arqueiro]";
+		mes "Hmm... Não? Então você nasceu para ser um arqueiro.";
+		mes "Nós arqueiros não devemos nunca ser preguiçosos e deixar de praticar.";
+		mes "Por isso, costumamos não gostar de gente que não se esforça na vida.";
+		next;
+		mes "[Markiv, o Arqueiro]";
+		mes "Como nós treinamos? Bem, por aqui não ficamos praticando com bonecos ou outras frescuras. Não senhor!";
+		mes "'Treinar' aqui em Payon significa lutar! Batalhas reais! Arco e flecha na mão e mãos à obra!";
+		mes "É assim que é aqui, cara!";
+		next;
+		menu "Você deve precisar de um bom arco pra isso.",L00,"Bem, eu não sou muito de praticar...",L01;
+
+		L00:
+			mes "[Markiv, o Arqueiro]";
+			mes "Claro que sim! O arco é a essência de nossa classe, oras!";
+			mes "Os arcos de Payon são os melhores do reino! Leves e esguios, feitos das melhores madeiras desta floresta!";
+			mes "Evidentemente, a qualidade da madeira determina a qualidade do arco. Essa belezinha aqui é feita de mandeira de castanheira, feita pra durar por anos a fio, sem perder a força ou a tensão da corda.";
+			mes "Além disso é decorado em ébano, dando aquele estilo que faz a diferença!";
+			next;
+			mes "[Markiv, o Arqueiro]";
+			mes "A floresta de Payon é famosa pela qualidade de suas madeiras. Mesmo agora que algumas árvores transformaram-se em monstros horríveis...";
+			mes "...Árvores que costumavam ser tão bela e imponentes...";
+			mes "... Mesmo agora, nesta forma amaldiçoada, elas ainda nos dão madeira de ótima qualidade! Dos itens que caem delas, podemos fazer ótimos arcos!";
+			next;
+			menu "Então as coisas vão bem por aqui, heim?",L000,"",L001;
+
+			L000:
+				mes "[Markiv, o Arqueiro]";
+				mes "Não exatamente, porque não é só nas florestas que existem monstros. Ou você não sabe que dentro da cidade temos monstros também?";
+				mes "Indo para o Norte, você encontrará uma caverna. Dentro dela, existem monstros assustadores que aparecem do chão, sem avisos! Zumbis e todo o tipo de criaturas Amaldiçoadas!";
+				mes "Estamos aqui em nome da vila e de nosso Chefe, protegendo nosso território destes demônios.";
+				next;
+				menu "Ca-caverna?!",L000a,"Chefe?",L000b,"Cara, eu odeio esta cidade...",L000c;
+
+				L000a:
+					mes "[Markiv, o Arqueiro]";
+					mes "Indo para o Norte até o próximo mapa você verá a caverna de que falei.";
+					mes "Lá dentro existem monstros de todo o tipo, Morcegos, Zumbis e até Esqueletos Arqueiros!";
+					mes "Se ninguém os enfrentar e deixá-los à solta, eles logo invadirão a cidade. Por isso freqüentemente, aventureiros vão à caverna 'controlar' o número de monstros.";
+					mes "Hehehe.";
+					next;
+					mes "[Markiv, o Arqueiro]";
+					mes "Ainda assim, eles se reproduzem sem para, como que saídos do chão!";
+					mes "Parece uma pedra de tempo e talvez seja, mas precisamos impedir que nossa cidade seja prejudicada.";
+					mes "Bom, já chega, vamos parar de falar besteira. Até eu não aguento mais falar!";
+					mes "Até mais, tenho mais o que fazer.";
+					close;
+
+				L000b:
+					mes "[Markiv, o Arqueiro]";
+					mes "O Chefe da Cidade? Ah, ele é um cara extraordinário. Bem, é verdade que ele me enche o saco por eu 'falar demais' e não sei mais o quê, mas...";
+					mes "Ele sempre leva em conta o bem-estar de nosso povo, muito embora hoje ele raramente saia de seu palácio.";
+					mes "É reconfortante saber que um grande homem como ele zela por nosso bem-estar.";
+					next;
+					mes "[Markiv, o Arqueiro]";
+					mes "Heheheh. Eu vou me encrencar se ele souber que eu disse isso a um estranho...";
+					mes "Como agora eu já falei, tanto faz não é mesmo?!";
+					mes "Hmmm... Eu e minha boca grande...";
+					mes "Bem, até mais, cara!";
+					close;
+				
+				L000c:
+					close;
+
+			L001:
+				mes "[Markiv, o Arqueiro]";
+				mes "Hmmm... Não? Você deveria, viu?";
+				mes "Nós, Arqueiros, temos orgulho de sempre praticar e praticar.";
+				mes "Por isso, não gostamos de gente que não se esforça.";
+				next;
+				mes "[Markiv, o Arqueiro]";
+				mes "Aposto que você já se cansou de me ouvir repetir isso, né?";
+				mes "Confie em mim, praticar é tudo!";
+				mes "É a vida de um arqueiro!";
+				close;
+		L01:
+			mes "[Markiv, o Arqueiro]";
+			mes "Hmmm... às vezes é bom descansar um pouco, eu acho.";
+			mes "Se divertir é sempre bom, não é mesmo?";
+			next;
+			menu "Como assim, 'é bom descancar'?",L010,"Mas e o treinamento?",L011,"...Ah, a gente se vê por aí...",L012;
+
+			L010:
+				mes "[Markiv, o Arqueiro]";
+				mes "Ei, peraí! É bom se você não deixar de praticar, entendeu? Nosso Chefe te diria a mesma coisa, ele passava semanas matando monstros sem parar... Afinal, sem treino você vai acabar virando um cara como o Bêbado lá embaixo!. Hahaha!";
+				next;
+				menu "Chefe?",L010a,"Bêbado?",L010b,"Não tem graça.",L010c;
+			
+				L010a:
+					mes "[Markiv, o Arqueiro]";
+					mes "O Chefe da Cidade? Ah, ele é um cara extraordinário. Bem, é verdade que ele me enche o saco por eu 'falar demais' e não sei mais o quê, mas...";
+					mes "Ele sempre leva em conta o bem-estar de nosso povo, muito embora hoje ele raramente saia de seu palácio.";
+					mes "É reconfortante saber que um grande homem como ele zela por nosso bem-estar.";
+					next;
+					mes "[Markiv, o Arqueiro]";
+					mes "Heheheh. Eu vou me encrencar se ele souber que eu disse isso a um estranho...";
+					mes "Como agora eu já falei, tanto faz não é mesmo?!";
+					mes "Hmmm... Eu e minha boca grande...";
+					mes "Bem, até mais, cara!";
+					close;
+				L010b:
+					mes "[Markiv, o Arqueiro]";
+					mes "Você sabe, aquele cara no bar alí embaixo. Quando eu tenho uma grana sobrando eu compro algo pra ele beber, embora eu me preocupe com o problema de bebida dele.";
+					mes "Afinal, ele é um dos meus vizinhos da aldeia, não gostaria de vê-lo morrer de cirrose, certo?";
+					mes "Hmm... Isso me lembra uma cervejinha...";
+					mes "Acho que vou descer até o bar! Até mais, cara!";
+					close;
+				L010c:
+					mes "[Markiv, o Arqueiro]";
+					mes "Ah, você não tem mesmo senso de humor.";
+					close;
+
+			L011:
+				mes "[Markiv, o Arqueiro]";
+				mes "Treinar é o que é mais importante na vida, cara!";
+				mes "Nós, Arqueiros, temos orgulho de sempre praticar e praticar.";
+				mes "Por isso nao gostamos de pessoas que não se esforçam.";
+				next;
+				mes "[Markiv, o Arqueiro]";
+				mes "É impressionante que até um cara folgado como eu possa se motivar e ser um Arqueiro!";
+				mes "A vida é demais mesmo, não é?";
+				mes "Então aproveite-a ao máximo, cara!";			
+				close;
+			
+			L012:
+				close;
+	L1:
+		close;
+}
+
+payo2.gat,29,116,8	script	Um Jovem	88,{
+	mes "[Um Jovem]";
+	mes "Eu ainda lembro da história que meu avô, que os Deuses o tenham.";
+	mes "Ele dizia que existe um amuleto com o poder de dar vida nova aos mortos";
+	mes "Se é verdade ou não, isso eu não posso lhe dizer. Mas eu gostaria de saber o que aconteceria se eu o usasse para tirar meu avô do mundo dos mortos...";
+	close;
+}
+
+payo2.gat,163,139,8	script	Mocinha	90,{
+	mes "[Mocinha]";
+	emotion 0;
+	mes "A muito tempo atrás, quando essa cidade foi fundada, foi muito dificil de se estabelecer aqui.";
+	mes "Por isso nossos ancestrais não tinham recursos para enterrar os mortos de acordo com os rituais sagrados ou fazer-lhes oferendas na morte."; 
+	mes "As pessoas jogavam os corpos de seus familiares na caverna que atualmente fica perto da vila.";
+	mes "Não sei se foi o desrespeito aos mortos e aos rituais sagrados ou alguma maldição daquelas cavernas, mas hoje estes mortos que não acharam seu caminho para Nifl-heim continuam caminhando lá dentro...";
+	next;
+	mes "[Mocinha]";
+	mes "Zumbis comedores de carne humana...";
+	mes "Assustador, não é?";
+	close;
+}
+
+payo2.gat,163,142,5	script	Mulher	66,{
+	mes "[Mãe do João]";
+	mes "Ai meu Deus... Não dê ouvidos a ela, ok? Essa aí é fofoqueira de mão cheia, viu?";
+	mes "E por favor, não pense que todo mundo na vila é que nem ela, tá?";
+	mes "Quer dizer, seria uma péssima impressão da nossa cidade achar que todo mundo é tonto e acredita em cartomantes, né?";
+	mes "mas olha só pra você, acho que nunca te vi por aqui antes, hein?";
+	next;
+	mes "[Mãe do João]";
+	mes "Oh, mas você tem ou não os ombros mais largos que eu já vi, rapaz?";
+	mes "Hohoho! Quer sair comigo?";
+	mes "Aposto que você me deixaria te pagar um belo jantar, hein?";
+	next;
+	menu "Que Cartomantes?",L0,"...Hã...Tchau.",L1;
+
+	L0:
+		mes "[Mãe do João]";
+		mes "Cartomantes, ué? Nunca ouviu falar?";
+		mes "Tem uma íncrivel no palácio da cidade, sabe?";
+		mes "Quanto mais você pagar pra ela, mais precisa vai ser a previsão";
+		next;
+		mes "[Mãe do João]";
+		mes "Olha, ela me disse que eu ia encontrar um rapagão lindo de fora da cidade, sabe?... Que tal, hein?";
+		mes "Hohohohoho!";
+		close;
+	L1:
+		mes "[Mãe do João]";
+		mes "Hmmm. Porque você não fica mais um pouco e joga conversa fora comigo, hein?";
+		close;
+}
+
+
+payo2.gat,166,140,3	script	Mulher	66,{
+	mes "[Mulher]";
+	mes "Bem-vindo à Payon. acho que deve ter sido difícil cruzar a floresta para chegar aqui, hein? Como foi sua viagem?";
+	mes "O número de visitantes diminui a cada ano, por cauda dos monstros que andam pelas florestas. A cidade vai ficando cada vez mais queta e vazia com o tempo.";
+	mes "Logo não tem muito o que fazer por aqui, a gente acaba passando o dia jogando conversa fora. Hehehe.";
+	next;
+	mes "[Mulher]";
+	mes "Mas pra falar a verdade, esse negócio dos monstros não é brincadeira...";
+	if(sex==1) mes "Moço, você parece forte como um Roqueiro! Quantos monstros você já matou?";
+	if(sex==0) mes "Senhorita, você é linda e parece ter muita garra! Quantos monstros você ja matou?";	
+	mes "Quer uma dica de um bom lugar para caçar?";
+	next;
+	menu "Não sei, parece perigoso.",L0,"Acho que é bom eu me preparar melhor.",L1,"Dona, que bela roupa essa sua!",L2;
+
+	L0:
+		mes "[Mulher]";
+		mes "Ah, seu covardão! É só uma caverna idiota cheia de monstros comuns!";
+		mes "É tão segura que até construímos uma vila em volta! Hohohoho!";
+		close;
+	L1:
+		mes "[Mulher]";
+		mes "Não ouviu o que eu disse? Não precisa se preocupar em levar coisas, tem uma loja de ferramentas por ali, dá pra comprar de tudo lá";
+		mes "Na verdade, o dono é meu marido...";
+		mes "Então compre bastante que eu agradeço! Hohohoho!";
+		close;
+	L2:
+		mes "[Mulher]";
+		mes "Hohohoho! Você reparou? É a última moda em Prontera, viu?";
+		mes "As mulheres dessa cidade não sabem NADA de moda! Meu marido gastou os olhos da cara nessa roupa, mas é claro que eu não ia me contentar com qualquer trapo, né?";
+		mes "Hohohoho...";
+		close;
+}
+
+//===== Cronus Script ===========================================
+//= Guias de Payon
+//============================================================
+
+payo2.gat,82,116,4	script	Guia	105,{
+	mes "[Guia de Payon]";
+	mes "Bem vindo à Payon, a cidade das montanhas.";
+	next;
+	mes "[Guia de Payon]";
+	mes "Nós estamos aqui para ajudar os visitantes da cidade.  Se você tem alguma dúvida, consulte-nos.";
+	mes "Se esta é a sua primeira vez utilizando um guia, por favor selecione 'Tutorial'.";
+M_Menu:
+	next;
+	menu "Indicações",M_1, "Limpar indicações",M_1_6, "Tutorial",M_2, "Cancelar.",M_End;
+
+	M_1:
+		mes "[Guia de Payon]";
+		mes "Por favor, selecione uma das opções.";
+		mes "Você gostaria que as indicações permaneçam no mini-mapa?";
+		next;
+		menu "Sim",sM_1b,"Não",sM_1a;
+		
+		sM_1a:
+			set @COMPASS_CHECK,0;
+			goto L_Cont;
+
+		sM_1b:
+			set @COMPASS_CHECK,1;
+
+		L_Cont:
+		next;
+	sM_Menu:
+		menu 	"^FF0000Guilda dos Arquiros^000000",M_1_1, "Loja de Armas",M_1_2, "Loja de Ferramentas",M_1_3, "Estalagaem",M_1_4, "Palácio Central",M_1_5,
+			"Cancelar",-;
+	M_Limpar:
+		mes "[Guia de Payon]";
+		mes "Se você deseja apagar as indicaçoes do seu mini-mapa, por favor selecione 'Limpar Indicações'.";
+		next;
+		goto M_Menu;
+
+   M_1_1: 
+         mes "[Guia de Payon]"; 
+         mes "A Guilda dos Arqueiros é o lugal onde Aprendizes pode se tornar Arqueiros.  Ela se encontra ao Norte da Vila dos Arqueiros. Para chegar na vila dos Arqueiros, saia da cidade pela direção nordeste."; 
+         viewpoint 1,175,189,1,0xFF0000; 
+         goto sL_Wipe; 
+      M_1_2: 
+         mes "[Guia de Payon]"; 
+         mes "A 'Loja de Armas' se encontra ao noroeste da cidade."; 
+         viewpoint 1,30,177,2,0xFF00FF; 
+         goto sL_Wipe; 
+      M_1_3: 
+         mes "[Guia de Payon]"; 
+         mes "A 'Loja de Ferramentas ' se encontra ao noroeste da Vila dos Arqueiros. Para chegar na vila dos Arqueiros, saia da cidade pela direção nordeste.";
+         viewpoint 1,175,189,3,0xFF00FF; 
+         goto sL_Wipe; 
+      M_1_4: 
+         mes "[Guia de Payon]"; 
+         mes "A 'Estalagem' se encotra a leste do centro da cidade.";
+         viewpoint 1,172,133,4,0xFF00FF; 
+         goto sL_Wipe; 
+      M_1_5: 
+         mes "[Guia de Payon]"; 
+         mes "O 'Palácio Central' se encontra ao norte do centro da cidade."; 
+         viewpoint 1,90,167,5,0x00FF00; 
+         goto sL_Wipe; 
+      M_1_6: 
+         set @COMPASS_CHECK, 2; 
+
+      sL_Wipe: 
+         if(@COMPASS_CHECK != 2) next;   // desvia o segundo 'prox' quando 'limpar indicações'é escolhido
+         if(@COMPASS_CHECK == 1) goto sM_Menu; 
+         viewpoint 2,175,189,1,0xFF0000; 
+         viewpoint 2,30,177,2,0xFF00FF; 
+         viewpoint 2,175,189,3,0xFF00FF; 
+         viewpoint 2,172,133,4,0xFF00FF; 
+         viewpoint 2,90,167,5,0x00FF00; 
+         if (@COMPASS_CHECK == 0) goto sM_Menu; 
+         goto M_Menu;
+
+	M_2:
+		mes "[Guia de Payon]";
+		mes "Nós fomos exaustivamente treinados para serví-lo da melhor possivel e sem falhas. Assim você tem a garantia das melhores indicações possíveis.";
+		next;
+		mes "[Guia de Payon]";
+		mes "As indicações que lhe daremos podem ser marcadas no seu mini-mapa.";
+		mes "Para visualizar o seu mini-mapa, aperte 'ctrl+tab' ou clique no botão 'mapa' no menu principal.";
+		mes "Controle o seu 'zoom' no mini-mapa por meio dos símbolos '+' e '-'.";
+		goto M_Menu;
+
+	M_End:
+		mes "[Guia de Payon]";
+		mes "Espero que você tenha uma viagem segura e aproveite sua estadia.";
+		close;
+}
+
+// Archer Village ----------------------------------------------------------------
+pay_arche.gat,85,30,2	script	Guia	105,{
+	mes "[Guia de Payon]";
+	mes "Bem vindo à Payon, a cidade das montanhas.";
+	next;
+	mes "[Guia de Payon]";
+	mes "Nós estamos aqui para ajudar os visitantes da cidade.  Se você tem alguma dúvida, consulte-nos.";
+	mes "Se esta é a sua primeira vez utilizando um guia, por favor selecione 'Tutorial'.";
+
+M_Menu:
+	next;
+	menu "Indicações",M_1, "Limpar indicações",M_1_4, "Tutorial",M_2, "Cancelar.",M_End;
+	M_1:
+		mes "[Guia de Payon]";
+		mes "Por favor, selecione uma das opções.";
+		mes "Você gostaria que as indicações permaneçam no mini-mapa?";
+		next;
+		menu "Sim",sM_1b,"Não",sM_1a;
+		
+		sM_1a:
+			set @COMPASS_CHECK,0;
+			goto L_Cont;
+
+		sM_1b:
+			set @COMPASS_CHECK,1;
+
+		L_Cont:
+		next;
+	sM_Menu:
+		menu 	"^FF0000Guilda dos Arqueiros^000000",M_1_1, "Loja de Ferramentas",M_1_2, "Caverna de Payon",M_1_3,
+			"Cancelar",-;
+	M_Limpar:
+		mes "[Guia de Payon]";
+		mes "Se você deseja apagar as indicaçoes do seu mini-mapa, por favor selecione 'Limpar Indicações'.";
+		next;
+		goto M_Menu;
+		M_1_1: 
+         mes "[Guia de Payon]"; 
+         mes "A Guilda dos Arqueiros é o lugal onde Aprendizes pode se tornar Arqueiros. Ela se encontra ao Norte da Vila dos Arqueiros. Para chegar na vila dos Arqueiros, saia da cidade pela direção nordeste."; 
+			viewpoint 1,144,164,1,0xFF0000;
+			goto sL_Wipe;
+		M_1_2:
+         mes "[Guia de Payon]"; 
+         mes "A 'Loja de Ferramentas ' se encontra ao noroeste da Vila dos Arqueiros. Para chegar na vila dos Arqueiros, saia da cidade pela direção nordeste.";
+			viewpoint 1,71,156,2,0xFF00FF;
+			goto sL_Wipe;
+		M_1_3:
+			mes "[Guia de Payon]";
+			mes "A 'Caverna de Payon' se encontra a noroeste da Vila dos Arquiros.  Para chegar na vila dos Arqueiros, saia da cidade pela direção nordeste.";
+			viewpoint 1,34,132,3,0x0000FF;
+			goto sL_Wipe;
+		M_1_4:
+			set @COMPASS_CHECK, 2;
+
+		sL_Wipe:
+			if(@COMPASS_CHECK != 2) next;	// desvia o segundo 'prox' quando 'limpar indicações'é escolhido
+			if(@COMPASS_CHECK == 1) goto sM_Menu;
+			viewpoint 2,144,164,1,0xFF0000;
+			viewpoint 2,71,156,2,0xFF00FF;
+			viewpoint 2,34,132,3,0x0000FF;
+			if (@COMPASS_CHECK == 0) goto sM_Menu;
+			goto M_Menu;
+
+	M_2:
+		mes "[Guia de Payon]";
+		mes "Nós fomos exaustivamente treinados para serví-lo da melhor possivel e sem falhas. Assim você tem a garantia das melhores indicações possíveis.";
+		next;
+		mes "[Guia de Payon]";
+		mes "As indicações que lhe daremos podem ser marcadas no seu mini-mapa.";
+		mes "Para visualizar o seu mini-mapa, aperte 'ctrl+tab' ou clique no botão 'mapa' no menu principal.";
+		mes "Controle o seu 'zoom' no mini-mapa por meio dos símbolos '+' e '-'.";
+		goto M_Menu;
+
+	M_End:
+		mes "[Guia de Payon]";
+		mes "Espero que você tenha uma viagem segura e aproveite sua estadia.";
+		close;
+}
+
+//===== Cronus Script ===========================================
+//= Lojas de Payon
+//============================================================
+//Payon
+pa2_in01.gat,126,51,6	shop	Vendedor de Armas	86,1750:-1,1751:-1,1101:-1,1104:-1,1107:-1,1201:-1,1204:-1,1207:-1,1601:-1,1701:-1,1704:-1,1707:-1,1710:-1,1713:-1,1714:-1,1718:-1
+pa2_in01.gat,134,51,6	shop	Vendedor de Armaduras	87,2401:-1,2403:-1,2405:-1,2501:-1,2503:-1,2505:-1,2208:-1,2211:-1,2212:-1,2301:-1,2303:-1,2305:-1,2321:-1,2328:-1,2332:-1,2309:-1,2330:-1
+payon_in02.gat,87,34,1	shop	Vendedor de Utilidades	98,1750:-1,1751:-1,611:-1,501:-1,502:-1,503:-1,504:-1,506:-1,525:-1,601:-1,602:-1,1065:-1,645:-1,656:-1,657:-1
+payo2.gat,77,123,6	shop	Vendedor de Utilidades	88,1750:-1,611:-1,501:-1,502:-1,503:-1,504:-1,506:-1,601:-1,525:-1,602:-1,1065:-1,645:-1,656:-1,657:-1
+payo2.gat,141,104,4	shop	Treinadora	124,537:-1,643:-1,10013:-1,10014:-1
+pay_arche.gat,125,108,1	shop	Leiteira	90,519:-1
+pay_arche.gat,132,101,1	shop	Vendedora de Vegetais	102,515:-1,516:-1
+pay_arche.gat,140,124,1	shop	Açougueiro	87,517:-1,528:-1
+
+//===== Cronus Script ===========================================
+//= Portais de Payon
+//============================================================
+// == Warps Oficias das coordenadas do bRO ==
+
+// -- Entrada / Saída --
+payo2.gat,16,150,0	warp	payonwarp001	1,1,pay_gld.gat,370,149
+pay_gld.gat,374,149,0	warp	payonwarp002	1,1,payo2.gat,20,150
+payo2.gat,90,22,0	warp	payonwarp003	5,3,pay_fild01.gat,333,356
+pay_fild01.gat,333,360,0	warp	payonwarp004	5,3,payo2.gat,90,26
+payo2.gat,190,69,0	warp	payonwarp005	2,4,pay_fild08.gat,20,74
+payo2.gat,175,189,0	warp	payonwarp006	4,2,pay_arche.gat,81,22
+pay_arche.gat,81,18,0	warp	payonwarp007	5,2,payo2.gat,175,185
+
+// -- Loja de Armas --
+payo2.gat,30,177,0	warp	payonwarp008	2,2,pa2_in01.gat,80,63
+pa2_in01.gat,83,63,0	warp	payonwarp009	2,2,payo2.gat,30,173
+payo2.gat,22,174,0	warp	payonwarp010	2,2,pa2_in01.gat,98,25
+pa2_in01.gat,101,25,0	warp	payonwarp011	2,2,payo2.gat,22,171
+payo2.gat,38,174,0	warp	payonwarp012	2,2,pa2_in01.gat,142,45
+pa2_in01.gat,145,45,0	warp	payonwarp013	2,2,payo2.gat,38,171
+pa2_in01.gat,130,36,0	warp	payonwarp014	2,2,pa2_in01.gat,70,71
+pa2_in01.gat,70,74,0	warp	payonwarp015	2,2,pa2_in01.gat,130,39
+pa2_in01.gat,70,53,0	warp	payonwarp016	2,2,pa2_in01.gat,86,33
+pa2_in01.gat,86,36,0	warp	payonwarp017	2,2,pa2_in01.gat,70,56
+
+// -- PvP Room --
+payo2.gat,172,133,0	warp	payonwarp018	2,2,pa2_in01.gat,163,108
+pa2_in01.gat,160,108,0	warp	payonwarp019	2,2,payo2.gat,169,133
+pa2_in01.gat,170,100,0	warp	payonwarp020	2,2,pa2_in01.gat,170,83
+pa2_in01.gat,170,87,0	warp	payonwarp021	2,2,pa2_in01.gat,170,104
+pa2_in01.gat,167,74,0	warp	payonwarp022	2,2,pa2_in01.gat,168,50
+pa2_in01.gat,168,53,0	warp	payonwarp023	2,2,pa2_in01.gat,167,77
+pa2_in01.gat,170,118,0	warp	payonwarp024	2,2,pa2_in01.gat,170,136
+pa2_in01.gat,170,132,0	warp	payonwarp025	2,2,pa2_in01.gat,170,115
+
+// -- Vila dos Arquieros --
+//pay_arche.gat,36,131,0	warp	payonwarp026	2,2,pay_dun00.gat,21,183
+pay_arche.gat,71,156,0	warp	payonwarp027	2,2,payon_in02.gat,82,41
+pay_arche.gat,92,170,0	warp	payonwarp028	2,2,payon_in02.gat,50,7
+pay_arche.gat,145,165,0	warp	payonwarp029	2,2,payon_in02.gat,64,60
+payon_in02.gat,10,25,0	warp	payonwarp030	2,2,payon_in02.gat,72,67
+payon_in02.gat,35,67,0	warp	payonwarp031	2,2,payon_in02.gat,55,67
+payon_in02.gat,50,4,0	warp	payonwarp032	3,1,pay_arche.gat,92,166
+payon_in02.gat,52,67,0	warp	payonwarp033	2,2,payon_in02.gat,32,67
+payon_in02.gat,61,33,0	warp	payonwarp034	2,2,payon_in02.gat,73,33
+payon_in02.gat,64,56,0	warp	payonwarp035	2,2,pay_arche.gat,141,161
+payon_in02.gat,70,33,0	warp	payonwarp036	2,2,payon_in02.gat,58,33
+payon_in02.gat,75,67,0	warp	payonwarp037	2,2,payon_in02.gat,13,25
+payon_in02.gat,82,45,0	warp	payonwarp038	2,2,pay_arche.gat,74,153
+
+// -- Castelo de Payon (Meio) --
+payo2.gat,90,167,0	warp	payonwarp039	2,2,pa2_in01.gat,72,90
+pa2_in01.gat,72,88,0	warp	payonwarp040	2,2,payo2.gat,90,164
+pa2_in01.gat,60,99,0	warp	payonwarp042	2,2,pa2_in01.gat,110,77
+pa2_in01.gat,113,77,0	warp	payonwarp042	2,2,pa2_in01.gat,63,99
+pa2_in01.gat,60,107,0	warp	payonwarp043	2,2,pa2_in01.gat,110,107
+pa2_in01.gat,113,107,0	warp	payonwarp044	2,2,pa2_in01.gat,63,107
+pa2_in01.gat,83,99,0	warp	payonwarp045	2,2,pa2_in01.gat,124,77
+pa2_in01.gat,123,77,0	warp	payonwarp046	2,2,pa2_in01.gat,80,99
+pa2_in01.gat,82,107,0	warp	payonwarp047	2,2,pa2_in01.gat,125,107
+pa2_in01.gat,122,107,0	warp	payonwarp048	2,2,pa2_in01.gat,80,107
+pa2_in01.gat,72,121,0	warp	payonwarp049	2,2,pa2_in01.gat,72,137
+pa2_in01.gat,72,134,0	warp	payonwarp050	2,2,pa2_in01.gat,72,118
+pa2_in01.gat,83,145,0	warp	payonwarp051	2,2,pa2_in01.gat,127,143
+pa2_in01.gat,124,143,0	warp	payonwarp052	2,2,pa2_in01.gat,80,145
+pa2_in01.gat,60,145,0	warp	payonwarp053	2,2,pa2_in01.gat,110,143
+pa2_in01.gat,114,143,0	warp	payonwarp054	2,2,pa2_in01.gat,63,145
+pa2_in01.gat,72,159,0	warp	payonwarp055	2,2,pa2_in01.gat,60,173
+pa2_in01.gat,60,170,0	warp	payonwarp056	2,2,pa2_in01.gat,72,156
+
+// -- Castelo de Payon (Esquerda) --
+payo2.gat,68,173,0	warp	payonwarp057	2,2,pa2_in01.gat,44,138
+pa2_in01.gat,47,138,0	warp	payonwarp058	2,2,payo2.gat,71,173
+pa2_in01.gat,30,126,0	warp	payonwarp059	2,2,pa2_in01.gat,26,167
+pa2_in01.gat,26,115,0	warp	payonwarp060	2,2,pa2_in01.gat,30,129
+pa2_in01.gat,30,151,0	warp	payonwarp061	2,2,pa2_in01.gat,26,167
+pa2_in01.gat,26,164,0	warp	payonwarp062	2,2,pa2_in01.gat,30,147
+
+// -- Castelo de Payon (Direita) --
+payo2.gat,111,173,0	warp	payonwarp063	2,2,pa2_in01.gat,15,68
+pa2_in01.gat,12,68,0	warp	payonwarp064	2,2,payo2.gat,108,173
+pa2_in01.gat,30,59,0	warp	payonwarp065	2,2,pa2_in01.gat,52,32
+pa2_in01.gat,52,35,0	warp	payonwarp066	2,2,pa2_in01.gat,30,62
+pa2_in01.gat,30,81,0	warp	payonwarp067	2,2,pa2_in01.gat,22,29
+pa2_in01.gat,22,26,0	warp	payonwarp068	2,2,pa2_in01.gat,30,78
+
+// -- Bar --
+payo2.gat,141,92,0	warp	payonwarp069	2,2,pa2_in01.gat,98,173
+payo2.gat,132,81,0	warp	payonwarp070	2,2,pa2_in01.gat,134,171
+pa2_in01.gat,134,169,0	warp	payonwarp071	2,2,payo2.gat,129,81
+pa2_in01.gat,98,170,0	warp	payonwarp072	2,2,payo2.gat,141,95
+pa2_in01.gat,111,177,0	warp	payonwarp073	2,2,pa2_in01.gat,129,177
+pa2_in01.gat,143,179,0	warp	payonwarp074	2,2,pa2_in01.gat,167,179
+pa2_in01.gat,126,177,0	warp	payonwarp075	2,2,pa2_in01.gat,108,177
+pa2_in01.gat,164,179,0	warp	payonwarp076	2,2,pa2_in01.gat,140,179
+
+//===== Cronus Script ======================================== 
+//= Kafras Payon
+//===== Por: =================================================
+//= Kamper
+//===== Versão Atual: ======================================== 
+//= 1.1
+//===== Descrição: =========================================== 
+//= Kafras da cidade de Payon
+//===== Changelog: =========================================== 
+//= 1.1 Iniciado o Npc [Kamper]
+//============================================================
+pay_arche,55,123,8	script	Funcionária Kafra#pay2	115,{
+	cutin "kafra_06",2;
+	callfunc "F_Kafra",0,1,1;
+
+	M_Save:
+		savepoint "payo2",90,120;
+		callfunc "F_KafEnd",0,1;
+}
+payo2.gat,99,116,4	script	Funcionária Kafra#LykO4	112,{
+	cutin "kafra_03",2;
+	callfunc "F_KafSetPay";
+	callfunc "F_Kafra",0,0,1;
+
+	M_Save:
+		savepoint "pay_arche",49,144;
+		callfunc "F_KafEnd",0,1;
+}
+function	script	F_KafSetPay	{
+	setarray @wrpD$[0], "Alberta", "Prontera", "Morroc";
+	setarray @wrpP[0], 1200, 1800, 2000;
+	set @wrpC$[0], @wrpD$[0]+" -> "+@wrpP[0];
+	set @wrpC$[1], @wrpD$[1]+" -> "+@wrpP[1];
+	set @wrpC$[2], @wrpD$[2]+" -> "+@wrpP[2];
+	set @wrpC$[3], "Cancelar";
+	set @wrpC$[4], "";
+	set @wrpC$[5], "";
+	set @wrpC$[6], "";
+	return;
+}
+
+
+//================================================================================//
+//                Pretend Murdered quest
+//================================================================================//
+pa2_in01,99,72,4	script	Granny	103,{
+    if (checkweight(908,1) == 0) {
+        show "^3355FFEspere um pouco! Você está carregando itens demais. Volte somente depois de colocar alguns itens no seu armazém.^000000";
+        close;
+    }
+    if (countitem(1049) > 3) {
+        show "[Granny]";
+        show "Eu gostaria de poder fazer uma roupa para a minha neta para essa temporada do festival...";
+        next;
+        show "[Granny]";
+        show "Oh! Você poderia me dar alguma ^3355FFSaia Virginal^000000? Eu vou precisar de 4 delas. Por favor, eu imploro.";
+        next;
+        switch(select("Eu lhe dou.:De jeito nenhum!")) {
+        case 1:
+            delitem 1049,4;  //Saia_Virginal
+            show "[Granny]";
+            show "Oh! muito obrigado! Agora eu posso fazer a roupa para a minha netinha.";
+            next;
+            show "[Granny]";
+            show "Ah, Espere! Eu quase me esqueci. Eu era uma atriz um tanto conhecida na minha juventude. Meus amigos atores me deram um presente de casamento quando eu deixei a turma. Eu guardei isto para me lembrar dos bons tempos.";
+            next;
+            show "[Granny]";
+            show "Se estiver tudo certo para você,";
+            show "eu gostaria de lhe dar isso.";
+            next;
+            additem 2293,1; // Faca_Falsa
+            show "[Granny]";
+            show "Adeus, aventureiro!";
+            show "Obrigada por fazer uma velha tão feliz!";
+            close;
+        case 2:
+            show "[Granny]";
+            show "*Humph* Como eu poderia pegar uma ^3355FFSaia Virginal^000000 sozinha? Eu estou tão fraca e cansada, até me balançar nessa cadeira de balanço me cansa. *Sniff* Eu só quero fazer minha neta feliz...";
+            close;
+        }
+    }
+    else {
+        show "[Granny]";
+        show "Eu pego cogumelos nas montanhas de Payon todos os dias. O tempo passa e antes de eu perceber, já chegou a temporada do festival. Eu gostaria de poder fazer roupas para toda a minha família este ano.";
+        next;
+        show "[Granny]";
+        show "...";
+        show "Mas para isso, eu preciso de ^3355FF4 Saias Virginais^000000...";
+        next;
+        show "[Granny]";
+        show "Jovem aventureiro, por favor, me ajude. Se você achar alguma ^3355FFSaia Virginal^000000, por favor, traga-as para mim. Eu ficaria muito grata...";
+        close;
+    }
+}
+
+//================================================================================//
+//                    Ear Muffs Quest
+//================================================================================//
+pa2_in01,140,40,4	script	Senhora Desconhecida	76,{
+    show "[Senhora Desconhecida]";
+    show "Minha família tem produzido e vendido um produto especial de inverno chamado ^3355FFAquecedores de Orelha^000000 por muitos anos. Nós nos mudamos para cá, mas o tempo aqui é quente o tempo todo, então está difícil ganhar a vida.";
+    next;
+    show "[Senhora Desconhecida]";
+    show "Se você planeja viajar para regiões mais frias, é melhor você levar alguns ^3355FFAquecedores de Orelha^000000...";
+    Emotion e_dots;
+    next;
+    show "[Senhora Desconhecida]";
+    show "Aquecedores de Orelha é a especialidade da minha família, e nós negociamos isso por ^FF33551Rubis Amaldiçoados^000000, ^3311AA1 Fone de Ouvido,^000000 ^3355FF 200 Plumas^000000 e ^DDDD005000 Zeny^000000.";
+    Emotion e_dots;
+    next;
+    switch(select("Sério? Isso me parece bom.:Não, obrigado.")) {
+    case 1:
+        if ((countitem(724) > 0) && (countitem(949) > 199) && (countitem(5001) > 0) && (Zeny > 4999)) {
+            show "[Senhora Desconhecida]";
+            delitem 724,1;  //Rubi_Amaldiçoado
+            delitem 949,200;  //Pluma
+            delitem 5001,1;  //Fone_de_Ouvido
+            set Zeny,Zeny-5000;
+            show "Aqui está!.";
+            additem 2283,1; // Aquecedores de Orelha
+            next;
+            show "[Senhora Desconhecida]";
+            show "Obrigado por comprar. Você não irá se arrepender. Satisfação garantida!";
+            Emotion e_dots;
+            close;
+        }
+        else {
+            show "[Senhora Desconhecida]";
+            show "Oh, querido...";
+            show "Você não tem itens ou zenys suficientes. Infelizmente, nós não podemos dar um desconto. Por favor entenda que só estamos tentando nos sustentar...";
+            Emotion e_dots;
+            close;
+        }
+    case 2:
+        show "[Senhora Desconhecida]";
+        show "Está bem.";
+        show "eu acredito que nós";
+        show "nos encontraremos denovo";
+        show "...em um dia desses.";
+        Emotion e_dots;
+        close;
+    }
+}
+
+//================================================================================//
+//                    Oxygen Mask Quest
+//================================================================================//
+payon_in02,25,71,4	script	Garoto	86,{
+    if (countitem(701) > 4) {
+        show "[Jovem]";
+        show "ArrrGggghh!";
+        show "Eu não posso...";
+        next;
+        show "[Jovem]";
+        show "*Huk*";
+        show "Até meus olhos enlouqueceram!! Porque será que esses insetos parecem tão fofos derrepentes?! Nãão~!!!";
+        next;
+        switch(select("Mostrar as Armadilhas para Insetos:Entregar as Armadilhas para Insetos:Cancelar")) {
+        case 1:
+            show "[Jovem]";
+            show "Oooooohhhh!!!";
+            show "Isso, isso é";
+            show "uma Armadilha para Insetos?!";
+            next;
+            show "[Jovem]";
+            show "Eu vou fazer isso rápido! Me dê a Armadilha para Insetos, e eu lhe darei meu tesouro! Quer negociar?";
+            close;
+        case 2:
+            if (countitem(701) > 4) {
+                delitem 701,5;  //Armadilha_para_Insetos
+            }
+            show "[Jovem]";
+            show "Muhahahahah!!!";
+            show "Eu finalmente tenho uma Armadilha para Insetos!";
+            show "Besouros Ladrões estúpidos!";
+            show "Vocês vão me pagar!";
+            next;
+            show "[Jovem]";
+            show "Huk...Huk...";
+            show "Me desculpe, acabei perdendo o controle de mim mesmo. Eu lhe darei o meu tesouro como prometido.";
+            next;
+            additem 5004,1; // Máscara_de_Oxigênio
+            show "[Jovem]";
+            show "Quando você colocar isso na sua boca e começar a respirar, isso irá filtrar o ar antes de chegar em seus pulmões.";
+            next;
+            show "[Jovem]";
+            show "Kakakakakaka!";
+            show "Eu não posso esperar";
+            show "para usar esta Armadilha para Insetos!";
+            close;
+        case 3:
+            show "[Jovem]";
+            show "Huhuhuhuhu...";
+            show "E se eu não conseguir me livrar desses Besouros Ladrões? Talvez eu cresça e passe a amá-los... *Huk*";
+            close;
+        }
+    }
+    else {
+        show "[Jovem]";
+        show "Wahhhhhh! Eu, eu...";
+        show "Eu não posso mais agüentar isso!";
+        show "Seu besouro fedido imundo!";
+        next;
+        switch(select("Continuar:Cancelar")) {
+        case 1:
+            show "[Jovem]";
+            show "Ah cara...";
+            show "Isso começou quando meus pais morreram quando eu ainda era uma criança. Há pouco tempo, eu tinha que trabalhar para sobreviver, e era muito difícil.";
+            next;
+            show "[Jovem]";
+            show "Eu tenho trabalhado por 10 anos na esperança de comprar a casa dos meus sonhos aonde eu possa encontrar paz e conforto novamente. Eventualmente eu achava que tinha zeny o suficiente para pagar a minha casa própria.";
+            next;
+            show "[Jovem]";
+            show "Infelizmente, eu não tinha dinheiro suficiente para comprar a ótima casa que eu olhará. Mas depois, eu achei essa casa, que é maior e mais barata que a outra. Eu comprei a casa sem pensar...";
+            next;
+            show "[Jovem]";
+            show "Meu Deus! Fique ligado, lá vem uma nuvem de Besouros-Ladrões!";
+            next;
+            show "[Jovem]";
+            show "Eu já tentei fazer de tudo. Eu já tentei espantá-los, matá-los, mas isso só me trouxe paz por um momento! Eu já tentei até queimar essa casa...";
+            next;
+            show "[Jovem]";
+            show "*Gasp* Quer dizer, eu realmente preciso da ^3355FFArmadilha para Insetos^000000 para me livrar deles? As pessoas dizem que são raramente encontradas em lugares distantes.";
+            next;
+            show "[Jovem]";
+            show "Se eu conseguisse pegar 5 delas, eu não me irritaria mais com esses insetos...";
+            close;
+        case 2:
+            show "[Jovem]";
+            show "Essa luta sem fim contra esses insetos me cansa. Eu desisto. Façam o que você quiser seus vermes!";
+            close;
+        }
+    }
+}
+
+//================================================================================//
+//            Derivuchi Cap(Hat of Petite Diablo), Helm of Angel
+//================================================================================//
+pa2_in01,56,12,4	script	Jovem#12	89,{
+    show "[Jovem]";
+    show "...O que é isso?";
+    next;
+    switch(select("Você pode me fazer um item especial?:Oi.")) {
+    case 1:
+        show "[Jovem]";
+        show "Huh? Então você já sabe no que sou especializado? Não vejo necessidade de negar. Me diga o que você quer.";
+        next;
+        switch(select("Elmo Angelical.:Chapéu de Deviruchi.:Eu volto depois.")) {
+        case 1:
+            show "[Jovem]";
+            show "1 Elmo (com slot).";
+            show "1 Asa de anjo.";
+            show "5 Presas de Hati.";
+            show "É tudo o que eu preciso";
+            next;
+            show "[Jovem]";
+            show "Espere! Só para você saber, eu não ligo se os itens no seu inventário foram melhorados ou contém cartas.";
+            next;
+            show "[Jovem]";
+            show "Qualquer item melhorado ou com carta será perdido quando eu fizer este item. Então cuidado com o que você tem na hora de fazer o item.";
+            next;
+            show "[Jovem]";
+            show "Você já tem os itens? Então me dê.";
+            next;
+            switch(select("Entregar os itens.:Não entregar os itens.")) {
+            case 1:
+                if ((countitem(2229) > 0) && (countitem(2254) > 0) && (countitem(7036) > 4)) {
+                    show "[Jovem]";
+                    show ".....Hm.";
+                    show "Ok, Aqui está seu Elmo Angelical.";
+                    delitem 2229,1;  //Elmo[1]
+                    delitem 2254,1;  //Asas_de_Anjo
+                    delitem 7036,5;  //Presa_de_Hati
+                    close2;
+                    additem 5025,1; // Elmo_Angelical
+                    end;
+                }
+                else {
+                    show "[Jovem]";
+                    show "...Você não tem os itens suficientes, confira novamente a quantidade.";
+                    close;
+                }
+            case 2:
+                show "[Jovem]";
+                show "Como você quiser...";
+                close;
+            }
+        case 2:
+            show "[Jovem]";
+            show "600 Pequenos Chifres Malignos.";
+            show "40 Garras de Grifos";
+            show "É tudo o que eu preciso.";
+            next;
+            show "[Jovem]";
+            show "Espere! Só para você saber, eu não ligo se os itens no seu inventário foram melhorados ou contém cartas.";
+            next;
+            show "[Jovem]";
+            show "Qualquer item melhorado ou com carta será perdido quando eu fizer este item. Então cuidado com o que você tem na hora de fazer o item.";
+            next;
+            show "[Jovem]";
+            show "Você já tem os itens? Então me dê.";
+            next;
+            switch(select("Entregar os itens.:Não entregar os itens.")) {
+            case 1:
+                if ((countitem(1038) > 599) && (countitem(7048) > 39)) {
+                    show "[Jovem]";
+                    show ".....Hm. Aqui esta o seu Chapéu de Deviruchi.";
+                    delitem 1038,600;  //Pequeno_Chifre_Maligno
+                    delitem 7048,40;  //Garra_de_Grifo
+                    close2;
+                    additem 5038,1; // Chapéu_de_Deviruchi
+                    end;
+                }
+                else {
+                    show "[Jovem]";
+                    show "...Você não tem os itens suficientes, confira novamente a quantidade.";
+                    close;
+                }
+            case 2:
+                show "[Jovem]";
+                show "Como você quiser...";
+                close;
+            }
+        case 3:
+            show "[Jovem]";
+            show "Hm. Está bem.";
+            show "Então nos vemos depois.";
+            close;
+        }
+    case 2:
+        show "[Jovem]";
+        show "Hm.";
+        show "Se cuide.";
+        close;
+    }
+}

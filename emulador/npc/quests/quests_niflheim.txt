@@ -1,0 +1,794 @@
+//===== Cronus Script ======================================== 
+//= Quest NPCs relacionados a Niflheim
+//===== Por: ================================================= 
+//= eAthena Dev Team
+//===== Versão Atual: ======================================== 
+//= 1.3b
+//===== Compatível com: ====================================== 
+//= Cronus
+//===== Descrição: =========================================== 
+//= [Conversão de Aegis]
+//= Quest Chave do Piano
+//= - Mudado para Niflheim
+//= - Variáveis em uso: nif_esc, MISC_QUEST (Bit 32)
+//= Mensagem de entrega da Quest
+//= - Mensagem de entrega para Erious' departed wife.
+//= - Variáveis em uso: nif_revive, MISC_QUEST (Bit 16384)
+//===== Changelog: =========================================== 
+//= 1.0 Initial release, moved Book of Devil and Piano quest
+//=	from npc/cities/niflheim.txt [Evera]
+//= 1.1 Optimized Book of Devil quest. used bit-wise var,
+//=	Optimized Piano Quest - now uses 1 variable [Lupus]
+//= 1.2 Fixed bad NPC header data to comply with rev. 11603. [L0ne_W0lf]
+//= 1.3 Moved the Book of Devil quest to custom folder. [L0ne_W0lf]
+//=	Updated to Aegis 10.3 Standed, added Message Delivery Quest.
+//=	Rescripted Piano Quest. Prior quest progress will be lost.
+//= 1.3a Traduzido para português [Alexis / Manoel]
+//= 1.3b Revisão geral do script [Asus]
+//============================================================ 
+
+//=============================================================
+// Quest do Piano
+//=============================================================
+niflheim,224,243,3	script	Alreg#nif	795,{
+	if (nif_piano) set nif_piano,0;
+	show "[Alreg]";
+	show "Eu gosto de carne, muheh.";
+	show "Você! Olhar tentador.";
+	next;
+	show "[Alreg]";
+	show "Eu quero saborear você.";
+	next;
+	show "^FF3355*Crunch* Crunch*^000000";
+	if (nif_esc == 0 && (MISC_QUEST & 32) == 0) {
+		set piano_root,rand(1,2);
+		percentheal -60,0;
+		next;
+		show "["+ strcharinfo(0) +"]";
+		show "NãoOoOOOoOoo~!";
+		next;
+		show "[Alreg]";
+		show "Faz muito tempo desde que eu tinha carne";
+		show "então... muito bom. Seu sabor";
+		show "é bom. Alreg te deu isto";
+		show "para retorno. Presente!";
+		show "*Burrrp*";
+		set nif_esc,rand(1,2);
+		additem 7184,1; //Tecla_de_Piano
+		close;
+	}
+	percentheal -30,0;
+	next;
+	show "["+ strcharinfo(0) +"]";
+	show "Ow~! O que você está";
+	show "tentando fazer, me matar?";
+	next;
+	show "[Alreg]";
+	show "Hm? Oh, não não não.";
+	show "Eu estou tentando te comer.";
+	close;
+}
+
+nif_in,105,81,3	script	Crayu#nif	794,{
+	show "[Crayu]";
+	show "Viver...";
+	show "Escutar este som...";
+	show "Vem sendo cantado por muitos por um";
+	show "bom tempo, mas ninguém sabe";
+	show "quando foi feito ou quem escreveu.";
+	next;
+	show "[Crayu]";
+	show "^FF00001. Montanha-Sol para o oeste";
+	show "^FF00002. Onde o crepúsculo é roxo ";
+	show "^FF00003. Rodeado por uma bela melodia";
+	show "^FF00004. Você se torna a chave que ignora o capitão^000000";
+	next;
+	if (nif_esc == 1 || nif_esc == 4) {
+		show "[Crayu]";
+		show "Certo, espere! Aqui está um teste para você!";
+		switch(rand(1,4)) {
+		case 1:
+			set .@songline$,"Montanha-Sol para o oeste";
+			show "Anote a primeira linha da canção.";
+			break;
+		case 2:
+			set .@songline$,"Onde o crepúsculo é roxo";
+			show "Anote a segunda linha da canção.";
+			break;
+		case 3:
+			set .@songline$,"Rodeado por uma bela melodia";
+			show "Anote a terceira linha da canção.";
+			break;
+		case 4:
+			set .@songline$,"Você se torna a chave que ignora o capitão";
+			show "Anote a quarta linha da canção.";
+			break;
+		}
+		next;
+		digit .@input$;
+		if (.@input$ == .@songline$) {
+			show "[Crayu]";
+			show "Escelente...!";
+			show "Então você está escutando~!";
+			show "Isso faz de você uma da minhas";
+			show "pesoas favoritas. Aqui está uma";
+			show "pequena recompensa para você.";
+			next;
+			if (nif_esc == 1) {
+				set nif_esc,3;
+			}
+			else {
+				set nif_esc,6;
+			}
+			additem 7184,1; //Tecla_de_Piano
+			show "[Crayu]";
+			show "Por último, Espero que você mostre seu";
+			show "respeito pelos os outros Bardos, tal como";
+			show "você fez comigo.";
+			close;
+		}
+		else {
+			show "[Crayu]";
+			show "*Sigh*... Se você só tinha";
+			show "ouvidos para mim, isto seria";
+			show "fácil de responder.";
+			show "Tente lembrar a linha";
+			show "e tente novamente!";
+			close;
+		}
+	}
+	next;
+	show "[Crayu]";
+	show "Eu gostaria de saber o que as letras significam...";
+	show "Elas parecem muito profundas...";
+	show "Tenho a sensação de que está canção";
+	show "carrega algo secreto.";
+	close;
+}
+
+nif_in,31,20,3	script	Kuzkahina#nif	794,{
+	if (nif_esc == 2 || nif_esc == 3) {
+		show "[Kuzkahina]";
+		show "Eu não entendo";
+		show "porque eu não posso fazer";
+		show "dinheiro com essa loja...";
+		show "Mesmo quando eu estava vivo";
+		show "Eu nunca poderia fazer";
+		show "dinheiro com meu trabalho...";
+		next;
+		show "[Kuzkahina]";
+		show "Ei, você! Sinta-se útil";
+		show "e jogue isso fora quando sair.";
+		set nif_esc,nif_esc+2;
+		additem 7184,1; //Tecla_de_Piano
+		next;
+		show "[Kuzkahina]";
+		show "Caramba, O que há com esta loja?";
+		show "Como é que eu acabei contratando esses trabalhadores inúteis...?";
+		show "*mumble mumble*";
+		show "*mumble mumble*";
+		close;
+	}
+	show "[Kuzkahina]";
+	show "Eu não entendo";
+	show "porque eu não posso fazer";
+	show "dinheiro com essa loja...";
+	show "Mesmo quando eu estava vivo";
+	show "Eu nunca poderia fazer";
+	show "dinheiro com meu trabalho...";
+	close;
+}
+
+niflheim,208,103,1	script	#Graveyard1	111,1,1,{
+OnTouch:
+	if (nif_esc == 5 || nif_esc == 7 || nif_esc == 8 || nif_esc == 10) {
+		show "^3355FFVocê encontrou algo";
+		show "semi-enterrado perto de um túmulo.";
+		show "Isto parece muito bem moldado.^000000";
+		next;
+		show "^3355FFVocê gostaria de pegar?^000000";
+		if (select("Sim:Não") == 1) {
+			if (nif_esc < 10) {
+				set nif_esc,nif_esc+2;
+			}
+			else if (nif_esc == 10) {
+				set nif_esc,11;
+			}
+			additem 7184,1; //Tecla_de_Piano
+		}
+		close;
+	}
+	end;
+}
+
+niflheim,169,71,1	script	#Graveyard2	111,1,1,{
+OnTouch:
+	if (nif_esc == 6 || nif_esc == 9) {
+		show "^3355FFVocê encontrou algo";
+		show "semi-enterrado perto de um túmulo.";
+		show "Isto parece muito bem moldado.^000000";
+		next;
+		show "^3355FFVocê gostaria de pegar?^000000";
+		if (select("Sim:Não") == 1) {
+			set nif_esc,nif_esc+2;
+			additem 7184,1; //Tecla_de_Piano
+		}
+		close;
+	}
+	end;
+}
+
+nif_in,115,181,0	script	#Piano	111,1,1,{
+OnTouch:
+	if (nif_esc == 0 && (MISC_QUEST & 32) == 0) {
+		show "^3355FFVocê vê um Piano grande e pesado.";
+		show "Você fica com a sensação de que";
+		show "sua música teria um som magnífico.^000000";
+		next;
+		show "^3355FFComo você examina o piano,";
+		show "você encontra 7 teclas";
+		show "que estão faltando no";
+		show "meio do teclado.";
+		show "Se você tivesse todas as teclas,";
+		show "você poderia tocar uma música...^000000";
+		close;
+	}
+	if (nif_esc == 11) {
+		set nif_esc,12;
+		delitem 7184,6; //Tecla_de_Piano
+		show "^3355FFVocê tirou as teclas que você encontrou";
+		show "e as colocou em";
+		show "cada espaço vazio.^000000";
+		next;
+		show "^3355FFMas depois você percebe";
+		show "que você perdeu a última";
+		show "tecla que se encaixa no";
+		show "lado esquerdo do piano...^000000";
+		close;
+	}
+	end;
+}
+
+nif_in,114,181,0	script	#Piano3	111,1,1,{
+OnTouch:
+	if (nif_esc == 12 || nif_esc == 13 || MISC_QUEST & 32) {
+		show "^3355FFAo longo que você se curva";
+		show "para dar uma melhor olhada";
+		show "no último espaço vazio...^000000";
+		next;
+		soundeffect "complete.wav",0;
+		next;
+		if (nif_esc == 12) {
+			set MISC_QUEST,MISC_QUEST | 32;
+			set nif_piano, 0;
+		}
+		show "^3355FFVocê começa a se sentir estranho e";
+		show "seu corpo parece que está";
+		show "flutuando no ar. Então, sua";
+		show "visão começa a embaçar...^000000";
+		close2;
+		warp "nif_in",179,163;
+		end;
+	}
+	end;
+}
+
+nif_in,188,168,3	script	Witch#nif	792,{
+	show "[Kirkena]";
+	show "Huh? ...Você está vivo, não está?";
+	show "Eu não sei como você conseguiu";
+	show "chegar até aqui e não sei";
+	show "as razões para vir,";
+	show "pois esse lugar é perigoso";
+	show "para se viver.";
+	next;
+	show "[Kirkena]";
+	show "Estou te enviando";
+	show "para você desta cidade.";
+	show "Se você pode ajudá-lo";
+	show "é melhor não voltar";
+	show "a este lugar.";
+	close2;
+	warp "umbala",138,208;
+	end;
+}
+
+//=============================================================
+// Mensagem de Entrega de Quest
+//=============================================================
+prt_in,161,20,3	script	Erious#nif	92,{
+	if (MISC_QUEST & 16384) {
+		show "[Erious]";
+		show "Eu quero você a salvo, sem danos";
+		show "na sua jornada aventureiro.";
+		close;
+	}
+	if (nif_revive == 0) {
+		show "[Erious]";
+		show "*Sob*Sob*";
+		show "*Choro* Wahhh...!";
+		show "Elly, como você pode";
+		show "me deixar assim...";
+		emotion e_sob;
+		next;
+		if (select("Conforte-o.:Largue-o.") == 1) {
+			show "[Erious]";
+			show "Ah, obrigado pela sua gentileza.";
+			show "*Sob* Minha esposa morreu enquanto eu estava";
+			show "em uma viagem. Eu me arrependo muito por";
+			show "não estar com ela quando";
+			show "o fim veio...";
+			next;
+			show "[Erious]";
+			show "Eu queria poder falar com minha Elly,";
+			show "apesar de eu saber que é muito tarde agora.";
+			show "*Choro* Mas... existe uma última";
+			show "esperança que eu tenho. Realmente minha";
+			show "última chance...";
+			next;
+			show "[Erious]";
+			show "Eu estava contando que em algum lugar";
+			show "neste mundo, existe uma cidade";
+			show "onde os mortos residem. Eu poderia";
+			show "falar com minha mulher lá, mas";
+			show "Eu não posso deixar minha criança aqui";
+			show "sem mim. *Choro*";
+			next;
+			if (select("Eu posso entregar sua mensagem para ela.:Sinto muito por isso.") == 1) {
+				show "[Erious]";
+				show "Oh, você faria isso?";
+				show "Muito obrigado por sua";
+				show "generosidade. Se você puder fazer";
+				show "isto para mim, Eu seria";
+				show "imensamente grato a você.";
+				next;
+				show "[Erious]";
+				show "Você é um aventureiro,não é?";
+				show "Se sua jornada te levar a tal";
+				show "cidade dos mortos, e se você";
+				show "tiver a chance de conhecer ela...";
+				next;
+				show "[Erious]";
+				show "Por favor entregue a mensagem para Elly por mim,";
+				show "deixa-a saber o que realmente aconteceu";
+				show "há um mês atrá a culpa foi toda minha.";
+				show "Obrigado por sua ajuda,";
+				show "e por favor, tome cuidado!";
+				set nif_revive,1;
+				close;
+			}
+			show "[Erious]";
+			show "*Choro* Não existe como eu";
+			show "vê-la denovo? Se eu pudesse";
+			show "falar com ela pelo menos uma vez,";
+			show "mesmo se fosse no último momento,";
+			show "eu faria qualquer coisa...";
+			close;
+		}
+		show "[Erious]";
+		show "*Choro* Eeeeelllllyyyy~~~~!";
+		show "Eu nunca pensei que seria";
+		show "a última vez que";
+		show "nos veríamos...";
+		show "*Sob*...";
+		close;
+	}
+	else if (nif_revive == 1) {
+		show "[Erious]";
+		show "Esse lugar que eu disse...";
+		show "A cidade dos mortos...";
+		show "Pelo que eu me lembre, era";
+		show "localizado perto de uma área.";
+		next;
+		show "[Erious]";
+		show "Todo dia e toda noite, é cheio de";
+		show "inacabáveis gritos de";
+		show "agonia e desespero. Eu espero que";
+		show "isso seja útil em sua busca.";
+		close;
+	}
+	else if (nif_revive == 5 || nif_revive == 6) {
+		show "[Erious]";
+		show "Oh meu Deus! Você realmente achou a cidade,";
+		show "não é? Eu realmente aprecio que";
+		show "você enfrentou tudo isso";
+		show "por mim... Um...Então afinal...";
+		show "você é capaz de falar com minha Elly?";
+		next;
+		if (select("Sim.:Desculpe, não posso.") == 1) {
+			if (nif_revive == 6 && countitem(934) > 0) {
+				show "[Erious]";
+				show "Você estpa falando sério? O que ela disse?";
+				show "Ela disse que vai me perdoar?";
+				next;
+				select("Sim. E ela me deu...isto.");
+				delitem 934,1; //Espólio
+				show "[Erious]";
+				show "Ah...nessa caixa estão os presentes";
+				show "que eu dei a ela quando começamos";
+				show "a sair juntos. Ela teve uma";
+				show "uma doença séria, antes mesmo de";
+				show "nos conhecermos, então eu prometi a ela que";
+				show "curaria essa doença dela...";
+				next;
+				show "[Erious]";
+				show "Foi por isso que eu sai nessa viagem...";
+				show "para achar o remédio para curar";
+				show "ela... mas meu esforço";
+				show "não valeu por nada.";
+				show "...................";
+				show ".........";
+				next;
+				show "[Erious]";
+				show "De qualquer forma, Eu aprecio sua";
+				show "generosidade. Eu quero te pagar";
+				show "de volta por todo esse esforço";
+				show "que você fez por mim, mas eu só tenho";
+				show "o remédio que achei para a";
+				show "doença dela que achei durante a viagem.";
+				next;
+				show "[Erious]";
+				show "Espero que você pegue este remédio";
+				show "como forma de agradecimento.";
+				next;
+				if (checkweight(610,26)) {
+					set MISC_QUEST,MISC_QUEST | 16384;
+					set nif_revive,0;
+					additem 607,2; //Fruto_de_Yggdrasil
+					additem 608,2; //Semente_de_Yggdrasil
+					additem 610,10; //Folha_de_Yggdrasil
+					show "[Erious]";
+					show "Muito orbigado por tudo.";
+					show "Te desejo sorte e segurança";
+					show "nas suas aventuras.";
+					close;
+				}
+				show "[Erious]";
+				show "Eu tenho algo para te dar,";
+				show "mas você está carregando muitas";
+				show "coisas para eu te dar";
+				show "agora. Porque você não";
+				show "vende seus itens em algum lugar?";
+				close;
+			}
+			else if (nif_revive == 6 && countitem(934) < 1) {
+				show "[Erious]";
+				show "Hmm...isto é estranho. Tenho certeza que ela te daria algo em troca de conhece-lá. De qualquer forma, tem algo que você tenha esquecido de me trazer?";
+				close;
+			}
+			show "[Erious]";
+			show "Eu acho que você não entendeu";
+			show "algo ou está tentando";
+			show "enganar um pobre homem.";
+			close;
+		}
+		if (nif_revive == 5) {
+			show "[Erious]";
+			show "Eu vejo que...você não conseguiu encontrar";
+			show "ela... De qualquer forma, eu entendo";
+			show "que o que pedi foi um tanto quanto impossível ";
+			show "de se fazer...";
+			next;
+			show "[Erious]";
+			show "Você realmente desviou seu rumo";
+			show "para me ajudar, então eu quero te dar";
+			show "algo em troca como forma de";
+			show "agradecimento.";
+			next;
+			if (checkweight(610,10)) {
+				set MISC_QUEST,MISC_QUEST | 16384;
+				set nif_revive,0;
+				additem 610,10; //Folha_de_Yggdrasil
+				show "[Erious]";
+				show "Obrigado por tudo.";
+				show "Eu te desejo sorte";
+				show "nas suas jornadas.";
+				close;
+			}
+			show "[Erious]";
+			show "Tenho algo para te dar,";
+			show "mas você está carregando muitas";
+			show "coisas para eu te dar";
+			show "agora. Por que você não vende";
+			show "seus intens em algum lugar?";
+			close;
+		}
+		show "[Erious]";
+		show "I see...";
+		show "...Espere! Isto não pertence";
+		show "a minha mulher, Elly? Você está tentando";
+		show "trapacear de um pobre homem...?";
+		close;
+	}
+	end;
+}
+
+umbala,215,181,3	script	Billik	733,{
+	if (nif_revive > 1 || MISC_QUEST & 16384) {
+		show "[Billik]";
+		show "Bem, há muito tempo não o vejo";
+		show "Se você tem chance, no";
+		show "futuro, vamos nos reunir na";
+		show "cidade da morte mais tarde.";
+		show "Hahahaha~";
+		emotion e_no1;
+		close;
+	}
+	if (nif_revive == 1) {
+		show "[Billik]";
+		show "A cidade da morte...";
+		show "É um lugar muito perigoso.";
+		show "Por que você queria ir lá ?";
+		next;
+		if (select("Tenho que me encontrar com alguém lá.:É uma parte de minha aventura.") == 1) {
+			show "[Billik]";
+			show "Alguém que você tem para encontrar...";
+			show "Hmm... Eu suponho que você deseja";
+			show "entrar em contato com a morte...";
+			show "Posso ver também que você está";
+			show "determinado a ir.";
+			next;
+			show "[Billik]";
+			show "*Sigh* Ok, se você quer realmente";
+			show "ir, você deve encontrar um homem chamado";
+			show "'Feylin.' É muito importante para";
+			show "ele saber que eu lhe apresentei";
+			show "para você.";
+			next;
+			show "[Billik]";
+			show "Ele não é muito confiante, mas ele";
+			show "gosta muito de rosas, então leve rosas";
+			show "para ele. Dessa forma, ele saberá";
+			show "que eu que te enviei.";
+			set nif_revive,2;
+			next;
+			show "[Billik]";
+			show "A cidade da morte está localizada";
+			show "ao norte deste lugar. Lembre-se,";
+			show "É muito perigoso ir lá,";
+			show "mesmo para os experientes";
+			show "aventureiros, então...";
+			show "Tome cuidado.";
+			close;
+		}
+		show "[Billik]";
+		show "Hahaha~ Eu acho que você gosta de aventura";
+		show "tanto quanto eu. Embora se trate de um";
+		show "lugar muito perigoso, você será";
+		show "pago pelo seu esforço quando";
+		show "você chegar lá. Mas tenha cuidado.";
+		close;
+	}
+	else if (nif_revive == 0) {
+		show "[Billik]";
+		show "O que o traz aqui? Estou ocupado,";
+		show "saia se você não tem nada para fazer.";
+		close;
+	}
+}
+
+niflheim,153,215,3	script	Feylin	794,{
+	if (nif_revive == 2) {
+		show "[Feylin]";
+		if (Sex == 1) {
+			show "Pobre garoto...";
+		}
+		else {
+			show "Pobre garota...";
+		}
+		show "Morrendo tão jovem...";
+		show "Fico sempre triste ao ver um";
+		show "jovem morrer.";
+		next;
+		show "[Feylin]";
+		show "............??";
+		show "Oh, vejo que você ainda não está morto,";
+		show "não é? É inacreditavel de de";
+		show "ver outra pessoa viva";
+		show "nesta cidade.";
+		next;
+		show "[Feylin]";
+		show "Você está vindo para resgatar alguém,";
+		show "ou tem outra finalidade?";
+		show "Se você veio aqui para encontrar";
+		show "um falecido amigo seu, você";
+		show "veio a pessoa errada.";
+		next;
+		show "[Feylin]";
+		show "Ninguém em Niflheim pode";
+		show "realizar este tipo de milagre...";
+		next;
+		show "[Feylin]";
+		show "Eu posso dizer que você passou por coisas";
+		show "muito difíceis, mas infelizmente,";
+		show "você veio para nada. Espero que";
+		show "você volte de onde veio";
+		show "antes que seja tarde demais.";
+		set nif_revive,3;
+		close;
+	}
+	else if (nif_revive == 3) {
+		show "[Feylin]";
+		show "Eu te pedi para sair desta";
+		show "cidade imediatamente. Sinto muito";
+		show "mas eu não sei nada sobre o que";
+		show "você está perguntando.";
+		emotion e_an;
+		next;
+		if (select("Mas...:Eu sinto muito.") == 1) {
+			show "[Feylin]";
+			show "Você deve saber algo...";
+			show "Senão, você não seria";
+			show "tão teimoso. Não tenho certeza";
+			show "de quem disse que você entrar em contato";
+			show "com a morte seria possível...";
+			next;
+			show "[Feylin]";
+			show "Mas eu certamente não teria";
+			show "te dito. Além disso, falar sobre";
+			show "essas coisas é tabú.";
+			set nif_revive,4;
+			close;
+		}
+		show "[Feylin]";
+		show "Por favor, tente sair deste";
+		show "lugar o mais rápido possível.";
+		show "Ninguém deve permanecer em";
+		show "Niflheim por muito tempo.";
+		close;
+	}
+	else if (nif_revive == 4) {
+		if (countitem(748) > 0) {
+			show "[Feylin]";
+			show "Huh, Billik deve ter lhe enviado.";
+			show "Estou grato a você,";
+			show "suponho que eu lhe ajudarei.";
+			show "Mais deixe-me avisar.";
+			show "O que estou a procura deve ser";
+			show "mais do que você espera...";
+			next;
+			if (select("Eu estou disposto a fazer isso.:Eu não acho que posso fazer isso.") == 1) {
+				if (BaseLevel > 79 && BaseLevel < 100) {
+					show "[Feylin]";
+					show "Certo, mais você deve me prometer";
+					show "que não deixará que outras";
+					show "pessoas saibam o que eu lhe";
+					show "falarei.";
+					next;
+					show "[Feylin]";
+					show "Esse feitiço requer grande";
+					show "sacrifício. Não é preciso dizer,";
+					show "este feitiço tem chance de";
+					show "falhar. Devo ter também";
+					show "10 Folhas de Yggdrasil para lançar este";
+					show "feitiço. Você deseja continuar?";
+					next;
+					if (select("Sim:Não") == 1) {
+						if (countitem(610) > 9) {
+							show "[Feylin]";
+							show "Eu entendo. Então vamos começar.";
+							show "Woombahsokasabahah!";
+							show "Woombah woombah hoombabah!";
+							show "Yeeeeep!";
+							next;
+							set .@nif_revive1,rand(1,100);
+							if (.@nif_revive1 > 0) && (.@nif_revive1 < 88) {
+								show "[Feylin]";
+								show "...Me desculpe.";
+								show "Eu falhei ao convocar";
+								show "quem você deseja ver. Peço";
+								show "realmente desculpa por este resultado.";
+								emotion e_omg;
+								delitem 748,1; //Rosa_Eterna
+								delitem 610,10; //Folha_de_Yggdrasil
+								set nif_revive,5;
+								percentheal -99,0;
+								next;
+								show "[Feylin]";
+								show "Infelizmente, pode ser";
+								show "impossível convocar um";
+								show "espírito de uma pessoa";
+								show "com quem você deseja falar ...";
+								close;
+							}
+							else if (.@nif_revive1 > 87) && (.@nif_revive1 < 101) {
+								delitem 748,1; //Rosa_Eterna
+								delitem 610,10; //Folha_de_Yggdrasil
+								percentheal -50,0;
+								show "[Feylin]";
+								show "..........";
+								show "..........";
+								next;
+								show "[Elly]";
+								show "..........";
+								show ".....Umm...";
+								show "...Eu não estava morto?";
+								show "Hmm, eu conheço você?";
+								next;
+								select("Trouxe uma mensagem de seu marido.");
+								show "[Elly]";
+								show "Oh...Eu entendo...Lamento que eu não pude conhecê-lo antes de morrer...";
+								show "Então qual é a mensagem dele para mim ?";
+								next;
+								select("Perdoá-lo pelo que aconteceu há um mês atrás.");
+								show "[Elly]";
+								show "*Sigh* Ele é um bom marido...";
+								show "Ele presta tanta atenção, mesmo para";
+								show "coisas pequenas. Embora, Eu";
+								show "deveria ser a única a me desculpar";
+								show "com ele...";
+								next;
+								show "[Elly]";
+								show "Por favor lhe entregue uma caixa, e fale";
+								show "para ele me esquecer. Ele deveria";
+								show "viver o resto de sua vida feliz";
+								show "com alguém. Oh, também diga";
+								show "que eu o esqueci.";
+								set nif_revive,6;
+								additem 934,1; //Espólio
+								next;
+								show "[Elly]";
+								show "Fico feliz em ouvir de meu";
+								show "marido mais uma vez. Mas eu";
+								show "acho que tenho que ir agora.";
+								show "Obrigado por se preocupar.";
+								show "Adeus...";
+								next;
+								show "[Elly]";
+								show ".....................";
+								show "....................";
+								next;
+								show "[Feylin]";
+								show "Acho que você realizou o que";
+								show "queria. Pois bem, tenha cuidado";
+								show "quando você voltar...";
+								close;
+							}
+						}
+						else {
+							show "[Feylin]";
+							show "Se você não tem os";
+							show "itens, nós não podemos prosseguir.";
+							show "Lembre-se, Eu preciso de 10 Folhas de";
+							show "Yggdrasil para realizar este feitiço.";
+							show "Por favor traga-me logo";
+							show "que for possível.";
+							close;
+						}
+					}
+					show "[Feylin]";
+					show "Espero que você me traga os itens";
+					show "primeiro. Mas... Eu não posso";
+					show "prometer que este";
+					show "feitiço será realizado com sucesso.";
+					close;
+				}
+				show "[Feylin]";
+				show "Hmm... Você não parece ter";
+				show "força para suportar";
+				show "o lançamento deste feitiço.";
+				show "Com sua força atual, este";
+				show "feitiço te matará.";
+				show "Eu não posso correr esse risco.";
+				close;
+			}
+			show "[Feylin]";
+			show "Você fez uma ótima escolha.";
+			show "Não é uma boa idéia executar";
+			show "este tipo defeitiço";
+			show "na primeira vez, devido aos";
+			show "riscos envolvidos...";
+			close;
+		}
+		show "[Feylin]";
+		show "Não importa quantas vezes você me peça,";
+		show "Eu não posso te ajudar. Por favor";
+		show "saia desse lugar logo que puder.";
+		close;
+	}
+	show "[Feylin]";
+	show "O que fez você vir a esta";
+	show "cidade perigosa? Por favor saia";
+	show "desse lugar logo que puder.";
+	close;
+}

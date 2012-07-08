@@ -1,0 +1,845 @@
+//===== Cronus Script ========================================
+//= Script de Casamento
+//===== Por: =================================================
+//= L0ne_W0lf
+//===== Versão Atual: ========================================
+//= 1.3/1.1
+//===== Compatível Com: ======================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= [Conversão do Aegis]
+//= Script de casamento Oficial.
+//= Adicionado isloggedin() check, Até mesmo Aegis não faça isso.
+//= Atualmente não suporta casamento de mesmo sexo.
+//= Old script located in: npc/custom/marriage.txt
+//= - Variável em uso: wedding_sign (max 1)
+//= - Variável em uso: $Wedding (max 1) 
+//= - Variável em uso: $wed_groom$ $wed_bride$
+//===== Comentários Adicionais: ==============================
+//= 1.0 Primeira Versão. [L0ne_W0lf]
+//= 1.1 Fixed a missing ")" [L0ne_W0lf]
+//= 1.2 Traduzido script baseado no eAthena [Sensei]
+//= 1.2a Revisado e corrigido [Cardoso] 
+//= 1.3 Corrigido nomes invisiveis dos npcs nos eventos. [SoulBlaker]
+//============================================================
+
+prt_church,97,100,4	script	Casamenteira#w	71,{
+	cutin "wedding_marry01",2;
+	if (Upper == 2 || BaseLevel < 70 || BaseJob == Job_Mage || BaseJob == Job_Archer || BaseJob == Job_Acolyte || BaseJob == Job_Merchant || BaseJob == Job_Thief || BaseJob == Job_Swordman) {
+		show "[Casamenteira]";
+		show "Ola!";
+		show "Meu nome é Maria e eu";
+		show "estou aqui para munir você";
+		show "com informação relacionada";
+		show "ao casamento. Agora, você";
+		show "tem alguma quetão?";
+		next;
+		if (select("Eu quero me casar.:Eu não preciso de sua ajuda!") == 1) {
+			show "[Casamenteira]";
+			show "Oh, sinto muito, mas crianças";
+			show "não são permitidas se";
+			show "casar índole admíssivel.";
+			show "por que você não desfruta";
+			show "os prazeres simples da";
+			show "infância?";
+			goto L_End;
+		}
+		show "[Casamenteira]";
+		show "Oh, claro não, você é";
+		show "uma criança pequena";
+		show "não pode se casar-- ";
+		show "há muitas leis contra";
+		show "isso ~ você não é a";
+		show "pequena coisa mais adorável?";
+		goto L_End;
+	}
+	show "[Casamenteira]";
+	show "Casamento é a bela união";
+	show "de duas alma que tem escolhido";
+	show "estar juntos para sempre,";
+	show "para dividir suas alegrias";
+	show "e vida. Há um alguém especial";
+	show "assim em sua vida?";
+	next;
+	switch(select("Perguntar sobre a cerimônia de Casamento:Pergunte sobre o Procedimento:Solicitar Se casar:Somos do Exército dos Solteiros!")) {
+	case 1:
+		show "[Casamenteira]";
+		show "O Sábio e benevolente";
+		show "Rei Tristram III administrava";
+		show "as cerimônias de casamento,";
+		show "mas ele é não tem muito tempo";
+		show "hábil para fazer por causa dos";
+		show "seus deveres reais e horário";
+		show "com seus passos apressado freneticamente.";
+		next;
+		show "[Casamenteira]";
+		show "O Bispo Vomars, o bispo do";
+		show "amor, é agora o oficializador";
+		show "das cerimônia dos casamentos.";
+		show "Ele verdadeiramente é um";
+		show "tesouro para o Reino de Rune-Midgar.";
+		next;
+		show "[Casamenteira]";
+		show "Quando você se casa com alguém,";
+		show "é para o resto de sua vida, então";
+		show "pense cuidadosamente antes de fazer";
+		show "ou aceitar uma proposta de casamento.";
+		show "Tenha em mente que um homem pode";
+		show "só casar com uma mulher e vice-versa.";
+		next;
+		show "[Casamenteira]";
+		show "Se você estar com sorte o";
+		show "bastante para encontrar alguem";
+		show "que você realmente quer para";
+		show "gastar o resto de sua vida,";
+		show "pode perguntar ao Papa. Eu";
+		show "espero que todo o mundo encontre seu par perfeito.";
+		break;
+
+	case 2:
+		show "[Casamenteira]";
+		show "A primeira parte do procedimento";
+		show "do casamento é canditatar-se";
+		show "por completo. Quando a noiva e";
+		show "o noivo terminarem de candidatar-se,";
+		show "eles têm que formar um grupo";
+		show "de dois.";
+		next;
+		show "[Casamenteira]";
+		show "Depois de formar um grupo dos dois,";
+		show "o casal deve então falar com o";
+		show "Bispo Vomars. O noivo tem de falar";
+		show "primeiro e deve dizer o nome exato";
+		show "de sua noiva ao Bispo. caso contrário, a cerimômia parará.";
+		next;
+		show "[Casamenteira]";
+		show "Depois, a noiva falará com";
+		show "o Bispo e lhe dirá o nome";
+		show "do noivo dela. Se estes";
+		show "nomes são ditos corretamente";
+		show "ao Bispo, eles poderão permutar";
+		show "os anéis.";
+		next;
+		show "[Casamenteira]";
+		show "Quando os anéis de casamento";
+		show "são permutado, o casal está atado no matrimônio. É claro,";
+		show "antes deste ponto, há muitas chances para mudar de idéia, então...";
+		next;
+		show "[Casamenteira]";
+		show "Se há muitos casais que";
+		show "querem se casar de uma";
+		show "vez, por favor forme uma";
+		show "linha e fale com o Bispo";
+		show "Vomars na ordem de que só.";
+		show "um casal possa se casar de cada vez.";
+		next;
+		show "[Casamenteira]";
+		show "Finalmente, fale o nome exato de";
+		show "seu companheiro ao Bispo Vomars,";
+		show "sem desperdiçar muito tempo. Se você leva muito tempo,";
+		show "a cerimônia automáticamente parará e você terá de começar de novo.";
+		next;
+		show "[Casamenteira]";
+		show "As noivas precisam se lembrar";
+		show "que eles só têm 3 minutos para";
+		show "terminar de falar com Bispo Vomars";
+		show "depois que o noivo dela terminarem";
+		show "de falar com ele.";
+		next;
+		if (select("Obrigado, isso ajuda muito!:Modo fácil para dizer o nome do meu companheiro?") == 1) {
+			show "[Casamenteira]";
+			show "Bem, eu estou aqui para ajudar";
+			show "os casamentos a proceder tão";
+			show "suavemente quanto possível.";
+			show "Se houver algo que você não";
+			show "entendeu, sinta a vontade ";
+			show "para perguntar de novo.";
+			goto L_End;
+		}
+		show "[Casamenteira]";
+		show "O modo mais fácil para escrever";
+		show "o nome de seu companheiro para o";
+		show "bispo é enviar uma mensagem privada";
+		show "a seu companheiro, e então clique";
+		show "na seção de nome a esquerda que é partida do lembrete de conversa.";
+		next;
+		show "[Casamenteira]";
+		show "Aperte o ''Ctrl'' e ''C'' do";
+		show "teclado para copiar o nome.";
+		show "Então, você pode colar o nome";
+		show "dentro do prompt apertando o";
+		show "''Insert'' e ''Shift'' do teclado. que parece fácil, certo?";
+		next;
+		show "[Casamenteira]";
+		show "Certo, agora deixe-me.";
+		show "Práticar dando o nome";
+		show "de seu companheiro usando";
+		show "o método que eu há pouco descrevi.";
+		next;
+		digit .@partner$;
+		show "[Casamenteira]";
+		show "Certo, depois que você";
+		show "decidir se casar, volte";
+		show "a mim e submeta sua";
+		show "candidatura. Verei você";
+		show "depois aventureiro.";
+		break;
+
+	case 3:
+		cutin "wedding_marry02",2;
+		if (sex) {
+			show "[Casamenteira]";
+			show "Então você gostaria de se casar?";
+			show "Como um noivo, você precisa preparar";
+			show "^3377FF1 Smoking^000000 e pagar ^3377FF1,300,000 zeny^000000.";
+			show "Noivas têm que prover os próprios Vestidos de noiva e pagar uma taxa";
+			show "de 1,200,000 zeny.";
+		}
+		else {
+			show "[Casamenteira]";
+			show "Então você gostaria de se casar?";
+			show "Noivas têm que obter os próprios";
+			show "Vestidos de noiva e pagar uma";
+			show "taxa de 1,200,000 zeny. Noivos deve";
+			show "trazer um terno e pagar 1,300,000 zeny para se casar.";
+		}
+		next;
+		show "[Casamenteira]";
+		show "Noivas e Noivos ambos precisa";
+		show "ter ^3377FF1 Anél de Diamante^000000 para ser";
+		show "trocado com seu companheiro.";
+		show "Você precisa de todos esses itens";
+		show "prontos quando você submete seu";
+		show "solicitação da cerimônia do casamento.";
+		next;
+		show "[Casamenteira]";
+		show "A noiva esperada e o noivo";
+		show "devem ambos ter que completar";
+		show "o processo de solicitação antes";
+		show "que o casamento possa acontecer.";
+		show "Agora, você gostaria de";
+		show "candidatar-se ao matrimônio?";
+		next;
+		if (select("Sim:Não") == 1) {
+			if (getpartnerid()) {
+				cutin "wedding_marry02",2;
+				show "[Casamenteira]";
+				show "Eu sinto muito, mas você nao";
+				show "pode soilicitar por outro";
+				show "casamento! Eu não posso permitir";
+				show "que traia sua esposa igual a isso,";
+				show "e por outro lado, poligamia não";
+				show " legal aqui em Rune-Midgard.";
+				break;
+			}
+			else if (wedding_sign == 1) {
+				show "[Casamenteira]";
+				show "Você já não completou a";
+				show "solicitação? Humm, tenha";
+				show "certeza que seu companheiro";
+				show "também terminou o processo";
+				show "de solicitação, e então";
+				show "fale com Bispo Vomars.";
+				break;
+			}
+			else if (BaseLevel < 45) {
+				show "[Casamenteira]";
+				show "Humm, você precisa ser forte";
+				show "o bastante para proteger a";
+				show "pessoa que você ama antes de";
+				show "poder considerar o matrimônio.";
+				show "Depois que você tornar mais";
+				show "forte, vem e fale novamente comigo.";
+				goto L_End;
+			}
+			else if (countitem(2613) < 1) {
+				show "[Casamenteira]";
+				show "Mm? Você esqueceu de trazer os";
+				show "Anéis de Diamante para trocar";
+				show "com seu companheiro durante a";
+				show "cerimônia de casamento? Procure-o";
+				show "cuidadosamente e volte depois";
+				show "que você acha-lo, certo?";
+				goto L_End;
+			}
+			else if (sex) {
+				if (zeny < 1300000) {
+					show "[Casamenteira]";
+					show "Sinto muito, mas você não tem";
+					show "os 1,300,000 zeny";
+					show "que todos os noivos precisam pagar";
+					show "para a cerimônia de casamento.";
+					show "Você esqueceu seu dinheiro?";
+					goto L_End;
+				}
+				else if (countitem(7170) < 1) {
+					show "[Casamenteira]";
+					show "Onde está seu Terno?";
+					show "Você absolutamente tem que";
+					show "usa-lo durante a cerimônia";
+					show "de casamento! Encontre-o, traga-o";
+					show "para mim, e então nós finalmente poderemos";
+					show "começar o casamento, certo?";
+					goto L_End;
+				}
+			}
+			else if (sex == 0) {
+				if (zeny < 1200000) {
+					show "[Casamenteira]";
+					show "Sinto muito, mas todas as noivas";
+					show "precisam pagar a taxa de 1,200,000";
+					show "zeny para continuar com a cerimônia de";
+					show "casamento. Talvez";
+					show "você poderia pedir para seu companheiro";
+					show "te ajudar com o dinheiro?";
+					goto L_End;
+				}
+				else if (countitem(2338) < 1) {
+					show "[Casamenteira]";
+					show "Oh querida, você esqueceu";
+					show "seu Vestido de Noiva?";
+					show "Corra e encontre-o, então";
+					show "traga-o para mim-- você";
+					show "absolutamente precisa";
+					show "dele para o casamento!";
+					goto L_End;
+				}
+			}
+			show "[Casamenteira]";
+			show "Bem, Parace que vocês";
+			show "tem tudo pronto.";
+			show "Embora eu não esteja certa de quem";
+			show "sua companheira seja, deixe me ser";
+			show "a primeira a dar meus parabéns para vocês";
+			show "em seu casamento a seguir~";
+			next;
+			show "[Casamenteira]";
+			show "Agora, vamos começar a";
+			show "solicitação. Por favor escreva";
+			show "abaixo o seu nome correto aqui.";
+			next;
+			while(1) {
+				digit .@name$;
+				if (.@name$ != strcharinfo(0)) {
+					show "[Casamenteira]";
+					show "Hum, você tem que escrever";
+					show "abaixo o seu nome exatamente";
+					show "como está exibido. Talvez você";
+					show "precise copiar e cola-lo?";
+					show "De qualquer jeito, vamos tentá-lo novamente.";
+					next;
+				}
+				else 
+					break;
+			}
+			show "[Casamenteira]";
+			show "Ótimo, parece que nós";
+			show "terminamos sua solicitação.";
+			show "Lembre se que você precisará";
+			show "falar com o Bispo Vomars o nome";
+			show "correto da sua companheira quando";
+			show "você falar com ele mais tarde, certo?";
+			next;
+			show "[Casamenteira]";
+			show "Quando sua companheira termina";
+			show "com o processo de solicitação,";
+			show "ambos precisaram";
+			show "falar com o Bispo para começar";
+			show "a cerimônia de casamento.";
+			Emotion e_lv;
+			next;
+			show "[Casamenteira]";
+			if (sex) {
+				show "Desde que você seja o noivo,";
+				show "você precisa falar com";
+				show "o Bispo primeiro. Quando você tiver";
+				show "terminado, será a vez da sua";
+				show "noiva falar com o";
+				show "Bispo Vomars.";
+				set zeny,zeny-1300000;
+				delitem 7170,1; //Tuxedo
+			}
+			else {
+				show "Desde que você seja a noiva,";
+				show "você precisa esperar que o";
+				show "noivo fale com o Bispo";
+				show "Vomars primeiro. Quando ele tiver";
+				show "terminado, será sua vez de falar";
+				show "o Bispo Vomars.";
+				set zeny,zeny-1200000;
+				delitem 2338,1; //Wedding_Dress
+			}
+			delitem 2613,1; //Anel de Diamante
+			set wedding_sign,1;
+			goto L_End;
+		}
+		show "[Casamenteira]";
+		show "Não...?";
+		show "Bem, quando você estiver pronto";
+		show "para o matrimônio,";
+		show "sinta-se livre para voltar";
+		show "a mim de forma que você possa aceitar,";
+		show "certo? Tenha um bom dia!";
+		break;
+
+	case 4:
+		cutin "wedding_marry02",2;
+		donpcevent "Exército de Solteiros#Pr::OnEnable";
+		donpcevent "Exército de Solteiros#Gf::OnEnable";
+		donpcevent "Exército de Solteiros#Mc::OnEnable";
+		donpcevent "Exército de Solteiros#Pa::OnEnable";
+		donpcevent "Exército de Solteiros#Am::OnEnable";
+		donpcevent "Exército de Solteiros#Gn::OnEnable";
+		Emotion e_omg;
+		show "[Exército de Solteiros]";
+		show "^CC9933Você tem que aprimorar";
+		show "itens por se próprio";
+		show "para fazer um grande equipamento!^000000";
+		donpcevent "Exército de Solteiros#Pr::OnEmote";
+		next;
+		show "[Exército de Solteiros]";
+		show "^330099É uma perca de tempo";
+		show "forma grupos em";
+		show "cavernas! eu posso";
+		show "fazer isso por si próprio!^000000";
+		donpcevent "Exército de Solteiros#Gf::OnEmote";
+		next;
+		show "[Exército de Solteiros]";
+		show "^666666Inferno, Eu trenei";
+		show "tudo por mim mesmo desde que nasci,";
+		show "e de todo modo";
+		show "para mudar meu trabalho!^000000";
+		donpcevent "Exército de Solteiros#Mc::OnEmote";
+		next;
+		show "[Exército de Solteiros]";
+		show "^666600Eu ESCOLHI passar";
+		show "o Natal sozinho...";
+		show "jogando solitariamente e";
+		show "fazendo encruzilhadas de palavras!^000000";
+		donpcevent "Exército de Solteiros#Pa::OnEmote";
+		next;
+		show "[Exército de Solteiros]";
+		show "^CC9966Mulheres podem quebrar meu";
+		show "espirito, mas elas nunca";
+		show "lavaram... minha LIBERDADE!^000000";
+		donpcevent "Exército de Solteiros#Am::OnEmote";
+		next;
+		show "[Exército de Solteiros]";
+		show "^669900...Nós somos livres! nós somos";
+		show "o Invencível Exército de Solteiros!^000000";
+		donpcevent "Exército de Solteiros#Gn::OnEmote";
+		close2;
+		cutin "wedding_marry01",255;
+		Emotion e_swt;
+		donpcevent "Exército de Solteiros#Pr::OnInit";
+		donpcevent "Exército de Solteiros#Gf::OnInit";
+		donpcevent "Exército de Solteiros#Mc::OnInit";
+		donpcevent "Exército de Solteiros#Pa::OnInit";
+		donpcevent "Exército de Solteiros#Am::OnInit";
+		donpcevent "Exército de Solteiros#Gn::OnInit";
+		end;
+	}
+	close2;
+	cutin "wedding_marry01",255;
+	end;
+
+L_End:
+	close2;
+	cutin "",255;
+	end;
+}
+
+prt_church,97,102,0	script	Exército de Solteiros#Pr	105,{
+	show "[Exército de Solteiros]";
+	show "^CC9933Você tem que aprimorar";
+	show "itens por se próprio";
+	show "para fazer um grande equipamento!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Pr";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Pr";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,98,102,0	script	Exército de Solteiros#Gf	705,{
+	show "[Exército de Solteiros]";
+	show "^330099É uma perca de tempo";
+	show "forma grupos em";
+	show "cavernas! eu posso";
+	show "fazer isso por si próprio!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Gf";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Gf";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,99,102,0	script	Exército de Solteiros#Mc	707,{
+	show "[Exército de Solteiros]";
+	show "^666666Inferno, Eu trenei";
+	show "tudo por mim mesmo desde que";
+	show "nasci, e de todo modo";
+	show "para mudar meu trabalho!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Mc";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Mc";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,100,102,0	script	Exército de Solteiros#Pa	708,{
+	show "[Exército de Solteiros]";
+	show "^666600Eu ESCOLHI passar";
+	show "o Natal sozinho...";
+	show "jogando solitariamente e";
+	show "fazendo encruzilhadas de palavras!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Pa";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Pa";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,101,102,0	script	Exército de Solteiros#Am	767,{
+	show "[Exército de Solteiros]";
+	show "^CC9966Mulheres podem quebrar meu";
+	show "espirito, mas elas nunca";
+	show "levaram... minha LIBERDADE!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Am";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Am";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,102,102,0	script	Exército de Solteiros#Gn	780,{
+	show "[Exército de Solteiros]";
+	show "^669900...Nós somos livres! nós somos";
+	show "o Invencível Exército de Solteiros!^000000";
+	close;
+
+OnInit:
+	disablenpc "Exército de Solteiros#Gn";
+	end;
+
+OnEnable:
+	enablenpc "Exército de Solteiros#Gn";
+	Emotion e_go;
+	end;
+
+OnEmote:
+	emotion e_rock;
+	end;
+}
+
+prt_church,100,128,4	script	Bispo#w	60,{
+	cutin "wedding_bomars01",2;
+	if (Upper == 2) {
+		show "[Vomars]";
+		show "Saudações, criança.";
+		show "você está perdido? Hum.";
+		show "Você sabe onde sua";
+		show "mamãe e seu papai estão?";
+		close2;
+		cutin "wedding_bomars01",255;
+		end;
+	}
+
+	if (!getpartnerid()) {
+		if (!$wedding) {
+			if (wedding_sign == 1) {
+				getpartymember(getcharid(1));
+				set .@partymembercount,$@partymembercount;
+				if (.@partymembercount == 2) {
+					if (sex) {
+						set $wedding,1;
+						initnpctimer;
+						show "[Vomars]";
+						show "Jovens Apaixonados, por favor";
+						show "lembrem se desde momento pelo";
+						show "resto das suas vidas. Que o futuro de vocês seja abençoado com paz";
+						show "e alegria. Que o amor de vocês possa";
+						show "crescer mais a cada dia que passa.";
+						next;
+						mapannounce "prt_church","É o pedido de matrimônio do noivo, Senhor " + strcharinfo(0) + "...",bc_map;
+						show "[Vomars]";
+						show "Até o fim do mundo,";
+						show "você deve ficar ao lado";
+						show "daquela que você";
+						show "realmente ama, para";
+						show "apoiá-la e protegê-la. Agora, deixe";
+						show "eu saber o nome da sua noiva?";
+						next;
+						digit $wed_bride$;
+						show "[Vomars]";
+						show "Senhor " + strcharinfo(0) + "...";
+						show "Você jura pela sua vida";
+						show "que para sempre você vai amá-la";
+						show "e tomará conta da sua noiva,";
+						show "Senhorita " + $wed_bride$ + "?";
+						next;
+						select("Eu aceito.");
+						set $wed_groom$,strcharinfo(0);
+						show "[Vomars]";
+						show "Agora, é a vez da sua";
+						show "noiva fazer";
+						show "seu voto de casamento.";
+						show "Que ela venha aqui na frente...";
+						close2;
+						mapannounce "prt_church","O noivo, Senhor " + strcharinfo(0) + ", fez seus votos para a Senhorita " + $wed_bride$ + "...",bc_map;
+						cutin "",255;
+						end;
+					}
+					show "[Vomars]";
+					show "Sinto muito, mas o noivo";
+					show "precisa falar comigo primeiro nessa";
+					show "ordem para começar o casamento.";
+					show "É um antigo protocolo formado,";
+					show "mas eu admito que ele mantém";
+					show "que as coisas corram suavemente.";
+					goto L_End;
+				}
+				show "[Vomars]";
+				show "Antes que você possa";
+				show "estar casado, primeiro você precisar";
+				show "fazer um grupo de";
+				show "de dois com sua companheira.";
+				show "Assim, nós poderemos prosseguir";
+				show "com a cerimônia.";
+				goto L_End;
+			}
+			show "[Vomars]";
+			show "Vocês precisam acertar";
+			show "o matrimônio com a casamenteira";
+			show "antes que vocês consigam casar.";
+			show "A Casamenteira lhe dirá";
+			show "o que vocês precisam fazer";
+			show "para prepara o matrimônio.";
+			goto L_End;
+		}
+		else if ($wedding == 1) {
+			if (wedding_sign == 1) {
+				getpartymember(getcharid(1));
+				set .@partymembercount,$@partymembercount;
+				if (.@partymembercount == 2) {
+					if (sex == 0) {
+						if (strcharinfo(0) == $wed_bride$) {
+							show "[Vomars]";
+							show "Jovens Apaixonados, por favor";
+						        show "lembrem se desde momento pelo";
+						        show "resto das suas vidas. Que o futuro de vocês seja abençoado com paz";
+						        show "e alegria. Que o amor de vocês possa";
+						        show "crescer mais a cada dia que passa.";
+							next;
+							mapannounce "prt_church","Vamos ouvir o que a noiva, Senhorita "+$wed_bride$+", tem a dizer...",bc_map;
+							show "[Vomars]";
+							show "Senhorita "+$wed_bride$+"...";
+							show "Você jura ficar";
+							show "verdadeiramente com "+$wed_groom$+",";
+							show "estar ao seu lado, não importa";
+							show "o quanto perigoso possa ser?";
+							next;
+							if (select("^FF0000No.^000000:Eu aceito.") == 1) {
+								cutin "wedding_bomars03",2;
+								mapannounce "prt_church","Próximo casal, por favor prossiga...",bc_map;
+								show "[Vomars]";
+								show "Então "+$wed_groom$;
+								show "não é o que";
+								show "queria casar? Hum.";
+								show "Eu sinto profudamente por";
+								show "este mal entendido...";
+								set $wedding,0;
+								close2;
+								stopnpctimer;
+								cutin "",255;
+								end;
+							}
+							show "[Vomars]";
+							show "Você jura verdadeiramente";
+							show "fidelidade e paciência?";
+							show "você casará com "+$wed_groom$+"?";
+							next;
+							if (select("Sim, Eu caso.:^FF0000Não.^000000") == 1) {
+								if (isloggedin(getcharid(3,$wed_groom$))) {
+									if (marriage($wed_groom$)) {
+										//Call Wedding effect
+										wedding;
+										//Dá o anel para a Noiva, e muda o espirito de casamento.
+										sc_start SC_Wedding,3600000000,1;
+										additem 2635,1; //Bride_Ring
+										//Dá o anel ao Noivo, e muda o espirito de casamento.
+										attachrid(getcharid(3,$wed_groom$));
+										sc_start SC_Wedding,3600000000,1;
+										additem 2634,1; //Bridegroom_Ring
+										detachrid;
+										//Switch Script progression back to Bride
+										attachrid(getcharid(3,$wed_bride$));
+										cutin "wedding_bomars02",2;
+										mapannounce "prt_church","Agora Eu os declaro, "+$wed_groom$+" e "+$wed_bride$+", Marido e Mulher.",bc_map;
+										show "[Vomars]";
+										show "Pelo poderes a mim concebidos";
+										show "como Bispo Real do Reino";
+										show "de Rune-Midgard,";
+										show "agora eu os declaro";
+										show "marido e mulher. Que o futuro de vocês seja";
+										show "abençoado com muitas alegrias.";
+										next;
+										show "[Vomars]";
+										show "E por último...";
+										show "Sempre sejam felizes,";
+										show "querida "+$wed_bride$+"...";
+										set $wed_groom$,"";
+										set $wed_bride$,"";
+										set $wedding,0;
+										close2;
+										stopnpctimer;
+										cutin "",255;
+										detachrid;
+										end;
+									}
+								}
+								cutin "wedding_bomars03",2;
+								show "[Vomars]";
+								show "Hum. Parece que seu";
+								show "noivo saiu antes da";
+								show "cerimônia termina.";
+								show "Por favor tente novamente assim que ele";
+								show "retornar.";
+								goto L_End;
+							}
+							else {
+								cutin "wedding_bomars03",2;
+								mapannounce "prt_church","Alas! "+$wed_bride$+" Rejeitou o pedido de casamento de "+$wed_groom$+"!",bc_map;
+								show "[Vomars]";
+								show "Hum. Parece que você";
+								show "mudou de idéia.";
+								show "Embora eu sinto muito";
+								show "pelo o noivo, você";
+								show "deve fazer o que o seu coração";
+								show "falar que é correto. Agora, corra!";
+							}
+							set $wed_groom$,"";
+							set $wed_bride$,"";
+							set $wedding,0;
+							close2;
+							stopnpctimer;
+							cutin "",255;
+							end;
+						}
+						callsub S_Busy;
+					}
+					callsub S_Busy;
+				}
+				callsub S_Busy;
+			}
+			if (strcharinfo(0) == $wed_bride$) {
+				show "[Vomars]";
+				show "Hum? Parece que a";
+				show "Casamenteira ainda não";
+				show "recebeu sua solitação de";
+				show "matrimônio. Por favor fale";
+				show "com ela assim nós poderemos";
+				show "começar a cerimônia de casamento.";
+				goto L_End;
+			}
+			callsub S_Busy;
+		}
+		callsub S_Busy;
+	}
+	show "[Vomars]";
+	show "Eu desejo a vocês";
+	show "felicidades eternas. Não importa";
+	show "como escuro o presente possa ser,";
+	show "sempre fique ao lado";
+	show "de sua amada e olhe";
+	show "para o futuro com esperança.";
+
+L_End:
+	close2;
+	cutin  "",255;
+	end;
+
+S_Busy:
+	if ($wed_groom$ != "" && $wed_bride$ != "") {
+		show "[Vomars]";
+		show "O casamento da";
+		show "Senhorita "+ $wed_bride$ +" e do";
+		show "Senhor "+ $wed_groom$;
+		show "está em andamento.";
+		show "Por favor controle sua voz.";
+		goto L_End;
+	}
+	show "[Vomars]";
+	show "^FFFFFFEstou conduzindo um casamento";
+	show "para outro casal agora, então";
+	show "por favor espere pacientimente por sua";
+	show "vez. Obrigado pela compreensão...^000000";
+	goto L_End;
+
+OnInit:
+	set $wedding,0;
+	end;
+
+OnStop:
+	stopnpctimer;
+	end;
+
+OnReset:
+	set $wed_groom$,"";
+	set $wed_bride$,"";
+	set $wedding,0;
+	end;
+
+OnTimer180000:
+	mapannounce "prt_church","Você respondeu tarde demais... Próximo casal, por favor prossiga.",bc_map;
+	set $wed_groom$,"";
+	set $wed_bride$,"";
+	set $wedding,0;
+	stopnpctimer;
+	end;
+}

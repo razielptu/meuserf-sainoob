@@ -1,0 +1,588 @@
+//===== Cronus Script ========================================
+//= Quadro de Avisos
+//===== Por: =================================================
+//= Cardoso
+//===== Versão Atual: ========================================
+//= 1.1
+//===== Compatível com: ======================================
+//= Cronus Emulator 1700+
+//===== Descrição: ===========================================
+//= Plaquinhas que dão a definição do mapa ao jogador [vários mapas].
+//===== Comentários Adicionais: ==============================
+//= 1.0 Traduzido e convertido para o Cronus [Cardoso]
+//= 1.1 Removido um NPC devido a Destruição de Morroc. [RoM]
+//============================================================
+
+alberta,111,59,5	script	Quadro de Avisos#1	837,{
+	show "[Alberta: A Cidade do Porto]";
+	show "Bem vindo a Alberta, a cidade do porto!";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "Aqui você pode visitar a guilda dos mercadores, onde jovens aventureiros podem se tornar mercadores.";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "A cidade depende do mar, Alberta é o centro comercial de rune-migard, as mercadorias vem pelo mar depois são distribuídas pelo continente.";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "No porto, você pode encontrar representantes de outros países que buscam aqui turistas para visitarem sua terra.";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "Grandes Aventuras, existe a história de um local chamado ^338C60Ilha da Tartaruga000000. Corajosos aventureiros procuram visitar essa ilha para descobrirem seu mistério por si mesmo.";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "Foi descoberto um navio encalhado aqui perto de Alberta, e agora é um local visitado por aventureiros mais jovens.";
+	next;
+	show "[Alberta: A Cidade do Porto]";
+	show "De Alberta, ^1F3A11Payon^000000 é localizada a noroeste. Você pode ir a um navio no porto que eles te levarão à ^5E5C69Izlude^000000.";
+	show "Aproveite sua viajem."; 
+	close;
+}
+
+geffen,123,64,5	script	Quadro de Avisos#2	837,{
+	show "[Geffen: A Cidade da Magia]";
+	show "Bem Vindo(a) a Geffen!, A Cidade da Magia. Geffen é o local ideal para se descobrir os segredos da magia.";
+	next;
+	show "[Geffen: A Cidade da Magia]";
+	show "Pontos interessantes da cidade incluem a casa de Forja, onde as pessoas podem mudar sua classe para ferreiro, a Academia de Mágica, e a Torre de Geffen para que magos se tornem bruxos.";
+	next;
+	show "[Geffen: A Cidade da Magia]";
+	show "Também a torre de Geffen é infestada de monstros que a protegem.";
+	next;
+	show "[Geffen: A Cidade da Magia]";
+	show "Existem boatos de uma cidade abandonada chamada Gefenia, um local de lendas, é guardado o segredo da entrada dessa cidade.";
+	next;
+	show "[Geffen: A Cidade da Magia]";
+	show "De Geffen, a ^828E28Vila dos Orcs^000000 é localizada ao sul, ^4C6055Glast Heim^000000 ao oeste, ^6D6FE0Prontera^000000 bem ao leste, e ^744B2DMt. Mjolnir^000000 ao norte. Aproveite suas viagens!";
+	close;
+}
+
+gef_fild10,69,340,5	script	Quadro de Avisos#3	837,{
+	show "[Vila dos Orcs]";
+	show "^6B1312Cuidado!^000000";
+	show "A Vila dos Orcs é composta de 2 leveis. Como não são muito fortes, os monstros daqui atacam em grupo. Tenha cuidado.";
+	next;
+	show "[Vila dos Orcs]";
+	show "Apenas nessa caverna você poderá encontrar Orc Skeleton, Zenorcs e Orc Zombis.";
+	next;
+	show "[Vila dos Orcs]";
+	show "Alguns tipos de armas podem te ajudar nessa caverna, já que muitos monstros da caverna são mortos-vivos.";
+	next;
+	show "[Vila dos Orcs]";
+	show "Se você não tem uma arma com propriedade Sagrado procure um noviço, a habilidade Aspersio pode ser de grande ajuda.";
+	close;
+}	
+
+izlu2dun,104,92,5	script	Quadro de Avisos#4	837,{
+	show "[Ilha de Byalan]";
+	show "^6B1312Caution!^000000";
+	show "A ilha de Byalan possui 5 níveis. O primeiro é recomendado para novos aventureiros.";
+	next;
+	show "[Ilha de Byalan]";
+	show "Quanto mais você descer na caverna, você irá encontrar monstros mais fortes e mais poderosos";
+	next;
+	show "[Ilha de Byalan]";
+	show "Com alguma exceções, a maioria dos monstros daqui possuem propiedade água. Com isso, armas com elemento vento podem lhe ajudar muito";
+	close;
+}
+	
+izlude,134,114,4	script	Quadro de Avisos#5	837,{
+	show "[Izlude: A Cidade do Observatório]";
+	show "Bem Vinda a Izlude, a cidade do observatório de Prontera. Izlude foi construída para proteger Prontera de ataques surpresa.";
+	next;
+	show "[Izlude: A Cidade do Observatório]";
+	show "Pontos interessantes da cidade são: Guilda dos Espadachins, onde jovens aventureiros podem se tornar espadachins, e a arena de batalha ao norte da cidade.";
+	next;
+	show "[Izlude: A Cidade do Observatório]";
+	show "No porto, você poderá encontrar um navio que te leva à ^123972Alberta^000000 ou ^2F0400Ilha de Byalan^000000.";
+	next;
+	show "[Izlude: A Cidade do Observatório]";
+	show "De Izlude, ^6D6FE0Prontera^000000 está a noroeste, e ^1F3A11Payon^000000 ao sul.";
+	show "Aproveite suas viagens!";
+	close;
+}
+	
+payon,189,104,5	script	Quadro de Avisos#06	837,{
+	show "[Payon: A cidade das Montanhas]";
+	show "Bem vindo a Payon, A cidade das Montanhas. Payon recentemente foi renovada, agora está mais limpa, melhores ruas e construções.";
+	next;
+	show "[Payon: A cidade das Montanhas]";
+	show "Payon é famosa por ser a cidade dos Arqueiros, por muito tempo, os moradores da cidade vivem da caça com sua flechas e arcos. Manuseamento de arcos dentre outros foram desenvolvidos aqui em Payon";
+	next;
+	show "[Payon: A cidade das Montanhas]";
+	show "Payon tem vários tipos de escudo e armaduras, especialmente para Arqueiros. Se você quiser virar um Arqueiro, você será muito bem recebido em nossa cidade.";
+	next;
+	show "[Payon: A cidade das Montanhas]";
+	show "O palácio de Payon é localizado ao centro. A vila dos Arqueiros é localizada a nordeste. Lá, pessoas podem ser tornar Arqueiras.";
+	next;
+	show "[Payon: A cidade das Montanhas]";
+	show "Na vila dos Arqueiros, você pode achar a ^2F0400Caverna de Payon^000000 onde 'vivem' mortos-vivos.";
+	next;
+	show "[Payon: A cidade das Montanhas]";
+	show "De Payon, ^123972Alberta^000000 está a sudoeste, ^866C4BMorroc^000000 ao oeste. ^5E5C69Izlude^000000 e ^6D6FE0Prontera^000000 ao norte.";
+	show "Aproveite suas Viagens."; 
+	close;
+}
+	
+pay_arche,79,30,5	script	Quadro de Avisos#07	837,{
+	show "[Vila dos Arqueiros]"; 
+	show "Bem vindo a Vila dos Arqueiros onde aprendizes podem virar Arqueiros.";
+	next;
+	show "[Vila dos Arqueiros]";
+	show "A Vila dos Arqueiros é especializada na venda de Arcos e Flechas que você pode comprar. As quais são as necessidades principais de um Arqueiro e Caçadores.";
+	next;
+	show "[Vila dos Arqueiros]";
+	show "Se você quer virar um Arqueiro, este é o local ideal. Se quiser se tornar caçador, a guilda dos caçadores fica localizada em um campo ao leste de Payon.";
+	close;
+}
+
+pay_arche,40,135,5	script	Quadro de Avisos#08	837,{
+	show "[Caverna de Payon]";
+	show "^6B1312Cuidado!^000000";
+	show "A Caverna de Payon possui 5 níveis todos eles com monstros do tipo morto-vivo ou demônio. Você pode encontrar Hydras no terceiro e quarto nível.";
+	next;
+	show "[Caverna de Payon]";
+	show "No nível 5, tenha cuidado, você pode encontrar a ^6B1312Flor do Luar^000000 que aparece em certos momentos, todo cuidado é pouco.";
+	close;
+}
+	
+prontera,148,49,5	script	Quadro de Avisos#09	837,{
+	show "[Prontera: A Capital]";
+	show "Bem Vindo a Prontera, a capital de Rune-Midgard.";
+	next;
+	show "[Prontera: A Capital]";
+	show "Prontera é localizada no centro de Rune-Midgard e é uma ótima cidade para se fazer negócios.";
+	next;
+	show "[Prontera: A Capital]";
+	show "Nessa cidade, você pode achar a Igreja, onde as pessoas podem se tornar noviços ou sacerdotes.";
+	next;
+	show "[Prontera: A Capital]";
+	show "Também pode ir ao Castelo, onde um espadachim pode mudar sua classe para Paladino.";
+	next;
+	show "[Prontera: A Capital]";
+	show "Sinta-se a vontade para andar pelas grandes ruas Prontera, existem várias atrações turísticas na cidade.";
+	next;
+	show "[Prontera: A Capital]";
+	show "Quando você precisa aprimorar sua arma ou armadura, visite a casa de refinaria de Prontera a sudeste da praça principal.";
+	next;
+	show "[Prontera: A Capital]";
+	show "De Prontera, ^5E5C69Izlude^000000 está a sudeste, ^1F3A11Payon^000000 ao sul, ^683C1FGeffen^000000 a oeste e ^2D3832Al De Baran^000000 ao norte.";
+	show "Aproveite seu tempo em Prontera.";
+	close;
+}
+
+mjolnir_02,76,362,5	script	Quadro de Avisos#10	837,{
+	show "[Mina de Carvão]";
+	show "^6B1312Caution!^000000";
+	show "A mina de Carvão possui 3 níveis. Esta mina é recomendada tanto a novos jogadores quando a jogadores mais experientes, varia pelo nível que você irá ir.";
+	next;
+	show "[Mina de Carvão]";
+	show "No terceiro nível, os monstros tende atacar em grupos, então não chame muita atenção. Desde quando era uma mina ativa, algumas pedras preciosas podem ser encontradas aqui.";
+	close;
+}
+
+morocc,152,110,5	script	Quadro de Avisos#11	837,{
+	show "[Morroc: A Cidade da Fronteira]";
+	show "Bem vindo a Morroc, a cidade do";
+	show "Deserto. Morroc foi construída em";
+	show "um oásis, essa cidade servia para ";
+	show "abrigar aventureiros que passavam por aqui.";
+	next;
+	show "[Morroc: A Cidade da Fronteira]";
+	show "O castelo de Morroc está ao centro";
+	show "da cidade. Sinta se a vontade para";
+	show "explorá-lo, e aproveite esse clima";
+	show "único. Porém, fique de olho em sua ";
+	show "mochila para que gatunos não te assaltem!";
+	next;
+	show "[Morroc: A Cidade da Fronteira]";
+	show "De Morroc, a ^6B1312Pirâmide^000000 pode";
+	show "pode ser achada a noroeste, e a ^6B1312Esfinge^000000 pode";
+	show "ser encontrada ao oeste. Ao sudeste, você pode encontrar";
+	show "o ^6B1312Formigueiro Infernal^000000.";
+	next;
+	show "[Morroc: A Cidade da Fronteira]";
+	show "A Guilda dos Assassinos é localizada";
+	show "ao sudeste. Quando você se dirigir ao";
+	show "leste de Morroc, e depois ao norte você";
+	show "poderá chegar em ^6D6FE0Prontera^000000.";
+	close;
+}
+
+comodo,210,148,5	script	Quadro de Avisos#12	837,{
+	show "[Comodo: A Cidade do Mar]";
+	show "Bem Vindo! A cidade de Comodo é";
+	show "rodeada por relíquias passadas";
+	show "por todo seu território.";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "Apenas em Comodo você pode achar a";
+	show "Guilda das Odaliscas e a Guilda dos Bardos";
+	show "Oportunidade para os Arqueiros que desejam se";
+	show "tornar bardos, para homem, ou Odalisca, para mulheres";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "Você pode visitar o cassino,";
+	show "que é uma atração turística muito";
+	show "popular e um local confortável";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "Você pode comprar Berserk Potions, um";
+	show "produto especial de Comodo, vindo dos";
+	show "alquimistas aqui do local.";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "Existem 3 cavernas em volta de Comodo";
+	show "cada uma é habitada por diferentes tipos";
+	show "de monstros. Se você entrar nesses locais,";
+	show "por favor,tenha cuidado!";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "De Comodo, você pode ir para";
+	show "^866C4BMorroc^000000 pela caverna do leste";
+	show "e também ^7D2272Umbala^000000 pela caverna do norte";
+	next;
+	show "[Comodo: A Cidade do Mar]";
+	show "Ao leste, você pode achar ^BF2B0DParos";
+	show "^BF2B0DLighthouse^000000, aonde se encontra a guilda";
+	show "dos Arruaceiros. Aproveite o estilo de vida noturna";
+	show "de Comodo~";
+	close;
+}
+
+umbala,137,94,5	script	Quadro de Avisos#13	837,{
+	show "[Umbala: Casa da Tribo Utan]";
+	show "Bem Vindo a Umbala,";
+	show "a vila da tribo Utan.";
+	next;
+	show "[Umbala: Casa da Tribo Utan]";
+	show "Umbala, é a casa da tribo Utan";
+	show "que falam sua própria língua.";
+	show "Que foi descoberta recentemente";
+	show "por aventureiros intrometidos.";
+	next;
+	show "[Umbala: Casa da Tribo Utan]";
+	show "Pesquisadores acreditam que";
+	show "Umbala seja a porta para um ";
+	show "outro mundo além do real. Eles ";
+	show "acreditam que essa entrada está ";
+	show "na árvore de Yggdrasil localizada ao norte.";
+	next;
+	show "[Umbala: Casa da Tribo Utan]";
+	show "Locais interessantes incluem a casa";
+	show "do chefe, casa dos moradores e a área,";
+	show "de Bungee Jump. Milhares de turistas";
+	show "visitam a área de Bungee Jump para ";
+	show "testarem sua coragem.";
+	next;
+	show "[Umbala: Casa da Tribo Utan]";
+	show "De Umbala, andando para o sul você chegará";
+	show "em ^D91B73Comodo^000000. Aproveite sua";
+	show "estadia em Umbala.";
+	close;
+}
+
+gef_fild09,227,29,4	script	Quadro de Avisos::OrcsBoard	835,{
+	show "[Vila dos Orcs]";
+	show "^6B1312Cuidado!^000000";
+	show "Depois desse ponto";
+	show "você entrará na Vila dos Orcs.";
+	next;
+	show "[Vila dos Orcs]";
+	show "Cuidado pois essa área é habitada";
+	show "por um grupo de Orcs, chamados de";
+	show "Guerreiro Orc, Senhora Orc e Grand";
+	show "Orcs. Dois monstros chefes, ^6B1312Orc Herói^000000";
+	show "e ^6B1312Senhor dos Orcs^000000 eles aparecem em um certo período de tempo.";
+	close;
+}
+
+gef_fild13,202,31,5	duplicate(OrcsBoard)	Quadro de Avisos#orc1	835
+
+gef_fild13,29,206,5	script	Quadro de Avisos::KoboldsBoard	836,{
+
+	show "[Vila dos Kobold]";
+	show "^6B1312Cuidado!^000000";
+	show "Você está entrando na Vila dos Kobold.";
+	show "Tenha cuidado pois existem Kobolds fortes nessa área.";
+	close;
+}
+
+gef_fild08,211,24,5	duplicate(KoboldsBoard)	Quadro de Avisos#kb1	836
+
+gef_fild10,109,23,5	script	Quadro de Avisos#15	836,{
+
+	show "[Vila dos Goblins]";
+	show "^6B1312Cuidado!^000000";
+	show "Você está entrando na Vila dos Goblins.";
+	show "Tenha cuidado pois existem Goblins fortes nessa área.";
+	close;
+}
+
+prt_fild05,278,220,5	script	Quadro de Avisos#16	837,{
+	show "[Esgoto de Prontera]";
+	show "O Esgoto de Prontera possui 4 níveis,";
+	show "e é um bom local para novos aventureiros";
+	show "testarem suas habilidades.";
+	next;
+	show "[Esgoto de Prontera]";
+	show "Para que você tenha acesso ao";
+	show "Esgotos de Prontera, você deve";
+	show "se registrar na cavalaria de Prontera.";
+	show "Lembre que os grupos daqui atacam";
+	show "em grupos!";
+	next;
+	show "[Esgoto de Prontera]";
+	show "No quarto nível deste esgoto você pode";
+	show "encontrar monstros mais fortes como";
+	show "^6B1312Besouro Ladrão Dourado^000000.";
+	show "Novos aventureiros devem ter cuidado.";
+	close;
+}
+
+yuno,154,112,5	script	Quadro de Avisos#17	837,{
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "Bem Vindo a Juno, a cidade dos Sábios.";
+	show "Juno flutua nas nuvens devido ao poder";
+	show "dos pedaços do coração de Ymir.";
+	next;
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "Para aqueles interessados em virar";
+	show "sábio, visitem o Castelo do Sábio";
+	show "para mais informações sobre essa classe";
+	show "e seus requerimentos.";
+	next;
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "Outros locais notáveis são:";
+	show "O museu de monstros, Academia de Mágica";	
+	show "e a biblioteca de Juno.";
+	next;
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "Em alguém lugar ao redor de Juno, está";
+	show "um local onde aventureiros podem rebornar";
+	show "para um novo aprendizado e mais força.";
+	show "O local ainda é um mistério!.";
+	next;
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "Ao sudeste de Juno você pode encontrar ^6B1312Labirinto";
+	show "^6B1312Nogg^000000,  Caverna de Magma. O labirinto Nogg";
+	show "é famoso por suas criaturas agressivas,";
+	show "tenha cuidado!";
+	next;
+	show "[Juno: Capital da]";
+	show "[república de Schwartzwald]";
+	show "De Juno, ^2D3832Al De Baran^000000";
+	show "esta localizada ao Sul";
+	close;
+}
+
+aldebaran,145,105,5	script	Quadro de Avisos#18	837,{
+	show "[Al De Baran: A cidade dos Canais]";
+	show "Bem Vindo a Al De Baran, a cidade dos";
+	show "canais do reino Rune-Midgard.";
+	show "Al De Baran é bonita pelos seus canais";
+	show "de água e pela sua grande torre do ";
+	show "relógio que pode ser vista à longas distâncias.";
+	next;
+	show "[Al De Baran: A cidade dos Canais]";
+	show "Aventureiros podem explorar a torre";
+	show "do relógio localizada ao centro da cidade.";
+	show "Outros locais importantes é o Escritório ";
+	show "principal da Corporação Kafra, e a guilda";
+	show "dos Alquimistas que te permite virar";
+	show "um Alquimista de verdade.";
+	next;
+	show "[Al De Baran: A cidade dos Canais]";
+	show "Existe um Papai Noel em algum lugar";
+	show "em Al De Baran que pode te levar para";
+	show "a cidade mágica do natal ^1D2585Lutie^000000. Se";
+	show "você deseja visita-la, basta procurar o";
+	show "Papai Noel.";
+	next;
+	show "[Al De Baran: A cidade dos Canais]";
+	show "Desta cidade, ^60D5FDJuno^000000 se encontra";
+	show "ao norte, e ^6D6FE0Prontera^000000 ao sul";
+	close;
+}
+
+aldebaran,136,133,5	script	Quadro de Avisos#19	837,{
+	show "[Torre do Relógio]";
+	show "^6B1312Cuidado!^000000";
+	show "Apenas aventureiros experientes";
+	show "devem se considerar prontos para entrarem";
+	show "na torre. Existe no total 8 níveis são:";
+	show "4 subindo e 4 no subsolo.";
+	next;
+	show "[Torre do Relógio]";
+	show "A maioria dos monstros da Torre do";
+	show "relógio são: Relógios, Alarmes e";
+	show "Bathories. Além de outros que";
+	show "variam por Nível.";
+	next;
+	show "[Torre do Relógio]";
+	show "Alguns locais da Torre do Relógio são";
+	show "confusos e complicados, então tenha";
+	show "cuidado para não se perder.";
+	close;
+}
+
+moc_fild19,107,101,5	script	Quadro de Avisos#20	837,{
+	show "[Esfinje]";
+	show "^6B1312Cuidado!^000000";
+	show "A Esfinje é constituída por 5 níveis.";
+	show "Esta caverna é recomendada para";
+	show "aventureiros com experiência.";
+	next;
+	show "[Esfinje]";
+	show "Existem muitos monstro agressivos";
+	show "dentro da Esfinje, e este é um";
+	show "aviso para que você corra quando";
+	show "um grupo deles juntarem em você.";
+	next;
+	show "[Esfinje]";
+	show "No quinto nível, o mvp";
+	show "^6B1312Faraó^000000 poderá aparecer";
+	show "a qualquer momento. Lutar com ele sozinho";
+	show "pode ser um grande prejuízo.";
+	close;
+}
+
+gef_tower,55,142,5	script	Quadro de Avisos#21	837,{
+
+	show "[Torre de Geffen]";
+	show "^6B1312Cuidado!^000000"; 
+	show "A Torre de Geffen possui 3 níveis,";
+	show "é muito difícil para novos aventureiros.";
+	show "Os monstros que você poderá encontrar,";
+	show "são ^6B1312Mosca Caçadora000000, ^6B1312Pesadelo^000000 e ^6B1312Jakks^000000.";
+	show "Pesadelo e Jakks só existem nessa torre.";
+	next;
+	show "[Torre de Geffen]";
+	show "No segundo nível dessa terro,";
+	show "^6B1312Ogretooth^000000, a criatura da espada sanguinária e ^6B1312Drácula^000000,";
+	show "podem aparecer sem aviso prévio..";
+	show "No terceiro nível, ^6B1312Doppelganger^000000 é o monstro mais forte da torre e aparece de tempos em tempos.";
+	close;
+}
+
+xmas_fild01,75,80,5	script	Quadro de Avisos#22	837,{
+
+	show "[Cidade do Papai Noel, Lutie]";
+	show "Bem vindo a Lutie, a cidade da neve.";
+	show "A produção de brinquedos na Fábrica de Brinquedos";
+	show "é o unico negócio dessa cidade.";
+	next;
+	show "[Cidade do Papai Noel, Lutie]";
+	show "Você pode ir à Fábrica de Brinquedos";
+	show "indo ao norte de Lutie.";
+	show "Lembre de nos visitar na época do natal.";
+	show "Existem vários eventos para você participar.";
+	show "Cuidado com o ^6B1312Cavaleiro das Trevas^000000 e com o ^6B1312Hatii^000000 os monstros mais fortes da Fábrica de Brinquedos.";
+	close;
+}
+
+xmas,147,311,5	script	Quadro de Avisos#23	837,{
+
+	show "[Fábrica de Brinquedos]";
+	show "^6B1312Cuidado!^000000";
+	show "A Fábrica de Brinquedos possui 2 níveis.";
+	show "Este local não é tão difícil para aventureiros iniciantes,";
+	show "porém existem 3 monstros chefes que aparecem sem aviso prévio.";
+	next;
+	show "[Fábrica de Brinquedos]";
+	show "No primeiro nível, você pode encontrar o monstro-chefe: ^6B1312Angeling^000000.";
+	show "No segundo nível, você poderá encontrar 2 monstros-chefes que são:";
+	show "^6B1312Cavaleiro das Trevas^000000 e ^6B1312Hatii^000000. Tenha atenção e cuidado.";
+	show "Além disso, ^6B1312Presente^000000, ^6B1312Soldadinho de Chumbo^000000 e ^6B1312Cookies^000000 só existem nessa fábrica.";
+	close;
+}
+
+yuno_fild03,37,143,5	script	Quadro de Avisos#24	837,{
+
+	show "[Caverna de Magma, Labirinto Nogg]";
+	show "^6B1312Cuidado!^000000";
+	show "No labirinto Nogg você pode encontrar criaturas fortes.";
+	show "Ela é limitada apenas para jogadores experientes.";
+	next;
+	show "[Caverna de Magma, Labirinto Nogg]";
+	show "Parte dos monstros dessa caverna são";
+	show "^6B1312Kahos^000000 e ^6B1312Pesadelos Terrors^000000.";
+	show "Tenha atenção!";
+	close;
+}
+
+niflheim,200,191,5	script	Quadro de Avisos#25	837,{
+
+	show "[Cidade Morta, Nifflheim]";
+	show "Bem vindo a Nifflheim?, A cidade da Morte.";
+	show "Nifflheim era um local diferente do que é hoje";
+	show "você veio depois da morte da cidade.";
+	show "De qualquer modo, recentemente pessoas acharam um caminho para aqui atravéz de uma árvore.";
+	show "Então, você poderá ver mais pessoas passando por aqui.";
+	next;
+	show "[Cidade Morta, Nifflheim]";
+	show "Uma atração turística, é o Castelo Assombrado.";
+	show "Diferente de outras cidades, é proibido salvar o ponto de retorno";
+	show "ou se teletransportar para Nifflheim. Pois se não os monstros daqui iriam fugir.";
+	next;
+	show "[Cidade Morta, Nifflheim]";
+	show "Especialmente, fique atento com o monstro-chefe";
+	show "chamado ^6B1312Senhor das Trevas^000000.";
+	next;
+	show "[Cidade Morta, Nifflheim]";
+	show "Se você for a oeste, você chegará na ^6B1312Vila de Gyoll^000000";
+	show "onde monstros muito fortes vivem, é recomendado que aventureiros";
+	show "que estejam sozinhos saiam da cidade imediatamente.";
+	close;
+}
+
+//moc_fild15,267,264,5	script	Quadro de Avisos#26	837,{
+//
+//	show "[Formigueiro Infernal]";
+//	show "^6B1312Cuidado!^000000";
+//	show "O Formigueiro Infernal possui 2 níveis.";
+//	show "Como o nome diz, este formigueiros possui uma variedade grande";
+//	show "de formigas, e é um bom lugar pa novos aventureiros.";
+//	next;
+//	show "[Formigueiro Infernal]";
+//	show "Porém, cuidado com o ^6B1312Maya Macho^000000 que aparece no primeiro nível,";
+//	show "e ^6B1312Maya^000000 que aparece no segundo nível. Eles são os pais das formigas.";
+//	show "Um Mvp chamado ^6B1312Freeoni^000000 pode aparecer a qualquer momento.";
+//	close;
+//}
+
+moc_ruins,61,164,5	script	Quadro de Avisos#27	837,{
+
+	show "[Pirâmide]";
+	show "^6B1312Cuidado!^000000";
+	show "Essa pirâmide possui 7 níveis, 4 para cima e 3 no subterrâneo.";
+	show "Os primeiros níveis são recomendados a novos aventureiros, mas se você decer para o subterrâneo, você encontrará monstros fortes.";
+	next;
+	show "[Pirâmide]";
+	show "No primeiro nível, existe a guilda dos Gatunos, onde aprendizes podem se tornar Gatunos.";
+	show "No quarto nível, um monstro chamado ^6B1312Osiris^000000 aparece de vez em quando.";
+	show "No terceiro nível subterrâneo, ^6B1312Amon Ra^000000 aparece de vez em quando.";
+	close;
+}
+
+glast_01,369,308,5	script	Quadro de Avisos#28	837,{
+
+	show "[Glast Heim]";
+	show "Glast Heim é uma enorme cidade com várias cavernas.";
+	show "Esta cidade definitivamente não é apropriada para novos ou";
+	show "aventureiros medianos, mas sim para perfeccionais.";
+	next;
+	show "[Glast Heim]";
+	show "Existem vários monstros por aqui como: ^6B1312Lorde das Trevas^000000,";
+	show "^6B1312Duque coruja^000000, ^6B1312Barão Coruja^000000, ^6B1312Ilusão^000000, ^6B1312Cavaleiro Sanguinário^000000, ^6B1312Cavaleiro do Abismo^000000, ^6B1312Chimera^000000 e vários outros tipos de utilizadores de espada.";
+	next;
+	show "[Glast Heim]";
+	show "Porém, por mais difícil que seja, a recompensa é grande.";
+	show "Essa cidade é movimentada por jogadores mais experientes.";
+	show "Aproveite sua aventura!";
+	close;
+}

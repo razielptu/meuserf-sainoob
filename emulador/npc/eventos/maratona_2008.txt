@@ -1,0 +1,284 @@
+//===== Cronus Script ========================================
+//= Evento Maratona (2008)
+//===== Por: =================================================
+//= BlacKK
+//===== Versão Atual: ========================================
+//= 1.0
+//===== Compatível Com: ======================================
+//= Cronus
+//===== Descrição: ===========================================
+//= Evento Maratona 2008.
+//= [ Oficial do bRO ]
+//===== Comentários Adicionais: ==============================
+//= 1.0 Iniciado o NPC. [BlacKK]
+//============================================================
+
+veins,217,346,4	script	Mithe	728,{
+	show "[Mithe]";
+	show "Olá, Badduk.";
+	show "Está sabendo das Olimpíadas?";
+	next;
+	show "[Mithe]";
+	show "Nosso comitê olímpico está organizando essa competição na qual jogadores de todas as nações competem de forma justa através do esporte.";
+	next;
+	show "[Mithe]";
+	show "Ei, você parece forte. Não quer entrar na maratona?";
+	next;
+	switch(select("Seria legal!:O que é uma maratona?:ODEIO correr.")) {
+case 1:
+	if(event_maratona < 1){
+	show "[Mithe]";
+	show "Viu só? Tenho bom olho para atletas.";
+	next;
+	show "[Mithe]";
+	show "A inscrição custa 1000 zenys.";
+	next;
+	if (Zeny > 999) {
+	show "[Mithe]";
+	show "Ótimo! Vamos começar agora mesmo.";
+	show "Você pode começar assim que terminar de falar comigo. Não se esqueça de marcar seu progresso nos Painéis de Checagem.";
+	set Zeny, Zeny - 1000;
+	next;
+	show "[Mithe]";
+	show "Então, vamos começar! Vá até Rachel!";
+	additem 7548,1; //Calçados de Treino
+	set event_maratona, 1;
+	close;
+	} else {
+	show "[Mithe]";
+	show "Ah! Você não possui o dinheiro suficiente para a inscrição.";
+	show "Volte mais tarde.";
+	close;
+	}
+	}
+	else if(event_maratona == 1){
+	show "[Mithe]";
+	show "O que está esperando? Vá até Rachel!";
+	close;
+	}
+	else if(event_maratona > 1){
+	show "[Mithe]";
+	show "Espero que entenda o significado das Olimpíadas, tendo competido nesta prova.";
+	close;
+	}
+case 2:
+	show "[Mithe]";
+	show "O quê, não sabe?";
+	show "Caramba... Está bem, vou explicar.";
+	next;
+	show "[Mithe]";
+	show "Uma Maratona é uma corrida muito longa. Ela tem esse nome graças à lenda do grande Fidípides, que correu da cidade de Maratona até Atenas de uma só vez para anunciar a vitória dos gregos sobre os persas.";
+	next;
+	show "[Mithe]";
+	show "A partir dessa lenda, a corrida foi criada e logo se tornou uma prova olímpica.";
+	next;
+	show "[Mithe]";
+	show "Estamos organizando uma maratona a partir de Veins, passando por Rachel, Einbroch, Al De Baran, Geffen, Prontera, Morroc, Payon e Alberta!";
+	next;
+	show "[Mithe]";
+	show "Dizem que ninguém termina a Maratona sendo a mesma pessoa começou! Por que será?...";
+	next;
+	show "[Mithe]";
+	show "Será por causa do caminho que você percorre? Das paisagens? Do esforço físico? Bem, você só vai saber se correr! Hehe!";
+	close;
+case 3:
+	show "[Mithe]";
+	show "Bah! Ninguém gosta de gente preguiçosa, sabia?";
+	close;
+
+	}
+}
+
+rachel,149,135,4	script	Painel de Checagem#01	837,{
+	if(event_maratona < 1){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 1){
+	show "["+strcharinfo(0)+"]";
+	show "Ah. Aqui está. O ponto de controle.";
+	show "Vamos ver... a próxima parada é...";
+	show "^000080Einbroch^000000.";
+	set event_maratona, 2;
+	close;
+	}
+
+	if(event_maratona == 2){
+	show "["+strcharinfo(0)+"]";
+	show "A próxima parada é em ^000080Einbroch^000000.";
+	close;
+	}
+}
+
+einbroch,143,47,4	script	Painel de Checagem#02	837,{
+	if(event_maratona < 2 || event_maratona > 3){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 2){
+	show "["+strcharinfo(0)+"]";
+	show "Muito bem. Deve ser esse. O ponto de controle.";
+	show "Vamos ver... A próxima parada é...";
+	show "Tenho de encontrar ^000080Surn, em Al De Baran^000000.";
+	set event_maratona, 3;
+	close;
+	}
+
+	if(event_maratona == 3){
+	show "["+strcharinfo(0)+"]";
+	show "Vamos ver... A próxima parada é...";
+	show "encontrar ^000080Surn, em Al De Baran^000000.";
+	close;
+	}
+}
+
+aldebaran,141,74,4	script	Surn	745,{
+	if(event_maratona < 3 || event_maratona > 4){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 3){
+	show "[Surn]";
+	show "Ah, você chegou.";
+	show "Está indo muito bem, Badduk.";
+	show "Continue assim!";
+	next;
+	show "[Surn]";
+	show "Mas... Por que está usando essas roupas pesadas? Elas não servem para correr uma martona! Pegue estas, são mais leves.";
+	next;
+	show "[Surn]";
+	show "Não esqueça... Nossa próxima parada é em ^000080Geffen^000000.";
+	show "Vá em frente!";
+	additem 7145,1; //Camiseta de Corrida
+	set event_maratona, 4;
+	close;
+	}
+
+	if(event_maratona == 4){
+	show "[Surn]";
+	show "Você vai reconhecer o valor do desafio quando terminar o percurso.";
+	close;
+	}
+}
+
+geffen,123,196,4	script	Painel de Checagem#03	837,{
+	if(event_maratona < 4 || event_maratona > 5){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 4){
+	show "["+strcharinfo(0)+"]";
+	show "Ah, legal. Encontrei... Aqui diz";
+	show "que tenho que ir para ^000080Prontera^000000.";
+	set event_maratona, 5;
+	close;
+	}
+
+	if(event_maratona == 5){
+	show "["+strcharinfo(0)+"]";
+	show "Agora tenho de ir para ^000080Prontera^000000.";
+	close;
+	}
+}
+
+prontera,128,210,4	script	Painel de Checagem#04	837,{
+	if(event_maratona < 5 || event_maratona > 6){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 5){
+	show "["+strcharinfo(0)+"]";
+	show "Legal, estou quase lá!";
+	show "A próxima parada é em ^000080Morroc^000000.";
+	set event_maratona, 6;
+	close;
+	}
+
+	if(event_maratona == 6){
+	show "["+strcharinfo(0)+"]";
+	show "Agora tenho de ir para ^000080Morroc^000000.";
+	close;
+	}
+}
+
+morocc,162,51,4	script	Painel de Checagem#05	837,{
+	if(event_maratona < 6 || event_maratona > 7){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 6){
+	show "["+strcharinfo(0)+"]";
+	show "Legal... Achei o ponto de controle.";
+	show "O próximo é em ^000080Payon^000000.";
+	set event_maratona, 7;
+	close;
+	}
+
+	if(event_maratona == 7){
+	show "["+strcharinfo(0)+"]";
+	show "Tenho de ir para ^000080Payon^000000.";
+	close;
+	}
+}
+
+payon,170,101,4	script	Painel de Checagem#06	837,{
+	if(event_maratona < 7 || event_maratona > 8){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 7){
+	show "["+strcharinfo(0)+"]";
+	show "Ótimo. Achei o ponto de controle.";
+	show "Agora... Tenho de encontrar ^000080Aalti, em Alberta^000000.";
+	set event_maratona, 8;
+	close;
+	}
+
+	if(event_maratona == 8){
+	show "["+strcharinfo(0)+"]";
+	show "Certo... ^000080Aalti, em Alberta^000000.";
+	close;
+	}
+}
+
+alberta,117,58,4	script	Aalti	904,{
+	if(event_maratona < 8 || event_maratona > 9){
+	show "- O percurso da maratona é Veins > Rachel > Einbroch > Al De Baran > Geffen > Prontera > Morroc > Payon > Alberta. -";
+	close;
+	}
+
+	if(event_maratona == 8){
+	show "[Aalti]";
+	show "Parabéns, Badduk.";
+	show "Uau! Seu tempo foi ótimo!";
+	show "Quem ia imaginar que um "+jobname(Class)+" pudesse correr tão rápido?";
+	set event_maratona, 9;
+	next;
+	show "[Aalti]";
+	show "Bem, tome um pouco de fôlego enquanto pego sua medalha e seu prêmio.";
+	show "Já volto.";
+	next;
+	show "- Aalti procura por algo em sua bolsa.";
+	next;
+	show "[Aalti]";
+	show "Prontinho! Vai ficar uma beleza em você!";
+	show "Espero ver você de novo ano que vem! Tchau!";
+	additem 603,2; //Velha Caixa Azul
+	additem 5433,1; //Coroa de Louros Dourada
+	close;
+	}
+
+	if(event_maratona == 9){
+	show "[Aalti]";
+	show "Espero que entenda o significado das Olimpíadas, tendo competido nesta prova.";
+	show "Bom trabalho.";
+	close;
+	}
+}

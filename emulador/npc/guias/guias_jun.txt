@@ -1,0 +1,106 @@
+//===== Cronus Script ========================================
+//= Guias de Juno
+//===== Por: =================================================
+//= KitsuneStarwind, usul, kobra_k88
+//===== Vers?o Atual: ========================================
+//= 1.3
+//===== Compatível Com: ======================================
+//= eAthena  0.5.2 +, Cronus 558 +
+//===== Comentários Adicionado: ==============================
+//= 1.2b Traduzido e Adaptado para o Cronus [Pudim]
+//= Script Reestruturado [Mehah]
+//= 1.2.3 - Script revisado. [MaxDragon]
+//= 1.2.4 - Alguns Bugs Corrigidos. [Minos] 
+//= 1.3 - Reestruturado de acordo com o Aegis. [RoM]
+//============================================================
+
+yuno,153,47,4	script	Guia de Juno#yuno	700,{
+	mes "[Srta. Yoon]";
+	mes "Um lugar que leva a visão do futuro, e dá sua forma no presente. Bem-vind"+strsex("o","a")+" à";
+	mes "cidade de Juno!";
+	next;
+	switch(select("Loja de Armas:Loja de Utilidades:Castelo dos Sábios:Rua das lojas de Livros:Juphero Plaza:Biblioteca da República:Academia de Magia de Schwheicherbil:Museu dos Monstros:Casa de Forja:Aeroporto:Cancelar")) {
+	case 1:
+		viewpoint 1,120,138,0,0xFF3355;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^FF3355+^000000 -> Loja de Armas";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 2:
+		viewpoint 1,193,142,1,0x3355FF;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^3355FF+^000000 -> Loja de Utilidades";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 3:
+		viewpoint 1,90,318,2,0x33FF55;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^33FF55+^000000 -> Castelo dos Sábios";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 4:
+		viewpoint 1,257,102,3,0xFF3355;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^FF3355+^000000 -> Rua das lojas de Livros";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 5:
+		viewpoint 1,157,170,4,0x3355FF;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^3355FF+^000000 -> Juphero Plaza";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 6:
+		viewpoint 1,336,204,5,0x33FF55;
+		mes "[Srta. Yoon]";
+		mes "Por favor olhe";
+		mes "no mini-mapa.";
+		mes "^33FF55+^000000 -> Biblioteca da República";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 7:
+		viewpoint 1,323,281,6,0xFF3355;
+		mes "[Srta. Yoon]";
+		mes "Please look at the mini map.";
+		mes "^FF3355+^000000 -> Academia de Magia de Schwheicherbil";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 8:
+		viewpoint 1,278,288,7,0x3355FF;
+		mes "[Srta. Yoon]";
+		mes "Please look at the mini map.";
+		mes "^3355FF+^000000 -> Museu dos Monstros";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 9:
+		viewpoint 1,120,138,8,0xFF3355;
+		mes "[Srta. Yoon]";
+		mes "Please look at the mini map.";
+		mes "^FF3355+^000000 -> Casa de Forja";
+		mes "The forge is located underneath Armory.";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 10:
+		viewpoint 1,53,214,9,0xFF3355;
+		mes "[Srta. Yoon]";
+		mes "Please look at the mini map.";
+		mes "^FF3355+^000000 -> Aeroporto";
+		mes "Obrigada, tenha um bom dia.";
+		close;
+	case 11:
+		mes "[Srta. Yoon]";
+		mes "Uma cidade de Conhecimento!";
+		mes "Bem-vind"+strsex("o","a")+" à Juno.";
+		close;
+	}
+}

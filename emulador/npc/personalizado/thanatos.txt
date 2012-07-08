@@ -1,0 +1,75 @@
+//**************************************************************************//
+//*               Um Nome... Um Reinado... Uma Reputação...                *//
+//**************************************************************************//
+//*                                                                        *//
+//*                                                                        *//
+//*                                 \|||/                                  *//
+//*            .-.________          (o o)               ________.-.        *//
+//*       ----/ \_)_______) +--oooO--(_)------------+  (_______(_/ \----   *//
+//*          (    ()___)    |                       |    (___()     )      *//
+//*               ()__)     |      * L Y K O *      |     (__()            *//
+//*       ----\___()_)      |                       |      (_()___/-----   *//
+//*                         +------------Ooo--------+                      *//
+//*                                |__|__|                                 *//
+//*                                 || ||                                  *//
+//*                        ________ooO Ooo________                         *//
+//*                                                                        *//
+//**************************************************************************//
+//* Invejados Por Muitos, Copiados Por Alguns, e Admirados Por Todos!!!... *//
+//**************************************************************************//
+thana_boss,135,127,4	script	Thanatos Summoner	897,{
+set @npc$, "[^1E90FF Invocador ^000000]";
+
+mes @npc$;
+mes "Olá¡, deseja invocar o monstro Thanatos?";
+next;
+menu "Sim",L_sim,"Não",-;
+mes @npc$;
+mes "Muito bem, até logo.";
+close;
+
+L_sim:
+mes @npc$;
+mes "Então me traga os seguintes itens:";
+mes "2 Fragmentos de Ódio";
+mes "2 Fragmentos de Agonia";
+mes "2 Fragmentos de Desespero";
+mes "2 Fragmentos de Desgraça";
+next;
+mes @npc$;
+mes "Prosseguir?";
+menu "Sim",L_verify,"Não",-;
+next;
+mes @npc$;
+mes "Muito bem, até logo.";
+close;
+
+L_verify:
+next;
+mes @npc$;
+mes "Vamos ver se você tem todos os itens...";
+if (countitem(7436) < 2) goto L_noitemx;
+if (countitem(7437) < 2) goto L_noitemx;
+if (countitem(7438) < 2) goto L_noitemx;
+if (countitem(7439) < 2) goto L_noitemx;
+next;
+mes @npc$;
+mes "Muito bem, você tem todos os itens!";
+delitem 7436,2;
+delitem 7437,2;
+delitem 7438,2;
+delitem 7439,2;
+next;
+mes @npc$;
+mes "Vou invoca-lo agora!";
+monster "thana_boss",142,123,"Memória de Thanatos",1708,1;
+close;
+
+L_noitemx:
+next;
+mes @npc$;
+mes "Voce nao trouxe todos os itens ... Volte quando tiver!";
+close;
+
+
+}

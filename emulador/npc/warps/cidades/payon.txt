@@ -1,0 +1,180 @@
+//===== eAthena Script ======================================= 
+//= payo2 Warps
+//===== By: ================================================== 
+//= Muad Dib (1.0)
+//= Darkchild (1.1)
+//= Nana (1.3)
+//===== Current Version: ===================================== 
+//= 1.3
+//===== Compatible With: ===================================== 
+//= Any eAthena Mod
+//===== Description: ========================================= 
+//= payo2 warps
+//===== Additional Comments: ================================= 
+//= Warps Done By Muad Dib, All Credits To Him
+//= 1.2 Removed Duplicated Warp
+//= 1.3 Separated and reorganized field and dungeons
+//============================================================ 
+
+// == Official Warps From kRO Screenshots ==
+
+// -- Entrada e Saída e Payon --
+//payo2,16,151,0	warp	payo2warp001	1,1,pay_gld,370,149
+//pay_gld,374,149,0	warp	payo2warp002	1,1,payo2,20,151
+//payo2,90,22,0	warp	payo2warp003	5,3,pay_fild01,333,356
+//pay_fild01,333,360,0	warp	payo2warp004	5,3,payo2,90,26
+//payo2,189,70,0	warp	payo2warp005	2,4,pay_fild08,20,74
+//pay_fild08,17,74,0	warp	payo2warp006	2,4,payo2,185,70
+//payo2,175,189,0	warp	payo2warp007	4,2,pay_arche,82,20
+//pay_arche,81,17,0	warp	payo2warp008	5,2,payo2,175,185
+//pay_arche,35,132,0	warp	pay_dunwarp009	2,4pay_dun00,21,181
+
+// -- Casinha --
+//payo2,174,133,0	warp	payo2warp009	2,2,pa2_in01,164,108
+//pa2_in01,160,108,0	warp	payo2warp010	2,2,payo2,170,133
+//pa2_in01,170,100,0	warp	payo2warp011	2,2,pa2_in01,169,83
+//pa2_in01,170,87,0	warp	payo2warp012	2,2,pa2_in01,169,105
+//pa2_in01,168,74,0	warp	payo2warp013	2,2,pa2_in01,168,48
+//pa2_in01,168,53,0	warp	payo2warp014	2,2,pa2_in01,168,78
+//pa2_in01,170,119,0	warp	payo2warp015	2,2,pa2_in01,170,136
+//pa2_in01,170,132,0	warp	payo2warp016	2,2,pa2_in01,170,115
+
+// -- Casinha 2
+
+//payo2,133,81,0	warp	payo2warp755	2,2,pa2_in01,141,45
+//pa2_in01,145,45,0	warp	payo2warp756	2,2,payo2,129,81
+//payo2,141,90,0	warp	payo2warp775	2,2,pa2_in01,129,39
+//pa2_in01,130,36,0	warp	payo2warp777	2,2,payo2,141,94
+
+// -- Castelo --
+//payo2,90,167,0	warp	payo2warp017	2,2,pa2_in01,72,90
+//pa2_in01,72,86,0	warp	payo2warp917	2,2,payo2,90,162
+//pa2_in01,60,99,0	warp	payo2warp817	2,2,pa2_in01,109,107
+//pa2_in01,60,107,0	warp	payo2warp717	2,2,pa2_in01,109,143
+//pa2_in01,83,107,0	warp	payo2warp617	2,2,pa2_in01,128,143
+//pa2_in01,83,99,0	warp	payo2warp517	2,2,pa2_in01,126,107
+
+//pa2_in01,113,107,0	warp	payo2warp817	2,2,pa2_in01,64,99
+//pa2_in01,113,144,0	warp	payo2warp717	2,2,pa2_in01,64,107
+//pa2_in01,124,143,0	warp	payo2warp617	2,2,pa2_in01,79,107
+//pa2_in01,122,107,0	warp	payo2warp517	2,2,pa2_in01,79,99
+
+//pa2_in01,72,121,0	warp	payo2warp417	2,2,pa2_in01,71,137
+//pa2_in01,72,134,0	warp	payo2warp317	2,2,pa2_in01,72,117
+
+//pa2_in01,72,159,0	warp	payo2warp217	2,2,pa2_in01,59,173
+//pa2_in01,60,170,0	warp	payo2warp117	2,2,pa2_in01,72,155
+
+//pa2_in01,60,145,0	warp	payo2warp227	2,2,pa2_in01,43,138
+//pa2_in01,47,138,0	warp	payo2warp127	2,2,pa2_in01,64,145
+
+// Acima tudo ok
+// Falta Arrumar
+
+//pa2_in01,83,145,0	warp	payo2warp237	2,2,pa2_in01,51,30
+//pa2_in01,51,35,0	warp	payo2warp137	2,2,pa2_in01,79,145
+
+// Continuação
+
+//pa2_in01,30,151,0	warp	payo2warp247	2,2,pa2_in01,26,168
+//pa2_in01,26,164,0	warp	payo2warp147	2,2,pa2_in01,30,147
+
+//pa2_in01,30,126,0	warp	payo2warp257	2,2,pa2_in01,26,110
+//pa2_in01,25,115,0	warp	payo2warp157	2,2,pa2_in01,29,130
+
+
+
+
+// -- Loja de Armas --
+//payo2,22,175,0	warp	payo2warp020	2,2,pa2_in01,97,174		// Entrada Casa Esquerda
+//pa2_in01,97,170,0	warp	payo2warp021	2,2,payo2,22,172			// Saida Casa Esquerda
+//payo2,30,177,0	warp	payo2warp022	2,2,pa2_in01,80,63			// Entrada Casa Meio
+//pa2_in01,83,64,0	warp	payo2warp023	2,2,payo2,30,174			// Saída Casa Meio
+//payo2,38,174,0	warp	payo2warp024	2,2,pa2_in01,133,171		// Entrada Casa Direita
+//pa2_in01,134,168,0	warp	payo2warp025	2,2,payo2,38,171		// Saída Casa Direita
+//pa2_in01,111,177,0	warp	payo2warp026	2,2,pa2_in01,70,56		// Esquerda para Meio
+//pa2_in01,70,52,0	warp	payo2warp028	2,2,pa2_in01,107,177		// Meio para Esquerda
+//pa2_in01,70,75,0	warp	payo2warp291	2,2,pa2_in01,130,177	// Meio para Direita Baixo
+//pa2_in01,126,177,0	warp	payo2warp292	2,2,pa2_in01,69,72		// Baixo Direita para Meio
+//pa2_in01,143,179,0	warp	payo2warp293	2,2,pa2_in01,168,179	// Baixo Direita para Cima Direita
+//pa2_in01,164,180,0	warp	payo2warp294	2,2,pa2_in01,140,179	// Cima Direita para Baixo Direita
+
+// -- Middle Castle --
+//payo2,156,247,0		warp	payo2warp030	2,2,payo2_in03.gat,98,117
+//payo2_in03.gat,98,114,0		warp	payo2warp031	2,2,payo2,156,245
+//payo2_in03.gat,90,124,0		warp	payo2warp032	2,2,payo2_in03.gat,80,124
+//payo2_in03.gat,83,124,0		warp	payo2warp033	2,2,payo2_in03.gat,93,124
+//payo2_in03.gat,99,133,0		warp	payo2warp034	2,2,payo2_in03.gat,99,151
+//payo2_in03.gat,99,148,0		warp	payo2warp035	2,2,payo2_in03.gat,99,130
+//payo2_in03.gat,107,124,0	warp	payo2warp036	2,2,payo2_in03.gat,117,124
+//payo2_in03.gat,114,124,0	warp	payo2warp037	2,2,payo2_in03.gat,104,124
+
+// -- Weapon Storage Building --
+//payo2,189,233,0		warp	payo2warp038	2,2,payo2_in03.gat,149,39
+//payo2_in03.gat,146,39,0		warp	payo2warp039	2,2,payo2,186,233
+//payo2_in03.gat,158,32,0		warp	payo2warp040	2,2,payo2_in03.gat,130,14
+//payo2_in03.gat,130,17,0		warp	payo2warp041	2,2,payo2_in03.gat,158,35
+//payo2_in03.gat,172,32,0		warp	payo2warp042	2,2,payo2_in03.gat,160,14
+//payo2_in03.gat,160,17,0		warp	payo2warp043	2,2,payo2_in03.gat,172,35
+//payo2_in03.gat,186,32,0		warp	payo2warp044	2,2,payo2_in03.gat,190,13
+//payo2_in03.gat,190,17,0		warp	payo2warp045	2,2,payo2_in03.gat,186,35
+
+// -- House --
+//payo2,256,285,0		warp	payo2warp046	2,2,pa2_in01,45,11
+//pa2_in01,42,11,0		warp	payo2warp047	2,2,payo2,253,285
+
+// -- Old Archer Village Warps --
+//pay_arche,36,131,0		warp	payo2warp048	2,2,pay_dun00,21,183
+//pay_arche,71,156,0		warp	payo2warp049	2,2,pa2_in02,82,41
+//pay_arche,92,170,0		warp	payo2warp050	2,2,pa2_in02,50,7
+//pay_arche,145,165,0	 	warp	payo2warp051	2,2,pa2_in02,64,60
+//pa2_in02,10,25,0	 	warp	payo2warp052	2,2,pa2_in02,72,67
+//pa2_in02,35,67,0	 	warp	payo2warp053	2,2,pa2_in02,55,67
+//pa2_in02,50,4,0	 	warp	payo2warp054	3,1,pay_arche,92,166
+//pa2_in02,52,67,0	 	warp	payo2warp055	2,2,pa2_in02,32,67
+//pa2_in02,61,33,0	 	warp	payo2warp056	2,2,pa2_in02,73,33
+//pa2_in02,64,56,0	 	warp	payo2warp057	2,2,pay_arche,141,161
+//pa2_in02,70,33,0	 	warp	payo2warp058	2,2,pa2_in02,58,33
+//pa2_in02,75,67,0	 	warp	payo2warp059	2,2,pa2_in02,13,25
+//pa2_in02,82,45,0	 	warp	payo2warp060	2,2,pay_arche,74,153
+
+
+// == Self Made Warps, No Screen Availble ==
+
+// -- Large West House --
+//payo2,127,204,0		warp	payo2warp061	2,2,payo2_in03.gat,81,19
+//payo2_in03.gat,85,19,0		warp	payo2warp062	2,2,payo2,131,204
+//payo2_in03.gat,74,18,0	 	warp	payo2warp063	2,2,payo2_in03.gat,62,18
+//payo2_in03.gat,67,18,0	 	warp	payo2warp064	2,2,payo2_in03.gat,78,18
+//payo2_in03.gat,46,18,0	 	warp	payo2warp065	2,2,payo2_in03.gat,35,18
+//payo2_in03.gat,39,18,0	 	warp	payo2warp066	2,2,payo2_in03.gat,51,18
+//payo2_in03.gat,28,18,0	 	warp	payo2warp067	2,2,payo2_in03.gat,17,18
+//payo2_in03.gat,21,18,0	 	warp	payo2warp068	2,2,payo2_in03.gat,32,18
+
+// -- Big Kitchen --
+//payo2,155,327,0		warp	payo2warp069	2,2,payo2_in03.gat,165,143
+//payo2_in03.gat,165,140,0	warp	payo2warp070	2,2,payo2,155,324
+//payo2_in03.gat,185,178,0	warp	payo2warp071	2,2,payo2_in03.gat,185,149
+//payo2_in03.gat,185,153,0	warp	payo2warp072	2,2,payo2_in03.gat,185,182
+
+// -- Upper Castle --
+//payo2,107,327,0		warp	payo2warp073	2,2,payo2_in03.gat,19,64
+//payo2_in03.gat,19,60,0		warp	payo2warp074	2,2,payo2,107,323
+//payo2_in03.gat,19,73,0	 	warp	payo2warp075	2,2,payo2_in03.gat,19,90
+//payo2_in03.gat,19,86,0	 	warp	payo2warp076	2,2,payo2_in03.gat,19,69
+//payo2_in03.gat,19,103,0	 	warp	payo2warp077	2,2,payo2_in03.gat,19,122
+//payo2_in03.gat,19,118,0	 	warp	payo2warp078	2,2,payo2_in03.gat,19,99
+//payo2_in03.gat,11,131,0	 	warp	payo2warp079	2,2,payo2_in03.gat,11,146
+//payo2_in03.gat,11,142,0	 	warp	payo2warp080	2,2,payo2_in03.gat,11,127
+//payo2_in03.gat,27,131,0	 	warp	payo2warp081	2,2,payo2_in03.gat,27,146
+//payo2_in03.gat,27,142,0	 	warp	payo2warp082	2,2,payo2_in03.gat,27,127
+//payo2_in03.gat,11,161,0	 	warp	payo2warp083	2,2,payo2_in03.gat,11,176
+//payo2_in03.gat,11,172,0	 	warp	payo2warp084	2,2,payo2_in03.gat,11,157
+//payo2_in03.gat,27,161,0	 	warp	payo2warp085	2,2,payo2_in03.gat,27,176
+//payo2_in03.gat,27,172,0	 	warp	payo2warp086	2,2,payo2_in03.gat,27,157
+
+// -- House --
+//pa2_in01,86,9,0		warp	payo2warp087	2,2,payo2,266,152
+//payo2,270,152,0		warp	payo2warp088	2,2,pa2_in01,90,9
+//pa2_in01,107,71,0		warp	payo2warp089	2,2,pa2_in01,96,37
+//pa2_in01,93,37,0		warp	payo2warp090	2,2,pa2_in01,103,71
