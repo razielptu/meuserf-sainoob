@@ -1,0 +1,90 @@
+//==========================================================
+//  ___  ___       ___   ____    ____  ___      
+// |   \/   |     /   \  \   \  /   / /   \     
+// |  \  /  |    /  ^  \  \   \/   / /  ^  \    
+// |  |\/|  |   /  /_\  \  \_    _/ /  /_\  \   
+// |  |  |  |  /  _____  \   |  |  /  _____  \  
+// |__|  |__| /__/     \__\  |__| /__/     \__\ 
+//
+//==========================================================
+//= Quest do Mestre Ferreiro
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= Mudança de Classe para Mestre Ferreiro
+//===== Comentários Adicionais: ======================================
+//= 1.0 Traduzido. [LyDe]
+//====================================================================
+
+valkyrie,44,50,5	script	Ferreiro#Valkyrie	731,{
+	if (ADVJOB == 0 || Upper != 1) {
+		mes "[Mestre Ferreiro]";
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			mes "Parabéns.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		mes "Ah...";
+		mes "O auge";
+		mes "do artesanato.";
+		mes "Esse é o trabalho";
+		mes "de um Mestre Ferreiro.";
+		next;
+		mes "[Mestre Ferreiro]";
+		mes "Uma vez quando você";
+		mes "é o melhor dos melhores,";
+		mes "você começa a forjar, e";
+		mes "com isso o objetivo é";
+		mes "de descobrir novas e melhores";
+		mes "maneiras de elaborar coisas...";
+		close;
+	} else if (ADVJOB == Job_WhiteSmith && Class == Job_Merchant_High && JobLevel > 39) {
+		mes "[Mestre Ferreiro]";
+		mes "Chegou a hora!";
+		mes "Nosso mundo precisa de corajosos,";
+		mes "aventureiros e trabalhores como";
+		mes "você...";
+		next;
+		mes "[Mestre Ferreiro]";
+		mes "Você gostaria de se tornar";
+		mes "um Mestre Ferreiro?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Mestre Ferreiro]";
+			mes "Quando você estiver pronto,";
+			mes "fique à vontade para voltar.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		mes "[Mestre Ferreiro]";
+		if (SkillPoint) {
+			mes "Você ainda tem Pontos de Habilidade. Por favor,";
+			mes "use todos os seus Pontos de Habilidade e depois volte.";
+			close;
+		}
+		jobchange Job_Whitesmith;
+		set ADVJOB,0;
+		mes "Parabéns!";
+		mes "Como um Mestre Ferreiro,";
+		mes "Eu espero que você forje";
+		mes "um futuro melhor para";
+		mes "Rune-Midgard.";
+		close;
+	}
+	mes "[Mestre Ferreiro]";
+	mes "Bem-vindo à";
+	mes "Valhalla,";
+	mes "o Salão de Honra.";
+	next;
+	mes "[Mestre Ferreiro]";
+	mes "Por favor";
+	mes "sinta-se à vontade";
+	mes "enquanto estiver aqui.";
+	mes "Honre os guerreiros.";
+	close;
+}

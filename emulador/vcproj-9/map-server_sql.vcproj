@@ -40,11 +40,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include"
-				PreprocessorDefinitions="WIN32;_WIN32;__WIN32;_DEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;DB_MANUAL_CAST_TO_UNION"
+				AdditionalIncludeDirectories="..\3rdparty\libconfig;..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;..\3rdparty\mt19937ar"
+				PreprocessorDefinitions="WIN32;_WIN32;__WIN32;_DEBUG;PCRE_SUPPORT;FD_SETSIZE=4096;LIBCONFIG_STATIC;YY_USE_CONST"
 				GeneratePreprocessedFile="0"
-				MinimalRebuild="true"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -54,7 +54,7 @@
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				CompileAs="1"
-				DisableSpecificWarnings="4018;4100;4800"
+				DisableSpecificWarnings="4018;4100;4800;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -128,6 +128,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				Optimization="2"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
@@ -135,8 +136,8 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include"
-				PreprocessorDefinitions="WIN32;_WIN32;__WIN32;NDEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;DB_MANUAL_CAST_TO_UNION"
+				AdditionalIncludeDirectories="..\3rdparty\libconfig;..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;..\3rdparty\mt19937ar"
+				PreprocessorDefinitions="WIN32;_WIN32;__WIN32;NDEBUG;PCRE_SUPPORT;FD_SETSIZE=4096;LIBCONFIG_STATIC;YY_USE_CONST"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				DefaultCharIsUnsigned="false"
@@ -144,7 +145,7 @@
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				CompileAs="1"
-				DisableSpecificWarnings="4018;4100;4800"
+				DisableSpecificWarnings="4018;4100;4800;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -200,18 +201,86 @@
 	</References>
 	<Files>
 		<Filter
+			Name="3rdparty"
+			>
+			<Filter
+				Name="mt19937ar"
+				>
+				<File
+					RelativePath="..\3rdparty\mt19937ar\mt19937ar.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\mt19937ar\mt19937ar.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="libconfig"
+				>
+				<File
+					RelativePath="..\3rdparty\libconfig\grammar.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\grammar.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\libconfig.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\libconfig.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\parsectx.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\scanctx.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\scanctx.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\scanner.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\scanner.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\strbuf.c"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\strbuf.h"
+					>
+				</File>
+				<File
+					RelativePath="..\3rdparty\libconfig\wincompat.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
 			Name="common"
 			>
 			<File
-				RelativePath="..\src\common\gamefort.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\common\gamefort.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\common\cbasetypes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\conf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\conf.h"
 				>
 			</File>
 			<File
@@ -228,6 +297,14 @@
 			</File>
 			<File
 				RelativePath="..\src\common\db.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\des.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\des.h"
 				>
 			</File>
 			<File
@@ -271,7 +348,31 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\common\md5calc.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\md5calc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\mempool.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\mempool.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\common\mmo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\mutex.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\mutex.h"
 				>
 			</File>
 			<File
@@ -283,15 +384,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\common\plugin.h"
+				RelativePath="..\src\common\raconf.c"
 				>
 			</File>
 			<File
-				RelativePath="..\src\common\plugins.c"
+				RelativePath="..\src\common\raconf.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\common\plugins.h"
+				RelativePath="..\src\common\random.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\random.h"
 				>
 			</File>
 			<File
@@ -327,6 +432,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\common\thread.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\common\thread.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\common\timer.c"
 				>
 			</File>
@@ -343,7 +456,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\common\version.h"
+				RelativePath="..\src\common\winapi.h"
 				>
 			</File>
 		</Filter>
@@ -367,11 +480,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\map\battleground.c"
+				>
+			</File>
+			<File
 				RelativePath="..\src\map\battleground.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\map\battleground.c"
+				RelativePath="..\src\map\buyingstore.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\buyingstore.h"
 				>
 			</File>
 			<File
@@ -399,6 +520,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\config\const.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\config\core.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\map\date.c"
 				>
 			</File>
@@ -407,11 +536,47 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\map\duel.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\duel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\elemental.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\elemental.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\config\classes\general.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\map\guild.c"
 				>
 			</File>
 			<File
 				RelativePath="..\src\map\guild.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\homunculus.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\homunculus.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\instance.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\instance.h"
 				>
 			</File>
 			<File
@@ -460,14 +625,6 @@
 			</File>
 			<File
 				RelativePath="..\src\map\mapreg_sql.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\map\homunculus.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\map\homunculus.h"
 				>
 			</File>
 			<File
@@ -523,6 +680,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\map\pc_groups.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\pc_groups.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\map\pet.c"
 				>
 			</File>
@@ -539,11 +704,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\config\renewal.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\map\script.c"
 				>
 			</File>
 			<File
 				RelativePath="..\src\map\script.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\searchstore.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\map\searchstore.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\config\secure.h"
 				>
 			</File>
 			<File
@@ -568,6 +749,10 @@
 			</File>
 			<File
 				RelativePath="..\src\map\storage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\config\classes\swordsman.h"
 				>
 			</File>
 			<File

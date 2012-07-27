@@ -1,19 +1,12 @@
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/  _ \ /    \|  |  \/  ___/
-// \     \____|  | \(  <_> )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//-----------------------------------------------
-// Cronus - Configuração dos GRFs
-//-----------------------------------------------
+//-----------------------------------------
+// GRF List
+//-----------------------------------------
+// grf: C:\path\to\RO\data.grf
+// You may add more in this format
+// grf: <data file path>
 
-// GRF Original do Ragnarök
-// EX: C:\Arquivos de Programas\Gravity\Ragnarok Online\data.grf
-grf:
+//------ Others ---------------------------
 
-// GRF Personalizado do seu Servidor
-grf: 
-
-// Diretório Data
-//data_dir: C:\Arquivos de Programas\Gravity\Ragnarok Online\
+// Data Directory (without the actual data\ though)
+// the below example would use C:\path\to\RO\data\
+//data_dir: C:\path\to\RO\

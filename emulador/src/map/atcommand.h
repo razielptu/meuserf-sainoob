@@ -4,7 +4,6 @@
 #ifndef _ATCOMMAND_H_
 #define _ATCOMMAND_H_
 
-//#include "map.h"
 struct map_session_data;
 
 //This is the distance at which @autoloot works,
@@ -15,33 +14,38 @@ struct map_session_data;
 
 extern char atcommand_symbol;
 extern char charcommand_symbol;
+
+typedef enum {
+	COMMAND_ATCOMMAND = 1,
+	COMMAND_CHARCOMMAND = 2,
+} AtCommandType;
+
 typedef int (*AtCommandFunc)(const int fd, struct map_session_data* sd, const char* command, const char* message);
 
 bool is_atcommand(const int fd, struct map_session_data* sd, const char* message, int type);
-int get_atcommand_level(const AtCommandFunc func);
 
 void do_init_atcommand(void);
 void do_final_atcommand(void);
-int atcommand_config_read(const char *cfgName);
+void atcommand_db_load_groups(int* group_ids);
 
-int atcommand_mail(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_item(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_mapmove(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_monster(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_jumpto(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_recall(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_hide(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_mute(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_kick(const int fd, struct map_session_data* sd, const char* command, const char* message);
-int atcommand_broadcast(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_localbroadcast(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_reset(const int fd, struct map_session_data* sd,const char* command, const char* message);
-int atcommand_unloadnpc(const int fd, struct map_session_data* sd, const char* command, const char* message);
+bool atcommand_exists(const char* name);
 
-#define MAX_MSG 1000
-extern char* msg_table[MAX_MSG];
-char* msg_txt(int msg_number);
+const char* msg_txt(int msg_number);
 int msg_config_read(const char* cfgName);
 void do_final_msg(void);
+
+extern int atcmd_binding_count;
+
+// @commands (script based)
+struct atcmd_binding_data {
+	char command[50];
+	char npc_event[50];
+	int level;
+	int level2;
+};
+
+struct atcmd_binding_data** atcmd_binding;
+
+struct atcmd_binding_data* get_atcommandbind_byname(const char* name);
 
 #endif /* _ATCOMMAND_H_ */

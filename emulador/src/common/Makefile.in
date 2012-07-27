@@ -1,32 +1,25 @@
-## This file has been edited or created to install the:
-## GAMEFORT - Hacking Prevention System
-##=============================================================
-##    ____     _     __  __  _____  _____   ___   ____   _____
-##   / ___|   / \   |  \/  || ____|| ____| / _ \ |  _ \ |_   _|
-##  | |  _   / _ \  | |\/| ||  _|  |  _|  | | | || |_) |  | |
-##  | |_| | / ___ \ | |  | || |___ | |    | |_| ||  _ <   | |
-##   \____|/_/   \_\|_|  |_||_____||_|     \___/ |_| \_\  |_|
-##
-##=============================================================
-## Version: 7390
-## Instalation Date: 24/8/2011 17:09:03
-## More Informations: http://gamefort.com.br/
-##
-## Don't change any information in this header, it will help
-## the installer for future updates
-##=============================================================
 
-COMMON_OBJ = obj_all/gamefort.o obj_all/core.o obj_all/socket.o obj_all/timer.o obj_all/db.o obj_all/plugins.o obj_all/lock.o \
+COMMON_OBJ = obj_all/core.o obj_all/socket.o obj_all/timer.o obj_all/db.o obj_all/lock.o \
 	obj_all/nullpo.o obj_all/malloc.o obj_all/showmsg.o obj_all/strlib.o obj_all/utils.o \
 	obj_all/grfio.o obj_all/mapindex.o obj_all/ers.o obj_all/md5calc.o \
-	obj_all/minicore.o obj_all/minisocket.o obj_all/minimalloc.o
-COMMON_H = gamefort.h svnversion.h mmo.h plugin.h version.h \
-	core.h socket.h timer.h db.h plugins.h lock.h \
-	nullpo.h malloc.h showmsg.h  strlib.h utils.h \
-	grfio.h mapindex.h ers.h md5calc.h
+	obj_all/minicore.o obj_all/minisocket.o obj_all/minimalloc.o obj_all/random.o obj_all/des.o \
+	obj_all/conf.o obj_all/thread.o obj_all/mutex.o obj_all/raconf.o obj_all/mempool.o
+
+COMMON_H = $(shell ls ../common/*.h)
 
 COMMON_SQL_OBJ = obj_sql/sql.o
 COMMON_SQL_H = sql.h
+
+MT19937AR_OBJ = ../../3rdparty/mt19937ar/mt19937ar.o
+MT19937AR_H = ../../3rdparty/mt19937ar/mt19937ar.h
+MT19937AR_INCLUDE = -I../../3rdparty/mt19937ar
+
+LIBCONFIG_OBJ = ../../3rdparty/libconfig/libconfig.o ../../3rdparty/libconfig/grammar.o \
+	../../3rdparty/libconfig/scanctx.o ../../3rdparty/libconfig/scanner.o ../../3rdparty/libconfig/strbuf.o
+LIBCONFIG_H = ../../3rdparty/libconfig/libconfig.h ../../3rdparty/libconfig/grammar.h \
+	../../3rdparty/libconfig/parsectx.h ../../3rdparty/libconfig/scanctx.h ../../3rdparty/libconfig/scanner.h \
+	../../3rdparty/libconfig/strbuf.h ../../3rdparty/libconfig/wincompat.h
+LIBCONFIG_INCLUDE = -I../../3rdparty/libconfig
 
 HAVE_MYSQL=@HAVE_MYSQL@
 ifeq ($(HAVE_MYSQL),yes)
@@ -36,6 +29,7 @@ else
 	ALL_TARGET=txt
 	SQL_DEPENDS=needs_mysql
 endif
+TXT_DEPENDS=common
 
 @SET_MAKE@
 
@@ -44,12 +38,13 @@ endif
 
 all: $(ALL_DEPENDS)
 
-txt: common
+txt: $(TXT_DEPENDS)
 
 sql: $(SQL_DEPENDS)
 
 clean:
-	rm -rf *.o obj_all obj_sql svnversion.h
+	@echo "	CLEAN	common"
+	@rm -rf *.o obj_all obj_sql
 
 help:
 	@echo "possible targets are 'txt' 'sql' 'all' 'clean' 'help'"
@@ -66,34 +61,42 @@ needs_mysql:
 	@exit 1
 
 obj_all:
-	-mkdir obj_all
+	@echo "	MKDIR	obj_all"
+	@-mkdir obj_all
 
 obj_sql:
-	-mkdir obj_sql
+	@echo "	MKDIR	obj_sql"
+	@-mkdir obj_sql
 
-common: obj_all $(COMMON_OBJ)
+obj_all/common.a: $(COMMON_OBJ)
+	@echo "	AR	$@"
+	@@AR@ rcs obj_all/common.a $(COMMON_OBJ)
 
-common_sql: obj_sql $(COMMON_SQL_OBJ)
+obj_sql/common_sql.a: $(COMMON_SQL_OBJ)
+	@echo "	AR	$@"
+	@@AR@ rcs obj_sql/common_sql.a $(COMMON_SQL_OBJ)
+                
+
+common: obj_all $(COMMON_OBJ) $(MT19937AR_OBJ) $(LIBCONFIG_OBJ) obj_all/common.a
+
+common_sql: obj_sql $(COMMON_SQL_OBJ) obj_sql/common_sql.a
+
+obj_all/%.o: %.c $(COMMON_H) $(MT19937AR_H) $(LIBCONFIG_H)
+	@echo "	CC	$<"
+	@@CC@ @CFLAGS@ $(MT19937AR_INCLUDE) $(LIBCONFIG_INCLUDE) @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
+
+obj_all/mini%.o: %.c $(COMMON_H) $(MT19937AR_H) $(LIBCONFIG_H)
+	@echo "	CC	$<"
+	@@CC@ @CFLAGS@ $(MT19937AR_INCLUDE) $(LIBCONFIG_INCLUDE) -DMINICORE @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
+
+obj_sql/%.o: %.c $(COMMON_H) $(COMMON_SQL_H) $(LIBCONFIG_H)
+	@echo "	CC	$<"
+	@@CC@ @CFLAGS@ $(LIBCONFIG_INCLUDE) @MYSQL_CFLAGS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
 
 
-obj_all/%.o: %.c $(COMMON_H)
-	@CC@ @CFLAGS@ @LDFLAGS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
+# missing object files
+MT19937AR_OBJ:
+	@$(MAKE) -C ../../3rdparty/mt19937ar
 
-obj_all/mini%.o: %.c $(COMMON_H)
-	@CC@ @CFLAGS@ -DMINICORE @LDFLAGS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
-
-obj_sql/%.o: %.c $(COMMON_H) $(COMMON_SQL_H)
-	@CC@ @CFLAGS@ @MYSQL_CFLAGS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
-
-
-HAVESVN = $(shell which svnversion)
-
-ifeq ($(findstring /,$(HAVESVN)), /)
-svnversion.h:
-	@printf "#define SVNVERSION " > svnversion.h
-	@svnversion .. >> svnversion.h
-	@printf "\n" >> svnversion.h
-else
-svnversion.h:
-	@printf "\n" > svnversion.h
-endif
+LIBCONFIG_OBJ:
+	@$(MAKE) -C ../../3rdparty/libconfig

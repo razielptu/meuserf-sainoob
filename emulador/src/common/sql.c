@@ -9,7 +9,7 @@
 #include "sql.h"
 
 #ifdef WIN32
-#include <winsock2.h>
+#include "../common/winapi.h"
 #endif
 #include <mysql.h>
 #include <string.h>// strlen/strnlen/memcpy/memset
@@ -182,7 +182,7 @@ int Sql_Ping(Sql* self)
 /// Wrapper function for Sql_Ping.
 ///
 /// @private
-static int Sql_P_KeepaliveTimer(int tid, unsigned int tick, int id, intptr data)
+static int Sql_P_KeepaliveTimer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	Sql* self = (Sql*)data;
 	ShowInfo("Pinging SQL server to keep connection alive...\n");
@@ -212,7 +212,7 @@ static int Sql_P_Keepalive(Sql* self)
 	// establish keepalive
 	ping_interval = timeout - 30; // 30-second reserve
 	//add_timer_func_list(Sql_P_KeepaliveTimer, "Sql_P_KeepaliveTimer");
-	return add_timer_interval(gettick() + ping_interval*1000, Sql_P_KeepaliveTimer, 0, (intptr)self, ping_interval*1000);
+	return add_timer_interval(gettick() + ping_interval*1000, Sql_P_KeepaliveTimer, 0, (intptr_t)self, ping_interval*1000);
 }
 
 
@@ -489,8 +489,8 @@ static int Sql_P_BindSqlDataType(MYSQL_BIND* bind, enum SqlDataType buffer_type,
 		buffer_len = sizeof(long);
 		break;
 	case SQLDT_ULONGLONG: bind->is_unsigned = 1;
-	case SQLDT_LONGLONG: bind->buffer_type = Sql_P_SizeToMysqlIntType(sizeof(long long));
-		buffer_len = sizeof(long long);
+	case SQLDT_LONGLONG: bind->buffer_type = Sql_P_SizeToMysqlIntType(sizeof(int64));
+		buffer_len = sizeof(int64);
 		break;
 	// floating point
 	case SQLDT_FLOAT: bind->buffer_type = MYSQL_TYPE_FLOAT;
@@ -920,7 +920,7 @@ void SqlStmt_ShowDebug_(SqlStmt* self, const char* debug_file, const unsigned lo
 {
 	if( self == NULL )
 		ShowDebug("at %s:%lu -  self is NULL\n", debug_file, debug_line);
-	if( StringBuf_Length(&self->buf) > 0 )
+	else if( StringBuf_Length(&self->buf) > 0 )
 		ShowDebug("at %s:%lu - %s\n", debug_file, debug_line, StringBuf_Value(&self->buf));
 	else
 		ShowDebug("at %s:%lu\n", debug_file, debug_line);

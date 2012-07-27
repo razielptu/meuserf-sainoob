@@ -47,7 +47,7 @@ const char* mapindex_getmapname(const char* string, char* output)
 /// Result gets placed either into 'buf' or in a static local buffer.
 const char* mapindex_getmapname_ext(const char* string, char* output)
 {
-	char buf[MAP_NAME_LENGTH_EXT];
+	static char buf[MAP_NAME_LENGTH_EXT];
 	char* dest = (output != NULL) ? output : buf;
 
 	size_t len;
@@ -61,9 +61,8 @@ const char* mapindex_getmapname_ext(const char* string, char* output)
 		ShowWarning("(mapindex_normalize_name) Map name '%*s' is too long!\n", 2*MAP_NAME_LENGTH, buf);
 		len--;
 	}
-	
 	strncpy(dest, buf, len+1);
-	
+
 	if (len < 4 || stricmp(&dest[len-4], ".gat") != 0) {
 		strcpy(&dest[len], ".gat");
 		len += 4; // add .gat extension
@@ -100,6 +99,7 @@ int mapindex_addmap(int index, const char* name)
 		ShowError("(mapindex_add) Cannot add maps with no name.\n");
 		return 0;
 	}
+
 	if (strlen(map_name) >= MAP_NAME_LENGTH) {
 		ShowError("(mapindex_add) Map name %s is too long. Maps are limited to %d characters.\n", map_name, MAP_NAME_LENGTH);
 		return 0;
@@ -128,18 +128,8 @@ unsigned short mapindex_name2id(const char* name)
 		if (strcmp(indexes[i].name,map_name)==0)
 			return i;
 	}
-#ifdef MAPINDEX_AUTOADD
-	if( mapindex_addmap(i,map_name) )
-	{
-		ShowDebug("mapindex_name2id: Auto-added map \"%s\" to position %d\n", map_name, i);
-		return i;
-	}
-	ShowWarning("mapindex_name2id: Failed to auto-add map \"%s\" to position %d!\n", map_name, i);
-	return 0;
-#else
 	ShowDebug("mapindex_name2id: Map \"%s\" not found in index list!\n", map_name);
 	return 0;
-#endif
 }
 
 const char* mapindex_id2name(unsigned short id)

@@ -24,13 +24,13 @@ static bool mapreg_dirty = false;
 /// Looks up the value of an integer variable using its uid.
 int mapreg_readreg(int uid)
 {
-	return (int)idb_get(mapreg_db, uid);
+	return idb_iget(mapreg_db, uid);
 }
 
 /// Looks up the value of a string variable using its uid.
 char* mapreg_readregstr(int uid)
 {
-	return (char*)idb_get(mapregstr_db, uid);
+	return idb_get(mapregstr_db, uid);
 }
 
 /// Modifies the value of an integer variable.
@@ -42,13 +42,10 @@ bool mapreg_setreg(int uid, int val)
 
 	if( val != 0 )
 	{
-		if( idb_put(mapreg_db,uid,(void*)val) )
-			; // already exists, delay write
-		else
-		if( name[1] == '@' )
-			; // nothing more to do
-		else
-		{// write new wariable to database
+		if( idb_iput(mapreg_db,uid,val) )
+			mapreg_dirty = true; // already exists, delay write
+		else if(name[1] != '@')
+		{// write new variable to database
 			char tmp_str[32*2+1];
 			Sql_EscapeStringLen(mmysql_handle, tmp_str, name, strnlen(name, 32));
 			if( SQL_ERROR == Sql_Query(mmysql_handle, "INSERT INTO `%s`(`varname`,`index`,`value`) VALUES ('%s','%d','%d')", mapreg_table, tmp_str, i, val) )
@@ -59,16 +56,13 @@ bool mapreg_setreg(int uid, int val)
 	{
 		idb_remove(mapreg_db,uid);
 
-		if( name[1] == '@' )
-			; // nothing more to do
-		else
+		if( name[1] != '@' )
 		{// Remove from database because it is unused.
 			if( SQL_ERROR == Sql_Query(mmysql_handle, "DELETE FROM `%s` WHERE `varname`='%s' AND `index`='%d'", mapreg_table, name, i) )
 				Sql_ShowDebug(mmysql_handle);
 		}
 	}
 
-	mapreg_dirty = true;
 	return true;
 }
 
@@ -90,7 +84,7 @@ bool mapreg_setregstr(int uid, const char* str)
 	else
 	{
 		if (idb_put(mapregstr_db,uid, aStrdup(str)))
-			;
+			mapreg_dirty = true;
 		else if(name[1] != '@') { //put returned null, so we must insert.
 			// Someone is causing a database size infinite increase here without name[1] != '@' [Lance]
 			char tmp_str[32*2+1];
@@ -102,7 +96,6 @@ bool mapreg_setregstr(int uid, const char* str)
 		}
 	}
 
-	mapreg_dirty = true;
 	return true;
 }
 
@@ -129,9 +122,9 @@ static void script_load_mapreg(void)
 		return;
 	}
 
-	SqlStmt_BindColumn(stmt, 0, SQLDT_STRING, &varname[0], 32, &length, NULL);
+	SqlStmt_BindColumn(stmt, 0, SQLDT_STRING, &varname[0], sizeof(varname), &length, NULL);
 	SqlStmt_BindColumn(stmt, 1, SQLDT_INT, &index, 0, NULL, NULL);
-	SqlStmt_BindColumn(stmt, 2, SQLDT_STRING, &value[0], 255, NULL, NULL);
+	SqlStmt_BindColumn(stmt, 2, SQLDT_STRING, &value[0], sizeof(value), NULL, NULL);
 	
 	while ( SQL_SUCCESS == SqlStmt_NextRow(stmt) )
 	{
@@ -141,7 +134,7 @@ static void script_load_mapreg(void)
 		if( varname[length-1] == '$' )
 			idb_put(mapregstr_db, (i<<24)|s, aStrdup(value));
 		else
-			idb_put(mapreg_db, (i<<24)|s, (void *)atoi(value));
+			idb_iput(mapreg_db, (i<<24)|s, atoi(value));
 	}
 	
 	SqlStmt_Free(stmt);
@@ -153,10 +146,10 @@ static void script_load_mapreg(void)
 static void script_save_mapreg(void)
 {
 	DBIterator* iter;
-	void* data;
+	DBData *data;
 	DBKey key;
 
-	iter = mapreg_db->iterator(mapreg_db);
+	iter = db_iterator(mapreg_db);
 	for( data = iter->first(iter,&key); iter->exists(iter); data = iter->next(iter,&key) )
 	{
 		int num = (key.i & 0x00ffffff);
@@ -166,12 +159,12 @@ static void script_save_mapreg(void)
 		if( name[1] == '@' )
 			continue;
 
-		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%d' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, (int)data, name, i) )
+		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%d' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, db_data2i(data), name, i) )
 			Sql_ShowDebug(mmysql_handle);
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
-	iter = mapregstr_db->iterator(mapregstr_db);
+	iter = db_iterator(mapregstr_db);
 	for( data = iter->first(iter,&key); iter->exists(iter); data = iter->next(iter,&key) )
 	{
 		int num = (key.i & 0x00ffffff);
@@ -182,16 +175,16 @@ static void script_save_mapreg(void)
 		if( name[1] == '@' )
 			continue;
 
-		Sql_EscapeStringLen(mmysql_handle, tmp_str2, (char*)data, safestrnlen((char*)data, 255));
+		Sql_EscapeStringLen(mmysql_handle, tmp_str2, db_data2ptr(data), safestrnlen(db_data2ptr(data), 255));
 		if( SQL_ERROR == Sql_Query(mmysql_handle, "UPDATE `%s` SET `value`='%s' WHERE `varname`='%s' AND `index`='%d'", mapreg_table, tmp_str2, name, i) )
 			Sql_ShowDebug(mmysql_handle);
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 
 	mapreg_dirty = false;
 }
 
-static int script_autosave_mapreg(int tid, unsigned int tick, int id, intptr data)
+static int script_autosave_mapreg(int tid, unsigned int tick, int id, intptr_t data)
 {
 	if( mapreg_dirty )
 		script_save_mapreg();
@@ -205,8 +198,8 @@ void mapreg_reload(void)
 	if( mapreg_dirty )
 		script_save_mapreg();
 
-	mapreg_db->clear(mapreg_db, NULL);
-	mapregstr_db->clear(mapregstr_db, NULL);
+	db_clear(mapreg_db);
+	db_clear(mapregstr_db);
 
 	script_load_mapreg();
 }
@@ -216,8 +209,8 @@ void mapreg_final(void)
 	if( mapreg_dirty )
 		script_save_mapreg();
 
-	mapreg_db->destroy(mapreg_db,NULL);
-	mapregstr_db->destroy(mapregstr_db,NULL);
+	db_destroy(mapreg_db);
+	db_destroy(mapregstr_db);
 }
 
 void mapreg_init(void)

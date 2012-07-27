@@ -3,8 +3,10 @@
 
 #include "../common/nullpo.h"
 #include "../common/malloc.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
+#include "../common/utils.h"
 #include "itemdb.h"
 #include "map.h"
 #include "battle.h" // struct battle_config
@@ -15,11 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// 32k array entries (the rest goes to the db)
-#define MAX_ITEMDB 0x8000
-
-
-
 static struct item_data* itemdb_array[MAX_ITEMDB];
 static DBMap*            itemdb_other;// int nameid -> struct item_data*
 
@@ -27,15 +24,14 @@ static struct item_group itemgroup_db[MAX_ITEMGROUP];
 
 struct item_data dummy_item; //This is the default dummy item used for non-existant items. [Skotlex]
 
-
-
-/*==========================================
+/**
  * 名前で検索用
- *------------------------------------------*/
-// name = item alias, so we should find items aliases first. if not found then look for "jname" (full name)
-static int itemdb_searchname_sub(DBKey key,void *data,va_list ap)
+ * name = item alias, so we should find items aliases first. if not found then look for "jname" (full name)
+ * @see DBApply
+ */
+static int itemdb_searchname_sub(DBKey key, DBData *data, va_list ap)
 {
-	struct item_data *item=(struct item_data *)data,**dst,**dst2;
+	struct item_data *item = db_data2ptr(data), **dst, **dst2;
 	char *str;
 	str=va_arg(ap,char *);
 	dst=va_arg(ap,struct item_data **);
@@ -83,9 +79,12 @@ struct item_data* itemdb_searchname(const char *str)
 	return item?item:item2;
 }
 
-static int itemdb_searchname_array_sub(DBKey key,void * data,va_list ap)
+/**
+ * @see DBMatcher
+ */
+static int itemdb_searchname_array_sub(DBKey key, DBData data, va_list ap)
 {
-	struct item_data *item=(struct item_data *)data;
+	struct item_data *item = db_data2ptr(&data);
 	char *str;
 	str=va_arg(ap,char *);
 	if (item == &dummy_item)
@@ -122,17 +121,17 @@ int itemdb_searchname_array(struct item_data** data, int size, const char *str)
 	}
 
 	// search in the db
-	if( count >= size )
+	if( count < size )
 	{
-		data = NULL;
-		size = 0;
-	}
-	else
-	{
-		data -= count;
+		DBData *db_data[MAX_SEARCH];
+		int db_count = 0;
 		size -= count;
+		db_count = itemdb_other->getall(itemdb_other, (DBData**)&db_data, size, itemdb_searchname_array_sub, str);
+		for (i = 0; i < db_count; i++)
+			data[count++] = db_data2ptr(db_data[i]);
+		count += db_count;
 	}
-	return count + itemdb_other->getall(itemdb_other,(void**)data,size,itemdb_searchname_array_sub,str);
+	return count;
 }
 
 
@@ -146,7 +145,7 @@ int itemdb_searchrandomid(int group)
 		return UNKNOWN_ITEM_ID;
 	}
 	if (itemgroup_db[group].qty)
-		return itemgroup_db[group].nameid[rand()%itemgroup_db[group].qty];
+		return itemgroup_db[group].nameid[rnd()%itemgroup_db[group].qty];
 	
 	ShowError("itemdb_searchrandomid: No item entries for group id %d\n", group);
 	return UNKNOWN_ITEM_ID;
@@ -180,6 +179,27 @@ struct item_data* itemdb_exists(int nameid)
 	if( item == &dummy_item )
 		return NULL;// dummy data, doesn't exist
 	return item;
+}
+
+/// Returns human readable name for given item type.
+/// @param type Type id to retrieve name for ( IT_* ).
+const char* itemdb_typename(int type)
+{
+	switch(type)
+	{
+		case IT_HEALING:        return "Potion/Food";
+		case IT_USABLE:         return "Usable";
+		case IT_ETC:            return "Etc.";
+		case IT_WEAPON:         return "Weapon";
+		case IT_ARMOR:          return "Armor";
+		case IT_CARD:           return "Card";
+		case IT_PETEGG:         return "Pet Egg";
+		case IT_PETARMOR:       return "Pet Accessory";
+		case IT_AMMO:           return "Arrow/Ammunition";
+		case IT_DELAYCONSUME:   return "Delay-Consume Usable";
+		case IT_CASH:           return "Cash Usable";
+	}
+	return "Unknown Type";
 }
 
 /*==========================================
@@ -240,7 +260,16 @@ static void itemdb_jobid2mapid(unsigned int *bclass, unsigned int jobmask)
 	if (jobmask & 1<<JOB_GUNSLINGER)
 		bclass[0] |= 1<<MAPID_GUNSLINGER;
 	if (jobmask & 1<<JOB_NINJA)
-		bclass[0] |= 1<<MAPID_NINJA;
+		{bclass[0] |= 1<<MAPID_NINJA;
+		bclass[1] |= 1<<MAPID_NINJA;}//Kagerou/Oboro jobs can equip Ninja equips. [Rytech]
+	if (jobmask & 1<<26) //Bongun/Munak
+		bclass[0] |= 1<<MAPID_GANGSI;
+	if (jobmask & 1<<27) //Death Knight
+		bclass[1] |= 1<<MAPID_GANGSI;
+	if (jobmask & 1<<28) //Dark Collector
+		bclass[2] |= 1<<MAPID_GANGSI;
+	if (jobmask & 1<<29) //Kagerou / Oboro
+		bclass[1] |= 1<<MAPID_NINJA;
 }
 
 static void create_dummy_data(void)
@@ -330,7 +359,7 @@ int itemdb_isequip(int nameid)
  *------------------------------------------*/
 int itemdb_isequip2(struct item_data *data)
 { 
-	nullpo_retr(0, data);
+	nullpo_ret(data);
 	switch(data->type) {
 		case IT_WEAPON:
 		case IT_ARMOR:
@@ -363,7 +392,7 @@ int itemdb_isstackable(int nameid)
  *------------------------------------------*/
 int itemdb_isstackable2(struct item_data *data)
 {
-  nullpo_retr(0, data);
+  nullpo_ret(data);
   switch(data->type) {
 	  case IT_WEAPON:
 	  case IT_ARMOR:
@@ -379,39 +408,40 @@ int itemdb_isstackable2(struct item_data *data)
 /*==========================================
  * Trade Restriction functions [Skotlex]
  *------------------------------------------*/
-int itemdb_isdropable_sub(struct item_data *item, int gmlv, int unused)
-{
+int itemdb_isdropable_sub(struct item_data *item, int gmlv, int unused) {
 	return (item && (!(item->flag.trade_restriction&1) || gmlv >= item->gm_lv_trade_override));
 }
 
-int itemdb_cantrade_sub(struct item_data* item, int gmlv, int gmlv2)
-{
+int itemdb_cantrade_sub(struct item_data* item, int gmlv, int gmlv2) {
 	return (item && (!(item->flag.trade_restriction&2) || gmlv >= item->gm_lv_trade_override || gmlv2 >= item->gm_lv_trade_override));
 }
 
-int itemdb_canpartnertrade_sub(struct item_data* item, int gmlv, int gmlv2)
-{
+int itemdb_canpartnertrade_sub(struct item_data* item, int gmlv, int gmlv2) {
 	return (item && (item->flag.trade_restriction&4 || gmlv >= item->gm_lv_trade_override || gmlv2 >= item->gm_lv_trade_override));
 }
 
-int itemdb_cansell_sub(struct item_data* item, int gmlv, int unused)
-{
+int itemdb_cansell_sub(struct item_data* item, int gmlv, int unused) {
 	return (item && (!(item->flag.trade_restriction&8) || gmlv >= item->gm_lv_trade_override));
 }
 
-int itemdb_cancartstore_sub(struct item_data* item, int gmlv, int unused)
-{	
+int itemdb_cancartstore_sub(struct item_data* item, int gmlv, int unused) {
 	return (item && (!(item->flag.trade_restriction&16) || gmlv >= item->gm_lv_trade_override));
 }
 
-int itemdb_canstore_sub(struct item_data* item, int gmlv, int unused)
-{	
+int itemdb_canstore_sub(struct item_data* item, int gmlv, int unused) {
 	return (item && (!(item->flag.trade_restriction&32) || gmlv >= item->gm_lv_trade_override));
 }
 
-int itemdb_canguildstore_sub(struct item_data* item, int gmlv, int unused)
-{	
+int itemdb_canguildstore_sub(struct item_data* item, int gmlv, int unused) {
 	return (item && (!(item->flag.trade_restriction&64) || gmlv >= item->gm_lv_trade_override));
+}
+
+int itemdb_canmail_sub(struct item_data* item, int gmlv, int unused) {
+	return (item && (!(item->flag.trade_restriction&128) || gmlv >= item->gm_lv_trade_override));
+}
+
+int itemdb_canauction_sub(struct item_data* item, int gmlv, int unused) {
+	return (item && (!(item->flag.trade_restriction&256) || gmlv >= item->gm_lv_trade_override));
 }
 
 int itemdb_isrestricted(struct item* item, int gmlv, int gmlv2, int (*func)(struct item_data*, int, int))
@@ -452,46 +482,32 @@ int itemdb_isidentified(int nameid)
 /*==========================================
  * アイテム使用可能フラグのオーバーライド
  *------------------------------------------*/
-static int itemdb_read_itemavail (void)
-{
-	FILE *fp;
-	int nameid, j, k, ln = 0;
-	char line[1024], *str[10], *p;
+static bool itemdb_read_itemavail(char* str[], int columns, int current)
+{// <nameid>,<sprite>
+	int nameid, sprite;
 	struct item_data *id;
 
-	sprintf(line, "%s/item_avail.txt", db_path);
-	if ((fp = fopen(line,"r")) == NULL) {
-		ShowError("can't read %s\n", line);
-		return -1;
-	}
+	nameid = atoi(str[0]);
 
-	while(fgets(line, sizeof(line), fp))
+	if( ( id = itemdb_exists(nameid) ) == NULL )
 	{
-		if (line[0] == '/' && line[1] == '/')
-			continue;
-		memset(str, 0, sizeof(str));
-		for (j = 0, p = line; j < 2 && p; j++) {
-			str[j] = p;
-			p = strchr(p, ',');
-			if(p) *p++ = 0;
-		}
-
-		if (j < 2 || str[0] == NULL ||
-			(nameid = atoi(str[0])) < 0 || !(id = itemdb_exists(nameid)))
-			continue;
-
-		k = atoi(str[1]);
-		if (k > 0) {
-			id->flag.available = 1;
-			id->view_id = k;
-		} else
-			id->flag.available = 0;
-		ln++;
+		ShowWarning("itemdb_read_itemavail: Invalid item id %d.\n", nameid);
+		return false;
 	}
-	fclose(fp);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", ln, "item_avail.txt");
 
-	return 0;
+	sprite = atoi(str[1]);
+
+	if( sprite > 0 )
+	{
+		id->flag.available = 1;
+		id->view_id = sprite;
+	}
+	else
+	{
+		id->flag.available = 0;
+	}
+
+	return true;
 }
 
 /*==========================================
@@ -561,8 +577,7 @@ static void itemdb_read_itemgroup_sub(const char* filename)
 static void itemdb_read_itemgroup(void)
 {
 	char path[256];
-	snprintf(path, 255, "%s/item_group_db.txt", db_path);
-
+	snprintf(path, 255, "%s/"DBPATH"item_group_db.txt", db_path);
 	memset(&itemgroup_db, 0, sizeof(itemgroup_db));
 	itemdb_read_itemgroup_sub(path);
 	ShowStatus("Done reading '"CL_WHITE"%s"CL_RESET"'.\n", "item_group_db.txt");
@@ -572,94 +587,320 @@ static void itemdb_read_itemgroup(void)
 /*==========================================
  * 装備制限ファイル読み出し
  *------------------------------------------*/
-static int itemdb_read_noequip(void)
-{
-	FILE *fp;
-	char line[1024];
-	int ln=0;
-	int nameid,j;
-	char *str[32],*p;
+static bool itemdb_read_noequip(char* str[], int columns, int current)
+{// <nameid>,<mode>
+	int nameid;
 	struct item_data *id;
 
-	sprintf(line, "%s/item_noequip.txt", db_path);
-	if( (fp=fopen(line,"r"))==NULL ){
-		ShowError("can't read %s\n", line);
-		return -1;
-	}
-	while(fgets(line, sizeof(line), fp))
+	nameid = atoi(str[0]);
+
+	if( ( id = itemdb_exists(nameid) ) == NULL )
 	{
-		if(line[0]=='/' && line[1]=='/')
-			continue;
-		memset(str,0,sizeof(str));
-		for(j=0,p=line;j<2 && p;j++){
-			str[j]=p;
-			p=strchr(p,',');
-			if(p) *p++=0;
-		}
-		if(str[0]==NULL)
-			continue;
-
-		nameid=atoi(str[0]);
-		if(nameid<=0 || !(id=itemdb_exists(nameid)))
-			continue;
-
-		id->flag.no_equip=atoi(str[1]);
-
-		ln++;
-
+		ShowWarning("itemdb_read_noequip: Invalid item id %d.\n", nameid);
+		return false;
 	}
-	fclose(fp);
-	if (ln > 0) {
-		ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n",ln,"item_noequip.txt");
-	}	
-	return 0;
+
+	id->flag.no_equip |= atoi(str[1]);
+
+	return true;
 }
 
 /*==========================================
  * Reads item trade restrictions [Skotlex]
  *------------------------------------------*/
-static int itemdb_read_itemtrade(void)
-{
-	FILE *fp;
-	int nameid, j, flag, gmlv, ln = 0;
-	char line[1024], *str[10], *p;
+static bool itemdb_read_itemtrade(char* str[], int columns, int current)
+{// <nameid>,<mask>,<gm level>
+	int nameid, flag, gmlv;
 	struct item_data *id;
 
-	sprintf(line, "%s/item_trade.txt", db_path);
-	if ((fp = fopen(line,"r")) == NULL) {
-		ShowError("can't read %s\n", line);
-		return -1;
+	nameid = atoi(str[0]);
+
+	if( ( id = itemdb_exists(nameid) ) == NULL )
+	{
+		//ShowWarning("itemdb_read_itemtrade: Invalid item id %d.\n", nameid);
+		//return false;
+		// FIXME: item_trade.txt contains items, which are commented in item database.
+		return true;
 	}
 
-	while(fgets(line, sizeof(line), fp))
+	flag = atoi(str[1]);
+	gmlv = atoi(str[2]);
+
+	if( flag < 0 || flag > 511 ) {//Check range
+		ShowWarning("itemdb_read_itemtrade: Invalid trading mask %d for item id %d.\n", flag, nameid);
+		return false;
+	}
+	if( gmlv < 1 )
 	{
+		ShowWarning("itemdb_read_itemtrade: Invalid override GM level %d for item id %d.\n", gmlv, nameid);
+		return false;
+	}
+
+	id->flag.trade_restriction = flag;
+	id->gm_lv_trade_override = gmlv;
+
+	return true;
+}
+
+/*==========================================
+ * Reads item delay amounts [Paradox924X]
+ *------------------------------------------*/
+static bool itemdb_read_itemdelay(char* str[], int columns, int current)
+{// <nameid>,<delay>
+	int nameid, delay;
+	struct item_data *id;
+
+	nameid = atoi(str[0]);
+
+	if( ( id = itemdb_exists(nameid) ) == NULL )
+	{
+		ShowWarning("itemdb_read_itemdelay: Invalid item id %d.\n", nameid);
+		return false;
+	}
+
+	delay = atoi(str[1]);
+
+	if( delay < 0 )
+	{
+		ShowWarning("itemdb_read_itemdelay: Invalid delay %d for item id %d.\n", id->delay, nameid);
+		return false;
+	}
+
+	id->delay = delay;
+
+	return true;
+}
+
+/*==================================================================
+ * Reads item stacking restrictions
+ *----------------------------------------------------------------*/
+static bool itemdb_read_stack(char* fields[], int columns, int current)
+{// <item id>,<stack limit amount>,<type>
+	unsigned short nameid, amount;
+	unsigned int type;
+	struct item_data* id;
+
+	nameid = (unsigned short)strtoul(fields[0], NULL, 10);
+
+	if( ( id = itemdb_exists(nameid) ) == NULL )
+	{
+		ShowWarning("itemdb_read_stack: Unknown item id '%hu'.\n", nameid);
+		return false;
+	}
+
+	if( !itemdb_isstackable2(id) )
+	{
+		ShowWarning("itemdb_read_stack: Item id '%hu' is not stackable.\n", nameid);
+		return false;
+	}
+
+	amount = (unsigned short)strtoul(fields[1], NULL, 10);
+	type = strtoul(fields[2], NULL, 10);
+
+	if( !amount )
+	{// ignore
+		return true;
+	}
+
+	id->stack.amount       = amount;
+	id->stack.inventory    = (type&1)!=0;
+	id->stack.cart         = (type&2)!=0;
+	id->stack.storage      = (type&4)!=0;
+	id->stack.guildstorage = (type&8)!=0;
+
+	return true;
+}
+
+
+/// Reads items allowed to be sold in buying stores
+static bool itemdb_read_buyingstore(char* fields[], int columns, int current)
+{// <nameid>
+	int nameid;
+	struct item_data* id;
+
+	nameid = atoi(fields[0]);
+
+	if( ( id = itemdb_exists(nameid) ) == NULL )
+	{
+		ShowWarning("itemdb_read_buyingstore: Invalid item id %d.\n", nameid);
+		return false;
+	}
+
+	if( !itemdb_isstackable2(id) )
+	{
+		ShowWarning("itemdb_read_buyingstore: Non-stackable item id %d cannot be enabled for buying store.\n", nameid);
+		return false;
+	}
+
+	id->flag.buyingstore = true;
+
+	return true;
+}
+/**
+ * @return: amount of retrieved entries.
+ **/
+int itemdb_combo_split_atoi (char *str, int *val) {
+	int i;
+	
+	for (i=0; i<MAX_ITEMS_PER_COMBO; i++) {
+		if (!str) break;
+		
+		val[i] = atoi(str);
+		
+		str = strchr(str,':');
+		
+		if (str)
+			*str++=0;
+	}
+	
+	if( i == 0 ) //No data found.
+		return 0;
+	
+	return i;
+}
+/**
+ * <combo{:combo{:combo:{..}}}>,<{ script }>
+ **/
+void itemdb_read_combos() {
+	uint32 lines = 0, count = 0;
+	char line[1024];
+	
+	char path[256];
+	FILE* fp;
+	
+	sprintf(path, "%s/%s", db_path, DBPATH"item_combo_db.txt");
+	
+	if ((fp = fopen(path, "r")) == NULL) {
+		ShowError("itemdb_read_combos: File not found \"%s\".\n", path);
+		return;
+	}
+	
+	// process rows one by one
+	while(fgets(line, sizeof(line), fp)) {
+		char *str[2], *p;
+		
+		lines++;
+
 		if (line[0] == '/' && line[1] == '/')
 			continue;
-		memset(str, 0, sizeof(str));
-		for (j = 0, p = line; j < 3 && p; j++) {
-			str[j] = p;
-			p = strchr(p, ',');
-			if(p) *p++ = 0;
-		}
-
-		if (j < 3 || str[0] == NULL ||
-			(nameid = atoi(str[0])) < 0 || !(id = itemdb_exists(nameid)))
-			continue;
-
-		flag = atoi(str[1]);
-		gmlv = atoi(str[2]);
 		
-		if (flag > 0 && flag < 128 && gmlv > 0) { //Check range
-			id->flag.trade_restriction = flag;
-			id->gm_lv_trade_override = gmlv;
-			ln++;
-		}
-	}
-	fclose(fp);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", ln, "item_trade.txt");
+		memset(str, 0, sizeof(str));
+		
+		p = line;
+		
+		p = trim(p);
 
-	return 0;
+		if (*p == '\0')
+			continue;// empty line
+		
+		if (!strchr(p,','))
+		{
+			/* is there even a single column? */
+			ShowError("itemdb_read_combos: Insufficient columns in line %d of \"%s\", skipping.\n", lines, path);
+			continue;
+		}
+		
+		str[0] = p;
+		p = strchr(p,',');
+		*p = '\0';
+		p++;
+
+		str[1] = p;
+		p = strchr(p,',');		
+		p++;
+		
+		if (str[1][0] != '{') {
+			ShowError("itemdb_read_combos(#1): Invalid format (Script column) in line %d of \"%s\", skipping.\n", lines, path);
+			continue;
+		}
+		
+		/* no ending key anywhere (missing \}\) */
+		if ( str[1][strlen(str[1])-1] != '}' ) {
+			ShowError("itemdb_read_combos(#2): Invalid format (Script column) in line %d of \"%s\", skipping.\n", lines, path);
+			continue;
+		} else {
+			int items[MAX_ITEMS_PER_COMBO];
+			int v = 0, retcount = 0;
+			struct item_data * id = NULL;
+			int idx = 0;
+			
+			if((retcount = itemdb_combo_split_atoi(str[0], items)) < 2) {
+				ShowError("itemdb_read_combos: line %d of \"%s\" doesn't have enough items to make for a combo (min:2), skipping.\n", lines, path);
+				continue;
+			}
+			
+			/* validate */
+			for(v = 0; v < retcount; v++) {
+				if( !itemdb_exists(items[v]) ) {
+					ShowError("itemdb_read_combos: line %d of \"%s\" contains unknown item ID %d, skipping.\n", lines, path,items[v]);
+					break;
+				}
+			}
+			/* failed at some item */
+			if( v < retcount )
+				continue;
+
+			id = itemdb_exists(items[0]);
+			
+			idx = id->combos_count;
+			
+			/* first entry, create */
+			if( id->combos == NULL ) {
+				CREATE(id->combos, struct item_combo*, 1);
+				id->combos_count = 1;
+			} else {
+				RECREATE(id->combos, struct item_combo*, ++id->combos_count);
+			}
+			
+			CREATE(id->combos[idx],struct item_combo,1);
+			
+			id->combos[idx]->nameid = aMalloc( retcount * sizeof(unsigned short) );
+			id->combos[idx]->count = retcount;
+			id->combos[idx]->script = parse_script(str[1], path, lines, 0);
+			id->combos[idx]->id = count;
+			id->combos[idx]->isRef = false;
+			/* populate ->nameid field */
+			for( v = 0; v < retcount; v++ ) {
+				id->combos[idx]->nameid[v] = items[v];
+			}
+			
+			/* populate the children to refer to this combo */
+			for( v = 1; v < retcount; v++ ) {
+				struct item_data * it = NULL;
+				int index;
+				
+				it = itemdb_exists(items[v]);
+				
+				index = it->combos_count;
+				
+				if( it->combos == NULL ) {
+					CREATE(it->combos, struct item_combo*, 1);
+					it->combos_count = 1;
+				} else {
+					RECREATE(it->combos, struct item_combo*, ++it->combos_count);
+				}
+				
+				CREATE(it->combos[index],struct item_combo,1);
+				
+				/* we copy previously alloc'd pointers and just set it to reference */
+				memcpy(it->combos[index],id->combos[idx],sizeof(struct item_combo));
+				/* we flag this way to ensure we don't double-dealloc same data */
+				it->combos[index]->isRef = true;
+			}
+			
+		}
+		
+		count++;
+	}
+	
+	fclose(fp);
+	
+	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"item_combo_db"CL_RESET"'.\n", count);
+		
+	return;
 }
+
+
 
 /*======================================
  * Applies gender restrictions according to settings. [Skotlex]
@@ -677,12 +918,39 @@ static int itemdb_gendercheck(struct item_data *id)
 
 	return (battle_config.ignore_items_gender) ? 2 : id->sex;
 }
+/**
+ * [RRInd]
+ * For backwards compatibility, in Renewal mode, MATK from weapons comes from the atk slot
+ * We use a ':' delimiter which, if not found, assumes the weapon does not provide any matk.
+ **/
+void itemdb_re_split_atoi(char *str, int *atk, int *matk) {
+	int i, val[2];
 
+	for (i=0; i<2; i++) {
+		if (!str) break;
+		val[i] = atoi(str);
+		str = strchr(str,':');
+		if (str)
+			*str++=0;
+	}
+	if( i == 0 ) {
+		*atk = *matk = 0;
+		return;//no data found
+	}
+	if( i == 1 ) {//Single Value, we assume it's the ATK
+		*atk = val[0];
+		*matk = 0;
+		return;
+	}
+	//We assume we have 2 values.
+	*atk = val[0];
+	*matk = val[1];
+	return;
+}
 /*==========================================
  * processes one itemdb entry
  *------------------------------------------*/
-static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scriptopt)
-{
+static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scriptopt) {
 	/*
 		+----+--------------+---------------+------+-----------+------------+--------+--------+---------+-------+-------+------------+-------------+---------------+-----------------+--------------+-------------+------------+------+--------+--------------+----------------+
 		| 00 |      01      |       02      |  03  |     04    |     05     |   06   |   07   |    08   |   09  |   10  |     11     |      12     |       13      |        14       |      15      |      16     |     17     |  18  |   19   |      20      |        21      |
@@ -706,6 +974,13 @@ static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scr
 	safestrncpy(id->jname, str[2], sizeof(id->jname));
 
 	id->type = atoi(str[3]);
+
+	if( id->type < 0 || id->type == IT_UNKNOWN || id->type == IT_UNKNOWN2 || ( id->type > IT_DELAYCONSUME && id->type < IT_CASH ) || id->type >= IT_MAX )
+	{// catch invalid item types
+		ShowWarning("itemdb_parse_dbrow: Invalid item type %d for item %d. IT_ETC will be used.\n", id->type, nameid);
+		id->type = IT_ETC;
+	}
+
 	if (id->type == IT_DELAYCONSUME)
 	{	//Items that are consumed only after target confirmation
 		id->type = IT_USABLE;
@@ -737,7 +1012,11 @@ static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scr
 			id->value_buy, id->value_sell, nameid, id->jname);
 
 	id->weight = atoi(str[6]);
+#ifdef RENEWAL
+	itemdb_re_split_atoi(str[7],&id->atk,&id->matk);
+#else
 	id->atk = atoi(str[7]);
+#endif
 	id->def = atoi(str[8]);
 	id->range = atoi(str[9]);
 	id->slot = atoi(str[10]);
@@ -759,29 +1038,24 @@ static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scr
 		id->type = IT_ETC;
 	}
 
-	id->wlv = atoi(str[15]);
+	id->wlv = cap_value(atoi(str[15]), REFINE_TYPE_ARMOR, REFINE_TYPE_MAX);
 	id->elv = atoi(str[16]);
 	id->flag.no_refine = atoi(str[17]) ? 0 : 1; //FIXME: verify this
 	id->look = atoi(str[18]);
 
 	id->flag.available = 1;
-	id->flag.value_notdc = 0;
-	id->flag.value_notoc = 0;
 	id->view_id = 0;
 	id->sex = itemdb_gendercheck(id); //Apply gender filtering.
 
-	if (id->script)
-	{
+	if (id->script) {
 		script_free_code(id->script);
 		id->script = NULL;
 	}
-	if (id->equip_script)
-	{
+	if (id->equip_script) {
 		script_free_code(id->equip_script);
 		id->equip_script = NULL;
 	}
-	if (id->unequip_script)
-	{
+	if (id->unequip_script) {
 		script_free_code(id->unequip_script);
 		id->unequip_script = NULL;
 	}
@@ -801,11 +1075,13 @@ static bool itemdb_parse_dbrow(char** str, const char* source, int line, int scr
  *------------------------------------------*/
 static int itemdb_readdb(void)
 {
-	const char* filename[] = { "item_db.txt", "item_db2.txt" };
+	const char* filename[] = {
+		DBPATH"item_db.txt",
+		"item_db2.txt" };
+
 	int fi;
 
-	for( fi = 0; fi < ARRAYLENGTH(filename); ++fi )
-	{
+	for( fi = 0; fi < ARRAYLENGTH(filename); ++fi ) {
 		uint32 lines = 0, count = 0;
 		char line[1024];
 
@@ -814,8 +1090,7 @@ static int itemdb_readdb(void)
 
 		sprintf(path, "%s/%s", db_path, filename[fi]);
 		fp = fopen(path, "r");
-		if( fp == NULL )
-		{
+		if( fp == NULL ) {
 			ShowWarning("itemdb_readdb: File not found \"%s\", skipping.\n", path);
 			continue;
 		}
@@ -825,7 +1100,6 @@ static int itemdb_readdb(void)
 		{
 			char *str[32], *p;
 			int i;
-
 			lines++;
 			if(line[0] == '/' && line[1] == '/')
 				continue;
@@ -892,10 +1166,16 @@ static int itemdb_readdb(void)
 			}
 			str[21] = p;
 
+			p = strstr(p+1,"}");
+			if ( strchr(p,',') != NULL )
+			{
+				ShowError("itemdb_readdb: Extra columns in line %d of \"%s\" (item with id %d), skipping.\n", lines, path, atoi(str[0]));
+				continue;
+			}
 
 			if (!itemdb_parse_dbrow(str, path, lines, 0))
 				continue;
-
+			
 			count++;
 		}
 
@@ -907,13 +1187,16 @@ static int itemdb_readdb(void)
 	return 0;
 }
 
-#ifndef TXT_ONLY
 /*======================================
  * item_db table reading
  *======================================*/
 static int itemdb_read_sqldb(void)
 {
+#ifdef RENEWAL
+	const char* item_db_name[] = { item_db_db, item_db_re_db, item_db2_db };
+#else
 	const char* item_db_name[] = { item_db_db, item_db2_db };
+#endif
 	int fi;
 	
 	for( fi = 0; fi < ARRAYLENGTH(item_db_name); ++fi )
@@ -953,24 +1236,25 @@ static int itemdb_read_sqldb(void)
 
 	return 0;
 }
-#endif /* not TXT_ONLY */
 
 /*====================================
  * read all item-related databases
  *------------------------------------*/
-static void itemdb_read(void)
-{
-#ifndef TXT_ONLY
+static void itemdb_read(void) {
+	
 	if (db_use_sqldbs)
 		itemdb_read_sqldb();
 	else
-#endif
 		itemdb_readdb();
-
+	
+	itemdb_read_combos();
 	itemdb_read_itemgroup();
-	itemdb_read_itemavail();
-	itemdb_read_noequip();
-	itemdb_read_itemtrade();
+	sv_readdb(db_path, "item_avail.txt",         ',', 2, 2, -1, &itemdb_read_itemavail);
+	sv_readdb(db_path, DBPATH"item_noequip.txt", ',', 2, 2, -1, &itemdb_read_noequip);
+	sv_readdb(db_path, DBPATH"item_trade.txt",   ',', 3, 3, -1, &itemdb_read_itemtrade);
+	sv_readdb(db_path, "item_delay.txt",         ',', 2, 2, -1, &itemdb_read_itemdelay);
+	sv_readdb(db_path, "item_stack.txt",         ',', 3, 3, -1, &itemdb_read_stack);
+	sv_readdb(db_path, "item_buyingstore.txt",   ',', 1, 1, -1, &itemdb_read_buyingstore);	
 }
 
 /*==========================================
@@ -989,6 +1273,17 @@ static void destroy_item_data(struct item_data* self, int free_self)
 		script_free_code(self->equip_script);
 	if( self->unequip_script )
 		script_free_code(self->unequip_script);
+	if( self->combos_count ) {
+		int i;
+		for( i = 0; i < self->combos_count; i++ ) {
+			if( !self->combos[i]->isRef ) {
+				aFree(self->combos[i]->nameid);
+				script_free_code(self->combos[i]->script);
+			}
+			aFree(self->combos[i]);
+		}
+		aFree(self->combos);
+	}
 #if defined(DEBUG)
 	// trash item
 	memset(self, 0xDD, sizeof(struct item_data));
@@ -998,9 +1293,12 @@ static void destroy_item_data(struct item_data* self, int free_self)
 		aFree(self);
 }
 
-static int itemdb_final_sub(DBKey key,void *data,va_list ap)
+/**
+ * @see DBApply
+ */
+static int itemdb_final_sub(DBKey key, DBData *data, va_list ap)
 {
-	struct item_data *id = (struct item_data *)data;
+	struct item_data *id = db_data2ptr(data);
 
 	if( id != &dummy_item )
 		destroy_item_data(id, 1);
@@ -1013,8 +1311,8 @@ void itemdb_reload(void)
 	struct s_mapiterator* iter;
 	struct map_session_data* sd;
 
-	int i;
-
+	int i,d,k;
+	
 	// clear the previous itemdb data
 	for( i = 0; i < ARRAYLENGTH(itemdb_array); ++i )
 		if( itemdb_array[i] )
@@ -1023,14 +1321,55 @@ void itemdb_reload(void)
 	itemdb_other->clear(itemdb_other, itemdb_final_sub);
 
 	memset(itemdb_array, 0, sizeof(itemdb_array));
-
+		
 	// read new data
 	itemdb_read();
+	
+	//Epoque's awesome @reloaditemdb fix - thanks! [Ind]
+	//- Fixes the need of a @reloadmobdb after a @reloaditemdb to re-link monster drop data
+	for( i = 0; i < MAX_MOB_DB; i++ ) {
+		struct mob_db *entry;
+		if( !((i < 1324 || i > 1363) && (i < 1938 || i > 1946)) )
+			continue;
+		entry = mob_db(i);
+		for(d = 0; d < MAX_MOB_DROP; d++) {
+			struct item_data *id;
+			if( !entry->dropitem[d].nameid )
+				continue;
+			id = itemdb_search(entry->dropitem[d].nameid);
+
+			for (k = 0; k < MAX_SEARCH; k++) {
+				if (id->mob[k].chance <= entry->dropitem[d].p)
+					break;
+			}
+
+			if (k == MAX_SEARCH)
+				continue;
+			
+			if (id->mob[k].id != i)
+				memmove(&id->mob[k+1], &id->mob[k], (MAX_SEARCH-k-1)*sizeof(id->mob[0]));
+			id->mob[k].chance = entry->dropitem[d].p;
+			id->mob[k].id = i;
+		}
+	}
 
 	// readjust itemdb pointer cache for each player
 	iter = mapit_geteachpc();
-	for( sd = (struct map_session_data*)mapit_first(iter); mapit_exists(iter); sd = (struct map_session_data*)mapit_next(iter) )
+	for( sd = (struct map_session_data*)mapit_first(iter); mapit_exists(iter); sd = (struct map_session_data*)mapit_next(iter) ) {
+		memset(sd->item_delay, 0, sizeof(sd->item_delay));  // reset item delays
 		pc_setinventorydata(sd);
+		/* clear combo bonuses */
+		if( sd->combos.count ) {
+			aFree(sd->combos.bonus);
+			aFree(sd->combos.id);
+			sd->combos.bonus = NULL;
+			sd->combos.id = NULL;
+			sd->combos.count = 0;
+			if( pc_load_combo(sd) > 0 )
+				status_calc_pc(sd,0);
+		}
+
+	}
 	mapit_free(iter);
 }
 
@@ -1046,10 +1385,9 @@ void do_final_itemdb(void)
 	destroy_item_data(&dummy_item, 0);
 }
 
-int do_init_itemdb(void)
-{
+int do_init_itemdb(void) {
 	memset(itemdb_array, 0, sizeof(itemdb_array));
-	itemdb_other = idb_alloc(DB_OPT_BASE); 
+	itemdb_other = idb_alloc(DB_OPT_BASE);
 	create_dummy_data(); //Dummy data item.
 	itemdb_read();
 

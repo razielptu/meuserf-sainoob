@@ -9,18 +9,18 @@
 #include "map.h" // struct status_data, struct view_data, struct mob_skill
 #include "status.h" // struct status data, struct status_change
 #include "unit.h" // unit_stop_walking(), unit_stop_attack()
+#include "npc.h"
 
-
-#define MAX_RANDOMMONSTER 4
-#define MAX_MOB_RACE_DB 6
+#define MAX_RANDOMMONSTER 5
 
 // Change this to increase the table size in your mob_db to accomodate a larger mob database.
 // Be sure to note that IDs 4001 to 4048 are reserved for advanced/baby/expanded classes.
 // Notice that the last 1000 entries are used for player clones, so always set this to desired value +1000
-#define MAX_MOB_DB 3100
+#define MAX_MOB_DB 4000
 
 //The number of drops all mobs have and the max drop-slot that the steal skill will attempt to steal from.
 #define MAX_MOB_DROP 10
+#define MAX_MVP_DROP 3
 #define MAX_STEAL_DROP 7
 
 //Min time between AI executions
@@ -34,6 +34,13 @@
 // These define the range of available IDs for clones. [Valaris]
 #define MOB_CLONE_START (MAX_MOB_DB-999)
 #define MOB_CLONE_END MAX_MOB_DB
+
+//Used to determine default enemy type of mobs (for use in eachinrange calls)
+#define DEFAULT_ENEMY_TYPE(md) (md->special_state.ai?BL_CHAR:BL_PC|BL_HOM|BL_MER)
+
+//Externals for the status effects. [Epoque]
+extern const int mob_manuk[8];
+extern const int mob_splendide[5];
 
 //Mob skill states.
 enum MobSkillState {
@@ -49,6 +56,19 @@ enum MobSkillState {
 	MSS_ANYTARGET,
 };
 
+enum MobDamageLogFlag
+{
+	MDLF_NORMAL = 0,
+	MDLF_HOMUN,
+	MDLF_PET,
+};
+
+enum size {
+	SZ_SMALL = 0,
+	SZ_MEDIUM,
+	SZ_BIG,
+};
+
 struct mob_skill {
 	enum MobSkillState state;
 	short skill_id,skill_lv;
@@ -59,6 +79,13 @@ struct mob_skill {
 	short target;
 	int val[5];
 	short emotion;
+	unsigned short msg_id;
+};
+
+struct mob_chat {
+	unsigned short msg_id;
+	unsigned long color;
+	char msg[CHAT_SIZE_MAX];
 };
 
 struct spawn_info {
@@ -69,15 +96,15 @@ struct spawn_info {
 struct mob_db {
 	char sprite[NAME_LENGTH],name[NAME_LENGTH],jname[NAME_LENGTH];
 	unsigned int base_exp,job_exp;
-	unsigned int mexp,mexpper;
+	unsigned int mexp;
 	short range2,range3;
 	short race2;	// celest
 	unsigned short lv;
 	struct { int nameid,p; } dropitem[MAX_MOB_DROP];
-	struct { int nameid,p; } mvpitem[3];
+	struct { int nameid,p; } mvpitem[MAX_MVP_DROP];
 	struct status_data status;
 	struct view_data vd;
-	short option;
+	unsigned int option;
 	int summonper[MAX_RANDOMMONSTER];
 	int maxskill;
 	struct mob_skill skill[MAX_MOBSKILL];
@@ -93,33 +120,33 @@ struct mob_data {
 	struct mob_db *db;	//For quick data access (saves doing mob_db(md->class_) all the time) [Skotlex]
 	char name[NAME_LENGTH];
 	struct {
-		unsigned size : 2; //Small/Big monsters.
-		unsigned ai : 2; //Special ai for summoned monsters.
+		unsigned int size : 2; //Small/Big monsters.
+		unsigned int ai : 2; //Special ai for summoned monsters.
 							//0: Normal mob.
 							//1: Standard summon, attacks mobs.
 							//2: Alchemist Marine Sphere
 							//3: Alchemist Summon Flora
+		unsigned int clone : 1;/* is clone? 1:0 */
 	} special_state; //Special mob information that does not needs to be zero'ed on mob respawn.
 	struct {
+		unsigned int aggressive : 1; //Signals whether the mob AI is in aggressive mode or reactive mode. [Skotlex]
+		unsigned int steal_coin_flag : 1;
+		unsigned int soul_change_flag : 1; // Celest
+		unsigned int alchemist: 1;
+		unsigned int spotted: 1;
+		unsigned int npc_killmonster: 1; //for new killmonster behavior
+		unsigned int rebirth: 1; // NPC_Rebirth used
+		unsigned int boss : 1;
 		enum MobSkillState skillstate;
-		unsigned aggressive : 1; //Signals whether the mob AI is in aggressive mode or reactive mode. [Skotlex]
 		unsigned char steal_flag; //number of steal tries (to prevent steal exploit on mobs with few items) [Lupus]
-		unsigned steal_coin_flag : 1;
-		unsigned soul_change_flag : 1; // Celest
-		unsigned alchemist: 1;
-		unsigned spotted: 1;
 		unsigned char attacked_count; //For rude attacked.
 		int provoke_flag; // Celest
-		unsigned npc_killmonster: 1; //for new killmonster behavior
-		unsigned rebirth: 1; // NPC_Rebirth used
-		int imortal;	// Sealed Shrine [Saithis]
-		unsigned int bg_id; // BattleGround System
 	} state;
 	struct guardian_data* guardian_data; 
 	struct {
 		int id;
 		unsigned int dmg;
-		unsigned flag : 1; //0: Normal. 1: Homunc exp
+		unsigned int flag : 2; //0: Normal. 1: Homunc exp. 2: Pet exp
 	} dmglog[DAMAGELOG_SIZE];
 	struct spawn_data *spawn; //Spawn data.
 	int spawn_timer; //Required for Convex Mirror
@@ -129,8 +156,9 @@ struct mob_data {
 	int level;
 	int target_id,attacked_id;
 	int areanpc_id; //Required in OnTouchNPC (to avoid multiple area touchs)
+	unsigned int bg_id; // BattleGround System
 
-	unsigned int next_walktime,last_thinktime,last_linktime,last_pcneartime;
+	unsigned int next_walktime,last_thinktime,last_linktime,last_pcneartime,dmgtick;
 	short move_fail_count;
 	short lootitem_count;
 	short min_chase;
@@ -140,7 +168,14 @@ struct mob_data {
 
 	short skillidx;
 	unsigned int skilldelay[MAX_MOBSKILL];
-	char npc_event[50];
+	char npc_event[EVENT_NAME_LENGTH];
+	/**
+	 * Did this monster summon something?
+	 * Used to flag summon deletions, saves a worth amount of memory
+	 **/
+	bool can_summon;
+
+	struct npc_data *tomb_npc;
 };
 
 
@@ -210,8 +245,8 @@ int mob_once_spawn_area(struct map_session_data* sd,int m,int x0,int y0,int x1,i
 bool mob_ksprotected (struct block_list *src, struct block_list *target);
 
 int mob_spawn_guardian(const char* mapname, short x, short y, const char* mobname, int class_, const char* event, int guardian, bool has_index);	// Spawning Guardians [Valaris]
-int mob_spawn_bg(const char* mapname, short x, short y, const char* mobname, int class_, const char* event, int bg_id);
-int mob_guardian_guildchange(struct block_list *bl,va_list ap); //Change Guardian's ownership. [Skotlex]
+int mob_spawn_bg(const char* mapname, short x, short y, const char* mobname, int class_, const char* event, unsigned int bg_id);
+int mob_guardian_guildchange(struct mob_data *md); //Change Guardian's ownership. [Skotlex]
 
 int mob_randomwalk(struct mob_data *md,unsigned int tick);
 int mob_warpchase(struct mob_data *md, struct block_list *target);
@@ -219,7 +254,7 @@ int mob_target(struct mob_data *md,struct block_list *bl,int dist);
 int mob_unlocktarget(struct mob_data *md, unsigned int tick);
 struct mob_data* mob_spawn_dataset(struct spawn_data *data);
 int mob_spawn(struct mob_data *md);
-int mob_delayspawn(int tid, unsigned int tick, int id, intptr data);
+int mob_delayspawn(int tid, unsigned int tick, int id, intptr_t data);
 int mob_setdelayspawn(struct mob_data *md);
 int mob_parse_dataset(struct spawn_data *data);
 void mob_log_damage(struct mob_data *md, struct block_list *src, int damage);
@@ -236,7 +271,7 @@ void mob_clear_spawninfo();
 int do_init_mob(void);
 int do_final_mob(void);
 
-int mob_timer_delete(int tid, unsigned int tick, int id, intptr data);
+int mob_timer_delete(int tid, unsigned int tick, int id, intptr_t data);
 int mob_deleteslave(struct mob_data *md);
 
 int mob_random_class (int *value, size_t count);
@@ -258,5 +293,9 @@ int mob_clone_spawn(struct map_session_data *sd, int m, int x, int y, const char
 int mob_clone_delete(struct mob_data *md);
 
 void mob_reload(void);
+
+// MvP Tomb System
+void mvptomb_create(struct mob_data *md, char *killer, time_t time);
+void mvptomb_destroy(struct mob_data *md);
 
 #endif /* _MOB_H_ */

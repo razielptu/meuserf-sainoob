@@ -1,0 +1,133 @@
+//====================================================================
+//          _________                                                  
+//          \_   ___ \_______  ____   ____  __ __  ______             
+//          /    \  \/\_  __ \/    \ /    \|  |  \/  ___/              
+//          \     \____|  | \(  ( ) )   |  \  |  /\___ \               
+//           \______  /|__|   \____/|___|  /____//____  >              
+//                  \/                   \/           \/               
+//                                                               
+//====================== Cronus Script ===============================
+//= Kafras de Al de Baran
+//===== Por: =========================================================
+//= João Pedro
+//===== Versão Atual: ================================================
+//= 1.1
+//===== Compatível com: ==============================================
+//= Cronus GIT
+//===== Descrição: ===================================================
+//= Kafras da Cidade de Al de Baran
+//===== Comentários Adicionais: ======================================
+//= 1.0 NPC traduzido do rAthena de acordo com os diálogos oficiais do bRO [João Pedro]
+//= 1.1 Diálogos Corrigidos [Schrwaizer]
+//====================================================================
+
+
+// Kafra Principal (Kafra Leilah) ------------------------------------
+aldeba_in,96,181,4	script	Kafra Service	113,{
+	cutin "kafra_05",2;
+	mes "[Kafra Leilah]";
+	mes "Hm...?";
+	mes "Oh, bem-vindo a";
+	mes "sede da Corporação Kafra.";
+	mes "Você precisa de";
+	mes "alguma coisa?";
+	next;
+	switch(select("Salvar:Abrir armazém:Alugar um carrinho:Cancelar")) {
+	case 1:
+		mes "[Kafra Leilah]";
+		mes "Seu ponto de retorno";
+		mes "foi salvo aqui, dentro";
+		mes "da Sede da Corporação Kafra.";
+		mes "Obrigado.";
+		next;
+		savepoint "aldeba_in",96,179;
+		mes "[Kafra Leilah]";
+		mes "Por favor, faça uso";
+		mes "dos serviços Kafra que estão";
+		mes "disponíveis em toda a";
+		mes "Rune Midgard. Obrigado por";
+		mes "visitar a Sede Kafra.";
+		close2;
+		break;
+	case 2:
+		if (zeny < 20) {
+			mes "[Kafra Leilah]";
+			mes "Desculpe-me, mas";
+			mes "parece que você não";
+			mes "possui 20 zeny para pagar";
+			mes "a taxa de acesso ao armazém...";
+			close;
+		}
+		mes "[Kafra Leilah]";
+		mes "Embora esta facilidade seja";
+		mes "exclusivamente planejada para";
+		mes "o treinamento dos nossos empregados";
+		mes "e funções administrativas,";
+		mes "eu acessarei o armazém para você.";
+		next;
+		set zeny,zeny-20;
+		set RESRVPTS, RESRVPTS + (20/5);
+		mes "[Kafra Leilah]";
+		mes "No futuro, por favor";
+		mes "pergunte a uma Empregada Kafra de";
+		mes "plantão se você desejar usar";
+		mes "qualquer serviço Kafra.";
+		mes "Obrigado por sua compreensão.";
+		callfunc("F_CheckKafCode");    //Checa a senha do armazém se ela estiver setada
+		close2;
+		openstorage;
+		break;
+	case 3:
+		mes "[Kafra Leilah]";
+		mes "As minhas desculpas, mas eu";
+		mes "não estou de plantão. Eu lhe daria assistência";
+		mes "se eu pudesse, mas na verdade, não";
+		mes "tem nenhum carrinho disponível.";
+		mes "Por que você não pede assitência";
+		mes "a outra Empregada Kafra?";
+		next;
+		mes "[Kafra Leilah]";
+		mes "Empregadas Kafra ficam";
+		mes "estacionadas em todo o";
+		mes "continente de Rune Midgard,";
+		mes "e você deve ser capaz de encontrar";
+		mes "em abundância fora de Al de Baran.";
+		close2;
+		break;
+	case 4:
+		mes "[Kafra Leilah]";
+		mes "^666666*Ufa...*^000000";
+		mes "Excelente, porque eu estou";
+		mes ",na verdade, no meu descanso";
+		mes "agora. Escolher";
+		mes "''Cancelar'' foi uma boa";
+		mes "escolha de sua parte.";
+		close2;
+		break;
+	}
+	cutin "",255;
+	end;
+}
+
+// Central --------------------------------------------------
+aldebaran,143,119,4	script	Funcionária Kafra::kaf_aldebaran	113,{
+	cutin "kafra_05",2;
+	cleararray @wrpC$[0],"",getarraysize(@wrpC$);
+	setarray @wrpP[0], 1200, 1200, 1800, 1700;
+	setarray @wrpD$[0], "Geffen", "Juno" , "Izlude", "Mjolnir Dead Pit";
+	set @wrpC$[0], @wrpD$[0]+" -> "+@wrpP[0];
+	set @wrpC$[1], @wrpD$[1]+" -> "+@wrpP[1];
+	set @wrpC$[2], @wrpD$[2]+" -> "+@wrpP[2];
+	set @wrpC$[3], @wrpD$[3]+" -> "+@wrpP[3];
+	set @wrpC$[4], "Cancelar";
+	mes "[Kafra Employee]";
+	mes "A corporação Kafra";
+	mes "está sempre trabalhando para oferecer";
+	mes "a você serviços convenientes.";
+	mes "Como posso ser útil?";
+	callfunc "F_Kafra",5,0,1,20,600;
+
+	M_Save:
+		savepoint "aldebaran",143,109;
+		callfunc "F_KafEnd",0,1,"na cidade de Al De Baran";
+}

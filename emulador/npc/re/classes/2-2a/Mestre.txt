@@ -1,0 +1,88 @@
+//==========================================================
+//  ___  ___       ___   ____    ____  ___      
+// |   \/   |     /   \  \   \  /   / /   \     
+// |  \  /  |    /  ^  \  \   \/   / /  ^  \    
+// |  |\/|  |   /  /_\  \  \_    _/ /  /_\  \   
+// |  |  |  |  /  _____  \   |  |  /  _____  \  
+// |__|  |__| /__/     \__\  |__| /__/     \__\ 
+//
+//==========================================================
+//= Quest do Champion
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= Mudança de Classe para Chanpion
+//===== Comentários Adicionais: ======================================
+//= 1.0 Traduzido. [LyDe]
+//====================================================================
+
+valkyrie,53,42,3	script	Champion#Valkyrie	52,{
+	if (ADVJOB == 0 || Upper != 1) {
+		mes "[Mestre]";
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			mes "Parabéns.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "Habilidade.";
+		mes "Velocidade.";
+		mes "Força.";
+		mes "Agilidade.";
+		next;
+		mes "[Mestre]";
+		mes "Um Mestre pode";
+		mes "tirar proveito de todas";
+		mes "essas coisas. Mas um";
+		mes "só pode dominar";
+		mes "tanto na vida...";
+		close;
+	} else if (ADVJOB == Job_Champion && Class == Job_Acolyte_High && JobLevel > 39) {
+		mes "[Mestre]";
+		mes "Este é o tempo.";
+		mes "Tempo de grandes heróis";
+		mes "para estar a frente contra as";
+		mes "forças do mal que pragueiam";
+		mes "o mundo de Rune-Midgard!";
+		next;
+		mes "[Mestre]";
+		mes "Você gostaria de";
+		mes "transforma-se em um Mestre?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Mestre]";
+			mes "Quando você estiver pronto,";
+			mes "sinta-se livre para voltar.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "[Mestre]";
+		if (SkillPoint) {
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
+			close;
+		}
+		jobchange Job_Champion;
+		set ADVJOB,0;
+		mes "Parabéns!";
+		mes "Viva como um campeão,";
+		mes "e traga a luz no mundo com";
+		mes "a força de seus punhos.";
+		close;
+	}
+	mes "[Mestre]";
+	mes "Bem-vindo";
+	mes "a Valhalla,";
+	mes "o Salão da Honra.";
+	next;
+	mes "[Mestre]";
+	mes "Por favor";
+	mes "sinta-se confortável";
+	mes "enquanto estiver aqui.";
+	mes "Honra aos guerreiros!";
+	close;
+}

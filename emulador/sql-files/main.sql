@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS `cart_inventory` (
   `identify` smallint(6) NOT NULL default '0',
   `refine` tinyint(3) unsigned NOT NULL default '0',
   `attribute` tinyint(4) NOT NULL default '0',
-  `card0` int(11) NOT NULL default '0',
-  `card1` int(11) NOT NULL default '0',
-  `card2` int(11) NOT NULL default '0',
-  `card3` int(11) NOT NULL default '0',
+  `card0` smallint(11) NOT NULL default '0',
+  `card1` smallint(11) NOT NULL default '0',
+  `card2` smallint(11) NOT NULL default '0',
+  `card3` smallint(11) NOT NULL default '0',
   `expire_time` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `char_id` (`char_id`)
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `char` (
   `char_id` int(11) unsigned NOT NULL auto_increment,
   `account_id` int(11) unsigned NOT NULL default '0',
   `char_num` tinyint(1) NOT NULL default '0',
-  `name` varchar(30) NOT NULL default '',
+  `name` varchar(30) NOT NULL DEFAULT '',
   `class` smallint(6) unsigned NOT NULL default '0',
   `base_level` smallint(6) unsigned NOT NULL default '1',
   `job_level` smallint(6) unsigned NOT NULL default '1',
@@ -80,14 +80,16 @@ CREATE TABLE IF NOT EXISTS `char` (
   `guild_id` int(11) unsigned NOT NULL default '0',
   `pet_id` int(11) unsigned NOT NULL default '0',
   `homun_id` int(11) unsigned NOT NULL default '0',
+  `elemental_id` int(11) unsigned NOT NULL default '0',
   `hair` tinyint(4) unsigned NOT NULL default '0',
   `hair_color` smallint(5) unsigned NOT NULL default '0',
   `clothes_color` smallint(5) unsigned NOT NULL default '0',
-  `weapon` smallint(6) unsigned NOT NULL default '1',
+  `weapon` smallint(6) unsigned NOT NULL default '0',
   `shield` smallint(6) unsigned NOT NULL default '0',
   `head_top` smallint(6) unsigned NOT NULL default '0',
   `head_mid` smallint(6) unsigned NOT NULL default '0',
   `head_bottom` smallint(6) unsigned NOT NULL default '0',
+  `robe` SMALLINT(6) UNSIGNED NOT NULL DEFAULT '0',
   `last_map` varchar(11) NOT NULL default '',
   `last_x` smallint(4) unsigned NOT NULL default '53',
   `last_y` smallint(4) unsigned NOT NULL default '111',
@@ -100,7 +102,10 @@ CREATE TABLE IF NOT EXISTS `char` (
   `mother` int(11) unsigned NOT NULL default '0',
   `child` int(11) unsigned NOT NULL default '0',
   `fame` int(11) unsigned NOT NULL default '0',
+  `rename` SMALLINT(3) unsigned NOT NULL default '0',
+  `delete_date` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY  (`char_id`),
+  UNIQUE KEY `name_key` (`name`),
   KEY `account_id` (`account_id`),
   KEY `party_id` (`party_id`),
   KEY `guild_id` (`guild_id`),
@@ -127,6 +132,29 @@ CREATE TABLE IF NOT EXISTS `charlog` (
   `hair` tinyint(4) NOT NULL default '0',
   `hair_color` int(11) NOT NULL default '0'
 ) ENGINE=MyISAM; 
+
+--
+-- Table structure for table `elemental`
+--
+
+CREATE TABLE IF NOT EXISTS `elemental` (
+  `ele_id` int(11) unsigned NOT NULL auto_increment,
+  `char_id` int(11) NOT NULL,
+  `class` mediumint(9) unsigned NOT NULL default '0',
+  `mode` int(11) unsigned NOT NULL default '1',
+  `hp` int(12) NOT NULL default '1',
+  `sp` int(12) NOT NULL default '1',
+  `max_hp` mediumint(8) unsigned NOT NULL default '0',
+  `max_sp` mediumint(6) unsigned NOT NULL default '0',
+  `str` smallint(4) unsigned NOT NULL default '0',
+  `agi` smallint(4) unsigned NOT NULL default '0',
+  `vit` smallint(4) unsigned NOT NULL default '0',
+  `int` smallint(4) unsigned NOT NULL default '0',
+  `dex` smallint(4) unsigned NOT NULL default '0',
+  `luk` smallint(4) unsigned NOT NULL default '0',
+  `life_time` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`ele_id`)
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `friends`
@@ -161,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `global_reg_value` (
   `char_id` int(11) unsigned NOT NULL default '0',
   `str` varchar(255) NOT NULL default '',
   `value` varchar(255) NOT NULL default '0',
-  `type` int(11) NOT NULL default '3',
+  `type` tinyint(1) NOT NULL default '3',
   `account_id` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`char_id`,`str`,`account_id`),
   KEY `account_id` (`account_id`),
@@ -181,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
   `connect_member` tinyint(6) unsigned NOT NULL default '0',
   `max_member` tinyint(6) unsigned NOT NULL default '0',
   `average_lv` smallint(6) unsigned NOT NULL default '1',
-  `exp` int(11) unsigned NOT NULL default '0',
+  `exp` bigint(20) unsigned NOT NULL default '0',
   `next_exp` int(11) unsigned NOT NULL default '0',
   `skill_point` tinyint(11) unsigned NOT NULL default '0',
   `mes1` varchar(60) NOT NULL default '',
@@ -398,13 +426,14 @@ CREATE TABLE IF NOT EXISTS `login` (
   `user_pass` varchar(32) NOT NULL default '',
   `sex` enum('M','F','S') NOT NULL default 'M',
   `email` varchar(39) NOT NULL default '',
-  `level` tinyint(3) NOT NULL default '0',
+  `group_id` tinyint(3) NOT NULL default '0',
   `state` int(11) unsigned NOT NULL default '0',
   `unban_time` int(11) unsigned NOT NULL default '0',
   `expiration_time` int(11) unsigned NOT NULL default '0',
   `logincount` mediumint(9) unsigned NOT NULL default '0',
   `lastlogin` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_ip` varchar(100) NOT NULL default '',
+  `birthdate` DATE NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY  (`account_id`),
   KEY `name` (`userid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2000000; 
@@ -556,21 +585,12 @@ CREATE TABLE IF NOT EXISTS `pet` (
 CREATE TABLE IF NOT EXISTS `quest` (
   `char_id` int(11) unsigned NOT NULL default '0',
   `quest_id` int(10) unsigned NOT NULL,
-  `state` enum('1','0') NOT NULL default '0',
-  PRIMARY KEY  USING BTREE (`char_id`,`quest_id`)
-) ENGINE=MyISAM;
-
---
--- Table structure for table `quest_mob`
---
-
-CREATE TABLE IF NOT EXISTS `quest_objective` (
-  `quest_id` int(11) unsigned NOT NULL,
-  `count` mediumint(8) unsigned NOT NULL default '0',
-  `name` varchar(255) NOT NULL default '',
-  `num` tinyint(3) unsigned NOT NULL,
-  `char_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  USING BTREE (`quest_id`,`num`,`char_id`)
+  `state` enum('0','1','2') NOT NULL default '0',
+  `time` int(11) unsigned NOT NULL default '0',
+  `count1` mediumint(8) unsigned NOT NULL default '0',
+  `count2` mediumint(8) unsigned NOT NULL default '0',
+  `count3` mediumint(8) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`char_id`,`quest_id`)
 ) ENGINE=MyISAM;
 
 --
@@ -582,8 +602,7 @@ CREATE TABLE IF NOT EXISTS `ragsrvinfo` (
   `name` varchar(255) NOT NULL default '',
   `exp` int(11) unsigned NOT NULL default '0',
   `jexp` int(11) unsigned NOT NULL default '0',
-  `drop` int(11) unsigned NOT NULL default '0',
-  `motd` varchar(255) NOT NULL default ''
+  `drop` int(11) unsigned NOT NULL default '0'
 ) ENGINE=MyISAM;
 
 --

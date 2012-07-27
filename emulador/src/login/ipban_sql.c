@@ -35,7 +35,7 @@ static Sql* sql_handle = NULL;
 static int cleanup_timer_id = INVALID_TIMER;
 static bool ipban_inited = false;
 
-int ipban_cleanup(int tid, unsigned int tick, int id, intptr data);
+int ipban_cleanup(int tid, unsigned int tick, int id, intptr_t data);
 
 
 // initialize
@@ -51,7 +51,7 @@ void ipban_init(void)
 	ipban_inited = true;
 
 	if( !login_config.ipban )
-		return;// ipban disabled 
+		return;// ipban disabled
 
 	if( ipban_db_hostname[0] != '\0' )
 	{// local settings
@@ -83,9 +83,12 @@ void ipban_init(void)
 	if( codepage[0] != '\0' && SQL_ERROR == Sql_SetEncoding(sql_handle, codepage) )
 		Sql_ShowDebug(sql_handle);
 
-	// set up periodic cleanup of connection history and active bans
-	add_timer_func_list(ipban_cleanup, "ipban_cleanup");
-	cleanup_timer_id = add_timer_interval(gettick()+10, ipban_cleanup, 0, 0, 60*1000);
+	if( login_config.ipban_cleanup_interval > 0 )
+	{ // set up periodic cleanup of connection history and active bans
+		add_timer_func_list(ipban_cleanup, "ipban_cleanup");
+		cleanup_timer_id = add_timer_interval(gettick()+10, ipban_cleanup, 0, 0, login_config.ipban_cleanup_interval*1000);
+	} else // make sure it gets cleaned up on login-server start regardless of interval-based cleanups
+		ipban_cleanup(0,0,0,0);
 }
 
 // finalize
@@ -94,8 +97,11 @@ void ipban_final(void)
 	if( !login_config.ipban )
 		return;// ipban disabled
 
-	// release data
-	delete_timer(cleanup_timer_id, ipban_cleanup);
+	if( login_config.ipban_cleanup_interval > 0 )
+		// release data
+		delete_timer(cleanup_timer_id, ipban_cleanup);
+	
+	ipban_cleanup(0,0,0,0); // always clean up on login-server stop
 
 	// close connections
 	Sql_Free(sql_handle);
@@ -201,7 +207,7 @@ bool ipban_check(uint32 ip)
 	if( !login_config.ipban )
 		return false;// ipban disabled
 
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT count(*) FROM `%s` WHERE `list` = '%u.*.*.*' OR `list` = '%u.%u.*.*' OR `list` = '%u.%u.%u.*' OR `list` = '%u.%u.%u.%u'",
+	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT count(*) FROM `%s` WHERE `rtime` > NOW() AND (`list` = '%u.*.*.*' OR `list` = '%u.%u.*.*' OR `list` = '%u.%u.%u.*' OR `list` = '%u.%u.%u.%u')",
 		ipban_table, p[3], p[3], p[2], p[3], p[2], p[1], p[3], p[2], p[1], p[0]) )
 	{
 		Sql_ShowDebug(sql_handle);
@@ -240,7 +246,7 @@ void ipban_log(uint32 ip)
 }
 
 // remove expired bans
-int ipban_cleanup(int tid, unsigned int tick, int id, intptr data)
+int ipban_cleanup(int tid, unsigned int tick, int id, intptr_t data)
 {
 	if( !login_config.ipban )
 		return 0;// ipban disabled

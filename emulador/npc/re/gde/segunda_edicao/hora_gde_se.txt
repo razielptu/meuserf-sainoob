@@ -1,0 +1,51 @@
+//===== Maya Script ==================================================
+//= Guerra do Emperium 2.0 - Inicialização automática
+//===== Por: =========================================================
+//= L0ne_W0lf
+//===== Versãoo Atual: ================================================
+//= 1.1
+//===== CompatÃ­vel com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= InicializaÃ§Ã£o automÃ¡tica da Guerra do Emperium 2.0
+//= To know how to set up WoE times, go to doc\woe_time_explanation.txt
+//=============================================
+//= gettime(3): Gets hour (24 hour time)
+//= gettime(4): Gets day of week 1=Monday, 2=Tuesday,
+//= 3=Wednesday, 4=Thursday, etc.
+//===== Comentários Adicionais: ======================================
+//= 1.1 Tradução para Português pt-br [Raizen]
+//====================================================================
+
+// Configuração de Inicialização/Finalização da GdE
+//============================================================
+-	script	Agit2_Event	-1,{
+	end;
+
+OnClock1800:	//Hora de Inicialização, para Terça-feira(2), Quinta-Feira(4)
+OnClock2000:	//Hora de Finalização, para Terça-feira(2), Quinta-Feira(4)
+OnClock2100:	//Hora de Inicialização, para Sábado(6)
+OnClock2300:	//Hora de Finalização, para Sábado(6)
+
+OnAgitInit2:
+	// Checagem de horário de inicialização
+	if((gettime(4)==2) && (gettime(3)>=18 && gettime(3)<21) ||
+	   (gettime(4)==4) && (gettime(3)>=18 && gettime(3)<21) ||
+	   (gettime(4)==6) && (gettime(3)>=22 && gettime(3)<23)) {
+		if (!agitcheck2()) {
+			AgitStart2;
+		}
+		end;
+	}
+
+	// Checagem de horário de finalização
+	if ((gettime(4)==2) && (gettime(3)==21) ||
+	    (gettime(4)==4) && (gettime(3)==21) ||
+	    (gettime(4)==6) && (gettime(3)==23)) { 
+		if (agitcheck2()) {
+			AgitEnd2;
+		}
+		end;
+	}
+	end;
+}

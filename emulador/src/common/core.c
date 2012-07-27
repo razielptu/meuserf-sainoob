@@ -2,19 +2,15 @@
 // For more information, see LICENCE in the main folder
 
 #include "../common/mmo.h"
-#include "../common/version.h"
 #include "../common/showmsg.h"
 #include "../common/malloc.h"
-#include "../map/clif.h"
 #include "core.h"
 #ifndef MINICORE
 #include "../common/db.h"
 #include "../common/socket.h"
 #include "../common/timer.h"
-#include "../common/plugins.h"
-#endif
-#ifndef _WIN32
-#include "svnversion.h"
+#include "../common/thread.h"
+#include "../common/mempool.h"
 #endif
 
 #include <stdio.h>
@@ -23,17 +19,25 @@
 #include <string.h>
 #ifndef _WIN32
 #include <unistd.h>
+#else
+#include "../common/winapi.h" // Console close event handling
 #endif
 
-int runflag = 1;
+
+/// Called when a terminate signal is received.
+void (*shutdown_callback)(void) = NULL;
+
+#if defined(BUILDBOT)
+	int buildbotflag = 0;
+#endif
+
+int runflag = CORE_ST_RUN;
 int arg_c = 0;
 char **arg_v = NULL;
 
 char *SERVER_NAME = NULL;
 char SERVER_TYPE = ATHENA_SERVER_NONE;
-#ifndef SVNVERSION
-	static char eA_svn_version[10] = "";
-#endif
+static char rA_svn_version[10] = "";
 
 #ifndef MINICORE	// minimalist Core
 // Added by Gabuzomeu
@@ -68,6 +72,35 @@ sigfunc *compat_signal(int signo, sigfunc *func)
 #endif
 
 /*======================================
+ *	CORE : Console events for Windows
+ *--------------------------------------*/
+#ifdef _WIN32
+static BOOL WINAPI console_handler(DWORD c_event)
+{
+    switch(c_event)
+    {
+    case CTRL_CLOSE_EVENT:
+    case CTRL_LOGOFF_EVENT:
+    case CTRL_SHUTDOWN_EVENT:
+		if( shutdown_callback != NULL )
+			shutdown_callback();
+		else
+			runflag = CORE_ST_STOP;// auto-shutdown
+        break;
+	default:
+		return FALSE;
+    }
+    return TRUE;
+}
+
+static void cevents_init()
+{
+	if (SetConsoleCtrlHandler(console_handler,TRUE)==FALSE)
+		ShowWarning ("Unable to install the console handler!\n");
+}
+#endif
+
+/*======================================
  *	CORE : Signal Sub Function
  *--------------------------------------*/
 static void sig_proc(int sn)
@@ -79,7 +112,10 @@ static void sig_proc(int sn)
 	case SIGTERM:
 		if (++is_called > 3)
 			exit(EXIT_SUCCESS);
-		runflag = 0;
+		if( shutdown_callback != NULL )
+			shutdown_callback();
+		else
+			runflag = CORE_ST_STOP;// auto-shutdown
 		break;
 	case SIGSEGV:
 	case SIGFPE:
@@ -119,20 +155,12 @@ void signals_init (void)
 }
 #endif
 
-#ifdef SVNVERSION
-	#define xstringify(x) stringify(x)
-	#define stringify(x) #x
-	const char *get_svn_revision(void)
-	{
-		return xstringify(SVNVERSION);
-	}
-#else// not SVNVERSION
 const char* get_svn_revision(void)
 {
 	FILE *fp;
 
-	if(*eA_svn_version)
-		return eA_svn_version;
+	if(*rA_svn_version)
+		return rA_svn_version;
 
 	if ((fp = fopen(".svn/entries", "r")) != NULL)
 	{
@@ -147,63 +175,78 @@ const char* get_svn_revision(void)
 				while (fgets(line,sizeof(line),fp))
 					if (strstr(line,"revision=")) break;
 				if (sscanf(line," %*[^\"]\"%d%*[^\n]", &rev) == 1) {
-					snprintf(eA_svn_version, sizeof(eA_svn_version), "%d", rev);
+					snprintf(rA_svn_version, sizeof(rA_svn_version), "%d", rev);
 				}
-			}
-			else
-			{
+			} else {
 				// Bin File format
-				fgets(line, sizeof(line), fp); // Get the name
-				fgets(line, sizeof(line), fp); // Get the entries kind
+				bool fgresult;
+				fgresult = ( fgets(line, sizeof(line), fp) != NULL ); // Get the name
+				fgresult = ( fgets(line, sizeof(line), fp) != NULL ); // Get the entries kind
 				if(fgets(line, sizeof(line), fp)) // Get the rev numver
 				{
-					snprintf(eA_svn_version, sizeof(eA_svn_version), "%d", atoi(line));
+					snprintf(rA_svn_version, sizeof(rA_svn_version), "%d", atoi(line));
 				}
 			}
 		}
 		fclose(fp);
 	}
+	/**
+	 * subversion 1.7 introduces the use of a .db file to store it, and we go through it
+	 * TODO: In some cases it may be not accurate
+	 **/
+	if(!(*rA_svn_version) && ((fp = fopen(".svn/wc.db", "rb")) != NULL || (fp = fopen("../.svn/wc.db", "rb")) != NULL)) {
+		char lines[64];
+		int revision,last_known = 0;
+		while(fread(lines, sizeof(char), sizeof(lines), fp)) {
+			if( strstr(lines,"!svn/ver/") ) {
+				if (sscanf(strstr(lines,"!svn/ver/"),"!svn/ver/%d/%*s", &revision) == 1) {
+					if( revision > last_known ) {
+						last_known = revision;
+					}
+				}
+			}
+		}
+		fclose(fp);
+		if( last_known != 0 )
+			snprintf(rA_svn_version, sizeof(rA_svn_version), "%d", last_known);
+	}
+	/**
+	 * we definitely didn't find it.
+	 **/
+	if(!(*rA_svn_version))
+		snprintf(rA_svn_version, sizeof(rA_svn_version), "Unknown");
 
-	if(!(*eA_svn_version))
-		snprintf(eA_svn_version, sizeof(eA_svn_version), "Desconhecida");
-
-	return eA_svn_version;
+	return rA_svn_version;
 }
-#endif
 
 /*======================================
  *	CORE : Display title
+ *  ASCII By CalciumKid 1/12/2011
  *--------------------------------------*/
 static void display_title(void)
 {
 	//ClearScreen(); // clear screen and go up/left (0, 0 position in text)
 	ShowMessage("\n");
-	ShowMessage(""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n"); // white writing (37) on blue background (44), \033[K clean until end of file
-	ShowMessage(""CL_XXBL"          ("CL_BT_YELLOW"       Equipe Cronus de Desenvolvimento Apresenta        "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // yellow writing (33)
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"      _________                    v%2d.%02d.%02d             "CL_XXBL")"CL_CLL""CL_NORMAL"\n", ATHENA_MAJOR_VERSION, ATHENA_MINOR_VERSION, ATHENA_REVISION); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"      \\_   ___ \\_______  ____   ____  __ __  ______      "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"      /    \\  \\/\\_  __ \\/  _ \\ /    \\|  |  \\/  ___/      "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"      \\     \\____|  | \\(  <_> )   |  \\  |  /\\___ \\       "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"       \\______  /|__|   \\____/|___|  /____//____  >      "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"              \\/                   \\/           \\/       "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BT_RED"                          Fusion                         "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"                  www.cronus-emulator.com                "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // 1: bold char, 0: normal char
-	ShowMessage(""CL_XXBL"          ("CL_BT_YELLOW"      Baseado no eAthena (c) 2005-2009 Projeto Cronus    "CL_XXBL")"CL_CLL""CL_NORMAL"\n"); // yellow writing (33)
-	ShowMessage(""CL_XXBL"          ("CL_BOLD"                                                         "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n\n"); // reset color
+	ShowMessage(""CL_PASS"        "CL_BOLD"                                                              "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"          "CL_BT_WHITE"            rAthena Development Team presents            "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"              ____  ___   __  __                              "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"             / __ \\/   | / /_/ /_  ___  ____  ____ _          "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"            / /_/ / /| |/ __/ __ \\/ _ \\/ __ \\/ __ `/          "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"           / _, _/ ___ / /_/ / / /  __/ / / / /_/ /           "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"          /_/ |_/_/  |_\\__/_/ /_/\\___/_/ /_/\\___,_/           "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"                                                              "CL_PASS""CL_CLL""CL_NORMAL"\n");  
+	ShowMessage(""CL_PASS"          "CL_GREEN"                http://rathena.org/board/                "CL_PASS""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_PASS"        "CL_BOLD"                                                              "CL_PASS""CL_CLL""CL_NORMAL"\n"); 
 
-	ShowInfo("Revisao SVN: '"CL_WHITE"%s"CL_RESET"'.\n", get_svn_revision());
-	ShowInfo("Usando o PacketVer: '"CL_WHITE"%d"CL_RESET"'.\n", PACKETVER);
+	ShowInfo("SVN Revision: '"CL_WHITE"%s"CL_RESET"'.\n", get_svn_revision());
 }
 
-// Warning if logged in as superuser (root)
+// Warning if executed as superuser (root)
 void usercheck(void)
 {
 #ifndef _WIN32
-    if ((getuid() == 0) && (getgid() == 0)) {
-	ShowWarning ("Você está rodando o Cronus como root.\n");
-	ShowWarning ("Isso não é necessário, é inseguro rodar o Cronus como usuário root.\n");
-	sleep(3);
+    if (geteuid() == 0) {
+		ShowWarning ("You are running rAthena with root privileges, it is not necessary.\n");
     }
 #endif
 }
@@ -237,38 +280,38 @@ int main (int argc, char **argv)
 	display_title();
 	usercheck();
 
+	rathread_init();
+	mempool_init();
 	db_init();
 	signals_init();
 
+#ifdef _WIN32
+	cevents_init();
+#endif
+
 	timer_init();
 	socket_init();
-	plugins_init();
 
 	do_init(argc,argv);
-	plugin_event_trigger(EVENT_ATHENA_INIT);
 
 	{// Main runtime cycle
 		int next;
-		while (runflag) {
+		while (runflag != CORE_ST_STOP) {
 			next = do_timer(gettick_nocache());
 			do_sockets(next);
 		}
 	}
 
-	plugin_event_trigger(EVENT_ATHENA_FINAL);
 	do_final();
 
 	timer_final();
-	plugins_final();
 	socket_final();
 	db_final();
+	mempool_final();	
+	rathread_final();
 #endif
 
 	malloc_final();
 
 	return 0;
 }
-
-#ifdef BCHECK
-unsigned int __invalid_size_argument_for_IOC;
-#endif

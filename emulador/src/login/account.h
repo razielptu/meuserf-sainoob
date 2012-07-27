@@ -1,21 +1,3 @@
-// This file has been edited or created to install the:
-// GAMEFORT - Hacking Prevention System
-//=============================================================
-//    ____     _     __  __  _____  _____   ___   ____   _____
-//   / ___|   / \   |  \/  || ____|| ____| / _ \ |  _ \ |_   _|
-//  | |  _   / _ \  | |\/| ||  _|  |  _|  | | | || |_) |  | |
-//  | |_| | / ___ \ | |  | || |___ | |    | |_| ||  _ <   | |
-//   \____|/_/   \_\|_|  |_||_____||_|     \___/ |_| \_\  |_|
-//
-//=============================================================
-// Version: 7390
-// Instalation Date: 24/8/2011 17:09:03
-// More Informations: http://gamefort.com.br/
-//
-// Don't change any information in this header, it will help
-// the installer for future updates
-//=============================================================
-
 // Copyright (c) Athena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
@@ -30,12 +12,8 @@ typedef struct AccountDBIterator AccountDBIterator;
 
 
 // standard engines
-#ifdef WITH_TXT
-AccountDB* account_db_txt(void);
-#endif
-#ifdef WITH_SQL
 AccountDB* account_db_sql(void);
-#endif
+
 // extra engines (will probably use the other txt functions)
 #define ACCOUNTDB_CONSTRUCTOR_(engine) account_db_##engine
 #define ACCOUNTDB_CONSTRUCTOR(engine) ACCOUNTDB_CONSTRUCTOR_(engine)
@@ -59,17 +37,18 @@ AccountDB* ACCOUNTDB_CONSTRUCTOR(ACCOUNTDB_ENGINE_4)(void);
 struct mmo_account
 {
 	int account_id;
-	char userid[24];
+	char userid[NAME_LENGTH];
 	char pass[32+1];        // 23+1 for plaintext, 32+1 for md5-ed passwords
 	char sex;               // gender (M/F/S)
 	char email[40];         // e-mail (by default: a@a.com)
-	int level;              // GM level
+	int group_id;           // player group id
 	unsigned int state;     // packet 0x006a value + 1 (0: compte OK)
 	time_t unban_time;      // (timestamp): ban time limit of the account (0 = no ban)
 	time_t expiration_time; // (timestamp): validity limit of the account (0 = unlimited)
 	unsigned int logincount;// number of successful auth attempts
 	char lastlogin[24];     // date+time of last successful login
 	char last_ip[16];       // save of last IP of connection
+	char birthdate[10+1];   // assigned birth date (format: YYYY-MM-DD, default: 0000-00-00)
 	int account_reg2_num;
 	struct global_reg account_reg2[ACCOUNT_REG2_NUM]; // account script variables (stored on login server)
 };
@@ -165,13 +144,6 @@ struct AccountDB
 	/// @param userid Target username
 	/// @return true if successful
 	bool (*load_str)(AccountDB* self, struct mmo_account* acc, const char* userid);
-
-	// GameFort
-	bool (*log_mac_addr)(AccountDB* self, const unsigned char* mac_address, int account_id);
-	bool (*update_mac_addr)(AccountDB* self, const unsigned char* mac_address, int account_id);
-	bool (*ban_mac_addr)(AccountDB* self, int account_id);
-	bool (*unban_mac_addr)(AccountDB* self, int account_id);
-	bool (*checkban_mac_addr)(AccountDB* self, const unsigned char* mac_address);
 
 	/// Returns a new forward iterator.
 	///

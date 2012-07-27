@@ -34,6 +34,7 @@ struct npc_data {
 	char name[NAME_LENGTH+1];// display name
 	char exname[NAME_LENGTH+1];// unique npc name
 	int chat_id;
+	int touching_id;
 	unsigned int next_walktime;
 
 	unsigned size : 2;
@@ -61,6 +62,11 @@ struct npc_data {
 			short x,y; // destination coords
 			unsigned short mapindex; // destination map
 		} warp;
+		struct {
+			struct mob_data *md;
+			time_t kill_time;
+			char killer_name[NAME_LENGTH];
+		} tomb;
 	} u;
 };
 
@@ -68,15 +74,19 @@ struct npc_data {
 
 #define START_NPC_NUM 110000000
 
-#define WARP_CLASS 45
-#define WARP_DEBUG_CLASS 722
-#define FLAG_CLASS 722
-#define INVISIBLE_CLASS 32767
+enum actor_classes
+{
+	WARP_CLASS = 45,
+	HIDDEN_WARP_CLASS = 139,
+	WARP_DEBUG_CLASS = 722,
+	FLAG_CLASS = 722,
+	INVISIBLE_CLASS = 32767,
+};
 
 #define MAX_NPC_CLASS 1000
 //Checks if a given id is a valid npc id. [Skotlex]
 //Since new npcs are added all the time, the max valid value is the one before the first mob (Scorpion = 1001)
-#define npcdb_checkid(id) ((id >=  46 && id <= 125) || id == 139 || (id >= 400 && id <= MAX_NPC_CLASS) || id == INVISIBLE_CLASS)
+#define npcdb_checkid(id) ( ( (id) >= 46 && (id) <= 125) || (id) == HIDDEN_WARP_CLASS || ( (id) > 400 && (id) < MAX_NPC_CLASS ) || (id) == INVISIBLE_CLASS )
 
 #ifdef PCRE_SUPPORT
 void npc_chat_finalize(struct npc_data* nd);
@@ -97,10 +107,11 @@ enum npce_event {
 struct view_data* npc_get_viewdata(int class_);
 int npc_chat_sub(struct block_list* bl, va_list ap);
 int npc_event_dequeue(struct map_session_data* sd);
-int npc_event(struct map_session_data* sd, const char* eventname, int mob_kill);
+int npc_event(struct map_session_data* sd, const char* eventname, int ontouch);
 int npc_touch_areanpc(struct map_session_data* sd, int m, int x, int y);
 int npc_touch_areanpc2(struct mob_data *md); // [Skotlex]
 int npc_check_areanpc(int flag, int m, int x, int y, int range);
+int npc_touchnext_areanpc(struct map_session_data* sd,bool leavemap);
 int npc_click(struct map_session_data* sd, struct npc_data* nd);
 int npc_scriptcont(struct map_session_data* sd, int id);
 struct npc_data* npc_checknear(struct map_session_data* sd, struct block_list* bl);
@@ -123,7 +134,8 @@ int npc_get_new_npc_id(void);
 
 void npc_addsrcfile(const char* name);
 void npc_delsrcfile(const char* name);
-void npc_parsesrcfile(const char* filepath);
+void npc_parsesrcfile(const char* filepath, bool runOnInit);
+void do_clear_npc(void);
 int do_final_npc(void);
 int do_init_npc(void);
 void npc_event_do_oninit(void);
@@ -132,6 +144,7 @@ int npc_do_ontimer(int npc_id, int option);
 int npc_event_do(const char* name);
 int npc_event_doall(const char* name);
 int npc_event_doall_id(const char* name, int rid);
+bool npc_event_isspecial(const char* eventname);
 
 int npc_timerevent_start(struct npc_data* nd, int rid);
 int npc_timerevent_stop(struct npc_data* nd);
@@ -140,15 +153,26 @@ int npc_gettimerevent_tick(struct npc_data* nd);
 int npc_settimerevent_tick(struct npc_data* nd, int newtimer);
 int npc_remove_map(struct npc_data* nd);
 void npc_unload_duplicates (struct npc_data* nd);
-int npc_unload(struct npc_data* nd);
+int npc_unload(struct npc_data* nd, bool single);
 int npc_reload(void);
 void npc_read_event_script(void);
 int npc_script_event(struct map_session_data* sd, enum npce_event type);
 
+int npc_duplicate4instance(struct npc_data *snd, int m);
 int npc_cashshop_buy(struct map_session_data *sd, int nameid, int amount, int points);
 
 extern struct npc_data* fake_nd;
-const char* npc_parse_duplicate(char* w1, char* w2, char* w3, char* w4, const char* start, const char* buffer, const char* filepath);
-const char* npc_parse_mob(char* w1, char* w2, char* w3, char* w4, const char* start, const char* buffer, const char* filepath);
+
+int npc_cashshop_buylist(struct map_session_data *sd, int points, int count, unsigned short* item_list);
+
+/**
+ * For the Secure NPC Timeout option (check config/Secure.h) [RR]
+ **/
+#if SECURE_NPCTIMEOUT
+int npc_rr_secure_timeout_timer(int tid, unsigned int tick, int id, intptr_t data);
+#endif
+
+// @commands (script-based)
+int npc_do_atcmd_event(struct map_session_data* sd, const char* command, const char* message, const char* eventname);
 
 #endif /* _NPC_H_ */

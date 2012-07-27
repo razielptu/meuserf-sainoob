@@ -15,6 +15,5 @@ void mail_getattachment(struct map_session_data* sd, int zeny, struct item* item
 int mail_openmail(struct map_session_data *sd);
 void mail_deliveryfail(struct map_session_data *sd, struct mail_message *msg);
 bool mail_invalid_operation(struct map_session_data *sd);
-int chrif_Parse_mailsetattachment(void);
 
 #endif /* _MAIL_H_ */

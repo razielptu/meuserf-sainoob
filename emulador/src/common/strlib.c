@@ -8,8 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
+#include <errno.h>
 
 
 #define J_MAX_MALLOC_SIZE 65535
@@ -241,13 +240,56 @@ char* _strtok_r(char *s1, const char *s2, char **lasts)
 }
 #endif
 
-#if !(defined(WIN32) && defined(_MSC_VER) && _MSC_VER >= 1400) && !defined(CYGWIN)
+#if !(defined(WIN32) && defined(_MSC_VER) && _MSC_VER >= 1400) && !defined(HAVE_STRNLEN)
 /* Find the length of STRING, but scan at most MAXLEN characters.
    If no '\0' terminator is found in that many characters, return MAXLEN.  */
 size_t strnlen (const char* string, size_t maxlen)
 {
-  const char* end = memchr (string, '\0', maxlen);
+  const char* end = (const char*)memchr(string, '\0', maxlen);
   return end ? (size_t) (end - string) : maxlen;
+}
+#endif
+
+#if defined(WIN32) && defined(_MSC_VER) && _MSC_VER <= 1200
+uint64 strtoull(const char* str, char** endptr, int base)
+{
+	uint64 result;
+	int count;
+	int n;
+
+	if( base == 0 )
+	{
+		if( str[0] == '0' && (str[1] == 'x' || str[1] == 'X') )
+			base = 16;
+		else
+		if( str[0] == '0' )
+			base = 8;
+		else
+			base = 10;
+	}
+
+	if( base == 8 )
+		count = sscanf(str, "%I64o%n", &result, &n);
+	else
+	if( base == 10 )
+		count = sscanf(str, "%I64u%n", &result, &n);
+	else
+	if( base == 16 )
+		count = sscanf(str, "%I64x%n", &result, &n);
+	else
+		count = 0; // fail
+
+	if( count < 1 )
+	{
+		errno = EINVAL;
+		result = 0;
+		n = 0;
+	}
+
+	if( endptr )
+		*endptr = (char*)str + n;
+
+	return result;
 }
 #endif
 
@@ -399,6 +441,163 @@ bool bin2hex(char* output, unsigned char* input, size_t count)
 
 
 /////////////////////////////////////////////////////////////////////
+/// Parses a single field in a delim-separated string.
+/// The delimiter after the field is skipped.
+///
+/// @param sv Parse state
+/// @return 1 if a field was parsed, 0 if already done, -1 on error.
+int sv_parse_next(struct s_svstate* sv)
+{
+	enum {
+		START_OF_FIELD,
+		PARSING_FIELD,
+		PARSING_C_ESCAPE,
+		END_OF_FIELD,
+		TERMINATE,
+		END
+	} state;
+	const char* str;
+	int len;
+	enum e_svopt opt;
+	char delim;
+	int i;
+
+	if( sv == NULL )
+		return -1;// error
+
+	str = sv->str;
+	len = sv->len;
+	opt = sv->opt;
+	delim = sv->delim;
+
+	// check opt
+	if( delim == '\n' && (opt&(SV_TERMINATE_CRLF|SV_TERMINATE_LF)) )
+	{
+		ShowError("sv_parse_next: delimiter '\\n' is not compatible with options SV_TERMINATE_LF or SV_TERMINATE_CRLF.\n");
+		return -1;// error
+	}
+	if( delim == '\r' && (opt&(SV_TERMINATE_CRLF|SV_TERMINATE_CR)) )
+	{
+		ShowError("sv_parse_next: delimiter '\\r' is not compatible with options SV_TERMINATE_CR or SV_TERMINATE_CRLF.\n");
+		return -1;// error
+	}
+
+	if( sv->done || str == NULL )
+	{
+		sv->done = true;
+		return 0;// nothing to parse
+	}
+
+#define IS_END() ( i >= len )
+#define IS_DELIM() ( str[i] == delim )
+#define IS_TERMINATOR() ( \
+	((opt&SV_TERMINATE_LF) && str[i] == '\n') || \
+	((opt&SV_TERMINATE_CR) && str[i] == '\r') || \
+	((opt&SV_TERMINATE_CRLF) && i+1 < len && str[i] == '\r' && str[i+1] == '\n') )
+#define IS_C_ESCAPE() ( (opt&SV_ESCAPE_C) && str[i] == '\\' )
+#define SET_FIELD_START() sv->start = i
+#define SET_FIELD_END() sv->end = i
+
+	i = sv->off;
+	state = START_OF_FIELD;
+	while( state != END )
+	{
+		switch( state )
+		{
+		case START_OF_FIELD:// record start of field and start parsing it
+			SET_FIELD_START();
+			state = PARSING_FIELD;
+			break;
+
+		case PARSING_FIELD:// skip field character
+			if( IS_END() || IS_DELIM() || IS_TERMINATOR() )
+				state = END_OF_FIELD;
+			else if( IS_C_ESCAPE() )
+				state = PARSING_C_ESCAPE;
+			else
+				++i;// normal character
+			break;
+
+		case PARSING_C_ESCAPE:// skip escape sequence (validates it too)
+			{
+				++i;// '\\'
+				if( IS_END() )
+				{
+					ShowError("sv_parse_next: empty escape sequence\n");
+					return -1;
+				}
+				if( str[i] == 'x' )
+				{// hex escape
+					++i;// 'x'
+					if( IS_END() || !ISXDIGIT(str[i]) )
+					{
+						ShowError("sv_parse_next: \\x with no following hex digits\n");
+						return -1;
+					}
+					do{
+						++i;// hex digit
+					}while( !IS_END() && ISXDIGIT(str[i]));
+				}
+				else if( str[i] == '0' || str[i] == '1' || str[i] == '2' )
+				{// octal escape
+					++i;// octal digit
+					if( !IS_END() && str[i] >= '0' && str[i] <= '7' )
+						++i;// octal digit
+					if( !IS_END() && str[i] >= '0' && str[i] <= '7' )
+						++i;// octal digit
+				}
+				else if( strchr(SV_ESCAPE_C_SUPPORTED, str[i]) )
+				{// supported escape character
+					++i;
+				}
+				else
+				{
+					ShowError("sv_parse_next: unknown escape sequence \\%c\n", str[i]);
+					return -1;
+				}
+				state = PARSING_FIELD;
+				break;
+			}
+
+		case END_OF_FIELD:// record end of field and stop
+			SET_FIELD_END();
+			state = END;
+			if( IS_END() )
+				;// nothing else
+			else if( IS_DELIM() )
+				++i;// delim
+			else if( IS_TERMINATOR() )
+				state = TERMINATE;
+			break;
+
+		case TERMINATE:
+#if 0
+			// skip line terminator
+			if( (opt&SV_TERMINATE_CRLF) && i+1 < len && str[i] == '\r' && str[i+1] == '\n' )
+				i += 2;// CRLF
+			else
+				++i;// CR or LF
+#endif
+			sv->done = true;
+			state = END;
+			break;
+		}
+	}
+	if( IS_END() )
+		sv->done = true;
+	sv->off = i;
+
+#undef IS_END
+#undef IS_DELIM
+#undef IS_TERMINATOR
+#undef IS_C_ESCAPE
+#undef SET_FIELD_START
+#undef SET_FIELD_END
+
+	return 1;
+}
+
+
 /// Parses a delim-separated string.
 /// Starts parsing at startoff and fills the pos array with position pairs.
 /// out_pos[0] and out_pos[1] are the start and end of line.
@@ -421,147 +620,32 @@ bool bin2hex(char* output, unsigned char* input, size_t count)
 /// @return Number of fields found in the string or -1 if an error occured
 int sv_parse(const char* str, int len, int startoff, char delim, int* out_pos, int npos, enum e_svopt opt)
 {
-	int i;
+	struct s_svstate sv;
 	int count;
-	enum {
-		START_OF_FIELD,
-		PARSING_FIELD,
-		PARSING_C_ESCAPE,
-		END_OF_FIELD,
-		TERMINATE,
-		END
-	} state;
 
-	// check pos/npos
+	// initialize
 	if( out_pos == NULL ) npos = 0;
-	for( i = 0; i < npos; ++i )
-		out_pos[i] = -1;
+	for( count = 0; count < npos; ++count )
+		out_pos[count] = -1;
+	sv.str = str;
+	sv.len = len;
+	sv.off = startoff;
+	sv.opt = opt;
+	sv.delim = delim;
+	sv.done = false;
 
-	// check opt
-	if( delim == '\n' && (opt&(SV_TERMINATE_CRLF|SV_TERMINATE_LF)) )
-	{
-		ShowError("sv_parse: delimiter '\\n' is not compatible with options SV_TERMINATE_LF or SV_TERMINATE_CRLF.\n");
-		return -1;// error
-	}
-	if( delim == '\r' && (opt&(SV_TERMINATE_CRLF|SV_TERMINATE_CR)) )
-	{
-		ShowError("sv_parse: delimiter '\\r' is not compatible with options SV_TERMINATE_CR or SV_TERMINATE_CRLF.\n");
-		return -1;// error
-	}
-
-	// check str
-	if( str == NULL )
-		return 0;// nothing to parse
-
-#define IS_END() ( i >= len )
-#define IS_DELIM() ( str[i] == delim )
-#define IS_TERMINATOR() ( \
-	((opt&SV_TERMINATE_LF) && str[i] == '\n') || \
-	((opt&SV_TERMINATE_CR) && str[i] == '\r') || \
-	((opt&SV_TERMINATE_CRLF) && i+1 < len && str[i] == '\r' && str[i+1] == '\n') )
-#define IS_C_ESCAPE() ( (opt&SV_ESCAPE_C) && str[i] == '\\' )
-#define SET_FIELD_START() if( npos > count*2+2 ) out_pos[count*2+2] = i
-#define SET_FIELD_END() if( npos > count*2+3 ) out_pos[count*2+3] = i; ++count
-
-	i = startoff;
+	// parse
 	count = 0;
-	state = START_OF_FIELD;
-	if( npos > 0 ) out_pos[0] = startoff;// start
-	while( state != END )
+	if( npos > 0 ) out_pos[0] = startoff;
+	while( !sv.done )
 	{
-		if( npos > 1 ) out_pos[1] = i;// end
-		switch( state )
-		{
-		case START_OF_FIELD:// record start of field and start parsing it
-			SET_FIELD_START();
-			state = PARSING_FIELD;
-			break;
-
-		case PARSING_FIELD:// skip field character
-			if( IS_END() || IS_DELIM() || IS_TERMINATOR() )
-				state = END_OF_FIELD;
-			else if( IS_C_ESCAPE() )
-				state = PARSING_C_ESCAPE;
-			else
-				++i;// normal character
-			break;
-
-		case PARSING_C_ESCAPE:// skip escape sequence (validates it too)
-			{
-				++i;// '\\'
-				if( IS_END() )
-				{
-					ShowError("sv_parse: empty escape sequence\n");
-					return -1;
-				}
-				if( str[i] == 'x' )
-				{// hex escape
-					++i;// 'x'
-					if( IS_END() || !ISXDIGIT(str[i]) )
-					{
-						ShowError("sv_parse: \\x with no following hex digits\n");
-						return -1;
-					}
-					do{
-						++i;// hex digit
-					}while( !IS_END() && ISXDIGIT(str[i]));
-				}
-				else if( str[i] == '0' || str[i] == '1' || str[i] == '2' )
-				{// octal escape
-					++i;// octal digit
-					if( !IS_END() && str[i] >= '0' && str[i] <= '7' )
-						++i;// octal digit
-					if( !IS_END() && str[i] >= '0' && str[i] <= '7' )
-						++i;// octal digit
-				}
-				else if( strchr(SV_ESCAPE_C_SUPPORTED, str[i]) )
-				{// supported escape character
-					++i;
-				}
-				else
-				{
-					ShowError("sv_parse: unknown escape sequence \\%c\n", str[i]);
-					return -1;
-				}
-				state = PARSING_FIELD;
-				break;
-			}
-
-		case END_OF_FIELD:// record end of field and continue
-			SET_FIELD_END();
-			if( IS_END() )
-				state = END;
-			else if( IS_DELIM() )
-			{
-				++i;// delim
-				state = START_OF_FIELD;
-			}
-			else if( IS_TERMINATOR() )
-				state = TERMINATE;
-			else
-				state = START_OF_FIELD;
-			break;
-
-		case TERMINATE:
-#if 0
-			// skip line terminator
-			if( (opt&SV_TERMINATE_CRLF) && i+1 < len && str[i] == '\r' && str[i+1] == '\n' )
-				i += 2;// CRLF
-			else
-				++i;// CR or LF
-#endif
-			state = END;
-			break;
-		}
+		++count;
+		if( sv_parse_next(&sv) <= 0 )
+			return -1;// error
+		if( npos > count*2 ) out_pos[count*2] = sv.start;
+		if( npos > count*2+1 ) out_pos[count*2+1] = sv.end;
 	}
-
-#undef IS_END
-#undef IS_DELIM
-#undef IS_TERMINATOR
-#undef IS_C_ESCAPE
-#undef SET_FIELD_START
-#undef SET_FIELD_END
-
+	if( npos > 1 ) out_pos[1] = sv.off;
 	return count;
 }
 
@@ -613,7 +697,7 @@ int sv_split(char* str, int len, int startoff, char delim, char** out_fields, in
 			end[0] = end[1] = '\0';
 		*out_fields = end + 2;
 	}
-	else if( (opt&SV_TERMINATE_LF) && end[0] == '\r' )
+	else if( (opt&SV_TERMINATE_CR) && end[0] == '\r' )
 	{
 		if( !(opt&SV_KEEP_TERMINATOR) )
 			end[0] = '\0';
@@ -715,7 +799,7 @@ size_t sv_escape_c(char* out_dest, const char* src, size_t len, const char* esca
 				case '\?': out_dest[j++] = '?'; break;
 				default:// to octal
 					out_dest[j++] = '0'+((char)(((unsigned char)src[i]&0700)>>6));
- 					out_dest[j++] = '0'+((char)(((unsigned char)src[i]&0070)>>3));
+					out_dest[j++] = '0'+((char)(((unsigned char)src[i]&0070)>>3));
 					out_dest[j++] = '0'+((char)(((unsigned char)src[i]&0007)   ));
 					break;
 				}
@@ -879,17 +963,12 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 	FILE* fp;
 	int lines = 0;
 	int entries = 0;
-	char* fields[64]; // room for 63 fields ([0] is reserved)
-	int columns;
+	char** fields; // buffer for fields ([0] is reserved)
+	int columns, fields_length;
 	char path[1024], line[1024];
+	char* match;
 
 	snprintf(path, sizeof(path), "%s/%s", directory, filename);
-
-	if( maxcols > ARRAYLENGTH(fields)-1 )
-	{
-		ShowError("sv_readdb: Insufficient column storage in parser for file \"%s\" (want %d, have only %d). Increase the capacity in the source code please.\n", path, maxcols, ARRAYLENGTH(fields)-1);
-		return false;
-	}
 
 	// open file
 	fp = fopen(path, "r");
@@ -899,18 +978,25 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 		return false;
 	}
 
+	// allocate enough memory for the maximum requested amount of columns plus the reserved one
+	fields_length = maxcols+1;
+	fields = (char**)aMalloc(fields_length*sizeof(char*));
+
 	// process rows one by one
 	while( fgets(line, sizeof(line), fp) )
 	{
 		lines++;
-		if( line[0] == '/' && line[1] == '/' )
-			continue;
-		//TODO: strip trailing // comment
+
+		if( ( match = strstr(line, "//") ) != NULL )
+		{// strip comments
+			match[0] = 0;
+		}
+
 		//TODO: strip trailing whitespace
 		if( line[0] == '\0' || line[0] == '\n' || line[0] == '\r')
 			continue;
 
-		columns = sv_split(line, strlen(line), 0, delim, fields, ARRAYLENGTH(fields), (e_svopt)(SV_TERMINATE_LF|SV_TERMINATE_CRLF));
+		columns = sv_split(line, strlen(line), 0, delim, fields, fields_length, (e_svopt)(SV_TERMINATE_LF|SV_TERMINATE_CRLF));
 
 		if( columns < mincols )
 		{
@@ -939,6 +1025,7 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 		entries++;
 	}
 
+	aFree(fields);
 	fclose(fp);
 	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", entries, path);
 
@@ -964,7 +1051,7 @@ StringBuf* StringBuf_Malloc()
 void StringBuf_Init(StringBuf* self)
 {
 	self->max_ = 1024;
-	self->ptr_ = self->buf_ = (char*)aMallocA(self->max_ + 1);
+	self->ptr_ = self->buf_ = (char*)aMalloc(self->max_ + 1);
 }
 
 /// Appends the result of printf to the StringBuf

@@ -35,7 +35,7 @@ struct block_list;
 
 struct Damage battle_calc_attack(int attack_type,struct block_list *bl,struct block_list *target,int skill_num,int skill_lv,int count);
 
-int battle_calc_return_damage(struct block_list *bl, int damage, int flag);
+int battle_calc_return_damage(struct block_list *bl, struct block_list *src, int *, int flag, int skillid);
 
 void battle_drain(struct map_session_data *sd, struct block_list *tbl, int rdamage, int ldamage, int race, int boss);
 
@@ -72,20 +72,19 @@ struct block_list* battle_getenemy(struct block_list *target, int type, int rang
 int battle_gettarget(struct block_list *bl);
 int battle_getcurrentskill(struct block_list *bl);
 
-//New definitions [Skotlex]
-#define BCT_ENEMY 0x020000
-//This should be (~BCT_ENEMY&BCT_ALL)
-#define BCT_NOENEMY 0x1d0000
-#define BCT_PARTY	0x040000
-//This should be (~BCT_PARTY&BCT_ALL)
-#define BCT_NOPARTY 0x1b0000
-#define BCT_GUILD	0x080000
-//This should be (~BCT_GUILD&BCT_ALL)
-#define BCT_NOGUILD 0x170000
-#define BCT_ALL 0x1f0000
-#define BCT_NOONE 0x000000
-#define BCT_SELF 0x010000
-#define BCT_NEUTRAL 0x100000
+enum e_battle_check_target
+{//New definitions [Skotlex]
+	BCT_ENEMY   = 0x020000,
+	BCT_NOENEMY = 0x1d0000, //This should be (~BCT_ENEMY&BCT_ALL)
+	BCT_PARTY	= 0x040000,
+	BCT_NOPARTY = 0x1b0000, //This should be (~BCT_PARTY&BCT_ALL)
+	BCT_GUILD	= 0x080000,
+	BCT_NOGUILD = 0x170000, //This should be (~BCT_GUILD&BCT_ALL)
+	BCT_ALL     = 0x1f0000,
+	BCT_NOONE   = 0x000000,
+	BCT_SELF    = 0x010000,
+	BCT_NEUTRAL = 0x100000,
+};
 
 #define	is_boss(bl)	(status_get_mode(bl)&MD_BOSS)	// Can refine later [Aru]
 
@@ -95,6 +94,13 @@ bool battle_check_range(struct block_list *src,struct block_list *bl,int range);
 
 void battle_consume_ammo(struct map_session_data* sd, int skill, int lv);
 // ê›íË
+
+#define MIN_HAIR_STYLE battle_config.min_hair_style
+#define MAX_HAIR_STYLE battle_config.max_hair_style
+#define MIN_HAIR_COLOR battle_config.min_hair_color
+#define MAX_HAIR_COLOR battle_config.max_hair_color
+#define MIN_CLOTH_COLOR battle_config.min_cloth_color
+#define MAX_CLOTH_COLOR battle_config.max_cloth_color
 
 extern struct Battle_Config
 {
@@ -110,13 +116,14 @@ extern struct Battle_Config
 	int left_cardfix_to_right;
 	int skill_add_range;
 	int skill_out_range_consume;
+	int skill_amotion_leniency;
 	int skillrange_by_distance; //[Skotlex]
 	int use_weapon_skill_range; //[Skotlex]
 	int pc_damage_delay_rate;
 	int defnotenemy;
-	int vs_traps_bctall;	
+	int vs_traps_bctall;
 	int traps_setting;
-	int summon_flora; //[Skotlex]	
+	int summon_flora; //[Skotlex]
 	int clear_unit_ondeath; //[Skotlex]
 	int clear_unit_onwarp; //[Skotlex]
 	int random_monster_checklv;
@@ -144,16 +151,9 @@ extern struct Battle_Config
 	int monster_max_aspd;
 	int view_range_rate;
 	int chase_range_rate;
-	int lowest_gm_level;
-	int atc_gmonly;
 	int atc_spawn_quantity_limit;
 	int atc_slave_clone_limit;
 	int partial_name_scan;
-	int gm_allskill;
-	int gm_allequip;
-	int gm_skilluncond;
-	int gm_join_chat;
-	int gm_kick_chat;
 	int skillfree;
 	int skillup_limit;
 	int wp_rate;
@@ -214,6 +214,7 @@ extern struct Battle_Config
 	int combo_delay_rate;
 	int item_check;
 	int item_use_interval;	//[Skotlex]
+	int cashfood_use_interval;
 	int wedding_modifydisplay;
 	int wedding_ignorepalette;	//[Skotlex]
 	int xmas_ignorepalette;	// [Valaris]
@@ -232,7 +233,6 @@ extern struct Battle_Config
 	int max_cart_weight;
 	int skill_log;
 	int battle_log;
-	int save_log;
 	int etc_log;
 	int save_clothcolor;
 	int undead_detect_type;
@@ -260,7 +260,6 @@ extern struct Battle_Config
 	int gvg_magic_damage_rate;
 	int gvg_misc_damage_rate;
 	int gvg_flee_penalty;
-	int gvg_eliminate_time;
 	int pk_short_damage_rate;
 	int pk_long_damage_rate;
 	int pk_weapon_damage_rate;
@@ -269,7 +268,6 @@ extern struct Battle_Config
 	int mob_changetarget_byskill;
 	int attack_direction_change;
 	int land_skill_limit;
-	int party_skill_penalty;
 	int monster_class_change_recover;
 	int produce_item_name_input;
 	int display_skill_fail;
@@ -283,6 +281,7 @@ extern struct Battle_Config
 	int party_share_type;
 	int party_hp_mode;
 	int party_show_share_picker;
+	int show_picker_item_type;
 	int attack_attr_none;
 	int item_rate_mvp, item_rate_common, item_rate_common_boss, item_rate_card, item_rate_card_boss,
 		item_rate_equip, item_rate_equip_boss, item_rate_heal, item_rate_heal_boss, item_rate_use,
@@ -313,15 +312,11 @@ extern struct Battle_Config
 
 	int manner_system; // end additions [Valaris]
 	int show_mob_info; 
-
-	int agi_penalty_count_lv;
-	int vit_penalty_count_lv;
-
+	
 	int gx_allhit;
 	int gx_disptype;
 	int devotion_level_difference;
 	int player_skill_partner_check;
-	int hide_GM_session;
 	int invite_request_check;
 	int skill_removetrap_type;
 	int disp_experience;
@@ -330,21 +325,15 @@ extern struct Battle_Config
 	int backstab_bow_penalty;
 	int hp_rate;
 	int sp_rate;
-	int gm_cant_drop_min_lv;
-	int gm_cant_drop_max_lv;
-	int disp_hpmeter;
 	int bone_drop;
 	int buyer_name;
-	int gm_cant_party_min_lv;
-	int gm_can_party; // [SketchyPhoenix]
+	int dancing_weaponswitch_fix;
 
 // eAthena additions
 	int night_at_start; // added by [Yor]
 	int day_duration; // added by [Yor]
 	int night_duration; // added by [Yor]
 	int ban_hack_trade; // added by [Yor]
-	int hack_info_GM_level; // added by [Yor]
-	int any_warp_GM_min_level; // added by [Yor]
 	int packet_ver_flag; // added by [Yor]
 	
 	int min_hair_style; // added by [MouseJstr]
@@ -381,7 +370,6 @@ extern struct Battle_Config
 	int delay_battle_damage;
 	int hide_woe_damage;
 	int display_version;
-	int who_display_aid;
 
 	int display_hallucination;	// [Skotlex]
 	int use_statpoint_table;	// [Skotlex]
@@ -402,7 +390,6 @@ extern struct Battle_Config
 	int show_hp_sp_drain, show_hp_sp_gain;	//[Skotlex]
 
 	int mob_npc_event_type; //Determines on who the npc_event is executed. [Skotlex]
-	int mob_clear_delay; // [Valaris]
 
 	int character_size; // if riders have size=2, and baby class riders size=1 [Lupus]
 	int mob_max_skilllvl; // Max possible skill level [Lupus]
@@ -410,15 +397,6 @@ extern struct Battle_Config
 
 	int retaliate_to_master;	//Whether when a mob is attacked by another mob, it will retaliate versus the mob or the mob's master. [Skotlex]
 
-	int title_lvl1; // Players titles [Lupus]
-	int title_lvl2; // Players titles [Lupus]
-	int title_lvl3; // Players titles [Lupus]
-	int title_lvl4; // Players titles [Lupus]
-	int title_lvl5; // Players titles [Lupus]
-	int title_lvl6; // Players titles [Lupus]
-	int title_lvl7; // Players titles [Lupus]
-	int title_lvl8; // Players titles [Lupus]
-	
 	int duel_allow_pvp; // [LuzZza]
 	int duel_allow_gvg; // [LuzZza]
 	int duel_allow_teleport; // [LuzZza]
@@ -461,9 +439,26 @@ extern struct Battle_Config
 	int ksprotection;
 	int auction_feeperhour;
 	int auction_maximumprice;
-	int gm_viewequip_min_lv;
-	int homunculus_auto_vapor; //Keep Homunculus from Vaporizing when master dies. [L0ne_W0lf]
-	int display_status_timers; //Show or hide skill buff/delay timers in recent clients [Sara]
+	int homunculus_auto_vapor;	//Keep Homunculus from Vaporizing when master dies. [L0ne_W0lf]
+	int display_status_timers;	//Show or hide skill buff/delay timers in recent clients [Sara]
+	int skill_add_heal_rate;	//skills that bHealPower has effect on [Inkfish]
+	int eq_single_target_reflectable;
+	int invincible_nodamage;
+	int mob_slave_keep_target;
+	int autospell_check_range;	//Enable range check for autospell bonus. [L0ne_W0lf]
+	int client_reshuffle_dice;  // Reshuffle /dice
+	int client_sort_storage;
+	int feature_buying_store;
+	int feature_search_stores;
+	int searchstore_querydelay;
+	int searchstore_maxresults;
+	int display_party_name;
+	int cashshop_show_points;
+	int mail_show_status;
+	int client_limit_unit_lv;
+	int hom_max_level;
+	int hom_S_max_level;
+
 	// [BattleGround Settings]
 	int bg_update_interval;
 	int bg_short_damage_rate;
@@ -472,10 +467,18 @@ extern struct Battle_Config
 	int bg_magic_damage_rate;
 	int bg_misc_damage_rate;
 	int bg_flee_penalty;
-	int no_prt_vending; //[Minos]
-	int no_prt_chating;
-	int vending_overflow; // Battle para max zenys [theultramage]
 
+	// rAthena
+	int max_third_parameter;
+	int max_baby_third_parameter;
+	int atcommand_max_stat_bypass;
+	int max_third_aspd;
+
+	int mvp_tomb_enabled;
+	
+	int atcommand_suggestions_enabled;
+    int min_npc_vending_distance;
+	int atcommand_mobinfo_type;
 } battle_config;
 
 void do_init_battle(void);
@@ -485,5 +488,12 @@ extern void battle_validate_conf(void);
 extern void battle_set_defaults(void);
 int battle_set_value(const char* w1, const char* w2);
 int battle_get_value(const char* w1);
+
+//
+struct block_list* battle_getenemyarea(struct block_list *src, int x, int y, int range, int type, int ignore_id);
+/**
+ * Royal Guard
+ **/
+int battle_damage_area( struct block_list *bl, va_list ap);
 
 #endif /* _BATTLE_H_ */

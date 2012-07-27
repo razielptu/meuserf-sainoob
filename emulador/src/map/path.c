@@ -3,6 +3,7 @@
 
 #include "../common/cbasetypes.h"
 #include "../common/nullpo.h"
+#include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/malloc.h"
 #include "map.h"
@@ -175,7 +176,7 @@ int path_blownpos(int m,int x0,int y0,int dx,int dy,int count)
 			int fy = ( dy != 0 && map_getcellp(md,x0,y0+dy,CELL_CHKPASS) );
 			if( fx && fy )
 			{
-				if(rand()&1)
+				if(rnd()&1)
 					dx=0;
 				else
 					dy=0;
@@ -345,7 +346,7 @@ bool path_search(struct walkpath_data *wpd,int m,int x0,int y0,int x1,int y1,int
 	xs = md->xs-1; // ‚ ‚ç‚©‚¶‚ß‚PŒ¸ŽZ‚µ‚Ä‚¨‚­
 	ys = md->ys-1;
 
-	while(1)
+	for(;;)
 	{
 		int e=0,f=0,dist,cost,dc[4]={0,0,0,0};
 

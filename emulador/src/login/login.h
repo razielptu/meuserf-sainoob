@@ -1,21 +1,3 @@
-// This file has been edited or created to install the:
-// GAMEFORT - Hacking Prevention System
-//=============================================================
-//    ____     _     __  __  _____  _____   ___   ____   _____
-//   / ___|   / \   |  \/  || ____|| ____| / _ \ |  _ \ |_   _|
-//  | |  _   / _ \  | |\/| ||  _|  |  _|  | | | || |_) |  | |
-//  | |_| | / ___ \ | |  | || |___ | |    | |_| ||  _ <   | |
-//   \____|/_/   \_\|_|  |_||_____||_|     \___/ |_| \_\  |_|
-//
-//=============================================================
-// Version: 7390
-// Instalation Date: 24/8/2011 17:09:03
-// More Informations: http://gamefort.com.br/
-//
-// Don't change any information in this header, it will help
-// the installer for future updates
-//=============================================================
-
 // Copyright (c) Athena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
@@ -23,6 +5,14 @@
 #define _LOGIN_H_
 
 #include "../common/mmo.h" // NAME_LENGTH,SEX_*
+#include "../common/core.h" // CORE_ST_LAST
+
+enum E_LOGINSERVER_ST
+{
+	LOGINSERVER_ST_RUNNING = CORE_ST_LAST,
+	LOGINSERVER_ST_SHUTDOWN,
+	LOGINSERVER_ST_LAST
+};
 
 #define LOGIN_CONF_NAME "conf/login_athena.conf"
 #define LAN_CONF_NAME "conf/subnet_athena.conf"
@@ -44,11 +34,9 @@ struct login_session_data {
 	uint16 md5keylen;
 
 	char lastlogin[24];
-	uint8 level;
+	uint8 group_id;
 	uint8 clienttype;
 	uint32 version;
-
-	unsigned char mac_address[13];
 
 	int fd;
 };
@@ -68,20 +56,18 @@ struct Login_Config {
 
 	uint32 login_ip;                                // the address to bind to
 	uint16 login_port;                              // the port to bind to
+	unsigned int ipban_cleanup_interval;            // interval (in seconds) to clean up expired IP bans
 	unsigned int ip_sync_interval;                  // interval (in minutes) to execute a DNS/IP update (for dynamic IPs)
 	bool log_login;                                 // whether to log login server actions or not
 	char date_format[32];                           // date format used in messages
 	bool console;                                   // console input system enabled?
-	bool new_account_flag;                          // autoregistration via _M/_F ?
+	bool new_account_flag,new_acc_length_limit;     // autoregistration via _M/_F ? / if yes minimum length is 4?
 	int start_limited_time;                         // new account expiration time (-1: unlimited)
 	bool use_md5_passwds;                           // work with password hashes instead of plaintext passwords?
-	int min_level_to_connect;                       // minimum level of player/GM (0: player, 1-99: GM) to connect
+	int group_id_to_connect;                        // required group id to connect
+	int min_group_id_to_connect;                    // minimum group id to connect
 	bool check_client_version;                      // check the clientversion set in the clientinfo ?
-	int client_version_to_connect;                  // the client version needed to connect (if checking is enabled)
-
-	bool admin_state;                               // is ladmin support enabled?
-	char admin_pass[24];                            // security password for ladmin
-	char admin_allowed_host[32];                    // host/ip that is allowed to connect as ladmin
+	uint32 client_version_to_connect;               // the client version needed to connect (if checking is enabled)
 
 	bool ipban;                                     // perform IP blocking (via contents of `ipbanlist`) ?
 	bool dynamic_pass_failure_ban;                  // automatic IP blocking due to failed login attemps ?

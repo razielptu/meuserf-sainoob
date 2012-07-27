@@ -12,6 +12,7 @@
 #include "chrif.h"
 #include "vending.h"
 #include "pc.h"
+#include "npc.h"
 #include "skill.h"
 #include "battle.h"
 #include "log.h"
@@ -19,6 +20,13 @@
 #include <stdio.h>
 #include <string.h>
 
+static int vending_nextid = 0;
+
+/// Returns an unique vending shop id.
+static int vending_getuid(void)
+{
+	return vending_nextid++;
+}
 
 /*==========================================
  * Close shop
@@ -27,8 +35,11 @@ void vending_closevending(struct map_session_data* sd)
 {
 	nullpo_retv(sd);
 
-	sd->vender_id = 0;
-	clif_closevendingboard(&sd->bl,0);
+	if( sd->state.vending )
+	{
+		sd->state.vending = false;
+		clif_closevendingboard(&sd->bl, 0);
+	}
 }
 
 /*==========================================
@@ -41,35 +52,45 @@ void vending_vendinglistreq(struct map_session_data* sd, int id)
 
 	if( (vsd = map_id2sd(id)) == NULL )
 		return;
-	if( vsd->vender_id == 0 )
+	if( !vsd->state.vending )
 		return; // not vending
 
-	if ( !pc_can_give_items(pc_isGM(sd)) || !pc_can_give_items(pc_isGM(vsd)) ) //check if both GMs are allowed to trade
+	if (!pc_can_give_items(sd) || !pc_can_give_items(vsd)) //check if both GMs are allowed to trade
 	{	// GM is not allowed to trade
 		clif_displaymessage(sd->fd, msg_txt(246));
 		return;
 	} 
-	
-	sd->cvender_id = vsd->bl.id;
+
+	sd->vended_id = vsd->vender_id;  // register vending uid
+
 	clif_vendinglist(sd, id, vsd->vending);
 }
 
 /*==========================================
  * Purchase item(s) from a shop
  *------------------------------------------*/
-void vending_purchasereq(struct map_session_data* sd, int id, const uint8* data, int count)
+void vending_purchasereq(struct map_session_data* sd, int aid, int uid, const uint8* data, int count)
 {
 	int i, j, cursor, w, new_ = 0, blank, vend_list[MAX_VENDING];
 	double z;
 	struct s_vending vending[MAX_VENDING]; // against duplicate packets
-	struct map_session_data* vsd = map_id2sd(id);
+	struct map_session_data* vsd = map_id2sd(aid);
 
 	nullpo_retv(sd);
-
-	if( vsd == NULL || vsd->vender_id == 0 || vsd->vender_id == sd->bl.id )
+	if( vsd == NULL || !vsd->state.vending || vsd->bl.id == sd->bl.id )
 		return; // invalid shop
-	if( sd->bl.m != vsd->bl.m || !check_distance_bl(&sd->bl, &vsd->bl, AREA_SIZE) )
+
+	if( vsd->vender_id != uid )
+	{// shop has changed
+		clif_buyvending(sd, 0, 0, 6);  // store information was incorrect
+		return;
+	}
+
+	if( !searchstore_queryremote(sd, aid) && ( sd->bl.m != vsd->bl.m || !check_distance_bl(&sd->bl, &vsd->bl, AREA_SIZE) ) )
 		return; // shop too far away
+
+	searchstore_clearremote(sd);
+
 	if( count < 1 || count > MAX_VENDING || count > vsd->vend_num )
 		return; // invalid amount of purchased items
 
@@ -103,19 +124,19 @@ void vending_purchasereq(struct map_session_data* sd, int id, const uint8* data,
 		z += ((double)vsd->vending[j].value * (double)amount);
 		if( z > (double)sd->status.zeny || z < 0. || z > (double)MAX_ZENY )
 		{
-			clif_buyvending(sd, idx, amount, 1); // Você não tem os zenys necessários
+			clif_buyvending(sd, idx, amount, 1); // you don't have enough zeny
 			return;
 		}
-
-		if ( (battle_config.vending_overflow) && (z + (double)vsd->status.zeny > (double)MAX_ZENY) )
+		if( z + (double)vsd->status.zeny > (double)MAX_ZENY && !battle_config.vending_over_max )
 		{
-			clif_buyvending(sd, idx, vsd->vending[j].amount, 4); // Função battle para max zenys [theultramage e Protimus]
+			clif_buyvending(sd, idx, vsd->vending[j].amount, 4); // too much zeny = overflow
 			return;
+
 		}
 		w += itemdb_weight(vsd->status.cart[idx].nameid) * amount;
 		if( w + sd->weight > sd->max_weight )
 		{
-			clif_buyvending(sd, idx, amount, 2); // Você não pode fazer compras, peso acima do limite 
+			clif_buyvending(sd, idx, amount, 2); // you can not buy, because overweight
 			return;
 		}
 		
@@ -148,8 +169,7 @@ void vending_purchasereq(struct map_session_data* sd, int id, const uint8* data,
 	}
 
 	//Logs (V)ending Zeny [Lupus]
-	if( log_config.zeny > 0 )
-		log_zeny(vsd, "V", sd, (int)z);
+	log_zeny(vsd, LOG_TYPE_VENDING, sd, (int)z);
 
 	pc_payzeny(sd, (int)z);
 	if( battle_config.vending_tax )
@@ -162,16 +182,10 @@ void vending_purchasereq(struct map_session_data* sd, int id, const uint8* data,
 		short idx    = *(uint16*)(data + 4*i + 2);
 		idx -= 2;
 
-		//Logs sold (V)ending items [Lupus]
-		if(log_config.enable_logs&0x4) {
-			log_pick_pc(vsd, "V", vsd->status.cart[idx].nameid, -amount, &vsd->status.cart[idx]);
-			log_pick_pc( sd, "V", vsd->status.cart[idx].nameid,  amount, &vsd->status.cart[idx]);
-		}
-
 		// vending item
-		pc_additem(sd, &vsd->status.cart[idx], amount);
+		pc_additem(sd, &vsd->status.cart[idx], amount, LOG_TYPE_VENDING);
 		vsd->vending[vend_list[i]].amount -= amount;
-		pc_cart_delitem(vsd, idx, amount, 0);
+		pc_cart_delitem(vsd, idx, amount, 0, LOG_TYPE_VENDING);
 		clif_vendingreport(vsd, idx, amount);
 
 		//print buyer's name
@@ -220,44 +234,61 @@ void vending_purchasereq(struct map_session_data* sd, int id, const uint8* data,
 		}
 	}
 }
+static int vending_checknearnpc_sub(struct block_list* bl, va_list args) {
+    struct npc_data *nd = (struct npc_data*)bl;
+    
+    if( nd->sc.option & (OPTION_HIDE|OPTION_INVISIBLE) )
+        return 0;
 
+    return 1;
+}
+bool vending_checknearnpc(struct block_list * bl) {
+    
+    if( battle_config.min_npc_vending_distance > 0 &&
+            map_foreachinrange(vending_checknearnpc_sub,bl, battle_config.min_npc_vending_distance, BL_NPC) )
+        return true;
+        
+    return false;
+}
 /*==========================================
  * Open shop
  * data := {<index>.w <amount>.w <value>.l}[count]
  *------------------------------------------*/
-void vending_openvending(struct map_session_data* sd, const char* message, bool flag, const uint8* data, int count)
-{
+void vending_openvending(struct map_session_data* sd, const char* message, bool flag, const uint8* data, int count) {
 	int i, j;
 	int vending_skill_lvl;
 	nullpo_retv(sd);
-	
-	if((battle_config.no_prt_vending) && (sd->bl.m == map_mapname2mapid("prontera.gat") && (sd->bl.x >= 148 && sd->bl.x <= 163 && sd->bl.y >= 139 && sd->bl.y <= 175)))
-	{ // Não abrir Lojas no meio da Rua [Minos]
-		clif_displaymessage(sd->fd,"Você não pode abrir lojas no meio da rua de Prontera.");
-		return;
-	}
 
 	if( !flag ) // cancelled
 		return; // nothing to do
 
-	if (pc_istrading(sd))
-		return; // can't have 2 shops at once
+	if ( pc_isdead(sd) || !sd->state.prevend || pc_istrading(sd))
+		return; // can't open vendings lying dead || didn't use via the skill (wpe/hack) || can't have 2 shops at once
 
 	vending_skill_lvl = pc_checkskill(sd, MC_VENDING);
 	// skill level and cart check
 	if( !vending_skill_lvl || !pc_iscarton(sd) )
 	{
-		clif_skill_fail(sd, MC_VENDING, 0, 0);
+		clif_skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0);
 		return;
 	}
 
 	// check number of items in shop
 	if( count < 1 || count > MAX_VENDING || count > 2 + vending_skill_lvl )
 	{	// invalid item count
-		clif_skill_fail(sd, MC_VENDING, 0, 0);
+		clif_skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0);
 		return;
 	}
 
+    if( vending_checknearnpc(&sd->bl) ) {
+        char output[150];
+        sprintf(output,"You're too close to a NPC, you must be at least %d cells away from any NPC.",battle_config.min_npc_vending_distance);
+        clif_displaymessage(sd->fd, output);
+        clif_skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0);
+        return;
+    }
+        
+    
 	// filter out invalid items
 	i = 0;
 	for( j = 0; j < count; j++ )
@@ -274,12 +305,12 @@ void vending_openvending(struct map_session_data* sd, const char* message, bool 
 		||  !sd->status.cart[index].identify // unidentified item
 		||  sd->status.cart[index].attribute == 1 // broken item
 		||  sd->status.cart[index].expire_time // It should not be in the cart but just in case
-		||  !itemdb_cantrade(&sd->status.cart[index], pc_isGM(sd), pc_isGM(sd)) ) // untradeable item
+		||  !itemdb_cantrade(&sd->status.cart[index], pc_get_group_level(sd), pc_get_group_level(sd)) ) // untradeable item
 			continue;
 
 		sd->vending[i].index = index;
 		sd->vending[i].amount = amount;
-		sd->vending[i].value = cap_value(value, 1, (unsigned int)battle_config.vending_max_value);
+		sd->vending[i].value = cap_value(value, 0, (unsigned int)battle_config.vending_max_value);
 
 		i++; // item successfully added
 	}
@@ -289,15 +320,101 @@ void vending_openvending(struct map_session_data* sd, const char* message, bool 
 
 	if( i == 0 )
 	{	// no valid item found
-		clif_skill_fail(sd, MC_VENDING, 0, 0); // custom reply packet
+		clif_skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0); // custom reply packet
 		return;
 	}
-
-	sd->vender_id = sd->bl.id;
+	sd->state.prevend = 0;
+	sd->state.vending = true;
+	sd->vender_id = vending_getuid();
 	sd->vend_num = i;
 	safestrncpy(sd->message, message, MESSAGE_SIZE);
 
 	pc_stop_walking(sd,1);
-	clif_openvending(sd,sd->vender_id,sd->vending);
+	clif_openvending(sd,sd->bl.id,sd->vending);
 	clif_showvendingboard(&sd->bl,message,0);
+}
+
+
+/// Checks if an item is being sold in given player's vending.
+bool vending_search(struct map_session_data* sd, unsigned short nameid)
+{
+	int i;
+
+	if( !sd->state.vending )
+	{// not vending
+		return false;
+	}
+
+	ARR_FIND( 0, sd->vend_num, i, sd->status.cart[sd->vending[i].index].nameid == (short)nameid );
+	if( i == sd->vend_num )
+	{// not found
+		return false;
+	}
+
+	return true;
+}
+
+
+/// Searches for all items in a vending, that match given ids, price and possible cards.
+/// @return Whether or not the search should be continued.
+bool vending_searchall(struct map_session_data* sd, const struct s_search_store_search* s)
+{
+	int i, c, slot;
+	unsigned int idx, cidx;
+	struct item* it;
+
+	if( !sd->state.vending )
+	{// not vending
+		return true;
+	}
+
+	for( idx = 0; idx < s->item_count; idx++ )
+	{
+		ARR_FIND( 0, sd->vend_num, i, sd->status.cart[sd->vending[i].index].nameid == (short)s->itemlist[idx] );
+		if( i == sd->vend_num )
+		{// not found
+			continue;
+		}
+		it = &sd->status.cart[sd->vending[i].index];
+
+		if( s->min_price && s->min_price > sd->vending[i].value )
+		{// too low price
+			continue;
+		}
+
+		if( s->max_price && s->max_price < sd->vending[i].value )
+		{// too high price
+			continue;
+		}
+
+		if( s->card_count )
+		{// check cards
+			if( itemdb_isspecial(it->card[0]) )
+			{// something, that is not a carded
+				continue;
+			}
+			slot = itemdb_slot(it->nameid);
+
+			for( c = 0; c < slot && it->card[c]; c ++ )
+			{
+				ARR_FIND( 0, s->card_count, cidx, s->cardlist[cidx] == it->card[c] );
+				if( cidx != s->card_count )
+				{// found
+					break;
+				}
+			}
+
+			if( c == slot || !it->card[c] )
+			{// no card match
+				continue;
+			}
+		}
+
+		if( !searchstore_result(s->search_sd, sd->vender_id, sd->status.account_id, sd->message, it->nameid, sd->vending[i].amount, sd->vending[i].value, it->card, it->refine) )
+		{// result set full
+			return false;
+		}
+	}
+
+	return true;
 }

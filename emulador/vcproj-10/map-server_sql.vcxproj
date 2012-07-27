@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -50,11 +50,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WIN32;__WIN32;_DEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;DB_MANUAL_CAST_TO_UNION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;..\3rdparty\mt19937ar;..\3rdparty\libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;__WIN32;_DEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;LIBCONFIG_STATIC;YY_USE_CONST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -68,6 +67,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>CompileAsC</CompileAs>
       <DisableSpecificWarnings>4018;4100;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libcmtd.lib;oldnames.lib;ws2_32.lib;libmysql.lib;zdll.lib;pcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -93,8 +93,8 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_WIN32;__WIN32;NDEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;DB_MANUAL_CAST_TO_UNION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\3rdparty\mysql\include;..\3rdparty\zlib\include;..\3rdparty\pcre\include;..\3rdparty\msinttypes\include;..\3rdparty\mt19937ar;..\3rdparty\libconfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;__WIN32;NDEBUG;PCRE_SUPPORT;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;FD_SETSIZE=4096;LIBCONFIG_STATIC;YY_USE_CONST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>
@@ -105,6 +105,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>CompileAsC</CompileAs>
       <DisableSpecificWarnings>4018;4100;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libcmt.lib;oldnames.lib;ws2_32.lib;libmysql.lib;zdll.lib;pcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -125,27 +126,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\common\gamefort.h" />
+    <ClInclude Include="..\3rdparty\libconfig\grammar.h" />
+    <ClInclude Include="..\3rdparty\libconfig\libconfig.h" />
+    <ClInclude Include="..\3rdparty\libconfig\parsectx.h" />
+    <ClInclude Include="..\3rdparty\libconfig\scanctx.h" />
+    <ClInclude Include="..\3rdparty\libconfig\scanner.h" />
+    <ClInclude Include="..\3rdparty\libconfig\strbuf.h" />
+    <ClInclude Include="..\3rdparty\libconfig\wincompat.h" />
+    <ClInclude Include="..\3rdparty\mt19937ar\mt19937ar.h" />
     <ClInclude Include="..\src\common\cbasetypes.h" />
+    <ClInclude Include="..\src\common\conf.h" />
     <ClInclude Include="..\src\common\core.h" />
     <ClInclude Include="..\src\common\db.h" />
+    <ClInclude Include="..\src\common\des.h" />
     <ClInclude Include="..\src\common\ers.h" />
     <ClInclude Include="..\src\common\grfio.h" />
-    <ClInclude Include="..\src\common\lock.h" />
     <ClInclude Include="..\src\common\malloc.h" />
-    <ClInclude Include="..\src\common\md5calc.h" />
     <ClInclude Include="..\src\common\mapindex.h" />
+    <ClInclude Include="..\src\common\md5calc.h" />
+    <ClInclude Include="..\src\common\mempool.h" />
     <ClInclude Include="..\src\common\mmo.h" />
+    <ClInclude Include="..\src\common\mutex.h" />
     <ClInclude Include="..\src\common\nullpo.h" />
-    <ClInclude Include="..\src\common\plugin.h" />
-    <ClInclude Include="..\src\common\plugins.h" />
+    <ClInclude Include="..\src\common\raconf.h" />
+    <ClInclude Include="..\src\common\random.h" />
     <ClInclude Include="..\src\common\showmsg.h" />
     <ClInclude Include="..\src\common\socket.h" />
     <ClInclude Include="..\src\common\sql.h" />
     <ClInclude Include="..\src\common\strlib.h" />
+    <ClInclude Include="..\src\common\thread.h" />
     <ClInclude Include="..\src\common\timer.h" />
     <ClInclude Include="..\src\common\utils.h" />
-    <ClInclude Include="..\src\common\version.h" />
+    <ClInclude Include="..\src\common\winapi.h" />
     <ClInclude Include="..\src\map\atcommand.h" />
     <ClInclude Include="..\src\map\battle.h" />
     <ClInclude Include="..\src\map\battleground.h" />
@@ -155,6 +167,7 @@
     <ClInclude Include="..\src\map\clif.h" />
     <ClInclude Include="..\src\map\date.h" />
     <ClInclude Include="..\src\map\duel.h" />
+    <ClInclude Include="..\src\map\elemental.h" />
     <ClInclude Include="..\src\map\guild.h" />
     <ClInclude Include="..\src\map\intif.h" />
     <ClInclude Include="..\src\map\itemdb.h" />
@@ -170,8 +183,15 @@
     <ClInclude Include="..\src\map\party.h" />
     <ClInclude Include="..\src\map\path.h" />
     <ClInclude Include="..\src\map\pc.h" />
+    <ClInclude Include="..\src\map\pc_groups.h" />
     <ClInclude Include="..\src\map\pet.h" />
     <ClInclude Include="..\src\map\quest.h" />
+    <ClInclude Include="..\src\config\const.h" />
+    <ClInclude Include="..\src\config\core.h" />
+    <ClInclude Include="..\src\config\renewal.h" />
+    <ClInclude Include="..\src\config\secure.h" />
+    <ClInclude Include="..\src\config\classes\general.h" />
+    <ClInclude Include="..\src\config\classes\swordsman.h" />
     <ClInclude Include="..\src\map\script.h" />
     <ClInclude Include="..\src\map\searchstore.h" />
     <ClInclude Include="..\src\map\skill.h" />
@@ -182,21 +202,31 @@
     <ClInclude Include="..\src\map\vending.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\common\gamefort.c" />
+    <ClCompile Include="..\3rdparty\libconfig\grammar.c" />
+    <ClCompile Include="..\3rdparty\libconfig\libconfig.c" />
+    <ClCompile Include="..\3rdparty\libconfig\scanctx.c" />
+    <ClCompile Include="..\3rdparty\libconfig\scanner.c" />
+    <ClCompile Include="..\3rdparty\libconfig\strbuf.c" />
+    <ClCompile Include="..\3rdparty\mt19937ar\mt19937ar.c" />
+    <ClCompile Include="..\src\common\conf.c" />
     <ClCompile Include="..\src\common\core.c" />
     <ClCompile Include="..\src\common\db.c" />
+    <ClCompile Include="..\src\common\des.c" />
     <ClCompile Include="..\src\common\ers.c" />
     <ClCompile Include="..\src\common\grfio.c" />
-    <ClCompile Include="..\src\common\lock.c" />
     <ClCompile Include="..\src\common\malloc.c" />
-    <ClCompile Include="..\src\common\md5calc.c" />
     <ClCompile Include="..\src\common\mapindex.c" />
+    <ClCompile Include="..\src\common\md5calc.c" />
+    <ClCompile Include="..\src\common\mempool.c" />
+    <ClCompile Include="..\src\common\mutex.c" />
     <ClCompile Include="..\src\common\nullpo.c" />
-    <ClCompile Include="..\src\common\plugins.c" />
+    <ClCompile Include="..\src\common\raconf.c" />
+    <ClCompile Include="..\src\common\random.c" />
     <ClCompile Include="..\src\common\showmsg.c" />
     <ClCompile Include="..\src\common\socket.c" />
     <ClCompile Include="..\src\common\sql.c" />
     <ClCompile Include="..\src\common\strlib.c" />
+    <ClCompile Include="..\src\common\thread.c" />
     <ClCompile Include="..\src\common\timer.c" />
     <ClCompile Include="..\src\common\utils.c" />
     <ClCompile Include="..\src\map\atcommand.c" />
@@ -208,6 +238,7 @@
     <ClCompile Include="..\src\map\clif.c" />
     <ClCompile Include="..\src\map\date.c" />
     <ClCompile Include="..\src\map\duel.c" />
+    <ClCompile Include="..\src\map\elemental.c" />
     <ClCompile Include="..\src\map\guild.c" />
     <ClCompile Include="..\src\map\intif.c" />
     <ClCompile Include="..\src\map\itemdb.c" />
@@ -224,6 +255,7 @@
     <ClCompile Include="..\src\map\party.c" />
     <ClCompile Include="..\src\map\path.c" />
     <ClCompile Include="..\src\map\pc.c" />
+    <ClCompile Include="..\src\map\pc_groups.c" />
     <ClCompile Include="..\src\map\pet.c" />
     <ClCompile Include="..\src\map\quest.c" />
     <ClCompile Include="..\src\map\script.c" />

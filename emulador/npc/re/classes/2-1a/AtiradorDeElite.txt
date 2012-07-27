@@ -1,0 +1,85 @@
+//==========================================================
+//  ___  ___       ___   ____    ____  ___      
+// |   \/   |     /   \  \   \  /   / /   \     
+// |  \  /  |    /  ^  \  \   \/   / /  ^  \    
+// |  |\/|  |   /  /_\  \  \_    _/ /  /_\  \   
+// |  |  |  |  /  _____  \   |  |  /  _____  \  
+// |__|  |__| /__/     \__\  |__| /__/     \__\ 
+//
+//==========================================================
+//= Quest do Atirador de Elite
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= Mudança de Classe para Atirador de Elite
+//===== Comentários Adicionais: ======================================
+//= 1.0 Traduzido. [LyDe]
+//====================================================================
+
+valkyrie,44,55,5	script	Atirador de Elite#Valkyrie	727,{
+	if (ADVJOB == 0 || Upper != 1) {
+		mes "[Atirador de Elite]";
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			mes "Parabéns.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "Um tiro.";
+		mes "Uma matada.";
+		mes "Não é tão difícil";
+		mes "uma vez que você desenvolve";
+		mes "uma visão de estilo de";
+		mes "luta.";
+		close;
+	} else if (ADVJOB == Job_Sniper && Class == Job_Archer_High && JobLevel > 39) {
+		mes "[Atirador de Elite]";
+		mes "O mundo está";
+		mes "precisando de Arqueiros poderosos";
+		mes "como você. Você está pronto";
+		mes "para essa tremenda responsabilidade?";
+		next;
+		mes "[Atirador de Elite]";
+		mes "Você está pronto a dar";
+		mes "o passo seguinte e se";
+		mes "tornar um Atirador de Elite?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Atirador de Elite]";
+			mes "Quando estiver pronto,";
+			mes "fique à vontade para voltar.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "[Atirador de Elite]";
+		if (SkillPoint) {
+			mes "Você tem pontos de habilidade sobrando. Por favor,";
+			mes "use todos os seus pontos de habilidade e depois retorne.";
+			close;
+		}
+		jobchange Job_Sniper;
+		set ADVJOB,0;
+		mes "Parabéns!";
+		mes "Como um Atirador de Elite, Eu espero";
+		mes "que os servos do mal nunca";
+		mes "nunca sintam-se";
+		mes "à vontade em sua";
+		mes "frente!";
+		close;
+	}
+	mes "[Atirador de Elite]";
+	mes "Bem vindo";
+	mes "a Valhalla,";
+	mes "o Salão de Honra.";
+	next;
+	mes "[Atirador de Elite]";
+	mes "Por favor, sinta-se";
+	mes "avontade enquanto";
+	mes "estiver aqui.";
+	mes "Honra aos guerreiros!";
+	close;
+}

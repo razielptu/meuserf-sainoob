@@ -1,0 +1,83 @@
+//==========================================================
+//  ___  ___       ___   ____    ____  ___      
+// |   \/   |     /   \  \   \  /   / /   \     
+// |  \  /  |    /  ^  \  \   \/   / /  ^  \    
+// |  |\/|  |   /  /_\  \  \_    _/ /  /_\  \   
+// |  |  |  |  /  _____  \   |  |  /  _____  \  
+// |__|  |__| /__/     \__\  |__| /__/     \__\ 
+//
+//==========================================================
+//= Quest do Sumo Sacerdote 
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= Mudança de Classe para Sumo Sacerdote
+//===== Comentários Adicionais: ======================================
+//= 1.0 Traduzido. [LyDe]
+//====================================================================
+
+valkyrie,44,42,5	script	Sumo Sacerdote#Valkyrie	60,{
+	if (ADVJOB == 0 || Upper != 1) {
+		mes "[Sumo Sacerdote]";
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			mes "Parabéns.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		mes "Através do poder da";
+		mes "santidade, podemos";
+		mes "encontrar força, paz";
+		mes "e proteção. Livrai-nos";
+		mes "das forças do mal...";
+		close;
+	} else if (ADVJOB == Job_High_Priest && Class == Job_Acolyte_High && JobLevel > 39) {
+		mes "[Sumo Sacerdote]";
+		mes "Nosso mundo está";
+		mes "carente de pessoas";
+		mes "com talento e convicção.";
+		mes "Por favor continue nossas";
+		mes "obras como um herói e";
+		mes "ainda com maior santidade...";
+		next;
+		mes "[Sumo Sacerdote]";
+		mes "Você gostaria de se tornar";
+		mes "um Sumo Sacerdote?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "Quando você estiver pronto,";
+			mes "fique à vontade para voltar.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		mes "[Sumo Sacerdote]";
+		if (SkillPoint) {
+			mes "Você ainda tem Pontos de Habilidade. Por favor,";
+			mes "use todos os seus Pontos de Habilidade e depois volte.";
+			close;
+		}
+		jobchange Job_High_Priest;
+		set ADVJOB,0;
+		mes "Parabéns.";
+		mes "Como um Sumo Sacerdote,";
+		mes "Eu espero que você guie";
+		mes "outros no caminho da";
+		mes "santidade...";
+		close;
+	}
+	mes "[Sumo Sacerdote]";
+	mes "Bem-vindo à";
+	mes "Valhalla,";
+	mes "o Salão de Honra.";
+	next;
+	mes "[Sumo Sacerdote]";
+	mes "Por favor";
+	mes "sinta-se à vontade";
+	mes "enquanto estiver aqui.";
+	mes "Honre os guerreiros.";
+	close;
+}

@@ -15,7 +15,7 @@ struct auth_node {
 	struct map_session_data *sd;	//Data from logged on char.
 	struct mmo_charstatus *char_dat;	//Data from char server.
 	unsigned int node_created; //timestamp for node timeouts
-	enum sd_state state; //To track whether player was login in/out or changing maps.	
+	enum sd_state state; //To track whether player was login in/out or changing maps.
 };
 
 void chrif_setuserid(char* id);
@@ -25,6 +25,7 @@ int chrif_setip(const char* ip);
 void chrif_setport(uint16 port);
 
 int chrif_isconnected(void);
+void chrif_check_shutdown(void);
 
 extern int chrif_connected;
 extern int other_mapserver_count;
@@ -55,14 +56,15 @@ int send_users_tochar(void);
 int chrif_char_online(struct map_session_data *sd);
 int chrif_changesex(struct map_session_data *sd);
 int chrif_chardisconnect(struct map_session_data *sd);
-int check_connect_char_server(int tid, unsigned int tick, int id, intptr data);
 int chrif_divorce(int partner_id1, int partner_id2);
+/**
+ * rAthena
+ **/
+int chrif_removefriend(int char_id, int friend_id);
 
 int do_final_chrif(void);
 int do_init_chrif(void);
 
 int chrif_flush_fifo(void);
-
-int chrif_Parse_mailsetattachment(void);
 
 #endif /* _CHRIF_H_ */

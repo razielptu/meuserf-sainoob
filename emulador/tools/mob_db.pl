@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 $db = "mob_db";
-$nb_columns = 58;
+$nb_columns = 57;
 @str_col = (1,2,3);
 $create_table = "#
 # Table structure for table `mob_db`
@@ -22,12 +22,12 @@ CREATE TABLE `mob_db` (
   `ATK2` smallint(6) unsigned NOT NULL default '0',
   `DEF` smallint(6) unsigned NOT NULL default '0',
   `MDEF` smallint(6) unsigned NOT NULL default '0',
-  `STR` tinyint(4) unsigned NOT NULL default '0',
-  `AGI` tinyint(4) unsigned NOT NULL default '0',
-  `VIT` tinyint(4) unsigned NOT NULL default '0',
-  `INT` tinyint(4) unsigned NOT NULL default '0',
-  `DEX` tinyint(4) unsigned NOT NULL default '0',
-  `LUK` tinyint(4) unsigned NOT NULL default '0',
+  `STR` smallint(6) unsigned NOT NULL default '0',
+  `AGI` smallint(6) unsigned NOT NULL default '0',
+  `VIT` smallint(6) unsigned NOT NULL default '0',
+  `INT` smallint(6) unsigned NOT NULL default '0',
+  `DEX` smallint(6) unsigned NOT NULL default '0',
+  `LUK` smallint(6) unsigned NOT NULL default '0',
   `Range2` tinyint(4) unsigned NOT NULL default '0',
   `Range3` tinyint(4) unsigned NOT NULL default '0',
   `Scale` tinyint(4) unsigned NOT NULL default '0',
@@ -39,7 +39,6 @@ CREATE TABLE `mob_db` (
   `aMotion` smallint(6) unsigned NOT NULL default '0',
   `dMotion` smallint(6) unsigned NOT NULL default '0',
   `MEXP` mediumint(9) unsigned NOT NULL default '0',
-  `ExpPer` smallint(9) unsigned NOT NULL default '0',
   `MVP1id` smallint(9) unsigned NOT NULL default '0',
   `MVP1per` smallint(9) unsigned NOT NULL default '0',
   `MVP2id` smallint(9) unsigned NOT NULL default '0',
@@ -95,6 +94,8 @@ while ($ligne=<STDIN>)
 		}
 	}
 }
+print("\n");
+
 
 sub printField {
 	my ($str, $suffix, $idCol) = @_;

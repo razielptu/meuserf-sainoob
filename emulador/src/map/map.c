@@ -1,21 +1,3 @@
-// This file has been edited or created to install the:
-// GAMEFORT - Hacking Prevention System
-//=============================================================
-//    ____     _     __  __  _____  _____   ___   ____   _____
-//   / ___|   / \   |  \/  || ____|| ____| / _ \ |  _ \ |_   _|
-//  | |  _   / _ \  | |\/| ||  _|  |  _|  | | | || |_) |  | |
-//  | |_| | / ___ \ | |  | || |___ | |    | |_| ||  _ <   | |
-//   \____|/_/   \_\|_|  |_||_____||_|     \___/ |_| \_\  |_|
-//
-//=============================================================
-// Version: 7390
-// Instalation Date: 24/8/2011 17:09:03
-// More Informations: http://gamefort.com.br/
-//
-// Don't change any information in this header, it will help
-// the installer for future updates
-//=============================================================
-
 // Copyright (c) Athena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
@@ -26,8 +8,8 @@
 #include "../common/malloc.h"
 #include "../common/socket.h" // WFIFO*()
 #include "../common/showmsg.h"
-#include "../common/version.h"
 #include "../common/nullpo.h"
+#include "../common/random.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
 
@@ -35,6 +17,7 @@
 #include "path.h"
 #include "chrif.h"
 #include "clif.h"
+#include "duel.h"
 #include "intif.h"
 #include "npc.h"
 #include "pc.h"
@@ -50,17 +33,18 @@
 #include "unit.h"
 #include "battle.h"
 #include "battleground.h"
+#include "quest.h"
 #include "script.h"
 #include "mapreg.h"
 #include "guild.h"
 #include "pet.h"
 #include "homunculus.h"
+#include "instance.h"
 #include "mercenary.h"
+#include "elemental.h"
 #include "atcommand.h"
 #include "log.h"
-#ifndef TXT_ONLY
 #include "mail.h"
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -70,7 +54,6 @@
 #include <unistd.h>
 #endif
 
-#ifndef TXT_ONLY
 char default_codepage[32] = "";
 
 int map_server_port = 3306;
@@ -83,8 +66,11 @@ Sql* mmysql_handle;
 int db_use_sqldbs = 0;
 char item_db_db[32] = "item_db";
 char item_db2_db[32] = "item_db2";
+char item_db_re_db[32] = "item_db_re";
 char mob_db_db[32] = "mob_db";
 char mob_db2_db[32] = "mob_db2";
+char mob_skill_db_db[32] = "mob_skill_db";
+char mob_skill_db2_db[32] = "mob_skill_db2";
 
 // log database
 char log_db_ip[32] = "127.0.0.1";
@@ -93,17 +79,6 @@ char log_db_id[32] = "ragnarok";
 char log_db_pw[32] = "ragnarok";
 char log_db_db[32] = "log";
 Sql* logmysql_handle;
-
-#endif /* not TXT_ONLY */
-
-/////////////////////////////////////////////////////////////////////
-char gfuserid[30];
-char gfpasswd[30];
-uint32 gf_ip = 0;
-uint16 gf_port = 0;
-
-unsigned char gf_key[32];
-/////////////////////////////////////////////////////////////////////
 
 // This param using for sending mainchat
 // messages like whispers to this nick. [LuzZza]
@@ -114,7 +89,6 @@ char *LOG_CONF_NAME;
 char *MAP_CONF_NAME;
 char *BATTLE_CONF_FILENAME;
 char *ATCOMMAND_CONF_FILENAME;
-char *CHARCOMMAND_CONF_FILENAME;
 char *SCRIPT_CONF_NAME;
 char *MSG_CONF_NAME;
 char *GRF_PATH_FILENAME;
@@ -131,6 +105,7 @@ static DBMap* regen_db=NULL; // int id -> struct block_list* (status_natural_hea
 
 static int map_users=0;
 
+#define BLOCK_SIZE 8
 #define block_free_max 1048576
 struct block_list *block_free[block_free_max];
 static int block_free_count = 0, block_free_lock = 0;
@@ -141,7 +116,6 @@ static int bl_list_count = 0;
 
 struct map_data map[MAX_MAP_PER_SERVER];
 int map_num = 0;
-
 int map_port=0;
 
 int autosave_interval = DEFAULT_AUTOSAVE_INTERVAL;
@@ -205,15 +179,6 @@ int map_getusers(void)
  *------------------------------------------*/
 int map_usercount(void)
 {
-/*
-	int count = 0;
-	struct s_mapiterator* iter = mapit_getallusers();
-	for( mapit_first(iter); mapit_exists(iter); mapit_next(iter) )
-		count++;
-	mapit_free(iter);
-	return count;
-*/
-	// since pc_db now only holds fully authed players, this approach is equivalent:
 	return pc_db->size(pc_db);
 }
 
@@ -275,7 +240,7 @@ int map_freeblock_unlock (void)
 // Ç±ÇÃä÷êîÇÕÅAdo_timer() ÇÃÉgÉbÉvÉåÉxÉãÇ©ÇÁåƒÇŒÇÍÇÈÇÃÇ≈ÅA
 // block_free_lock Çíºê⁄Ç¢Ç∂Ç¡ÇƒÇ‡éxè·ñ≥Ç¢ÇÕÇ∏ÅB
 
-int map_freeblock_timer(int tid, unsigned int tick, int id, intptr data)
+int map_freeblock_timer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	if (block_free_lock > 0) {
 		ShowError("map_freeblock_timer: block_free_lock(%d) is invalid.\n", block_free_lock);
@@ -324,7 +289,7 @@ int map_addblock(struct block_list* bl)
 {
 	int m, x, y, pos;
 
-	nullpo_retr(0, bl);
+	nullpo_ret(bl);
 
 	if (bl->prev != NULL) {
 		ShowError("map_addblock: bl->prev != NULL\n");
@@ -372,7 +337,7 @@ int map_addblock(struct block_list* bl)
 int map_delblock(struct block_list* bl)
 {
 	int pos;
-	nullpo_retr(0, bl);
+	nullpo_ret(bl);
 
 	// ?Ç…blocklistÇ©ÇÁ?ÇØÇƒÇ¢ÇÈ
 	if (bl->prev == NULL) {
@@ -422,25 +387,22 @@ int map_moveblock(struct block_list *bl, int x1, int y1, unsigned int tick)
 		//Block not in map, just update coordinates, but do naught else.
 		bl->x = x1;
 		bl->y = y1;
-		return 0;	
+		return 0;
 	}
 
 	//TODO: Perhaps some outs of bounds checking should be placed here?
 	if (bl->type&BL_CHAR) {
-		skill_unit_move(bl,tick,2);
 		sc = status_get_sc(bl);
-		if (sc && sc->count) {
-			if (sc->data[SC_CLOSECONFINE])
-				status_change_end(bl, SC_CLOSECONFINE, -1);
-			if (sc->data[SC_CLOSECONFINE2])
-				status_change_end(bl, SC_CLOSECONFINE2, -1);
-//			if (sc->data[SC_BLADESTOP]) //Won't stop when you are knocked away, go figure...
-//				status_change_end(bl, SC_BLADESTOP, -1);
-			if (sc->data[SC_TATAMIGAESHI])
-				status_change_end(bl, SC_TATAMIGAESHI, -1);
-			if (sc->data[SC_MAGICROD])
-				status_change_end(bl, SC_MAGICROD, -1);
-		}
+		
+		skill_unit_move(bl,tick,2);
+		status_change_end(bl, SC_CLOSECONFINE, INVALID_TIMER);
+		status_change_end(bl, SC_CLOSECONFINE2, INVALID_TIMER);
+//		status_change_end(bl, SC_BLADESTOP, INVALID_TIMER); //Won't stop when you are knocked away, go figure...
+		status_change_end(bl, SC_TATAMIGAESHI, INVALID_TIMER);
+		status_change_end(bl, SC_MAGICROD, INVALID_TIMER);
+		if (sc->data[SC_PROPERTYWALK] &&
+			sc->data[SC_PROPERTYWALK]->val3 >= skill_get_maxcount(sc->data[SC_PROPERTYWALK]->val1,sc->data[SC_PROPERTYWALK]->val2) )
+			status_change_end(bl,SC_PROPERTYWALK,INVALID_TIMER);
 	} else
 	if (bl->type == BL_NPC)
 		npc_unsetcells((TBL_NPC*)bl);
@@ -457,15 +419,60 @@ int map_moveblock(struct block_list *bl, int x1, int y1, unsigned int tick)
 #endif
 
 	if (bl->type&BL_CHAR) {
+
 		skill_unit_move(bl,tick,3);
-		if (sc) {
-			if (sc->count) {
+
+		if( bl->type == BL_PC && ((TBL_PC*)bl)->shadowform_id ) {//Shadow Form Target Moving
+			struct block_list *d_bl;
+			if( (d_bl = map_id2bl(((TBL_PC*)bl)->shadowform_id)) == NULL || bl->m != d_bl->m || !check_distance_bl(bl,d_bl,skill_get_range(SC_SHADOWFORM,1)) ) {
+				if( d_bl )
+					status_change_end(d_bl,SC__SHADOWFORM,INVALID_TIMER);
+				((TBL_PC*)bl)->shadowform_id = 0;
+			}
+		}
+
+		if (sc && sc->count) {
+			if (sc->data[SC_DANCING])
+				skill_unit_move_unit_group(skill_id2group(sc->data[SC_DANCING]->val2), bl->m, x1-x0, y1-y0);
+			else {
 				if (sc->data[SC_CLOAKING])
 					skill_check_cloaking(bl, sc->data[SC_CLOAKING]);
-				if (sc->data[SC_DANCING])
-					skill_unit_move_unit_group(skill_id2group(sc->data[SC_DANCING]->val2), bl->m, x1-x0, y1-y0);
 				if (sc->data[SC_WARM])
 					skill_unit_move_unit_group(skill_id2group(sc->data[SC_WARM]->val4), bl->m, x1-x0, y1-y0);
+				if (sc->data[SC_BANDING])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_BANDING]->val4), bl->m, x1-x0, y1-y0);
+				
+				if (sc->data[SC_NEUTRALBARRIER_MASTER])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_NEUTRALBARRIER_MASTER]->val2), bl->m, x1-x0, y1-y0);
+				else if (sc->data[SC_STEALTHFIELD_MASTER])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_STEALTHFIELD_MASTER]->val2), bl->m, x1-x0, y1-y0);
+				
+				if( sc->data[SC__SHADOWFORM] ) {//Shadow Form Caster Moving
+					struct block_list *d_bl;
+					if( (d_bl = map_id2bl(sc->data[SC__SHADOWFORM]->val2)) == NULL || bl->m != d_bl->m || !check_distance_bl(bl,d_bl,skill_get_range(SC_SHADOWFORM,1)) )
+						status_change_end(bl,SC__SHADOWFORM,INVALID_TIMER);	
+				}
+				
+				if (sc->data[SC_PROPERTYWALK]
+					&& sc->data[SC_PROPERTYWALK]->val3 < skill_get_maxcount(sc->data[SC_PROPERTYWALK]->val1,sc->data[SC_PROPERTYWALK]->val2)
+					&& map_find_skill_unit_oncell(bl,bl->x,bl->y,SO_ELECTRICWALK,NULL,0) == NULL
+					&& map_find_skill_unit_oncell(bl,bl->x,bl->y,SO_FIREWALK,NULL,0) == NULL
+					&& skill_unitsetting(bl,sc->data[SC_PROPERTYWALK]->val1,sc->data[SC_PROPERTYWALK]->val2,x0, y0,0)) {
+						sc->data[SC_PROPERTYWALK]->val3++;
+				}
+				
+				
+			}
+			/* Guild Aura Moving */
+			if( bl->type == BL_PC && ((TBL_PC*)bl)->state.gmaster_flag ) {
+				if (sc->data[SC_LEADERSHIP])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_LEADERSHIP]->val4), bl->m, x1-x0, y1-y0);
+				if (sc->data[SC_GLORYWOUNDS])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_GLORYWOUNDS]->val4), bl->m, x1-x0, y1-y0);
+				if (sc->data[SC_SOULCOLD])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_SOULCOLD]->val4), bl->m, x1-x0, y1-y0);
+				if (sc->data[SC_HAWKEYES])
+					skill_unit_move_unit_group(skill_id2group(sc->data[SC_HAWKEYES]->val4), bl->m, x1-x0, y1-y0);
 			}
 		}
 	} else
@@ -503,10 +510,10 @@ int map_count_oncell(int m, int x, int y, int type)
 	return count;
 }
 /*
- * ´ª´ÅEæ™ŒıÃÙ¯™ÀÃ∏™ƒ™±™ø´π´≠´ÅEÊ´À´√´»™Ú⁄˜™π
+ * Looks for a skill unit on a given cell
+ * flag&1: runs battle_check_target check based on unit->group->target_flag
  */
-struct skill_unit* map_find_skill_unit_oncell(struct block_list* target,int x,int y,int skill_id,struct skill_unit* out_unit)
-{
+struct skill_unit* map_find_skill_unit_oncell(struct block_list* target,int x,int y,int skill_id,struct skill_unit* out_unit, int flag) {
 	int m,bx,by;
 	struct block_list *bl;
 	struct skill_unit *unit;
@@ -526,7 +533,7 @@ struct skill_unit* map_find_skill_unit_oncell(struct block_list* target,int x,in
 		unit = (struct skill_unit *) bl;
 		if( unit == out_unit || !unit->alive || !unit->group || unit->group->skill_id != skill_id )
 			continue;
-		if( battle_check_target(&unit->bl,target,unit->group->target_flag) > 0 )
+		if( !(flag&1) || battle_check_target(&unit->bl,target,unit->group->target_flag) > 0 )
 			return unit;
 	}
 	return NULL;
@@ -735,9 +742,138 @@ int map_foreachinarea(int (*func)(struct block_list*,va_list), int m, int x0, in
 	bl_list_count = blockcount;
 	return returnCount;	//[Skotlex]
 }
+/*==========================================
+ * Adapted from forcountinarea for an easier invocation. [pakpil]
+ *------------------------------------------*/
+int map_forcountinrange(int (*func)(struct block_list*,va_list), struct block_list* center, int range, int count, int type, ...)
+{
+	int bx,by,m;
+	int returnCount =0;	//total sum of returned values of func() [Skotlex]
+	struct block_list *bl;
+	int blockcount=bl_list_count,i;
+	int x0,x1,y0,y1;
+
+	m = center->m;
+	x0 = max(center->x-range, 0);
+	y0 = max(center->y-range, 0);
+	x1 = min(center->x+range, map[m].xs-1);
+	y1 = min(center->y+range, map[m].ys-1);
+	
+	if (type&~BL_MOB)
+		for (by = y0 / BLOCK_SIZE; by <= y1 / BLOCK_SIZE; by++) {
+			for(bx = x0 / BLOCK_SIZE; bx <= x1 / BLOCK_SIZE; bx++) {
+				for( bl = map[m].block[bx+by*map[m].bxs] ; bl != NULL ; bl = bl->next )
+				{
+					if( bl->type&type
+						&& bl->x>=x0 && bl->x<=x1 && bl->y>=y0 && bl->y<=y1
+#ifdef CIRCULAR_AREA
+						&& check_distance_bl(center, bl, range)
+#endif
+					  	&& bl_list_count<BL_LIST_MAX)
+						bl_list[bl_list_count++]=bl;
+				}
+			}
+		}
+	if(type&BL_MOB)
+		for(by=y0/BLOCK_SIZE;by<=y1/BLOCK_SIZE;by++){
+			for(bx=x0/BLOCK_SIZE;bx<=x1/BLOCK_SIZE;bx++){
+				for( bl = map[m].block_mob[bx+by*map[m].bxs] ; bl != NULL ; bl = bl->next )
+				{
+					if( bl->x>=x0 && bl->x<=x1 && bl->y>=y0 && bl->y<=y1
+#ifdef CIRCULAR_AREA
+						&& check_distance_bl(center, bl, range)
+#endif
+						&& bl_list_count<BL_LIST_MAX)
+						bl_list[bl_list_count++]=bl;
+				}
+			}
+		}
+
+	if(bl_list_count>=BL_LIST_MAX)
+		ShowWarning("map_forcountinrange: block count too many!\n");
+
+	map_freeblock_lock();	// ÉÅÉÇÉäÇ©ÇÁÇÃâï˙Çã÷é~Ç∑ÇÈ
+
+	for(i=blockcount;i<bl_list_count;i++)
+		if(bl_list[i]->prev)	// óL?Ç©Ç«Ç§Ç©É`ÉFÉbÉN
+		{
+			va_list ap;
+			va_start(ap, type);
+			returnCount += func(bl_list[i], ap);
+			va_end(ap);
+			if( count && returnCount >= count )
+				break;
+		}
+
+	map_freeblock_unlock();	// âï˙Çãñâ¬Ç∑ÇÈ
+
+	bl_list_count = blockcount;
+	return returnCount;	//[Skotlex]
+}
+int map_forcountinarea(int (*func)(struct block_list*,va_list), int m, int x0, int y0, int x1, int y1, int count, int type, ...)
+{
+	int bx,by;
+	int returnCount =0;	//total sum of returned values of func() [Skotlex]
+	struct block_list *bl;
+	int blockcount=bl_list_count,i;
+
+	if (m < 0)
+		return 0;
+	if (x1 < x0)
+	{	//Swap range
+		bx = x0;
+		x0 = x1;
+		x1 = bx;
+	}
+	if (y1 < y0)
+	{
+		bx = y0;
+		y0 = y1;
+		y1 = bx;
+	}
+	if (x0 < 0) x0 = 0;
+	if (y0 < 0) y0 = 0;
+	if (x1 >= map[m].xs) x1 = map[m].xs-1;
+	if (y1 >= map[m].ys) y1 = map[m].ys-1;
+	
+	if (type&~BL_MOB)
+		for(by = y0 / BLOCK_SIZE; by <= y1 / BLOCK_SIZE; by++)
+			for(bx = x0 / BLOCK_SIZE; bx <= x1 / BLOCK_SIZE; bx++)
+				for( bl = map[m].block[bx+by*map[m].bxs] ; bl != NULL ; bl = bl->next )
+					if(bl->type&type && bl->x>=x0 && bl->x<=x1 && bl->y>=y0 && bl->y<=y1 && bl_list_count<BL_LIST_MAX)
+						bl_list[bl_list_count++]=bl;
+
+	if(type&BL_MOB)
+		for(by=y0/BLOCK_SIZE;by<=y1/BLOCK_SIZE;by++)
+			for(bx=x0/BLOCK_SIZE;bx<=x1/BLOCK_SIZE;bx++)
+				for( bl = map[m].block_mob[bx+by*map[m].bxs] ; bl != NULL ; bl = bl->next )
+					if(bl->x>=x0 && bl->x<=x1 && bl->y>=y0 && bl->y<=y1 && bl_list_count<BL_LIST_MAX)
+						bl_list[bl_list_count++]=bl;
+
+	if(bl_list_count>=BL_LIST_MAX)
+		ShowWarning("map_foreachinarea: block count too many!\n");
+
+	map_freeblock_lock();	// ÉÅÉÇÉäÇ©ÇÁÇÃâï˙Çã÷é~Ç∑ÇÈ
+
+	for(i=blockcount;i<bl_list_count;i++)
+		if(bl_list[i]->prev)	// óL?Ç©Ç«Ç§Ç©É`ÉFÉbÉN
+		{
+			va_list ap;
+			va_start(ap, type);
+			returnCount += func(bl_list[i], ap);
+			va_end(ap);
+			if( count && returnCount >= count )
+				break;
+		}
+
+	map_freeblock_unlock();	// âï˙Çãñâ¬Ç∑ÇÈ
+
+	bl_list_count = blockcount;
+	return returnCount;	//[Skotlex]
+}
 
 /*==========================================
- * ãÈå`(x0,y0)-(x1,y1)Ç™(dx,dy)à⁄ìÆÇµÇΩébÃ
+ * ãÈå`(x0,y0)-(x1,y1)Ç™(dx,dy)à⁄ìÆÇµÇΩéb?
  * óÃàÊäOÇ…Ç»ÇÈóÃàÊ(ãÈå`Ç©Léöå`)?ÇÃobjÇ…
  * ?ÇµÇƒfuncÇåƒÇ‘
  *
@@ -1166,19 +1302,17 @@ int map_get_new_object_id(void)
 
 	// find a free id
 	i = last_object_id + 1;
-	while( i != last_object_id )
-	{
+	while( i != last_object_id ) {
 		if( i == MAX_FLOORITEM )
 			i = MIN_FLOORITEM;
 
-		if( idb_get(id_db, i) == NULL )
+		if( !idb_exists(id_db, i) )
 			break;
 
 		++i;
 	}
 
-	if( i == last_object_id )
-	{
+	if( i == last_object_id ) {
 		ShowError("map_addobject: no free object id!\n");
 		return 0;
 	}
@@ -1192,12 +1326,12 @@ int map_get_new_object_id(void)
 /*==========================================
  * è∞ÉAÉCÉeÉÄÇè¡Ç∑
  *
- * data==0ÇÃébÕtimerÇ≈è¡Ç¶ÇΩéÍ * data!=0ÇÃébÕèEÇ§ìôÇ≈è¡Ç¶ÇΩéb∆ÇµÇƒìÆçÏ
+ * data==0ÇÃébÕtimerÇ≈è¡Ç¶ÇΩéÍ * data!=0ÇÃébÕèEÇ§ìôÇ≈è¡Ç¶ÇΩéb∆ÇµÇƒìÆç?
  *
  * å„é“ÇÕÅAmap_clearflooritem(id)Ç÷
  * map.h?Ç≈#defineÇµÇƒÇ†ÇÈ
  *------------------------------------------*/
-int map_clearflooritem_timer(int tid, unsigned int tick, int id, intptr data)
+int map_clearflooritem_timer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	struct flooritem_data* fitem = (struct flooritem_data*)idb_get(id_db, id);
 	if( fitem==NULL || fitem->bl.type!=BL_ITEM || (!data && fitem->cleartimer != tid) )
@@ -1225,8 +1359,7 @@ int map_clearflooritem_timer(int tid, unsigned int tick, int id, intptr data)
  * to place an BL_ITEM object. Scan area is 9x9, returns 1 on success.
  * x and y are modified with the target cell when successful.
  *------------------------------------------*/
-int map_searchrandfreecell(int m,int *x,int *y,int stack)
-{
+int map_searchrandfreecell(int m,int *x,int *y,int stack) {
 	int free_cell,i,j;
 	int free_cells[9][2];
 
@@ -1236,7 +1369,7 @@ int map_searchrandfreecell(int m,int *x,int *y,int stack)
 		for(j=-1;j<=1;j++){
 			if(j+*x<0 || j+*x>=map[m].xs)
 				continue;
-			if(map_getcell(m,j+*x,i+*y,CELL_CHKNOPASS))
+			if(map_getcell(m,j+*x,i+*y,CELL_CHKNOPASS) && !map_getcell(m,j+*x,i+*y,CELL_CHKICEWALL))
 				continue;
 			//Avoid item stacking to prevent against exploits. [Skotlex]
 			if(stack && map_count_oncell(m,j+*x,i+*y, BL_ITEM) > stack)
@@ -1247,7 +1380,7 @@ int map_searchrandfreecell(int m,int *x,int *y,int stack)
 	}
 	if(free_cell==0)
 		return 0;
-	free_cell = rand()%free_cell;
+	free_cell = rnd()%free_cell;
 	*x = free_cells[free_cell][0];
 	*y = free_cells[free_cell][1];
 	return 1;
@@ -1308,8 +1441,8 @@ int map_search_freecell(struct block_list *src, int m, short *x,short *y, int rx
 	}
 	
 	while(tries--) {
-		*x = (rx >= 0)?(rand()%rx2-rx+bx):(rand()%(map[m].xs-2)+1);
-		*y = (ry >= 0)?(rand()%ry2-ry+by):(rand()%(map[m].ys-2)+1);
+		*x = (rx >= 0)?(rnd()%rx2-rx+bx):(rnd()%(map[m].xs-2)+1);
+		*y = (ry >= 0)?(rnd()%ry2-ry+by):(rnd()%(map[m].ys-2)+1);
 		
 		if (*x == bx && *y == by)
 			continue; //Avoid picking the same target tile.
@@ -1346,11 +1479,11 @@ int map_addflooritem(struct item *item_data,int amount,int m,int x,int y,int fir
 	int r;
 	struct flooritem_data *fitem=NULL;
 
-	nullpo_retr(0, item_data);
+	nullpo_ret(item_data);
 
 	if(!map_searchrandfreecell(m,&x,&y,flags&2?1:0))
 		return 0;
-	r=rand();
+	r=rnd();
 
 	CREATE(fitem, struct flooritem_data, 1);
 	fitem->bl.type=BL_ITEM;
@@ -1384,11 +1517,14 @@ int map_addflooritem(struct item *item_data,int amount,int m,int x,int y,int fir
 	return fitem->bl.id;
 }
 
-static void* create_charid2nick(DBKey key, va_list args)
+/**
+ * @see DBCreateData
+ */
+static DBData create_charid2nick(DBKey key, va_list args)
 {
 	struct charid2nick *p;
 	CREATE(p, struct charid2nick, 1);
-	return p;
+	return db_ptr2data(p);
 }
 
 /// Adds(or replaces) the nick of charid to nick_db and fullfils pending requests.
@@ -1402,7 +1538,7 @@ void map_addnickdb(int charid, const char* nick)
 	if( map_charid2sd(charid) )
 		return;// already online
 
-	p = (struct charid2nick*)idb_ensure(nick_db, charid, create_charid2nick);
+	p = idb_ensure(nick_db, charid, create_charid2nick);
 	safestrncpy(p->nick, nick, sizeof(p->nick));
 
 	while( p->requests )
@@ -1423,9 +1559,9 @@ void map_delnickdb(int charid, const char* name)
 	struct charid2nick* p;
 	struct charid_request* req;
 	struct map_session_data* sd;
+	DBData data;
 
-	p = (struct charid2nick*)idb_remove(nick_db, charid);
-	if( p == NULL )
+	if (!nick_db->remove(nick_db, db_i2key(charid), &data) || (p = db_data2ptr(&data)) == NULL)
 		return;
 
 	while( p->requests )
@@ -1458,7 +1594,7 @@ void map_reqnickdb(struct map_session_data * sd, int charid)
 		return;
 	}
 
-	p = (struct charid2nick*)idb_ensure(nick_db, charid, create_charid2nick);
+	p = idb_ensure(nick_db, charid, create_charid2nick);
 	if( *p->nick )
 	{
 		clif_solved_charname(sd->fd, charid, p->nick);
@@ -1489,7 +1625,7 @@ void map_addiddb(struct block_list *bl)
 		TBL_MOB* md = (TBL_MOB*)bl;
 		idb_put(mobid_db,bl->id,bl);
 
-		if( (md->db->status.mode&MD_BOSS) && md->db->mexp > 0 )
+		if( md->state.boss )
 			idb_put(bossid_db, bl->id, bl);
 	}
 
@@ -1527,8 +1663,9 @@ void map_deliddb(struct block_list *bl)
 /*==========================================
  * Standard call when a player connection is closed.
  *------------------------------------------*/
-int map_quit(struct map_session_data *sd)
-{
+int map_quit(struct map_session_data *sd) {
+	int i;
+	
 	if(!sd->state.active) { //Removing a player that is not active.
 		struct auth_node *node = chrif_search(sd->status.account_id);
 		if (node && node->char_id == sd->status.char_id &&
@@ -1539,70 +1676,100 @@ int map_quit(struct map_session_data *sd)
 		return 0;
 	}
 
-	if (sd->npc_timer_id != -1) //Cancel the event timer.
+	if (sd->npc_timer_id != INVALID_TIMER) //Cancel the event timer.
 		npc_timerevent_quit(sd);
 
-	if( sd->state.bg_id )
+	if (sd->npc_id)
+		npc_event_dequeue(sd);
+
+	if( sd->bg_id )
 		bg_team_leave(sd,1);
+
+	pc_itemcd_do(sd,false);
+
 	npc_script_event(sd, NPCE_LOGOUT);
 
 	//Unit_free handles clearing the player related data, 
 	//map_quit handles extra specific data which is related to quitting normally
 	//(changing map-servers invokes unit_free but bypasses map_quit)
-	if( sd->sc.count )
-	{
+	if( sd->sc.count ) {
 		//Status that are not saved...
-		if(sd->sc.data[SC_BOSSMAPINFO])
-			status_change_end(&sd->bl,SC_BOSSMAPINFO,-1);
-		if(sd->sc.data[SC_AUTOTRADE])
-			status_change_end(&sd->bl,SC_AUTOTRADE,-1);
-		if(sd->sc.data[SC_SPURT])
-			status_change_end(&sd->bl,SC_SPURT,-1);
-		if(sd->sc.data[SC_BERSERK])
-			status_change_end(&sd->bl,SC_BERSERK,-1);
-		if(sd->sc.data[SC_TRICKDEAD])
-			status_change_end(&sd->bl,SC_TRICKDEAD,-1);
-		if(sd->sc.data[SC_GUILDAURA])
-			status_change_end(&sd->bl,SC_GUILDAURA,-1);
+		status_change_end(&sd->bl, SC_BOSSMAPINFO, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_AUTOTRADE, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_SPURT, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_BERSERK, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_TRICKDEAD, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_LEADERSHIP, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_GLORYWOUNDS, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_SOULCOLD, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_HAWKEYES, INVALID_TIMER);
 		if(sd->sc.data[SC_ENDURE] && sd->sc.data[SC_ENDURE]->val4)
-			status_change_end(&sd->bl,SC_ENDURE,-1); //No need to save infinite endure.
+			status_change_end(&sd->bl, SC_ENDURE, INVALID_TIMER); //No need to save infinite endure.
+		status_change_end(&sd->bl, SC_WEIGHT50, INVALID_TIMER);
+		status_change_end(&sd->bl, SC_WEIGHT90, INVALID_TIMER);
 		if (battle_config.debuff_on_logout&1) {
-			if(sd->sc.data[SC_ORCISH])
-				status_change_end(&sd->bl,SC_ORCISH,-1);
-			if(sd->sc.data[SC_STRIPWEAPON])
-				status_change_end(&sd->bl,SC_STRIPWEAPON,-1);
-			if(sd->sc.data[SC_STRIPARMOR])
-				status_change_end(&sd->bl,SC_STRIPARMOR,-1);
-			if(sd->sc.data[SC_STRIPSHIELD])
-				status_change_end(&sd->bl,SC_STRIPSHIELD,-1);
-			if(sd->sc.data[SC_STRIPHELM])
-				status_change_end(&sd->bl,SC_STRIPHELM,-1);
-			if(sd->sc.data[SC_EXTREMITYFIST])
-				status_change_end(&sd->bl,SC_EXTREMITYFIST,-1);
-			if(sd->sc.data[SC_EXPLOSIONSPIRITS])
-				status_change_end(&sd->bl,SC_EXPLOSIONSPIRITS,-1);
+			status_change_end(&sd->bl, SC_ORCISH, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STRIPWEAPON, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STRIPARMOR, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STRIPSHIELD, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STRIPHELM, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_EXTREMITYFIST, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_EXPLOSIONSPIRITS, INVALID_TIMER);
 			if(sd->sc.data[SC_REGENERATION] && sd->sc.data[SC_REGENERATION]->val4)
-				status_change_end(&sd->bl,SC_REGENERATION,-1);
+				status_change_end(&sd->bl, SC_REGENERATION, INVALID_TIMER);
 			//TO-DO Probably there are way more NPC_type negative status that are removed
-			if(sd->sc.data[SC_CHANGEUNDEAD])
-				status_change_end(&sd->bl,SC_CHANGEUNDEAD,-1);
+			status_change_end(&sd->bl, SC_CHANGEUNDEAD, INVALID_TIMER);
+			// Both these statuses are removed on logout. [L0ne_W0lf]
+			status_change_end(&sd->bl, SC_SLOWCAST, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_CRITICALWOUND, INVALID_TIMER);
 		}
-		if (battle_config.debuff_on_logout&2)
-		{
-			if(sd->sc.data[SC_MAXIMIZEPOWER])
-				status_change_end(&sd->bl,SC_MAXIMIZEPOWER,-1);
-			if(sd->sc.data[SC_MAXOVERTHRUST])
-				status_change_end(&sd->bl,SC_MAXOVERTHRUST,-1);
-			if(sd->sc.data[SC_STEELBODY])
-				status_change_end(&sd->bl,SC_STEELBODY,-1);
+		if (battle_config.debuff_on_logout&2) {
+			status_change_end(&sd->bl, SC_MAXIMIZEPOWER, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_MAXOVERTHRUST, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_STEELBODY, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_PRESERVE, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_KAAHI, INVALID_TIMER);
+			status_change_end(&sd->bl, SC_SPIRIT, INVALID_TIMER);
 		}
+	}
+	
+	for( i = 0; i < EQI_MAX; i++ ) {
+		if( sd->equip_index[ i ] >= 0 )
+			if( !pc_isequip( sd , sd->equip_index[ i ] ) )
+				pc_unequipitem( sd , sd->equip_index[ i ] , 2 );
 	}
 	
 	// Return loot to owner
 	if( sd->pd ) pet_lootitem_drop(sd->pd, sd);
+
 	if( sd->state.storage_flag == 1 ) sd->state.storage_flag = 0; // No need to Double Save Storage on Quit.
 
-	unit_remove_map_pc(sd,3);
+	if( sd->ed ) {
+		elemental_clean_effect(sd->ed);
+		unit_remove_map(&sd->ed->bl,CLR_TELEPORT);
+	}
+	
+	unit_remove_map_pc(sd,CLR_TELEPORT);
+	
+	if( map[sd->bl.m].instance_id )
+	{ // Avoid map conflicts and warnings on next login
+		int m;
+		struct point *pt;
+		if( map[sd->bl.m].save.map )
+			pt = &map[sd->bl.m].save;
+		else
+			pt = &sd->status.save_point;
+
+		if( (m=map_mapindex2mapid(pt->map)) >= 0 )
+		{
+			sd->bl.m = m;
+			sd->bl.x = pt->x;
+			sd->bl.y = pt->y;
+			sd->mapindex = pt->map;
+		}
+	}
+
+	party_booking_delete(sd); // Party Booking [Spiria]
 	pc_makesavestatus(sd);
 	pc_clean_skilltree(sd);
 	chrif_save(sd,1);
@@ -1627,8 +1794,30 @@ struct mob_data * map_id2md(int id)
 
 struct npc_data * map_id2nd(int id)
 {// just a id2bl lookup because there's no npc_db
-	if (id <= 0) return NULL;
-	return (struct npc_data*)map_id2bl(id);
+	struct block_list* bl = map_id2bl(id);
+
+	return BL_CAST(BL_NPC, bl);
+}
+
+struct homun_data* map_id2hd(int id)
+{
+	struct block_list* bl = map_id2bl(id);
+
+	return BL_CAST(BL_HOM, bl);
+}
+
+struct mercenary_data* map_id2mc(int id)
+{
+	struct block_list* bl = map_id2bl(id);
+
+	return BL_CAST(BL_MER, bl);
+}
+
+struct chat_data* map_id2cd(int id)
+{
+	struct block_list* bl = map_id2bl(id);
+
+	return BL_CAST(BL_CHAT, bl);
 }
 
 /// Returns the nick of the target charid or NULL if unknown (requests the nick to the char server).
@@ -1641,7 +1830,7 @@ const char* map_charid2nick(int charid)
 	if( sd )
 		return sd->status.name;// character is online, return it's name
 
-	p = (struct charid2nick*)idb_ensure(nick_db, charid, create_charid2nick);
+	p = idb_ensure(nick_db, charid, create_charid2nick);
 	if( *p->nick )
 		return p->nick;// name in nick_db
 
@@ -1707,12 +1896,17 @@ struct map_session_data * map_nick2sd(const char *nick)
 }
 
 /*==========================================
- * idî‘?ÇÃï®ÇíTÇ∑
- * àÍéObjectÇÃèÍçáÇÕîzóÒÇà¯Ç≠ÇÃÇ›
+ * Looksup id_db DBMap and returns BL pointer of 'id' or NULL if not found
  *------------------------------------------*/
-struct block_list * map_id2bl(int id)
-{
+struct block_list * map_id2bl(int id) {
 	return (struct block_list*)idb_get(id_db,id);
+}
+
+/**
+ * Same as map_id2bl except it only checks for its existence
+ **/
+bool map_blid_exists( int id ) {
+	return (idb_exists(id_db,id));
 }
 
 /*==========================================
@@ -1727,11 +1921,11 @@ struct mob_data * map_getmob_boss(int m)
 	iter = db_iterator(bossid_db);
 	for( md = (struct mob_data*)dbi_first(iter); dbi_exists(iter); md = (struct mob_data*)dbi_next(iter) )
 	{
-		if( md->bl.m != m || !md->spawn )
-			continue;
-
-		found = true;
-		break;
+		if( md->bl.m == m )
+		{
+			found = true;
+			break;
+		}
 	}
 	dbi_destroy(iter);
 
@@ -1752,7 +1946,7 @@ void map_foreachpc(int (*func)(struct map_session_data* sd, va_list args), ...)
 	struct map_session_data* sd;
 
 	iter = db_iterator(pc_db);
-	for( sd = (struct map_session_data*)iter->first(iter,NULL); iter->exists(iter); sd = (struct map_session_data*)iter->next(iter,NULL) )
+	for( sd = dbi_first(iter); dbi_exists(iter); sd = dbi_next(iter) )
 	{
 		va_list args;
 		int ret;
@@ -2009,7 +2203,7 @@ bool mapit_exists(struct s_mapiterator* mapit)
  *------------------------------------------*/
 bool map_addnpc(int m,struct npc_data *nd)
 {
-	nullpo_retr(0, nd);
+	nullpo_ret(nd);
 
 	if( m < 0 || m >= map_num )
 		return false;
@@ -2046,7 +2240,7 @@ int map_addmobtolist(unsigned short m, struct spawn_data *spawn)
 void map_spawnmobs(int m)
 {
 	int i, k=0;
-	if (map[m].mob_delete_timer != -1)
+	if (map[m].mob_delete_timer != INVALID_TIMER)
 	{	//Mobs have not been removed yet [Skotlex]
 		delete_timer(map[m].mob_delete_timer, map_removemobs_timer);
 		map[m].mob_delete_timer = INVALID_TIMER;
@@ -2068,7 +2262,7 @@ void map_spawnmobs(int m)
 int map_removemobs_sub(struct block_list *bl, va_list ap)
 {
 	struct mob_data *md = (struct mob_data *)bl;
-	nullpo_retr(0, md);
+	nullpo_ret(md);
 
 	//When not to remove mob:
 	// doesn't respawn and is not a slave
@@ -2086,13 +2280,13 @@ int map_removemobs_sub(struct block_list *bl, va_list ap)
 	// is a mvp
 	if( md->db->mexp > 0 )
 		return 0;
-
-	unit_free(&md->bl,0);
+	
+	unit_free(&md->bl,CLR_OUTSIGHT);
 
 	return 1;
 }
 
-int map_removemobs_timer(int tid, unsigned int tick, int id, intptr data)
+int map_removemobs_timer(int tid, unsigned int tick, int id, intptr_t data)
 {
 	int count;
 	const int m = id;
@@ -2121,7 +2315,7 @@ int map_removemobs_timer(int tid, unsigned int tick, int id, intptr data)
 
 void map_removemobs(int m)
 {
-	if (map[m].mob_delete_timer != -1) // should never happen
+	if (map[m].mob_delete_timer != INVALID_TIMER) // should never happen
 		return; //Mobs are already scheduled for removal
 
 	map[m].mob_delete_timer = add_timer(gettick()+battle_config.mob_remove_delay, map_removemobs_timer, m, 0);
@@ -2198,7 +2392,7 @@ uint8 map_calc_dir(struct block_list* src, int x, int y)
 	unsigned char dir = 0;
 	int dx, dy;
 	
-	nullpo_retr(0, src);
+	nullpo_ret(src);
 	
 	dx = x-src->x;
 	dy = y-src->y;
@@ -2251,8 +2445,8 @@ int map_random_dir(struct block_list *bl, short *x, short *y)
 	if (dist < 1) dist =1;
 	
 	do {
-		j = rand()%8; //Pick a random direction
-		segment = 1+(rand()%dist); //Pick a random interval from the whole vector in that direction
+		j = 1 + 2*(rnd()%4); //Pick a random diagonal direction
+		segment = 1+(rnd()%dist); //Pick a random interval from the whole vector in that direction
 		xi = bl->x + segment*dirx[j];
 		segment = (short)sqrt((float)(dist2 - segment*segment)); //The complement of the previously picked segment
 		yi = bl->y + segment*diry[j];
@@ -2269,23 +2463,22 @@ int map_random_dir(struct block_list *bl, short *x, short *y)
 }
 
 // gatån
-static struct mapcell map_gat2cell(int gat)
-{
+inline static struct mapcell map_gat2cell(int gat) {
 	struct mapcell cell;
-	memset(&cell, 0, sizeof(cell));
-
-	switch( gat )
-	{
-	case 0: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // walkable ground
-	case 1: cell.walkable = 0; cell.shootable = 0; cell.water = 0; break; // non-walkable ground
-	case 2: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
-	case 3: cell.walkable = 1; cell.shootable = 1; cell.water = 1; break; // walkable water
-	case 4: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
-	case 5: cell.walkable = 0; cell.shootable = 1; cell.water = 0; break; // gap (snipable)
-	case 6: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
-	default:
-		ShowWarning("map_gat2cell: unrecognized gat type '%d'\n", gat);
-		break;
+	
+	memset(&cell,0,sizeof(struct mapcell));
+	
+	switch( gat ) {
+		case 0: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // walkable ground
+		case 1: cell.walkable = 0; cell.shootable = 0; cell.water = 0; break; // non-walkable ground
+		case 2: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
+		case 3: cell.walkable = 1; cell.shootable = 1; cell.water = 1; break; // walkable water
+		case 4: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
+		case 5: cell.walkable = 0; cell.shootable = 1; cell.water = 0; break; // gap (snipable)
+		case 6: cell.walkable = 1; cell.shootable = 1; cell.water = 0; break; // ???
+		default:
+			ShowWarning("map_gat2cell: unrecognized gat type '%d'\n", gat);
+			break;
 	}
 
 	return cell;
@@ -2331,13 +2524,13 @@ int map_getcellp(struct map_data* m,int x,int y,cell_chk cellchk)
 		// base gat type checks
 		case CELL_CHKWALL:
 			return (!cell.walkable && !cell.shootable);
-			//return (map_cell2gat(cell) == 1);
+
 		case CELL_CHKWATER:
 			return (cell.water);
-			//return (map_cell2gat(cell) == 3);
+
 		case CELL_CHKCLIFF:
 			return (!cell.walkable && cell.shootable);
-			//return (map_cell2gat(cell) == 5);
+
 
 		// base cell type checks
 		case CELL_CHKNPC:
@@ -2350,6 +2543,10 @@ int map_getcellp(struct map_data* m,int x,int y,cell_chk cellchk)
 			return (cell.novending);
 		case CELL_CHKNOCHAT:
 			return (cell.nochat);
+		case CELL_CHKMAELSTROM:
+			return (cell.maelstrom);
+		case CELL_CHKICEWALL:
+			return (cell.icewall);
 
 		// special checks
 		case CELL_CHKPASS:
@@ -2402,6 +2599,8 @@ void map_setcell(int m, int x, int y, cell_t cell, bool flag)
 		case CELL_LANDPROTECTOR: map[m].cell[j].landprotector = flag; break;
 		case CELL_NOVENDING:     map[m].cell[j].novending = flag;     break;
 		case CELL_NOCHAT:        map[m].cell[j].nochat = flag;        break;
+		case CELL_MAELSTROM:	 map[m].cell[j].maelstrom = flag;	  break;
+		case CELL_ICEWALL:		 map[m].cell[j].icewall = flag;		  break;
 		default:
 			ShowWarning("map_setcell: invalid cell type '%d'\n", (int)cell);
 			break;
@@ -2494,15 +2693,14 @@ void map_iwall_get(struct map_session_data *sd)
 {
 	struct iwall_data *iwall;
 	DBIterator* iter;
-	DBKey key;
 	int x1, y1;
 	int i;
 
 	if( map[sd->bl.m].iwall_num < 1 )
 		return;
 
-	iter = iwall_db->iterator(iwall_db);
-	for( iwall = (struct iwall_data *)iter->first(iter,&key); iter->exists(iter); iwall = (struct iwall_data *)iter->next(iter,&key) )
+	iter = db_iterator(iwall_db);
+	for( iwall = dbi_first(iter); dbi_exists(iter); iwall = dbi_next(iter) )
 	{
 		if( iwall->m != sd->bl.m )
 			continue;
@@ -2513,7 +2711,7 @@ void map_iwall_get(struct map_session_data *sd)
 			clif_changemapcell(sd->fd, iwall->m, x1, y1, map_getcell(iwall->m, x1, y1, CELL_GETTYPE), SELF);
 		}
 	}
-	iter->destroy(iter);
+	dbi_destroy(iter);
 }
 
 void map_iwall_remove(const char *wall_name)
@@ -2538,14 +2736,17 @@ void map_iwall_remove(const char *wall_name)
 	strdb_remove(iwall_db, iwall->wall_name);
 }
 
-static void* create_map_data_other_server(DBKey key, va_list args)
+/**
+ * @see DBCreateData
+ */
+static DBData create_map_data_other_server(DBKey key, va_list args)
 {
 	struct map_data_other_server *mdos;
 	unsigned short mapindex = (unsigned short)key.ui;
 	mdos=(struct map_data_other_server *)aCalloc(1,sizeof(struct map_data_other_server));
 	mdos->index = mapindex;
 	memcpy(mdos->name, mapindex_id2name(mapindex), MAP_NAME_LENGTH);
-	return mdos;
+	return db_ptr2data(mdos);
 }
 
 /*==========================================
@@ -2555,7 +2756,7 @@ int map_setipport(unsigned short mapindex, uint32 ip, uint16 port)
 {
 	struct map_data_other_server *mdos=NULL;
 
-	mdos=(struct map_data_other_server *)uidb_ensure(map_db,(unsigned int)mapindex, create_map_data_other_server);
+	mdos= uidb_ensure(map_db,(unsigned int)mapindex, create_map_data_other_server);
 	
 	if(mdos->cell) //Local map,Do nothing. Give priority to our own local maps over ones from another server. [Skotlex]
 		return 0;
@@ -2569,12 +2770,13 @@ int map_setipport(unsigned short mapindex, uint32 ip, uint16 port)
 	return 1;
 }
 
-/*==========================================
+/**
  * ëºéIä«óùÇÃÉ}ÉbÉvÇëSÇƒçÌèú
- *------------------------------------------*/
-int map_eraseallipport_sub(DBKey key,void *data,va_list va)
+ * @see DBApply
+ */
+int map_eraseallipport_sub(DBKey key, DBData *data, va_list va)
 {
-	struct map_data_other_server *mdos = (struct map_data_other_server*)data;
+	struct map_data_other_server *mdos = db_data2ptr(data);
 	if(mdos->cell == NULL) {
 		db_remove(map_db,key);
 		aFree(mdos);
@@ -2608,82 +2810,104 @@ int map_eraseipport(unsigned short mapindex, uint32 ip, uint16 port)
 }
 
 /*==========================================
- * Map cache reading
- *==========================================*/
-int map_readfromcache(struct map_data *m, FILE *fp)
+ * [Shinryo]: Init the mapcache
+ *------------------------------------------*/
+static char *map_init_mapcache(FILE *fp)
 {
-	struct map_cache_main_header header;
-	struct map_cache_map_info info;
-	int i;
-	
-	if( !fp )
-		return 0;
+	size_t size = 0;
+	char *buffer;
 
+	// No file open? Return..
+	nullpo_ret(fp);
+
+	// Get file size
+	fseek(fp, 0, SEEK_END);
+	size = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
-	fread(&header, sizeof(struct map_cache_main_header), 1, fp);
 
-	for( i = 0; i < header.map_count; ++i )
-	{
-		fread(&info, sizeof(struct map_cache_map_info), 1, fp);
+	// Allocate enough space
+	CREATE(buffer, char, size);
 
-		if( strcmp(m->name, info.name) == 0 )
-			break; // Map found
+	// No memory? Return..
+	nullpo_ret(buffer);
 
-		// Map not found, jump to the beginning of the next map info header
-		fseek(fp, info.len, SEEK_CUR);
+	// Read file into buffer..
+	if(fread(buffer, sizeof(char), size, fp) != size) {
+		ShowError("map_init_mapcache: Could not read entire mapcache file\n");
+		return NULL;
 	}
 
-	if( i < header.map_count )
-	{
-		unsigned char *buf, *buf2;
+	return buffer;
+}
+
+/*==========================================
+ * Map cache reading
+ * [Shinryo]: Optimized some behaviour to speed this up
+ *==========================================*/
+int map_readfromcache(struct map_data *m, char *buffer, char *decode_buffer)
+{
+	int i;
+	struct map_cache_main_header *header = (struct map_cache_main_header *)buffer;
+	struct map_cache_map_info *info = NULL;
+	char *p = buffer + sizeof(struct map_cache_main_header);
+
+	for(i = 0; i < header->map_count; i++) {
+		info = (struct map_cache_map_info *)p;
+
+		if( strcmp(m->name, info->name) == 0 )
+			break; // Map found
+
+		// Jump to next entry..
+		p += sizeof(struct map_cache_map_info) + info->len;
+	}
+
+	if( info && i < header->map_count ) {
 		unsigned long size, xy;
 
-		if( info.xs <= 0 || info.ys <= 0 )
-			return 0;// invalid
+		if( info->xs <= 0 || info->ys <= 0 )
+			return 0;// Invalid
 
-		m->xs = info.xs;
-		m->ys = info.ys;
-		size = (unsigned long)info.xs*(unsigned long)info.ys;
+		m->xs = info->xs;
+		m->ys = info->ys;
+		size = (unsigned long)info->xs*(unsigned long)info->ys;
 
-		buf = (unsigned char*)aMalloc(info.len); // temp buffer to read the zipped map
-		buf2 = (unsigned char*)aMalloc(size); // temp buffer to unpack the data
+		if(size > MAX_MAP_SIZE) {
+			ShowWarning("map_readfromcache: %s exceeded MAX_MAP_SIZE of %d\n", info->name, MAX_MAP_SIZE);
+			return 0; // Say not found to remove it from list.. [Shinryo]
+		}
+
+		// TO-DO: Maybe handle the scenario, if the decoded buffer isn't the same size as expected? [Shinryo]
+		decode_zip(decode_buffer, &size, p+sizeof(struct map_cache_map_info), info->len);
+
 		CREATE(m->cell, struct mapcell, size);
 
-		fread(buf, info.len, 1, fp);
-		decode_zip(buf2, &size, buf, info.len); // Unzip the map from the buffer
 
 		for( xy = 0; xy < size; ++xy )
-			m->cell[xy] = map_gat2cell(buf2[xy]);
+			m->cell[xy] = map_gat2cell(decode_buffer[xy]);
 
-		aFree(buf);
-		aFree(buf2);
 		return 1;
 	}
 
-	return 0;// not found
+	return 0; // Not found
 }
 
 int map_addmap(char* mapname)
 {
-	int i = 0;
-	if (strcmpi(mapname,"clear")==0) {
-		map_num=0;
+	if( strcmpi(mapname,"clear")==0 )
+	{
+		map_num = 0;
+		instance_start = 0;
 		return 0;
 	}
 
-	for (i = 0; i <= map_num; i++){
-		if (map[i].name[0] == '\0'){
-			break;
-		}
-	}
-
-	if (map_num >= MAX_MAP_PER_SERVER - 1 && i == map_num) { //Reached max amount of maps, and there's no maps to replace
+	if( map_num >= MAX_MAP_PER_SERVER - 1 )
+	{
 		ShowError("Could not add map '"CL_WHITE"%s"CL_RESET"', the limit of maps has been reached.\n",mapname);
 		return 1;
 	}
 
-	mapindex_getmapname(mapname, map[i].name);
-	if (i == map_num) map_num++; //It added a map, increase map_num, else it replaced a map the total index remains the same
+	mapindex_getmapname(mapname, map[map_num].name);
+	map_num++;
 	return 0;
 }
 
@@ -2712,6 +2936,29 @@ int map_delmap(char* mapname)
 		}
 	}
 	return 0;
+}
+
+/// Initializes map flags and adjusts them depending on configuration.
+void map_flags_init(void)
+{
+	int i;
+
+	for( i = 0; i < map_num; i++ )
+	{
+		// mapflags
+		memset(&map[i].flag, 0, sizeof(map[i].flag));
+
+		// additional mapflag data
+		map[i].zone      = 0;  // restricted mapflag zone
+		map[i].nocommand = 0;  // nocommand mapflag level
+		map[i].bexp      = 100;  // per map base exp multiplicator
+		map[i].jexp      = 100;  // per map job exp multiplicator
+		memset(map[i].drop_list, 0, sizeof(map[i].drop_list));  // pvp nightmare drop list
+
+		// adjustments
+		if( battle_config.pk_mode )
+			map[i].flag.pvp = 1; // make all maps pvp for pk_mode [Valaris]
+	}
 }
 
 #define NO_WATER 1000000
@@ -2789,6 +3036,19 @@ int map_readgat (struct map_data* m)
 }
 
 /*======================================
+ * Add/Remove map to the map_db
+ *--------------------------------------*/
+void map_addmap2db(struct map_data *m)
+{
+	uidb_put(map_db, (unsigned int)m->index, m);
+}
+
+void map_removemapdb(struct map_data *m)
+{
+	uidb_remove(map_db, (unsigned int)m->index);
+}
+
+/*======================================
  * Initiate maps loading stage
  *--------------------------------------*/
 int map_readallmaps (void)
@@ -2796,6 +3056,8 @@ int map_readallmaps (void)
 	int i;
 	FILE* fp=NULL;
 	int maps_removed = 0;
+	char *map_cache_buffer = NULL; // Has the uncompressed gat data of all maps, so just one allocation has to be made
+	char map_cache_decode_buffer[MAX_MAP_SIZE];
 
 	if( enable_grf )
 		ShowStatus("Loading maps (using GRF files)...\n");
@@ -2807,20 +3069,32 @@ int map_readallmaps (void)
 			ShowFatalError("Unable to open map cache file "CL_WHITE"%s"CL_RESET"\n", map_cache_file);
 			exit(EXIT_FAILURE); //No use launching server if maps can't be read.
 		}
+
+		// Init mapcache data.. [Shinryo]
+		map_cache_buffer = map_init_mapcache(fp);
+		if(!map_cache_buffer) {
+			ShowFatalError("Failed to initialize mapcache data (%s)..\n", map_cache_file);
+			exit(EXIT_FAILURE);
+		}
 	}
+
+	// Mapcache reading is now fast enough, the progress info will just slow it down so don't use it anymore [Shinryo]
+	if(!enable_grf)
+		ShowStatus("Loading maps (%d)..\n", map_num);
 
 	for(i = 0; i < map_num; i++)
 	{
 		size_t size;
 
 		// show progress
-		ShowStatus("Loading maps [%i/%i]: %s"CL_CLL"\r", i, map_num, map[i].name);
+		if(enable_grf)
+			ShowStatus("Loading maps [%i/%i]: %s"CL_CLL"\r", i, map_num, map[i].name);
 
 		// try to load the map
 		if( !
 			(enable_grf?
 				 map_readgat(&map[i])
-				:map_readfromcache(&map[i], fp))
+				:map_readfromcache(&map[i], map_cache_buffer, map_cache_decode_buffer))
 			) {
 			map_delmapid(i);
 			maps_removed++;
@@ -2835,7 +3109,7 @@ int map_readallmaps (void)
 			ShowWarning("Map %s already loaded!"CL_CLL"\n", map[i].name);
 			if (map[i].cell) {
 				aFree(map[i].cell);
-				map[i].cell = NULL;	
+				map[i].cell = NULL;
 			}
 			map_delmapid(i);
 			maps_removed++;
@@ -2843,31 +3117,33 @@ int map_readallmaps (void)
 			continue;
 		}
 
-		uidb_put(map_db, (unsigned int)map[i].index, &map[i]);
+		map_addmap2db(&map[i]);
 
 		map[i].m = i;
 		memset(map[i].moblist, 0, sizeof(map[i].moblist));	//Initialize moblist [Skotlex]
 		map[i].mob_delete_timer = INVALID_TIMER;	//Initialize timer [Skotlex]
-		if(battle_config.pk_mode)
-			map[i].flag.pvp = 1; // make all maps pvp for pk_mode [Valaris]
 
 		map[i].bxs = (map[i].xs + BLOCK_SIZE - 1) / BLOCK_SIZE;
 		map[i].bys = (map[i].ys + BLOCK_SIZE - 1) / BLOCK_SIZE;
-		
-		// default experience multiplicators
-		map[i].jexp = 100;
-		map[i].bexp = 100;
-		
+
 		size = map[i].bxs * map[i].bys * sizeof(struct block_list*);
 		map[i].block = (struct block_list**)aCalloc(size, 1);
 		map[i].block_mob = (struct block_list**)aCalloc(size, 1);
 	}
 
-	if( !enable_grf )
+	// intialization and configuration-dependent adjustments of mapflags
+	map_flags_init();
+
+	if( !enable_grf ) {
 		fclose(fp);
+
+		// The cache isn't needed anymore, so free it.. [Shinryo]
+		aFree(map_cache_buffer);
+	}
 
 	// finished map loading
 	ShowInfo("Successfully loaded '"CL_WHITE"%d"CL_RESET"' maps."CL_CLL"\n",map_num);
+	instance_start = map_num; // Next Map Index will be instances
 
 	if (maps_removed)
 		ShowNotice("Maps removed: '"CL_WHITE"%d"CL_RESET"'\n",maps_removed);
@@ -2882,7 +3158,7 @@ static int char_ip_set = 0;
 /*==========================================
  * Console Command Parser [Wizputer]
  *------------------------------------------*/
-int parse_console(char* buf)
+int parse_console(const char* buf)
 {
 	char type[64];
 	char command[64];
@@ -2896,14 +3172,20 @@ int parse_console(char* buf)
 	memset(&sd, 0, sizeof(struct map_session_data));
 	strcpy(sd.status.name, "console");
 
-	if( (n=sscanf(buf, "%[^:]:%[^:]:%99s %d %d[^\n]",type,command,map,&x,&y)) < 5 )
-		if( (n=sscanf(buf, "%[^:]:%[^\n]",type,command)) < 2 )
-			n = sscanf(buf,"%[^\n]",type);
+	if( ( n = sscanf(buf, "%63[^:]:%63[^:]:%63s %d %d[^\n]", type, command, map, &x, &y) ) < 5 )
+	{
+		if( ( n = sscanf(buf, "%63[^:]:%63[^\n]", type, command) ) < 2 )
+		{
+			n = sscanf(buf, "%63[^\n]", type);
+		}
+	}
 
-	if( n == 5 ) {
+	if( n == 5 )
+	{
 		m = map_mapname2mapid(map);
-		if( m < 0 ){
-			ShowWarning("Console: Unknown map\n");
+		if( m < 0 )
+		{
+			ShowWarning("Console: Unknown map.\n");
 			return 0;
 		}
 		sd.bl.m = m;
@@ -2912,32 +3194,40 @@ int parse_console(char* buf)
 			sd.bl.x = x;
 		if( y > 0 )
 			sd.bl.y = y;
-	} else {
+	}
+	else
+	{
 		map[0] = '\0';
-		if( n < 2 ) command[0] = '\0';
-		if( n < 1 ) type[0] = '\0';
+		if( n < 2 )
+			command[0] = '\0';
+		if( n < 1 )
+			type[0] = '\0';
 	}
 
-	ShowInfo("Type of command: '%s' || Command: '%s' || Map: '%s' Coords: %d %d\n", type, command, map, x, y);
+	ShowNotice("Type of command: '%s' || Command: '%s' || Map: '%s' Coords: %d %d\n", type, command, map, x, y);
 
-	if( n == 5 && strcmpi("admin",type) == 0 ){
-		if( !is_atcommand(sd.fd,&sd,command,0) )
+	if( n == 5 && strcmpi("admin",type) == 0 )
+	{
+		if( !is_atcommand(sd.fd, &sd, command, 0) )
 			ShowInfo("Console: not atcommand\n");
-	} else if( n == 2 && strcmpi("server",type) == 0 ){
-		if( strcmpi("shutdown",command) == 0 ||
-		    strcmpi("exit",command) == 0 ||
-		    strcmpi("quit",command) == 0 ){
+	}
+	else if( n == 2 && strcmpi("server", type) == 0 )
+	{
+		if( strcmpi("shutdown", command) == 0 || strcmpi("exit", command) == 0 || strcmpi("quit", command) == 0 )
+		{
 			runflag = 0;
 		}
-	} else if( strcmpi("help",type) == 0 ){
-		ShowNotice("To use GM commands:\n");
-		ShowInfo("admin:<gm command>:<map of \"gm\"> <x> <y>\n");
+	}
+	else if( strcmpi("help", type) == 0 )
+	{
+		ShowInfo("To use GM commands:\n");
+		ShowInfo("  admin:<gm command>:<map of \"gm\"> <x> <y>\n");
 		ShowInfo("You can use any GM command that doesn't require the GM.\n");
 		ShowInfo("No using @item or @warp however you can use @charwarp\n");
 		ShowInfo("The <map of \"gm\"> <x> <y> is for commands that need coords of the GM\n");
 		ShowInfo("IE: @spawn\n");
 		ShowInfo("To shutdown the server:\n");
-		ShowInfo("server:shutdown\n");
+		ShowInfo("  server:shutdown\n");
 	}
 
 	return 0;
@@ -2977,46 +3267,33 @@ int map_config_read(char *cfgName)
 			
 		if(strcmpi(w1,"timestamp_format")==0)
 			strncpy(timestamp_format, w2, 20);
-		else 
-		if(strcmpi(w1,"stdout_with_ansisequence")==0)
+		else if(strcmpi(w1,"stdout_with_ansisequence")==0)
 			stdout_with_ansisequence = config_switch(w2);
-		else
-		if(strcmpi(w1,"console_silent")==0) {
+		else if(strcmpi(w1,"console_silent")==0) {
 			ShowInfo("Console Silent Setting: %d\n", atoi(w2));
 			msg_silent = atoi(w2);
-		} else
-		if (strcmpi(w1, "userid")==0)
+		} else if (strcmpi(w1, "userid")==0)
 			chrif_setuserid(w2);
-		else
-		if (strcmpi(w1, "passwd") == 0)
+		else if (strcmpi(w1, "passwd") == 0)
 			chrif_setpasswd(w2);
-		else
-		if (strcmpi(w1, "char_ip") == 0)
+		else if (strcmpi(w1, "char_ip") == 0)
 			char_ip_set = chrif_setip(w2);
-		else
-		if (strcmpi(w1, "char_port") == 0)
+		else if (strcmpi(w1, "char_port") == 0)
 			chrif_setport(atoi(w2));
-		else
-		if (strcmpi(w1, "map_ip") == 0)
+		else if (strcmpi(w1, "map_ip") == 0)
 			map_ip_set = clif_setip(w2);
-		else
-		if (strcmpi(w1, "bind_ip") == 0)
+		else if (strcmpi(w1, "bind_ip") == 0)
 			clif_setbindip(w2);
-		else
-		if (strcmpi(w1, "map_port") == 0) {
+		else if (strcmpi(w1, "map_port") == 0) {
 			clif_setport(atoi(w2));
 			map_port = (atoi(w2));
-		} else
-		if (strcmpi(w1, "map") == 0)
+		} else if (strcmpi(w1, "map") == 0)
 			map_addmap(w2);
-		else
-		if (strcmpi(w1, "delmap") == 0)
+		else if (strcmpi(w1, "delmap") == 0)
 			map_delmap(w2);
-		else
-		if (strcmpi(w1, "npc") == 0)
+		else if (strcmpi(w1, "npc") == 0)
 			npc_addsrcfile(w2);
-		else
-		if (strcmpi(w1, "delnpc") == 0)
+		else if (strcmpi(w1, "delnpc") == 0)
 			npc_delsrcfile(w2);
 		else if (strcmpi(w1, "autosave_time") == 0) {
 			autosave_interval = atoi(w2);
@@ -3024,45 +3301,35 @@ int map_config_read(char *cfgName)
 				autosave_interval = DEFAULT_AUTOSAVE_INTERVAL;
 			else
 				autosave_interval *= 1000; //Pass from sec to ms
-		} else
-		if (strcmpi(w1, "minsave_time") == 0) {
+		} else if (strcmpi(w1, "minsave_time") == 0) {
 			minsave_interval= atoi(w2);
 			if (minsave_interval < 1)
 				minsave_interval = 1;
-		} else
-		if (strcmpi(w1, "save_settings") == 0)
+		} else if (strcmpi(w1, "save_settings") == 0)
 			save_settings = atoi(w2);
-		else
-		if (strcmpi(w1, "motd_txt") == 0)
+		else if (strcmpi(w1, "motd_txt") == 0)
 			strcpy(motd_txt, w2);
-		else
-		if (strcmpi(w1, "help_txt") == 0)
+		else if (strcmpi(w1, "help_txt") == 0)
 			strcpy(help_txt, w2);
-		else
-		if (strcmpi(w1, "help2_txt") == 0)
+		else if (strcmpi(w1, "help2_txt") == 0)
 			strcpy(help2_txt, w2);
-		else
-		if (strcmpi(w1, "charhelp_txt") == 0)
+		else if (strcmpi(w1, "charhelp_txt") == 0)
 			strcpy(charhelp_txt, w2);
-		else
-		if(strcmpi(w1,"map_cache_file") == 0)
+		else if(strcmpi(w1,"map_cache_file") == 0)
 			strncpy(map_cache_file,w2,255);
-		else
-		if(strcmpi(w1,"db_path") == 0)
+		else if(strcmpi(w1,"db_path") == 0)
 			strncpy(db_path,w2,255);
-		else
-		if (strcmpi(w1, "console") == 0) {
+		else if (strcmpi(w1, "console") == 0) {
 			console = config_switch(w2);
 			if (console)
 				ShowNotice("Console Commands are enabled.\n");
-		} else
-		if (strcmpi(w1, "enable_spy") == 0)
+		} else if (strcmpi(w1, "enable_spy") == 0)
 			enable_spy = config_switch(w2);
-		else
-		if (strcmpi(w1, "use_grf") == 0)
+		else if (strcmpi(w1, "use_grf") == 0)
 			enable_grf = config_switch(w2);
-		else
-		if (strcmpi(w1, "import") == 0)
+		else if (strcmpi(w1, "console_msg_log") == 0)
+			console_msg_log = atoi(w2);//[Ind]
+		else if (strcmpi(w1, "import") == 0)
 			map_config_read(w2);
 		else
 			ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
@@ -3072,6 +3339,58 @@ int map_config_read(char *cfgName)
 	return 0;
 }
 
+void map_reloadnpc_sub(char *cfgName)
+{
+	char line[1024], w1[1024], w2[1024];
+	FILE *fp;
+
+	fp = fopen(cfgName,"r");
+	if( fp == NULL )
+	{
+		ShowError("Map configuration file not found at: %s\n", cfgName);
+		return;
+	}
+
+	while( fgets(line, sizeof(line), fp) )
+	{
+		char* ptr;
+
+		if( line[0] == '/' && line[1] == '/' )
+			continue;
+		if( (ptr = strstr(line, "//")) != NULL )
+			*ptr = '\n'; //Strip comments
+		if( sscanf(line, "%[^:]: %[^\t\r\n]", w1, w2) < 2 )
+			continue;
+
+		//Strip trailing spaces
+		ptr = w2 + strlen(w2);
+		while (--ptr >= w2 && *ptr == ' ');
+		ptr++;
+		*ptr = '\0';
+			
+		if (strcmpi(w1, "npc") == 0)
+			npc_addsrcfile(w2);
+		else if (strcmpi(w1, "import") == 0)
+			map_reloadnpc_sub(w2);
+		else
+			ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
+	}
+
+	fclose(fp);
+}
+
+void map_reloadnpc(bool clear)
+{
+	if (clear)
+		npc_addsrcfile("clear"); // this will clear the current script list
+
+#ifdef RENEWAL
+	map_reloadnpc_sub("npc/re/scripts_main.conf");
+#else
+	map_reloadnpc_sub("npc/pre-re/scripts_main.conf");
+#endif
+}
+
 int inter_config_read(char *cfgName)
 {
 	char line[1024],w1[1024],w2[1024];
@@ -3079,7 +3398,7 @@ int inter_config_read(char *cfgName)
 
 	fp=fopen(cfgName,"r");
 	if(fp==NULL){
-		ShowError("File not found: '%s'.\n",cfgName);
+		ShowError("File not found: %s\n",cfgName);
 		return 1;
 	}
 	while(fgets(line, sizeof(line), fp))
@@ -3090,9 +3409,7 @@ int inter_config_read(char *cfgName)
 			continue;
 
 		if(strcmpi(w1, "main_chat_nick")==0)
-			strcpy(main_chat_nick, w2);
-			
-	#ifndef TXT_ONLY
+			safestrncpy(main_chat_nick, w2, sizeof(main_chat_nick));
 		else
 		if(strcmpi(w1,"item_db_db")==0)
 			strcpy(item_db_db,w2);
@@ -3102,6 +3419,9 @@ int inter_config_read(char *cfgName)
 		else
 		if(strcmpi(w1,"item_db2_db")==0)
 			strcpy(item_db2_db,w2);
+		else
+		if(strcmpi(w1,"item_db_re_db")==0)
+			strcpy(item_db_re_db,w2);
 		else
 		if(strcmpi(w1,"mob_db2_db")==0)
 			strcpy(mob_db2_db,w2);
@@ -3143,7 +3463,6 @@ int inter_config_read(char *cfgName)
 		else
 		if(strcmpi(w1,"log_db_db")==0)
 			strcpy(log_db_db, w2);
-	#endif
 		else
 		if( mapreg_config_read(w1,w2) )
 			continue;
@@ -3157,7 +3476,6 @@ int inter_config_read(char *cfgName)
 	return 0;
 }
 
-#ifndef TXT_ONLY
 /*=======================================
  *  MySQL Init
  *---------------------------------------*/
@@ -3211,19 +3529,23 @@ int log_sql_init(void)
 	return 0;
 }
 
-#endif /* not TXT_ONLY */
-
-int map_db_final(DBKey k,void *d,va_list ap)
+/**
+ * @see DBApply
+ */
+int map_db_final(DBKey key, DBData *data, va_list ap)
 {
-	struct map_data_other_server *mdos = (struct map_data_other_server*)d;
+	struct map_data_other_server *mdos = db_data2ptr(data);
 	if(mdos && mdos->cell == NULL)
 		aFree(mdos);
 	return 0;
 }
 
-int nick_db_final(DBKey key, void *data, va_list args)
+/**
+ * @see DBApply
+ */
+int nick_db_final(DBKey key, DBData *data, va_list args)
 {
-	struct charid2nick* p = (struct charid2nick*)data;
+	struct charid2nick* p = db_data2ptr(data);
 	struct charid_request* req;
 
 	if( p == NULL )
@@ -3240,17 +3562,17 @@ int nick_db_final(DBKey key, void *data, va_list args)
 
 int cleanup_sub(struct block_list *bl, va_list ap)
 {
-	nullpo_retr(0, bl);
+	nullpo_ret(bl);
 
 	switch(bl->type) {
 		case BL_PC:
 			map_quit((struct map_session_data *) bl);
 			break;
 		case BL_NPC:
-			npc_unload((struct npc_data *)bl);
+			npc_unload((struct npc_data *)bl,false);
 			break;
 		case BL_MOB:
-			unit_free(bl,0);
+			unit_free(bl,CLR_OUTSIGHT);
 			break;
 		case BL_PET:
 		//There is no need for this, the pet is removed together with the player. [Skotlex]
@@ -3266,9 +3588,12 @@ int cleanup_sub(struct block_list *bl, va_list ap)
 	return 1;
 }
 
-static int cleanup_db_sub(DBKey key,void *data,va_list va)
+/**
+ * @see DBApply
+ */
+static int cleanup_db_sub(DBKey key, DBData *data, va_list va)
 {
-	return cleanup_sub((struct block_list*)data, va);
+	return cleanup_sub(db_data2ptr(data), va);
 }
 
 /*==========================================
@@ -3282,16 +3607,23 @@ void do_final(void)
 
 	ShowStatus("Terminating...\n");
 
-	for (i = 0; i < map_num; i++)
-		if (map[i].m >= 0)
-			map_foreachinmap(cleanup_sub, i, BL_ALL);
-
-	//Scan any remaining players (between maps?) to kick them out. [Skotlex]
+	//Ladies and babies first.
 	iter = mapit_getallusers();
 	for( sd = (TBL_PC*)mapit_first(iter); mapit_exists(iter); sd = (TBL_PC*)mapit_next(iter) )
 		map_quit(sd);
 	mapit_free(iter);
-		
+	
+	/* prepares npcs for a faster shutdown process */
+	do_clear_npc();
+	
+	// remove all objects on maps
+	for (i = 0; i < map_num; i++) {
+		ShowStatus("Cleaning up maps [%d/%d]: %s..."CL_CLL"\r", i+1, map_num, map[i].name);
+		if (map[i].m >= 0)
+			map_foreachinmap(cleanup_sub, i, BL_ALL);
+	}
+	ShowStatus("Cleaned up %d maps."CL_CLL"\n", map_num);
+
 	id_db->foreach(id_db,cleanup_db_sub);
 	chrif_char_reset_offline();
 	chrif_flush_fifo();
@@ -3301,6 +3633,7 @@ void do_final(void)
 	do_final_chrif();
 	do_final_npc();
 	do_final_script();
+	do_final_instance();
 	do_final_itemdb();
 	do_final_storage();
 	do_final_guild();
@@ -3313,6 +3646,8 @@ void do_final(void)
 	do_final_status();
 	do_final_unit();
 	do_final_battleground();
+	do_final_duel();
+	do_final_elemental();
 	
 	map_db->destroy(map_db, map_db_final);
 	
@@ -3321,6 +3656,8 @@ void do_final(void)
 		if(map[i].block) aFree(map[i].block);
 		if(map[i].block_mob) aFree(map[i].block_mob);
 		if(battle_config.dynamic_mobs) { //Dynamic mobs flag by [random]
+			if(map[i].mob_delete_timer != INVALID_TIMER)
+				delete_timer(map[i].mob_delete_timer, map_removemobs_timer);
 			for (j=0; j<MAX_MOB_LIST_PER_MAP; j++)
 				if (map[i].moblist[j]) aFree(map[i].moblist[j]);
 		}
@@ -3339,10 +3676,9 @@ void do_final(void)
 	iwall_db->destroy(iwall_db, NULL);
 	regen_db->destroy(regen_db, NULL);
 
-#ifndef TXT_ONLY
     map_sql_close();
-#endif /* not TXT_ONLY */
-	ShowStatus("Successfully terminated.\n");
+
+	ShowStatus("Finished.\n");
 }
 
 static int map_abort_sub(struct map_session_data* sd, va_list ap)
@@ -3379,229 +3715,37 @@ void do_abort(void)
 /*======================================================
  * Map-Server Version Screen [MC Cameri]
  *------------------------------------------------------*/
-void map_helpscreen(int flag)
+static void map_helpscreen(bool do_exit)
 {
-	puts("Usage: map-server [options]");
-	puts("Options:");
-	puts(CL_WHITE"  Commands\t\t\tDescription"CL_RESET);
-	puts("-----------------------------------------------------------------------------");
-	puts("  --help, --h, --?, /?		Displays this help screen");
-	puts("  --map-config <file>		Load map-server configuration from <file>");
-	puts("  --battle-config <file>	Load battle configuration from <file>");
-	puts("  --atcommand-config <file>	Load atcommand configuration from <file>");
-	puts("  --charcommand-config <file>	Load charcommand configuration from <file>");
-	puts("  --script-config <file>	Load script configuration from <file>");
-	puts("  --msg-config <file>		Load message configuration from <file>");
-	puts("  --grf-path-file <file>	Load grf path file configuration from <file>");
-	puts("  --sql-config <file>		Load inter-server configuration from <file>");
-	puts("				(SQL Only)");
-	puts("  --log-config <file>		Load logging configuration from <file>");
-	puts("				(SQL Only)");
-	puts("  --version, --v, -v, /v	Displays the server's version");
-	puts("\n");
-	if (flag) exit(EXIT_FAILURE);
+	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
+	ShowInfo("\n");
+	ShowInfo("Options:\n");
+	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
+	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
+	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
+	ShowInfo("  --map-config <file>\t\tAlternative map-server configuration.\n");
+	ShowInfo("  --battle-config <file>\tAlternative battle configuration.\n");
+	ShowInfo("  --atcommand-config <file>\tAlternative atcommand configuration.\n");
+	ShowInfo("  --script-config <file>\tAlternative script configuration.\n");
+	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
+	ShowInfo("  --grf-path <file>\t\tAlternative GRF path configuration.\n");
+	ShowInfo("  --inter-config <file>\t\tAlternative inter-server configuration.\n");
+	ShowInfo("  --log-config <file>\t\tAlternative logging configuration.\n");
+	if( do_exit )
+		exit(EXIT_SUCCESS);
 }
 
 /*======================================================
  * Map-Server Version Screen [MC Cameri]
  *------------------------------------------------------*/
-void map_versionscreen(int flag)
+static void map_versionscreen(bool do_exit)
 {
-	ShowInfo("CL_WHITE" "eAthena version %d.%02d.%02d, Athena Mod version %d" CL_RESET"\n",
-		ATHENA_MAJOR_VERSION, ATHENA_MINOR_VERSION, ATHENA_REVISION,
-		ATHENA_MOD_VERSION);
-	ShowInfo(CL_GREEN "Website/Forum:" CL_RESET "\thttp://eathena.deltaanime.net/");
-	ShowInfo(CL_GREEN "IRC Channel:" CL_RESET "\tirc://irc.deltaanime.net/#athena");
-	ShowInfo("\nOpen " CL_WHITE "readme.html" CL_RESET " for more information.");
-	if (ATHENA_RELEASE_FLAG) ShowNotice("This version is not for release.\n");
-	if (flag) exit(EXIT_FAILURE);
-}
-
-/*======================================
- *	GameFort : Utils
- *--------------------------------------*/
- static void gf_wait(int seconds)
-{
-  clock_t endwait;
-  endwait = clock () + seconds * CLOCKS_PER_SEC ;
-  while (clock() < endwait) {}
-}
-
-/*======================================
- *	GameFort : Read conf
- *--------------------------------------*/
-int gf_config_read(const char* cfgName)
-{
-	char line[1024],w1[1024],w2[1024];
-	FILE *fp;
-
-	fp = fopen(cfgName, "r");
-	if(fp == NULL) {
-		ShowError("File not found: %s\n", cfgName);
-		return 1;
-	}
-
-	while(fgets(line, sizeof(line), fp))
-	{
-		if(line[0] == '/' && line[1] == '/')
-			continue;
-		if(sscanf(line, "%[^:]: %[^\r\n]", w1, w2) != 2)
-			continue;
-
-		remove_control_chars(w1);
-		remove_control_chars(w2);
-		if(strcmpi(w1,"login")==0) {
-			strncpy(gfuserid, w2, 30);
-		} else if(strcmpi(w1,"password")==0){
-			strncpy(gfpasswd, w2, 30);
-		} else if(strcmpi(w1,"gf_ip")==0){
-			gf_ip = host2ip(w2);
-		} else if (strcmpi(w1, "gf_port")==0) {
-			gf_port = atoi(w2);
-		}
-	}
-	fclose(fp);
-	return 0;
-}
-
-/*======================================
- *	GameFort : Connect to GF server
- *--------------------------------------*/
-bool gf_sendbuffer(int fd, unsigned char* buf, int len)
-{
-	int result, sent = 0;
-	result = send(fd, buf, len, 0);
-
-	while (result > 0 && sent < len)
-	{
-		sent = sent + result;
-		if (sent == len) {
-		  return true;
-		} else {
-		  result = send(fd, buf + sent, len - sent, 0);
-		}
-	}
-	return false;
-}
-
-int gf_recvbuffer(int fd, unsigned char* buf, int len)
-{
-	int result, aux, received = 0;
-	unsigned char recvbuffer[2048];
-
-	if (len > 2048) {
-	  result = recv(fd, recvbuffer, 2048, 0);
-	} else {
-	  result = recv(fd, recvbuffer, len, 0);
-	}
-
-	while (result > 0 && received < len)
-	{
-		memcpy(buf + received, recvbuffer, result);
-		received = received + result;
-		if (received == len) {
-			return len;
-		} else {
-			aux = len - received;
-			if (aux > 2048) {
-				result = recv(fd, recvbuffer, 2048, 0);
-			} else {
-				result = recv(fd, recvbuffer, aux, 0);
-			}
-		}
-	}
-	return result;
-}
-
-static bool GFConnect(uint32 ip, uint16 port)
-{
-	struct sockaddr_in remote_address;
-	int fd;
-	int result;
-	uint16 id;
-	unsigned char sendbuf[62];
-
-
-	fd = socket(AF_INET, SOCK_STREAM, 0);
-
-	if (fd == -1) {
-		ShowError("GameFort: socket creation failed!\n");
-		return false;
-	}
-
-	remote_address.sin_family      = AF_INET;
-	remote_address.sin_addr.s_addr = htonl(ip);
-	remote_address.sin_port        = htons(port);
-
-	ShowStatus("** Connecting to GameFort: %d.%d.%d.%d:%i\n", CONVIP(ip), port);
-
-	result = connect(fd, (struct sockaddr *)(&remote_address), sizeof(struct sockaddr_in));
-	if( result == -1 ) {
-		ShowError("GameFort: connect failed!\n");
-		do_close(fd);
-		return false;
-	}
-
-	ShowStatus("** Connected.\n");
-
-	//set_nonblocking(fd, 0);
-
-	memset(sendbuf, 0, 62);
-	sendbuf[0] = 0xA1;
-	sendbuf[1] = 0x00;
-	memcpy(sendbuf+2, gfuserid, 30);
-	memcpy(sendbuf+32, gfpasswd, 30);
-
-
-	if (!gf_sendbuffer(fd, sendbuf, 62)) {
-		ShowError("GameFort: An error occurred during connection.\n");
-		do_close(fd);
-		return false;
-	}
-
-	result = gf_recvbuffer(fd, (unsigned char*)&id, 2);
-	if (result == 0) {
-		ShowError("GameFort: Rejected from server.\n");
-		do_close(fd);
-		return false;
-	}
-	if (result < 0) {
-		ShowError("GameFort: An error occurred during connection.\n");
-		do_close(fd);
-		return false;
-	}
-
-	switch( id )
-	{
-
-		case 0x00A2:
-		{
-			ShowError("GameFort: Invalid login or password.\n");
-			do_close(fd);
-			return false;
-		}
-		case 0x00A3:
-		{
-			result = gf_recvbuffer(fd, gf_key, 32);
-			if (result == 0) {
-				ShowError("GameFort: Rejected from server.\n");
-				do_close(fd);
-				return false;
-			}
-			if (result < 0) {
-				ShowError("GameFort: An error occurred during connection.\n");
-				do_close(fd);
-				return false;
-			}
-
-			ShowStatus("** Disconnected.\n");
-			do_close(fd);
-			return true;
-		}
-	}
-	ShowError("GameFort: Unknown packet.\n");
-	do_close(fd);
-	return false;
+	ShowInfo(CL_WHITE"rAthena SVN version: %s" CL_RESET"\n", get_svn_revision());
+	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://rathena.org/\n");
+	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.rathena.net/#rathena\n");
+	ShowInfo("Open "CL_WHITE"readme.html"CL_RESET" for more information.\n");
+	if( do_exit )
+		exit(EXIT_SUCCESS);
 }
 
 /*======================================================
@@ -3612,25 +3756,40 @@ void set_server_type(void)
 	SERVER_TYPE = ATHENA_SERVER_MAP;
 }
 
+
+/// Called when a terminate signal is received.
+void do_shutdown(void)
+{
+	if( runflag != MAPSERVER_ST_SHUTDOWN )
+	{
+		runflag = MAPSERVER_ST_SHUTDOWN;
+		ShowStatus("Shutting down...\n");
+		{
+			struct map_session_data* sd;
+			struct s_mapiterator* iter = mapit_getallusers();
+			for( sd = (TBL_PC*)mapit_first(iter); mapit_exists(iter); sd = (TBL_PC*)mapit_next(iter) )
+				clif_GM_kick(NULL, sd);
+			mapit_free(iter);
+			flush_fifos();
+		}
+		chrif_check_shutdown();
+	}
+}
+
+static bool map_arg_next_value(const char* option, int i, int argc)
+{
+	if( i >= argc-1 )
+	{
+		ShowWarning("Missing value for option '%s'.\n", option);
+		return false;
+	}
+
+	return true;
+}
+
 int do_init(int argc, char *argv[])
 {
-	int i, count;
-
-	char *GF_CONF_FILENAME = "conf/gamefort.conf";
-	gf_config_read(GF_CONF_FILENAME);
-
-	count = 0;
-	while (!GFConnect(gf_ip, gf_port) && count < 5)
-	{
-		count++;
-		ShowStatus("** Trying to reconnect in 10 seconds.\n");
-		gf_wait(10);
-	}
-	if( count == 5 )
-	{
-		ShowFatalError("Could not connect to GameFort server.");
-		exit(EXIT_FAILURE);
-	}
+	int i;
 
 #ifdef GCOLLECT
 	GC_enable_incremental();
@@ -3641,48 +3800,111 @@ int do_init(int argc, char *argv[])
 	MAP_CONF_NAME = "conf/map_athena.conf";
 	BATTLE_CONF_FILENAME = "conf/battle_athena.conf";
 	ATCOMMAND_CONF_FILENAME = "conf/atcommand_athena.conf";
-	CHARCOMMAND_CONF_FILENAME = "conf/charcommand_athena.conf";
 	SCRIPT_CONF_NAME = "conf/script_athena.conf";
 	MSG_CONF_NAME = "conf/msg_athena.conf";
 	GRF_PATH_FILENAME = "conf/grf-files.txt";
 
-	srand(gettick());
+	rnd_init();
 
-	for (i = 1; i < argc ; i++) {
-		if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "--h") == 0 || strcmp(argv[i], "--?") == 0 || strcmp(argv[i], "/?") == 0)
-			map_helpscreen(1);
-		else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "--v") == 0 || strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "/v") == 0)
-			map_versionscreen(1);
-		else if (strcmp(argv[i], "--map_config") == 0 || strcmp(argv[i], "--map-config") == 0)
-			MAP_CONF_NAME=argv[i+1];
-		else if (strcmp(argv[i],"--battle_config") == 0 || strcmp(argv[i],"--battle-config") == 0)
-			BATTLE_CONF_FILENAME = argv[i+1];
-		else if (strcmp(argv[i],"--atcommand_config") == 0 || strcmp(argv[i],"--atcommand-config") == 0)
-			ATCOMMAND_CONF_FILENAME = argv[i+1];
-		else if (strcmp(argv[i],"--script_config") == 0 || strcmp(argv[i],"--script-config") == 0)
-			SCRIPT_CONF_NAME = argv[i+1];
-		else if (strcmp(argv[i],"--msg_config") == 0 || strcmp(argv[i],"--msg-config") == 0)
-			MSG_CONF_NAME = argv[i+1];
-		else if (strcmp(argv[i],"--grf_path_file") == 0 || strcmp(argv[i],"--grf-path-file") == 0)
-			GRF_PATH_FILENAME = argv[i+1];
-#ifndef TXT_ONLY
-		else if (strcmp(argv[i],"--inter_config") == 0 || strcmp(argv[i],"--inter-config") == 0)
-			INTER_CONF_NAME = argv[i+1];
-#endif
-		else if (strcmp(argv[i],"--log_config") == 0 || strcmp(argv[i],"--log-config") == 0)
-			LOG_CONF_NAME = argv[i+1];
-		else if (strcmp(argv[i],"--run_once") == 0)	// close the map-server as soon as its done.. for testing [Celest]
-			runflag = 0;
+	for( i = 1; i < argc ; i++ )
+	{
+		const char* arg = argv[i];
+
+		if( arg[0] != '-' && ( arg[0] != '/' || arg[1] == '-' ) )
+		{// -, -- and /
+			ShowError("Unknown option '%s'.\n", argv[i]);
+			exit(EXIT_FAILURE);
+		}
+		else if( (++arg)[0] == '-' )
+		{// long option
+			arg++;
+
+			if( strcmp(arg, "help") == 0 )
+			{
+				map_helpscreen(true);
+			}
+			else if( strcmp(arg, "version") == 0 )
+			{
+				map_versionscreen(true);
+			}
+			else if( strcmp(arg, "map-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					MAP_CONF_NAME = argv[++i];
+			}
+			else if( strcmp(arg, "battle-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					BATTLE_CONF_FILENAME = argv[++i];
+			}
+			else if( strcmp(arg, "atcommand-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					ATCOMMAND_CONF_FILENAME = argv[++i];
+			}
+			else if( strcmp(arg, "script-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					SCRIPT_CONF_NAME = argv[++i];
+			}
+			else if( strcmp(arg, "msg-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					MSG_CONF_NAME = argv[++i];
+			}
+			else if( strcmp(arg, "grf-path-file") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					GRF_PATH_FILENAME = argv[++i];
+			}
+			else if( strcmp(arg, "inter-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					INTER_CONF_NAME = argv[++i];
+			}
+			else if( strcmp(arg, "log-config") == 0 )
+			{
+				if( map_arg_next_value(arg, i, argc) )
+					LOG_CONF_NAME = argv[++i];
+			}
+			else if( strcmp(arg, "run-once") == 0 ) // close the map-server as soon as its done.. for testing [Celest]
+			{
+				runflag = CORE_ST_STOP;
+			}
+			else
+			{
+				ShowError("Unknown option '%s'.\n", argv[i]);
+				exit(EXIT_FAILURE);
+			}
+		}
+		else switch( arg[0] )
+		{// short option
+			case '?':
+			case 'h':
+				map_helpscreen(true);
+				break;
+			case 'v':
+				map_versionscreen(true);
+				break;
+			default:
+				ShowError("Unknown option '%s'.\n", argv[i]);
+				exit(EXIT_FAILURE);
+		}
 	}
 
 	map_config_read(MAP_CONF_NAME);
+	/* only temporary until sirius's datapack patch is complete  */
+	
+	// loads npcs
+	map_reloadnpc(false);
+
 	chrif_checkdefaultlogin();
 
 	if (!map_ip_set || !char_ip_set) {
 		char ip_str[16];
 		ip2str(addr_[0], ip_str);
 
-		ShowError("\nNot all IP addresses in map_athena.conf configured, autodetecting...\n");
+		ShowWarning("Not all IP addresses in map_athena.conf configured, autodetecting...\n");
 
 		if (naddr_ == 0)
 			ShowError("Unable to determine your IP address...\n");
@@ -3699,7 +3921,6 @@ int do_init(int argc, char *argv[])
 
 	battle_config_read(BATTLE_CONF_FILENAME);
 	msg_config_read(MSG_CONF_NAME);
-	atcommand_config_read(ATCOMMAND_CONF_FILENAME);
 	script_config_read(SCRIPT_CONF_NAME);
 	inter_config_read(INTER_CONF_NAME);
 	log_config_read(LOG_CONF_NAME);
@@ -3715,9 +3936,9 @@ int do_init(int argc, char *argv[])
 
 	iwall_db = strdb_alloc(DB_OPT_RELEASE_DATA,2*NAME_LENGTH+2+1); // [Zephyrus] Invisible Walls
 
-#ifndef TXT_ONLY
 	map_sql_init();
-#endif /* not TXT_ONLY */
+	if (log_config.sql_logs)
+		log_sql_init();
 
 	mapindex_init();
 	if(enable_grf)
@@ -3732,6 +3953,7 @@ int do_init(int argc, char *argv[])
 
 	do_init_atcommand();
 	do_init_battle();
+	do_init_instance();
 	do_init_chrif();
 	do_init_clif();
 	do_init_script();
@@ -3746,14 +3968,13 @@ int do_init(int argc, char *argv[])
 	do_init_pet();
 	do_init_merc();
 	do_init_mercenary();
+	do_init_elemental();
+	do_init_quest();
 	do_init_npc();
 	do_init_unit();
 	do_init_battleground();
-#ifndef TXT_ONLY /* mail system [Valaris] */
-	if (log_config.sql_logs)
-		log_sql_init();
-#endif /* not TXT_ONLY */
-
+	do_init_duel();
+	
 	npc_event_do_oninit();	// npcÇÃOnInitÉCÉxÉìÉg?çs
 
 	if( console )
@@ -3761,198 +3982,20 @@ int do_init(int argc, char *argv[])
 		//##TODO invoke a CONSOLE_START plugin event
 	}
 
-	if (battle_config.pk_mode == 1)
+	if (battle_config.pk_mode)
 		ShowNotice("Server is running on '"CL_WHITE"PK Mode"CL_RESET"'.\n");
 
 	ShowStatus("Server is '"CL_GREEN"ready"CL_RESET"' and listening on port '"CL_WHITE"%d"CL_RESET"'.\n\n", map_port);
-
-	return 0;
-}
-
-//Set up an "instanced" map by copying an existing map [Orcao]
-int makeinstance(const char* inst_prefix, const char* sourcename){
-	int m2,m,size,index_id,i;
-	char mapname[50];
-	char source_name[50];
-	char npc_name[50];
-	char map_name[50];
-	char npc_vid[15];
 	
-
-	//Check if source map exists
-	m = map_mapname2mapid(sourcename);
-	if(m == -1) {
-		ShowError("INSTANCE: Failed to create instance, source map '"CL_WHITE"%s"CL_RESET"' could not be found.\n",sourcename);
-		return 1;
+	if( runflag != CORE_ST_STOP )
+	{
+		shutdown_callback = do_shutdown;
+		runflag = MAPSERVER_ST_RUNNING;
 	}
-	/*strcpy(mapname,inst_prefix);
-	strcat(mapname,"#");
-	strcat(mapname,sourcename);*/
-	sprintf(mapname,"%s#%s",inst_prefix,sourcename);
-
-	if((strlen(inst_prefix) + 1 + strlen(sourcename)) > 11){
-		ShowError("INSTANCE: Failed to create instance, %s#%s map name length too long\n",inst_prefix,mapname);
-		return 4;
-	}
-
-	if(map_mapname2mapid(mapname) != -1){
-		ShowError("INSTANCE: Failed to create instance, map %s already exists\n",mapname);
-		return 8;
-	}
-
-	index_id = mapindex_addmap(-1, mapname);
-	
-	if(map_addmap((char*)mapname) == 1){ //
-		ShowError("INSTANCE: Failed to add instance '"CL_WHITE"%s"CL_RESET"', max maps reached.\n",mapname);
-		return 2;
-	}
-	for (m2 = 0; m2 < map_num; m2++){
-		if (strcmp(map[m2].name,mapname)==0)	
-			break;
-	}
-
-	//Free old memory allocs when over writing a map id
-	if (map[m2].cell) aFree(map[m2].cell);
-	if (map[m2].block) aFree(map[m2].block);
-	if (map[m2].block_mob) aFree(map[m2].block_mob);
-
-	//Copy over map cell data
-	size = map[m].xs * map[m].ys;
-	CREATE(map[m2].cell, struct mapcell, size);
-	for( i = 0; i < size; ++i )
-			map[m2].cell[i] = map[m].cell[i];
-	
-	//Define map boundaries
-	map[m2].ys = map[m].ys;
-	map[m2].xs = map[m].xs;
-	map[m2].bxs = map[m].bxs;
-	map[m2].bys = map[m].bys;
-
-	//Define map indexes
-	map[m2].index = index_id;
-	map[m2].m = m2;
-
-	//Add map to the map_db
-	uidb_put(map_db, (unsigned int)map[m2].index, &map[m2]);
-
-	//Define map flags
-	map[m2].flag = map[m].flag;
-	map[m2].flag.nosave = 1;
-	map[m2].flag.nomemo = 1;
-	map[m2].flag.nowarpto = 1;	
-	map[m2].nocommand = map[m].nocommand;
-	map[m2].jexp = map[m].jexp;
-	map[m2].bexp = map[m].bexp;
-	map[m2].zone = map[m].zone;
-
-	//Allocate memory for mob data
-	size = map[m2].bxs * map[m2].bys * sizeof(struct block_list*);
-	map[m2].block = (struct block_list**)aCalloc(size, 1);
-	map[m2].block_mob = (struct block_list**)aCalloc(size, 1);
-	
-	//Initialize mob list
-	memset(map[m2].moblist, 0, sizeof(map[m2].moblist));
-	//Clear existing timer (not always a map_removemobs_timer NO IDEA WHY)
-	if (map[m2].mob_delete_timer != INVALID_TIMER) delete_timer(map[m2].mob_delete_timer, get_timer(map[m2].mob_delete_timer)->func);
-	map[m2].mob_delete_timer = INVALID_TIMER;
-	map[m2].mob_delete_timer = add_timer(gettick()+battle_config.mob_remove_delay, map_removemobs_timer, m2, 0);
-	
-	//Confirm that the map was added SHOULD NEVER FAIL. It's more of a final failsafe
-	m2 = map_mapname2mapid(mapname);
-
-	if(m2 == -1) {
-		ShowError("INSTANCE: Failed to create instance '"CL_WHITE"%s"CL_RESET"'.\n",mapname);
-		return 16;
-	}
-
-	//Copy over npcs 
-	//TODO Write a function that uses data for paramaters, instead of hitching a ride on duplicate w/ the 4 w strings.
-	for (i = 0; i < map[m].npc_num; i++){
-		strcpy(npc_name,map[m].npc[i]->name);
-		strcat(npc_name,"#");
-		strcat(npc_name,inst_prefix);
-
-		strcpy(map_name,"");
-		sprintf(map_name,"%s,%d,%d,%d",mapname,map[m].npc[i]->bl.x,map[m].npc[i]->bl.y,map[m].npc[i]->ud.dir);
-		
-		strcpy(source_name,"duplicate(");
-		strcat(source_name,map[m].npc[i]->exname);
-		strcat(source_name,")");
-
-		//handles on touch area and view id
-		strcpy(npc_vid,"");	
-		switch(map[m].npc[i]->subtype){
-			case SCRIPT:
-				if(map[m].npc[i]->u.scr.xs >= 0 || map[m].npc[i]->u.scr.ys >= 0)
-					sprintf(npc_vid,"%d,%d,%d",map[m].npc[i]->class_,map[m].npc[i]->u.scr.xs,map[m].npc[i]->u.scr.ys);
-				else
-					sprintf(npc_vid,"%d",map[m].npc[i]->class_);
-				break;
-
-			case WARP:
-				sprintf(npc_vid,"%d,%d",map[m].npc[i]->u.warp.xs,map[m].npc[i]->u.warp.ys);
-				break;
-
-			case SHOP:
-			case CASHSHOP:
-			default:
-				sprintf(npc_vid,"%d",map[m].npc[i]->class_);
-				break;
-		}
-		npc_parse_duplicate(map_name, source_name, npc_name, npc_vid, "-", "-", "-");
-	}
-	map[m2].npc_num = map[m].npc_num;
-	return 0;
-}
-
-//Clears an instanced map (Will let a new instance take its place, current version isnt a full clear :/ [Orcao]
-//SEE THE CLEARINSTANCE SCRIPT COMMAND. You must kill all monsters / warp out all players before calling this.
-int clearinstance(const char* mapname){
-	int m,i = 0;
-
-	//confirm that the map exists
-	m = map_mapname2mapid(mapname);
-
-	if (m == -1)
-		return 1;
-	
-	remove_npcs_from_map(mapname);
-	if (map[m].mob_delete_timer != INVALID_TIMER) delete_timer(map[m].mob_delete_timer, map_removemobs_timer); //Might be safer to use get_timer(map[m2].mob_delete_timer)->func instead
-
-	//Remove the map from map_db and the index
-	mapindex_removemap(map[m].index);
-	uidb_remove(map_db,map[m].index);
-
-	//Clear the map name
-	map[m].name[0] = '\0';
-	
-	return 0;
-}
-
-int remove_npcs_from_map(const char* mapname){
-	int m;
-	struct npc_data *nd;
-
-	m = map_mapname2mapid(mapname);
-	if (m == -1)
-		return 1;
-	
-	//unload all npcs+duplicates
-	//npc_unload shifts the npc[] array down, and --'s npc_num
-	while(map[m].npc_num > 0){
-		if ((nd = npc_name2id(map[m].npc[0]->exname)) == NULL) {
-			ShowError("remove_npcs_from_map: The npc %s somehow doesn't exist. Prematurely ending remove loop.\n",map[m].npc[0]->name); // This NPC doesn't exist.
-			break; //should never happen... hopefully.
-		}
-		npc_unload_duplicates(nd);
-		npc_unload(nd);
-	}
-
-	//Again, should never happen. Ever. :x
-	if (map[m].npc_num != 0) ShowError("remove_npcs_from_map: Not all npcs were unloaded, %d remain\n",map[m].npc_num);
-
-	//Reread event script data to prevent a removed npc from being called in this manner
-	npc_read_event_script();
+#if defined(BUILDBOT)
+	if( buildbotflag )
+		exit(EXIT_FAILURE);
+#endif
 
 	return 0;
 }

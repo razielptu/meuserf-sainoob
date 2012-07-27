@@ -1,21 +1,3 @@
-// This file has been edited or created to install the:
-// GAMEFORT - Hacking Prevention System
-//=============================================================
-//    ____     _     __  __  _____  _____   ___   ____   _____
-//   / ___|   / \   |  \/  || ____|| ____| / _ \ |  _ \ |_   _|
-//  | |  _   / _ \  | |\/| ||  _|  |  _|  | | | || |_) |  | |
-//  | |_| | / ___ \ | |  | || |___ | |    | |_| ||  _ <   | |
-//   \____|/_/   \_\|_|  |_||_____||_|     \___/ |_| \_\  |_|
-//
-//=============================================================
-// Version: 7390
-// Instalation Date: 24/8/2011 17:09:03
-// More Informations: http://gamefort.com.br/
-//
-// Don't change any information in this header, it will help
-// the installer for future updates
-//=============================================================
-
 // Copyright (c) Athena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
@@ -30,7 +12,7 @@
 #include <string.h>
 
 /// global defines
-#define ACCOUNT_SQL_DB_VERSION 20080417
+#define ACCOUNT_SQL_DB_VERSION 20110114
 
 /// internal structure
 typedef struct AccountDB_SQL
@@ -86,12 +68,6 @@ static bool account_db_sql_iter_next(AccountDBIterator* self, struct mmo_account
 static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int account_id);
 static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, bool is_new);
 
-static bool mac_address_log(AccountDB* self, const unsigned char* mac_address, int account_id);
-static bool mac_address_update(AccountDB* self, const unsigned char* mac_address, int account_id);
-static bool mac_address_ban(AccountDB* self, int account_id);
-static bool mac_address_checkban(AccountDB* self, const unsigned char* mac_address);
-static bool mac_address_unban(AccountDB* self, int account_id);
-
 /// public constructor
 AccountDB* account_db_sql(void)
 {
@@ -108,12 +84,6 @@ AccountDB* account_db_sql(void)
 	db->vtable.load_num     = &account_db_sql_load_num;
 	db->vtable.load_str     = &account_db_sql_load_str;
 	db->vtable.iterator     = &account_db_sql_iterator;
-	
-	db->vtable.log_mac_addr         = &mac_address_log;
-	db->vtable.update_mac_addr      = &mac_address_update;
-	db->vtable.ban_mac_addr         = &mac_address_ban;
-	db->vtable.unban_mac_addr       = &mac_address_unban;
-	db->vtable.checkban_mac_addr    = &mac_address_checkban;
 
 	// initialize to default values
 	db->accounts = NULL;
@@ -189,7 +159,7 @@ static bool account_db_sql_init(AccountDB* self)
 		Sql_ShowDebug(sql_handle);
 
 	return true;
-}	
+}
 
 /// disconnects from database
 static void account_db_sql_destroy(AccountDB* self)
@@ -445,114 +415,6 @@ static bool account_db_sql_load_num(AccountDB* self, struct mmo_account* acc, co
 	return mmo_auth_fromsql(db, acc, account_id);
 }
 
-static bool mac_address_log(AccountDB* self, const unsigned char* mac_address, int account_id)
-{
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
-	unsigned char esc_mac_address[12*2+1];
-
-	Sql_EscapeString(sql_handle, (char *)esc_mac_address, (char *)mac_address);
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `maclog` (`account_id`, `mac_address`) VALUES ('%d', '%s %s')",
-		account_id, (db->case_sensitive ? "BINARY" : ""), esc_mac_address) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-}
-
-static bool mac_address_update(AccountDB* self, const unsigned char* mac_address, int account_id)
-{
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
-	unsigned char esc_mac_address[12*2+1];
-
-	Sql_EscapeString(sql_handle, (char *)esc_mac_address, (char *)mac_address);
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "UPDATE `%s` SET `mac_address` = %s '%s' WHERE `account_id` =%d;",
-		db->account_db, (db->case_sensitive ? "BINARY" : ""), esc_mac_address, account_id) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-	return true;
-}
-
-static bool mac_address_ban(AccountDB* self, int account_id)
-{
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
-	unsigned char esc_mac_address[12*2+1];
-	char* data;
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `mac_address` FROM `login` WHERE `account_id` =%d",
-		account_id) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-
-	if( Sql_NumRows(sql_handle) > 1 )
-		return false;
-
-	if( SQL_SUCCESS != Sql_NextRow(sql_handle) )
-	{// no such entry
-		Sql_FreeResult(sql_handle);
-		return false;
-	}
-
-	Sql_GetData(sql_handle, 0, &data, NULL);
-	Sql_EscapeString(sql_handle, (char *)esc_mac_address, data);
-
-	if( strncmp((char *)esc_mac_address,"000000000000",12) == 0 )
-		return false;
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `mac_addr_ban` (`account_id`, `mac_address`) VALUES ('%d', %s '%s');",
-		account_id, (db->case_sensitive ? "BINARY" : ""), esc_mac_address) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-	return true;
-}
-
-static bool mac_address_unban(AccountDB* self, int account_id)
-{
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "DELETE FROM `mac_addr_ban` WHERE `account_id` =%d",
-		account_id) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-	return true;
-}
-
-static bool mac_address_checkban(AccountDB* self, const unsigned char* mac_address)
-{
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
-	unsigned char esc_mac_address[12*2+1];
-
-	Sql_EscapeString(sql_handle, (char *)esc_mac_address, (char *)mac_address);
-
-     
-
-	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT * FROM `mac_addr_ban` WHERE `mac_address` = %s '%s'",
-		(db->case_sensitive ? "BINARY" : ""), esc_mac_address) )
-	{
-		Sql_ShowDebug(sql_handle);
-		return false;
-	}
-
-	if( Sql_NumRows(sql_handle) > 0 )
-		return true;
-
-	return false;
-}
-
 /// retrieve data from db and store it in the provided data structure
 static bool account_db_sql_load_str(AccountDB* self, struct mmo_account* acc, const char* userid)
 {
@@ -660,7 +522,7 @@ static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int acc
 
 	// retrieve login entry for the specified account
 	if( SQL_ERROR == Sql_Query(sql_handle,
-	    "SELECT `account_id`,`userid`,`user_pass`,`sex`,`email`,`level`,`state`,`unban_time`,`expiration_time`,`logincount`,`lastlogin`,`last_ip` FROM `%s` WHERE `account_id` = %d",
+	    "SELECT `account_id`,`userid`,`user_pass`,`sex`,`email`,`group_id`,`state`,`unban_time`,`expiration_time`,`logincount`,`lastlogin`,`last_ip`,`birthdate` FROM `%s` WHERE `account_id` = %d",
 		db->account_db, account_id )
 	) {
 		Sql_ShowDebug(sql_handle);
@@ -678,13 +540,14 @@ static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int acc
 	Sql_GetData(sql_handle,  2, &data, NULL); safestrncpy(acc->pass, data, sizeof(acc->pass));
 	Sql_GetData(sql_handle,  3, &data, NULL); acc->sex = data[0];
 	Sql_GetData(sql_handle,  4, &data, NULL); safestrncpy(acc->email, data, sizeof(acc->email));
-	Sql_GetData(sql_handle,  5, &data, NULL); acc->level = atoi(data);
+	Sql_GetData(sql_handle,  5, &data, NULL); acc->group_id = atoi(data);
 	Sql_GetData(sql_handle,  6, &data, NULL); acc->state = strtoul(data, NULL, 10);
 	Sql_GetData(sql_handle,  7, &data, NULL); acc->unban_time = atol(data);
 	Sql_GetData(sql_handle,  8, &data, NULL); acc->expiration_time = atol(data);
 	Sql_GetData(sql_handle,  9, &data, NULL); acc->logincount = strtoul(data, NULL, 10);
 	Sql_GetData(sql_handle, 10, &data, NULL); safestrncpy(acc->lastlogin, data, sizeof(acc->lastlogin));
 	Sql_GetData(sql_handle, 11, &data, NULL); safestrncpy(acc->last_ip, data, sizeof(acc->last_ip));
+	Sql_GetData(sql_handle, 12, &data, NULL); safestrncpy(acc->birthdate, data, sizeof(acc->birthdate));
 
 	Sql_FreeResult(sql_handle);
 
@@ -733,20 +596,21 @@ static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, boo
 	if( is_new )
 	{// insert into account table
 		if( SQL_SUCCESS != SqlStmt_Prepare(stmt,
-			"INSERT INTO `%s` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `level`, `state`, `unban_time`, `expiration_time`, `logincount`, `lastlogin`, `last_ip`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+			"INSERT INTO `%s` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`, `state`, `unban_time`, `expiration_time`, `logincount`, `lastlogin`, `last_ip`, `birthdate`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 			db->account_db)
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  0, SQLDT_INT,    (void*)&acc->account_id,      sizeof(acc->account_id))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  1, SQLDT_STRING, (void*)acc->userid,           strlen(acc->userid))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  2, SQLDT_STRING, (void*)acc->pass,             strlen(acc->pass))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  3, SQLDT_ENUM,   (void*)&acc->sex,             sizeof(acc->sex))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  4, SQLDT_STRING, (void*)&acc->email,           strlen(acc->email))
-		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  5, SQLDT_INT,    (void*)&acc->level,           sizeof(acc->level))
+		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  5, SQLDT_INT,    (void*)&acc->group_id,        sizeof(acc->group_id))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  6, SQLDT_UINT,   (void*)&acc->state,           sizeof(acc->state))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  7, SQLDT_LONG,   (void*)&acc->unban_time,      sizeof(acc->unban_time))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  8, SQLDT_INT,    (void*)&acc->expiration_time, sizeof(acc->expiration_time))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  9, SQLDT_UINT,   (void*)&acc->logincount,      sizeof(acc->logincount))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt, 10, SQLDT_STRING, (void*)&acc->lastlogin,       strlen(acc->lastlogin))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt, 11, SQLDT_STRING, (void*)&acc->last_ip,         strlen(acc->last_ip))
+		||  SQL_SUCCESS != SqlStmt_BindParam(stmt, 12, SQLDT_STRING, (void*)&acc->birthdate,       strlen(acc->birthdate))
 		||  SQL_SUCCESS != SqlStmt_Execute(stmt)
 		) {
 			SqlStmt_ShowDebug(stmt);
@@ -755,18 +619,19 @@ static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, boo
 	}
 	else
 	{// update account table
-		if( SQL_SUCCESS != SqlStmt_Prepare(stmt, "UPDATE `%s` SET `userid`=?,`user_pass`=?,`sex`=?,`email`=?,`level`=?,`state`=?,`unban_time`=?,`expiration_time`=?,`logincount`=?,`lastlogin`=?,`last_ip`=? WHERE `account_id` = '%d'", db->account_db, acc->account_id)
+		if( SQL_SUCCESS != SqlStmt_Prepare(stmt, "UPDATE `%s` SET `userid`=?,`user_pass`=?,`sex`=?,`email`=?,`group_id`=?,`state`=?,`unban_time`=?,`expiration_time`=?,`logincount`=?,`lastlogin`=?,`last_ip`=?,`birthdate`=? WHERE `account_id` = '%d'", db->account_db, acc->account_id)
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  0, SQLDT_STRING, (void*)acc->userid,           strlen(acc->userid))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  1, SQLDT_STRING, (void*)acc->pass,             strlen(acc->pass))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  2, SQLDT_ENUM,   (void*)&acc->sex,             sizeof(acc->sex))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  3, SQLDT_STRING, (void*)acc->email,            strlen(acc->email))
-		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  4, SQLDT_INT,    (void*)&acc->level,           sizeof(acc->level))
+		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  4, SQLDT_INT,    (void*)&acc->group_id,        sizeof(acc->group_id))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  5, SQLDT_UINT,   (void*)&acc->state,           sizeof(acc->state))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  6, SQLDT_LONG,   (void*)&acc->unban_time,      sizeof(acc->unban_time))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  7, SQLDT_LONG,   (void*)&acc->expiration_time, sizeof(acc->expiration_time))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  8, SQLDT_UINT,   (void*)&acc->logincount,      sizeof(acc->logincount))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt,  9, SQLDT_STRING, (void*)&acc->lastlogin,       strlen(acc->lastlogin))
 		||  SQL_SUCCESS != SqlStmt_BindParam(stmt, 10, SQLDT_STRING, (void*)&acc->last_ip,         strlen(acc->last_ip))
+		||  SQL_SUCCESS != SqlStmt_BindParam(stmt, 11, SQLDT_STRING, (void*)&acc->birthdate,       strlen(acc->birthdate))
 		||  SQL_SUCCESS != SqlStmt_Execute(stmt)
 		) {
 			SqlStmt_ShowDebug(stmt);

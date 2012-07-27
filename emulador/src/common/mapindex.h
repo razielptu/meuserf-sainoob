@@ -7,9 +7,6 @@
 //File in charge of assigning a numberic ID to each map in existance for space saving when passing map info between servers.
 extern char mapindex_cfgfile[80];
 
-//whether to enable auto-adding of maps during run. Not so secure as the map indexes will vary!
-//#define MAPINDEX_AUTOADD
-
 #define MAX_MAPINDEX 2000
 
 //Some definitions for the mayor city maps.
@@ -39,6 +36,16 @@ extern char mapindex_cfgfile[80];
 #define MAP_JAIL "sec_pri"
 #define MAP_NOVICE "new_1-1"
 #define MAP_MOSCOVIA "moscovia"
+#define MAP_MIDCAMP "mid_camp"
+#define MAP_MANUK "manuk"
+#define MAP_SPLENDIDE "splendide"
+#define MAP_BRASILIS "brasilis"
+#define MAP_DICASTES "dicastes01"
+#define MAP_MORA "mora"
+#define MAP_DEWATA "dewata"
+#define MAP_MALANGDO "malangdo"
+#define MAP_MALAYA "malaya"
+#define MAP_ECLAGE "eclage"
 
 const char* mapindex_getmapname(const char* string, char* output);
 const char* mapindex_getmapname_ext(const char* string, char* output);

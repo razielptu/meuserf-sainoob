@@ -73,14 +73,30 @@
 #  define  __attribute__(x)
 #endif
 
-
 //////////////////////////////////////////////////////////////////////////
-// typedefs to compensate type size change from 32bit to 64bit
-// MS implements LLP64 model, normal unix does LP64,
-// only Silicon Graphics/Cray goes ILP64 so don't care (and don't support)
+// portable printf/scanf format macros and integer definitions
+// NOTE: Visual C++ uses <inttypes.h> and <stdint.h> provided in /3rdparty
 //////////////////////////////////////////////////////////////////////////
+#ifdef __cplusplus
+#define __STDC_CONSTANT_MACROS
+#define __STDC_FORMAT_MACROS
+#define __STDC_LIMIT_MACROS
+#endif
 
+#include <inttypes.h>
+#include <stdint.h>
 #include <limits.h>
+
+// temporary fix for bugreport:4961 (unintended conversion from signed to unsigned)
+// (-20 >= UCHAR_MAX) returns true
+// (-20 >= USHRT_MAX) returns true
+#if defined(__FreeBSD__) && defined(__x86_64)
+#undef UCHAR_MAX
+#define UCHAR_MAX (unsigned char)0xff
+#undef USHRT_MAX
+#define USHRT_MAX (unsigned short)0xffff
+#endif
+
 // ILP64 isn't supported, so always 32 bits?
 #ifndef UINT_MAX
 #define UINT_MAX 0xffffffff
@@ -90,49 +106,56 @@
 // Integers with guaranteed _exact_ size.
 //////////////////////////////////////////////////////////////////////////
 
-#define SIZEOF_LONG 4
-#define SIZEOF_INT 4
-#define HAVE_INT_8_16_32
+typedef int8_t		int8;
+typedef int16_t		int16;
+typedef int32_t		int32;
+typedef int64_t		int64;
 
-typedef char				int8;
-typedef short				int16;
-typedef int					int32;
+typedef int8_t		sint8;
+typedef int16_t		sint16;
+typedef int32_t		sint32;
+typedef int64_t		sint64;
 
-typedef signed char			sint8;
-typedef signed short		sint16;
-typedef signed int			sint32;
-
-typedef unsigned char		uint8;
-typedef unsigned short		uint16;
-typedef unsigned int		uint32;
+typedef uint8_t		uint8;
+typedef uint16_t	uint16;
+typedef uint32_t	uint32;
+typedef uint64_t	uint64;
 
 #undef UINT8_MIN
 #undef UINT16_MIN
 #undef UINT32_MIN
-#define UINT8_MIN	((uint8) 0)
-#define UINT16_MIN	((uint16)0)
-#define UINT32_MIN	((uint32)0)
+#undef UINT64_MIN
+#define UINT8_MIN	((uint8) UINT8_C(0x00))
+#define UINT16_MIN	((uint16)UINT16_C(0x0000))
+#define UINT32_MIN	((uint32)UINT32_C(0x00000000))
+#define UINT64_MIN	((uint64)UINT64_C(0x0000000000000000))
 
 #undef UINT8_MAX
 #undef UINT16_MAX
 #undef UINT32_MAX
-#define UINT8_MAX	((uint8) 0xFF)
-#define UINT16_MAX	((uint16)0xFFFF)
-#define UINT32_MAX	((uint32)0xFFFFFFFF)
+#undef UINT64_MAX
+#define UINT8_MAX	((uint8) UINT8_C(0xFF))
+#define UINT16_MAX	((uint16)UINT16_C(0xFFFF))
+#define UINT32_MAX	((uint32)UINT32_C(0xFFFFFFFF))
+#define UINT64_MAX	((uint64)UINT64_C(0xFFFFFFFFFFFFFFFF))
 
 #undef SINT8_MIN
 #undef SINT16_MIN
 #undef SINT32_MIN
-#define SINT8_MIN	((sint8) 0x80)
-#define SINT16_MIN	((sint16)0x8000)
-#define SINT32_MIN	((sint32)0x80000000)
+#undef SINT64_MIN
+#define SINT8_MIN	((sint8) INT8_C(0x80))
+#define SINT16_MIN	((sint16)INT16_C(0x8000))
+#define SINT32_MIN	((sint32)INT32_C(0x80000000))
+#define SINT64_MIN	((sint32)INT64_C(0x8000000000000000))
 
 #undef SINT8_MAX
 #undef SINT16_MAX
 #undef SINT32_MAX
-#define SINT8_MAX	((sint8) 0x7F)
-#define SINT16_MAX	((sint16)0x7FFF)
-#define SINT32_MAX	((sint32)0x7FFFFFFF)
+#undef SINT64_MAX
+#define SINT8_MAX	((sint8) INT8_C(0x7F))
+#define SINT16_MAX	((sint16)INT16_C(0x7FFF))
+#define SINT32_MAX	((sint32)INT32_C(0x7FFFFFFF))
+#define SINT64_MAX	((sint64)INT64_C(0x7FFFFFFFFFFFFFFF))
 
 //////////////////////////////////////////////////////////////////////////
 // Integers with guaranteed _minimum_ size.
@@ -168,52 +191,33 @@ typedef int				ssize_t;
 
 
 //////////////////////////////////////////////////////////////////////////
-// portable 64-bit integers
-//////////////////////////////////////////////////////////////////////////
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-typedef __int64				int64;
-typedef signed __int64		sint64;
-typedef unsigned __int64	uint64;
-#define LLCONST(a)			(a##i64)
-#else
-typedef long long			int64;
-typedef signed long long	sint64;
-typedef unsigned long long	uint64;
-#define LLCONST(a)			(a##ll)
-#endif
-
-#ifndef INT64_MIN
-#define INT64_MIN  (LLCONST(-9223372036854775807)-1)
-#endif
-#ifndef INT64_MAX
-#define INT64_MAX  (LLCONST(9223372036854775807))
-#endif
-#ifndef UINT64_MAX
-#define UINT64_MAX (LLCONST(18446744073709551615u))
-#endif
-
-
-//////////////////////////////////////////////////////////////////////////
 // pointer sized integers
 //////////////////////////////////////////////////////////////////////////
-#undef UINTPTR_MIN
-#undef UINTPTR_MAX
-#undef INTPTR_MIN
-#undef INTPTR_MAX
-#ifdef __64BIT__
-typedef uint64 uintptr;
-typedef int64 intptr;
-#define UINTPTR_MIN UINT64_MIN
-#define UINTPTR_MAX UINT64_MAX
-#define INTPTR_MIN INT64_MIN;
-#define INTPTR_MAX INT64_MAX;
+typedef intptr_t intptr;
+typedef uintptr_t uintptr;
+
+
+//////////////////////////////////////////////////////////////////////////
+// Add a 'sysint' Type which has the width of the platform we're compiled for.
+//////////////////////////////////////////////////////////////////////////
+#if defined(__GNUC__)
+	#if defined(__x86_64__)
+		typedef int64 sysint;
+		typedef uint64 usysint;
+	#else
+		typedef int32 sysint;
+		typedef uint32 usysint;
+	#endif
+#elif defined(_MSC_VER)
+	#if defined(_M_X64)
+		typedef int64 sysint;
+		typedef uint64 usysint;
+	#else
+		typedef int32 sysint;
+		typedef uint32 usysint;
+	#endif
 #else
-typedef uint32 uintptr;
-typedef int32 intptr;
-#define UINTPTR_MIN UINT32_MIN
-#define UINTPTR_MAX UINT32_MAX
-#define INTPTR_MIN INT32_MIN;
-#define INTPTR_MAX INT32_MAX;
+	#error Compiler / Platform is unsupported.
 #endif
 
 
@@ -234,11 +238,22 @@ typedef int32 intptr;
 #define strncmpi			strncasecmp
 #define strnicmp			strncasecmp
 #endif
-
-// keyword replacement in windows
-#ifdef _WIN32
-#define inline __inline
+#if defined(_MSC_VER) && _MSC_VER > 1200
+#define strtoull			_strtoui64
 #endif
+
+// keyword replacement
+#ifdef _MSC_VER
+// For MSVC (windows)
+#define inline __inline
+#define forceinline __forceinline
+#define ra_align(n) __declspec(align(n))
+#else
+// For GCC
+#define forceinline __attribute__((always_inline)) inline
+#define ra_align(n) __attribute__(( aligned(n) ))
+#endif
+
 
 /////////////////////////////
 // for those still not building c++
@@ -251,7 +266,7 @@ typedef char bool;
 #define true	(1==1)
 
 //////////////////////////////
-#endif // not cplusplus
+#endif // not __cplusplus
 //////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
@@ -348,5 +363,28 @@ typedef char bool;
 #define va_copy(dst, src) ((void) memcpy(&(dst), &(src), sizeof(va_list)))
 #endif
 #endif
+
+
+//////////////////////////////////////////////////////////////////////////
+// Set a pointer variable to a pointer value.
+#ifdef __cplusplus
+template <typename T1, typename T2>
+void SET_POINTER(T1*&var, T2* p)
+{
+	var = static_cast<T1*>(p);
+}
+template <typename T1, typename T2>
+void SET_FUNCPOINTER(T1& var, T2 p)
+{
+	char ASSERT_POINTERSIZE[sizeof(T1) == sizeof(void*) && sizeof(T2) == sizeof(void*)?1:-1];// 1 if true, -1 if false
+	union{ T1 out; T2 in; } tmp;// /!\ WARNING casting a pointer to a function pointer is against the C++ standard
+	tmp.in = p;
+	var = tmp.out;
+}
+#else
+#define SET_POINTER(var,p) (var) = (p)
+#define SET_FUNCPOINTER(var,p) (var) = (p)
+#endif
+
 
 #endif /* _CBASETYPES_H_ */

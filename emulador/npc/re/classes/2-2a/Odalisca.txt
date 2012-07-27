@@ -1,0 +1,85 @@
+//==========================================================
+//  ___  ___       ___   ____    ____  ___      
+// |   \/   |     /   \  \   \  /   / /   \     
+// |  \  /  |    /  ^  \  \   \/   / /  ^  \    
+// |  |\/|  |   /  /_\  \  \_    _/ /  /_\  \   
+// |  |  |  |  /  _____  \   |  |  /  _____  \  
+// |__|  |__| /__/     \__\  |__| /__/     \__\ 
+//
+//==========================================================
+//= Quest do Gypsy
+//===== Por: =========================================================
+//= rA dev Team; LyDe
+//===== Versão Atual: ================================================
+//= 1.0
+//===== Compatível com: ==============================================
+//= eAthena; rAthena; Cronus; brAthena; Maya SVN.
+//===== Descrição: ===================================================
+//= Mudança de Classe para Gypsy
+//===== Comentários Adicionais: ======================================
+//= 1.0 Traduzido. [LyDe]
+//====================================================================
+
+valkyrie,53,56,3	script	Gypsy#Valkyrie	101,{
+	if (ADVJOB == 0 || Upper != 1) {
+		mes "[Cigana]";
+		set .@karma_d,rand(1,10);
+		if (.@karma_d > 4) {
+			mes "Parabéns.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "Mover para a esquerda,";
+		mes "mover para a direita ~!";
+		mes "E dê um passo...!";
+		mes "Dançar pode ser";
+		mes "mais que um passatempo.";
+		mes "Para mim, isso é um modo de vida~";
+		close;
+	} else if (ADVJOB == Job_Gypsy && Class == Job_Archer_High && JobLevel > 39) {
+		mes "[Cigana]";
+		mes "A terra de Rune-Midgard";
+		mes "está precisando de mulheres talentosas";
+		mes "para mudar sutilmente o balanço";
+		mes "nas batalhas entre o bem";
+		mes "e o mal.";
+		next;
+		mes "[Cigana]";
+		mes "Você está pronta";
+		mes "para pegar esse cargo,";
+		mes "e se tornar uma Cigana?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Cigana]";
+			mes "Quando estiver pronta,";
+			mes "sinta-se livre para voltar.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "[Cigana]";
+		if (SkillPoint) {
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
+			close;
+		}
+		jobchange Job_Gypsy;
+		set ADVJOB,0;
+		mes "Parabéns!";
+		mes "Como Cigana, eu sei";
+		mes "que suas performances";
+		mes "irão abalar os corações de todos";
+		mes "aqueles que estarão assistindo...";
+		close;
+	}
+	mes "[Cigana]";
+	mes "Bem-vindo";
+	mes "a Valhalla,";
+	mes "o Salão da Honra.";
+	next;
+	mes "[Cigana]";
+	mes "Por favor sinta-se";
+	mes "confortável enquanto";
+	mes "estiver aqui.";
+	mes "Honra aos guerreiros!";
+	close;
+}
