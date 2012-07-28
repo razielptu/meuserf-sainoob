@@ -1,34 +1,34 @@
-//====================================================================
-//          _________                                                  
-//          \_   ___ \_______  ____   ____  __ __  ______             
-//          /    \  \/\_  __ \/    \ /    \|  |  \/  ___/              
-//          \     \____|  | \(  ( ) )   |  \  |  /\___ \               
-//           \______  /|__|   \____/|___|  /____//____  >              
-//                  \/                   \/           \/               
-//                                                               
-//====================== Cronus Script ===============================
+//===== Cronus Script ========================================
 //= Kafras de Juno
-//===== Por: =========================================================
-//= Dojo
-//===== Versão Atual: ================================================
-//= 1.1
-//===== Compatível com: ==============================================
-//= Cronus GIT
-//===== Descrição: ===================================================
-//= Kafras de Brasilis
-//===== Comentários Adicionais: ======================================
-//= 1.0 Primeira Versão [Dojo]
-//= 1.1 Adicionado diálogos oficiais do bRO [Schrwaizer]
-//====================================================================
-
+//===== Por: =================================================
+//= eAthena Dev Team
+//===== Versão Atual: ========================================
+//= 2.4b
+//===== Compatibilidade: =====================================
+//= Cronus SVN
+//===== Descrição: ===========================================
+//= Kafras da cidade de Juno.
+//===== Comentários Adicionais: ==============================
+//= v1.1 Now using functions :)
+//= v2.1b Minor changes to function calls. Using arguments.
+//= This version uses arrays .[kobra_k88]
+//= 2.2 Now only warps to Aldebaran [Evera]
+//= 2.3 Updated a kafra location. [Musashiden]
+//= 2.4 Updated function calls with new arguments. [L0ne_W0lf]
+//=	Added unique Kafra Welcome message.
+//= 2.4a Traduzido. [Puncker]
+//= 2.4b Revisado. [RoM]
+//============================================================
 
 // Centro ------------------------------------------------------------------
 yuno,152,187,4	script	Funcionária Kafra::kaf_yuno	860,{
 	cutin "kafra_08",2;
 	callfunc "F_KafSetYun";
-	mes "[Kafra Recepcionista]";
-	mes "Bem-vindo à Corporação Kafra, nós sempre estamos ao seu lado.";
-	mes "Em que posso ajudá-lo?";
+	mes "[Funcionária Kafra]";
+	mes "A Corporação Kafra";
+	mes "está sempre trabalhando para";
+	mes "lhe dar os melhores serviços.";
+	mes "Como posso ajudá-lo?";
 	callfunc "F_Kafra",5,0,0,40,800;
 
 	M_Save:
@@ -36,13 +36,15 @@ yuno,152,187,4	script	Funcionária Kafra::kaf_yuno	860,{
 		callfunc "F_KafEnd",0,1,"na cidade de Juno";
 }
 
-// Sudeste -----------------------------------------------------------------
+// Sodeste -----------------------------------------------------------------
 yuno,327,108,4	script	Funcionária Kafra::kaf_yuno2	860,{
 	cutin "kafra_08",2;
 	callfunc "F_KafSetYun";
-	mes "[Kafra Recepcionista]";
-	mes "Bem-vindo à Corporação Kafra, nós sempre estamos ao seu lado.";
-	mes "Em que posso ajudá-lo?";
+	mes "[Funcionária Kafra]";
+	mes "A Corporação Kafra";
+	mes "está sempre trabalhando para";
+	mes "lhe dar os melhores serviços.";
+	mes "Como posso ajudá-lo?";
 	callfunc "F_Kafra",5,0,0,40,800;
 
 	M_Save:
@@ -54,9 +56,11 @@ yuno,327,108,4	script	Funcionária Kafra::kaf_yuno2	860,{
 yuno,277,221,4	script	Funcionária Kafra::kaf_yuno3	861,{
 	cutin "kafra_09",2;
 	callfunc "F_KafSetYun";
-	mes "[Kafra Recepcionista]";
-	mes "Bem-vindo à Corporação Kafra, nós sempre estamos ao seu lado.";
-	mes "Em que posso ajudá-lo?";
+	mes "[Funcionária Kafra]";
+	mes "A Corporação Kafra";
+	mes "está sempre trabalhando para";
+	mes "lhe dar os melhores serviços.";
+	mes "Como posso ajudá-lo?";
 	callfunc "F_Kafra",5,0,0,40,800;
 
 	M_Save:
@@ -65,13 +69,13 @@ yuno,277,221,4	script	Funcionária Kafra::kaf_yuno3	861,{
 }
 
 
-// Função: Seta variaveis para as Kafras de Juno ---------------------------
+// Função: Setar as variáveis ----------------------------------------------
 function	script	F_KafSetYun	{
 	cleararray @wrpC$[0],"",getarraysize(@wrpC$);
 	setarray @wrpD$[0], "Al De Baran";
 	setarray @wrpP[0], 1200;
 	set @wrpC$[0], @wrpD$[0]+" -> "+@wrpP[0];
-	set @wrpC$[1], "Cancel";
+	set @wrpC$[1], "Cancelar";
 	setarray @viewpX[0], 328, 278, 153, 0;
 	setarray @viewpY[0], 108, 221, 187, 0;
 	return;
